@@ -1,1 +1,6 @@
 #built application files
+StockAndroid/app/build/
+StockAndroid/build/
+StockAndroid/.gradle/
+StockAndroid/.idea/
+StockAndroid/StockAndroid.iml
