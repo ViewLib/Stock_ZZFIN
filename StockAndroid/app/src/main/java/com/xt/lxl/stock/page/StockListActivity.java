@@ -64,10 +64,8 @@ public class StockListActivity extends Activity implements View.OnClickListener 
             public void run() {
                 final List<StockViewModel> stockList = new ArrayList<>();
                 List<String> saveStockCodeList = DataSource.getSaveStockCodeList(StockListActivity.this);
-                for (String code : saveStockCodeList) {
-                    StockViewModel stockViewModel = StockSender.requestStockModelByCode(code);
-                    stockList.add(stockViewModel);
-                }
+                List<StockViewModel> stockViewModelList = StockSender.getInstance().requestStockModelByCode(saveStockCodeList);
+                stockList.addAll(stockViewModelList);
                 mHander.post(new Runnable() {
                     @Override
                     public void run() {

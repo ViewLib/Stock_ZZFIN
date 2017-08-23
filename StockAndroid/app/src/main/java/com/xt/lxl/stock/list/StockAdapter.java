@@ -105,11 +105,11 @@ public class StockAdapter extends BaseAdapter {
             stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_gray_night));
             return;
         }
-        HotelViewHolder.showTextOrDefault(stockChange, DataShowUtil.getDisplayChangeStr(stockViewModel.mStockChange), defaultStr);
+        HotelViewHolder.showTextOrDefault(stockChange, DataShowUtil.getDisplayChangeStr(stockViewModel.mStockChangeD), defaultStr);
         //展示涨跌幅背景色
-        if (stockViewModel.mStockChange == 0) {
+        if (stockViewModel.mStockChangeD == 0) {
             stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_gray_night));
-        } else if (stockViewModel.mStockChange > 0) {
+        } else if (stockViewModel.mStockChangeD > 0) {
             stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_red_night));
         } else {
             stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_green_night));

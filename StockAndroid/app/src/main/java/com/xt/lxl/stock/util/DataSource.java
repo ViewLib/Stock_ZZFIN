@@ -24,12 +24,12 @@ public class DataSource {
         viewModel1.mStockName = "汉得信息";
         viewModel1.mStockPirce = "10.26";
         viewModel1.mStockCode = "300170";
-        viewModel1.mStockChange = -0.0182;
+        viewModel1.mStockChangeD = -0.0182;
 
         viewModel2.mStockName = "朗新科技";
         viewModel2.mStockPirce = "10.55";
         viewModel2.mStockCode = "300682";
-        viewModel2.mStockChange = 0.1001;
+        viewModel2.mStockChangeD = 0.1001;
 
         mStockList.add((StockViewModel) viewModel1.clone());
         mStockList.add((StockViewModel) viewModel1.clone());

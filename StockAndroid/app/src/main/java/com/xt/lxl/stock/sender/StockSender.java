@@ -3,70 +3,66 @@ package com.xt.lxl.stock.sender;
 import android.util.Log;
 
 import com.xt.lxl.stock.model.StockViewModel;
+import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.IOHelper;
 import com.xt.lxl.stock.util.StringUtil;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by xiangleiliu on 2017/8/6.
  */
 public class StockSender {
+    private static StockSender sender;
+    private static String baseUrl = "http://qt.gtimg.cn/q=";
 
+    StockSender() {
+    }
+
+    public static synchronized StockSender getInstance() {
+        if (sender == null) {
+            sender = new StockSender();
+        }
+        return sender;
+    }
+
+    public String builderCodeStr(List<String> codeList) {
+        StringBuilder builder = new StringBuilder();
+        for (String code : codeList) {
+            builder.append(DataShowUtil.code2MarketCode(code));
+            builder.append(",");
+        }
+        return builder.toString();
+    }
+
+    public List<StockViewModel> requestStockModelByCode(String code) {
+        List<String> codeList = new ArrayList<>();
+        codeList.add(code);
+        return requestStockModelByCode(codeList);
+    }
 
     //线程调用
-    public static StockViewModel requestStockModelByCode(String code) {
-        StringBuilder builder = new StringBuilder("http://hq.sinajs.cn/list=");
-        if (code.startsWith("6")) {
-            builder.append("sh");
-            builder.append(code);
-        } else {
-            builder.append("sz");
-            builder.append(code);
-        }
-        String stockInfo = requestGet(builder.toString(), new HashMap<String, String>());
-        StockViewModel stockViewModel = new StockViewModel();
+    public List<StockViewModel> requestStockModelByCode(List<String> codeList) {
+        StringBuilder builder = new StringBuilder(baseUrl);
+        builder.append(builderCodeStr(codeList));
+        String stockInfoResult = requestGet(builder.toString(), new HashMap<String, String>());
+        List<StockViewModel> stockList = new ArrayList<>();
         //解析stockInfo 转换成 StockModel
-        if (StringUtil.emptyOrNull(stockInfo)) {
-            return stockViewModel;
+        if (StringUtil.emptyOrNull(stockInfoResult)) {
+            return stockList;
         }
-        int first = stockInfo.indexOf("\"");
-        int second = stockInfo.indexOf("\"", first + 1);
-        String substring = stockInfo.substring(first + 1, second);
-        String[] split = substring.split(",");
-        if (split.length < 5) {
-            return stockViewModel;
-        }
-        String stockName = split[0];
-        String stockyestodayPrice = split[2];
-        String stockPrice = split[3];
-
-
-        double stockPriceD = Double.parseDouble(stockPrice);
-        double stockyestodayPriceD = Double.parseDouble(stockyestodayPrice);
-
-        stockViewModel.mStockName = stockName;
-        stockViewModel.mStockCode = code;
-        stockViewModel.mStockPirce = stockPrice;
-        stockViewModel.mStockType = StockViewModel.STOCK_TYPE_CHINA;
-        stockViewModel.mStockChange = (stockPriceD - stockyestodayPriceD) / stockyestodayPriceD;
-        if (stockPriceD == 0 && stockyestodayPriceD > 0) {
-            stockViewModel.mStockState = StockViewModel.STOCK_STATE_SUSPENSION;
-            stockViewModel.mStockPirce = stockyestodayPrice;
-        } else {
-            stockViewModel.mStockState = StockViewModel.STOCK_STATE_NORMAL;
-        }
-
-        return stockViewModel;
+        stockList = DataShowUtil.resultStr2StockList(stockInfoResult);
+        return stockList;
     }
 
 
     private static String requestGet(String baseUrl, HashMap<String, String> paramsMap) {
         try {
-//            String baseUrl = "https://xxx.com/getUsers?";
             StringBuilder tempParams = new StringBuilder();
             int pos = 0;
             for (String key : paramsMap.keySet()) {

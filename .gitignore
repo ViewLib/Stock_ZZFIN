@@ -4,3 +4,5 @@ StockAndroid/build/
 StockAndroid/.gradle/
 StockAndroid/.idea/
 StockAndroid/StockAndroid.iml
+StockAndroid/app/app.iml
+StockAndroid/.gitignore

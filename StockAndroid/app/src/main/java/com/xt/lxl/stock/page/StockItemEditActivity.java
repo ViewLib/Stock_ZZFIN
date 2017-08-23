@@ -91,9 +91,9 @@ public class StockItemEditActivity extends Activity implements View.OnClickListe
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockViewModel stockViewModel = StockSender.requestStockModelByCode(code);
+                List<StockViewModel> stockViewModels = StockSender.getInstance().requestStockModelByCode(code);
                 stockList.clear();
-                stockList.add(stockViewModel);
+                stockList.addAll(stockViewModels);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
