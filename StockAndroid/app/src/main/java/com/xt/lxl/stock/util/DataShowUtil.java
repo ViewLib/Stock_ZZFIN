@@ -24,6 +24,19 @@ public class DataShowUtil {
         return builder.toString();
     }
 
+    public static List<List<String>> divisionList(List<String> list, int limit) {
+        List<List<String>> divisionList = new ArrayList<>();
+        for (int start = 0; start < list.size(); ) {
+            int end = start + limit;
+            if (end >= list.size()) {
+                end = list.size() - 1;
+            }
+            divisionList.add(list.subList(start, end));
+            start = end;
+        }
+        return divisionList;
+    }
+
     //股票代码转化为sz300170这样的
     public static String code2MarketCode(String code) {
         if (StringUtil.emptyOrNull(code) || code.length() != 6) {

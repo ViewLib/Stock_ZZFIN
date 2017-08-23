@@ -20,6 +20,7 @@ import java.util.List;
 public class StockSender {
     private static StockSender sender;
     private static String baseUrl = "http://qt.gtimg.cn/q=";
+//    http://qt.gtimg.cn/q=sz300170,sz300171,sz300172,sz300173,sz300174,sz300170,sz300170,sz300170,sz300170,
 
     StockSender() {
     }

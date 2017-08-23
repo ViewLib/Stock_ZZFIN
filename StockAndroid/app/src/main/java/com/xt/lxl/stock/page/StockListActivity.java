@@ -13,6 +13,7 @@ import com.xt.lxl.stock.list.StockAdapter;
 import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
 import com.xt.lxl.stock.sender.StockSender;
+import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.StockShowUtil;
 
@@ -64,8 +65,10 @@ public class StockListActivity extends Activity implements View.OnClickListener 
             public void run() {
                 final List<StockViewModel> stockList = new ArrayList<>();
                 List<String> saveStockCodeList = DataSource.getSaveStockCodeList(StockListActivity.this);
-                List<StockViewModel> stockViewModelList = StockSender.getInstance().requestStockModelByCode(saveStockCodeList);
-                stockList.addAll(stockViewModelList);
+                List<List<String>> lists = DataShowUtil.divisionList(saveStockCodeList, 60);
+                for (List<String> list : lists) {
+                    stockList.addAll(StockSender.getInstance().requestStockModelByCode(list));
+                }
                 mHander.post(new Runnable() {
                     @Override
                     public void run() {
