@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/plate_detail_page_background_color_night"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/stock_detail_titlebar_container"
+        layout="@layout/stock_item_edit_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:layout_alignParentTop="true" />
+
+    <com.xt.lxl.stock.view.StockEditableBar
+        android:id="@+id/stock_edit_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <ListView
+        android:id="@+id/stock_asso_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

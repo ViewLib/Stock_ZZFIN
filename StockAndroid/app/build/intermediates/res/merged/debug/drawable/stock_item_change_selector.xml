@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/stock_portfolio_quotation_color_red_night" />
+    <item android:drawable="@color/stock_portfolio_quotation_color_gray_night" android:state_checked="true" />
+    <item android:drawable="@color/stock_portfolio_quotation_color_green_night" android:state_selected="true" />
+</selector>

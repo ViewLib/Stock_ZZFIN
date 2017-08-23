@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/stock_item_add_stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="+添加股票"
+        android:textAppearance="@style/text_14_ffffff" />
+
+    <TextView
+        android:id="@+id/stock_item_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stock_item_add_stock"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="行情由第三方提供，详见使用声明"
+        android:textAppearance="@style/text_13_4c5359" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/stock_item_desc" />
+
+</RelativeLayout>

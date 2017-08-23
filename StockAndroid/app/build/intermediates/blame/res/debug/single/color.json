@@ -1,0 +1,146 @@
+[
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_thumb.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_light.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_borderless_text_material.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_tint_edittext.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_time_check_color.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_time_check_color.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_light.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_tint_password_toggle.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.0.1\\res\\color\\design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_dark.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_hint_foreground_material_dark.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_bottom_bar_buy_color.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_bottom_bar_buy_color.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_gesture_code_tip_color.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_gesture_code_tip_color.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_bottom_view_btn_selector.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_bottom_view_btn_selector.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_multi_photo_selector_preview_btn_color.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_multi_photo_selector_preview_btn_color.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_main_tab_text_selector.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_main_tab_text_selector.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\main_tab_text_selector.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\main_tab_text_selector.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_bottom_tab_text_color.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_bottom_tab_text_color.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_dark.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_btn_checkable.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\ic_stock_tab_text_color.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\ic_stock_tab_text_color.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_error.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.0.1\\res\\color\\design_error.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_selector_tab_text_color.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_selector_tab_text_color.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_message_setting_selector.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_message_setting_selector.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_tint_default.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_dark.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_spinner.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_tint_spinner.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_light.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_search_url_text.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_seek_thumb.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.1\\res\\color\\abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\title_bar_back_selector.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\title_bar_back_selector.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\ic_stock_tab_text_color_night.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\ic_stock_tab_text_color_night.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_title_filter_text_color.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_title_filter_text_color.xml"
+    },
+    {
+        "merged": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\build\\intermediates\\res\\merged\\debug\\color\\stockdetail_bottom_tab_text_color_night.xml",
+        "source": "D:\\develop_workspace\\git_warehouse\\StockDemo\\StockAndroid\\app\\src\\main\\res\\color\\stockdetail_bottom_tab_text_color_night.xml"
+    }
+]
