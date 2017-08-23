@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout android:orientation="vertical" android:id="@id/popview_container" android:background="@color/stock_portfolio_background_base" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListView android:id="@id/popview_list" android:layout_width="fill_parent" android:layout_height="wrap_content" android:cacheColorHint="@android:color/transparent" android:maxHeight="200.0dip" android:divider="@null" />
+</com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout>

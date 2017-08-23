@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="39.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="21.0dip" android:id="@id/sd_penning_groupbar_btn_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true" />
+    <View android:id="@id/red_point" android:background="@drawable/redpoint" android:visibility="gone" android:layout_width="6.0dip" android:layout_height="6.0dip" android:layout_toRightOf="@id/sd_penning_groupbar_btn_btn" android:layout_alignTop="@id/sd_penning_groupbar_btn_btn" />
+    <View android:id="@id/sd_penning_groupbar_btn_line" android:background="#ff3883e7" android:layout_width="40.0dip" android:layout_height="2.0dip" android:layout_alignParentBottom="true" android:layout_centerInParent="true" />
+</RelativeLayout>

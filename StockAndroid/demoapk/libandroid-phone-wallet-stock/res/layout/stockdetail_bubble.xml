@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:gravity="center_vertical" android:id="@id/ll_root" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/iv_bubble_up_arrow" android:layout_width="6.0dip" android:layout_height="10.0dip" android:src="@drawable/stockdetail_bubble_up_arrow" android:scaleType="fitXY" android:layout_centerHorizontal="true" />
+    <LinearLayout android:orientation="horizontal" android:id="@id/ll_bubble_body" android:background="@drawable/stockdetail_bubble_view_bg" android:paddingLeft="15.0dip" android:paddingTop="6.0dip" android:paddingBottom="6.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="330.0dip" android:layout_below="@id/iv_bubble_up_arrow" android:layout_centerHorizontal="true" android:paddingStart="15.0dip">
+        <TextView android:textSize="14.0dip" android:textColor="#ffffffff" android:layout_gravity="center_vertical" android:id="@id/tv_bubble_describe" android:paddingBottom="1.0dip" android:visibility="visible" android:layout_width="0.0dip" android:layout_height="wrap_content" android:maxEms="20" android:layout_weight="1.0" />
+        <FrameLayout android:layout_gravity="center_vertical" android:id="@id/fl_bubble_close" android:paddingLeft="12.0dip" android:paddingRight="15.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="12.0dip" android:paddingEnd="15.0dip">
+            <ImageView android:layout_gravity="center_vertical" android:id="@id/iv_bubble_close" android:layout_width="12.0dip" android:layout_height="12.0dip" android:src="@drawable/stockdetail_bubble_close" android:scaleType="fitXY" />
+        </FrameLayout>
+    </LinearLayout>
+    <ImageView android:id="@id/iv_bubble_down_arrow" android:visibility="gone" android:layout_width="6.0dip" android:layout_height="10.0dip" android:src="@drawable/stockdetail_bubble_down_arrow" android:scaleType="fitXY" android:layout_below="@id/ll_bubble_body" android:layout_centerHorizontal="true" />
+</RelativeLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/loading_container" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout android:id="@id/line_1" android:background="@color/stock_plate_cell_plate_default_line_color" android:layout_width="fill_parent" android:layout_height="14.0dip" android:layout_marginLeft="26.5dip" android:layout_marginRight="26.5dip" />
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout android:id="@id/line_2" android:background="@color/stock_plate_cell_plate_default_line_color" android:layout_width="fill_parent" android:layout_height="14.0dip" android:layout_marginLeft="26.5dip" android:layout_marginTop="6.0dip" android:layout_marginRight="26.5dip" />
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout android:id="@id/line_3" android:background="@color/stock_plate_cell_plate_default_line_color" android:layout_width="fill_parent" android:layout_height="10.0dip" android:layout_marginLeft="26.5dip" android:layout_marginTop="6.0dip" android:layout_marginRight="26.5dip" />
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout android:id="@id/line_4" android:background="@color/stock_plate_cell_plate_default_line_color" android:layout_width="fill_parent" android:layout_height="10.0dip" android:layout_marginLeft="26.5dip" android:layout_marginTop="6.0dip" android:layout_marginRight="26.5dip" />
+</LinearLayout>

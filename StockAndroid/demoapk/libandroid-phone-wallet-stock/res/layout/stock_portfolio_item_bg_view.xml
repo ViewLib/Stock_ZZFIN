@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout android:id="@id/stock_portfolio_bg_container" android:layout_width="fill_parent" android:layout_height="@dimen/stock_portfolio_item_height"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/stock_portfolio_bg_qchange_view" android:layout_width="75.0dip" android:layout_height="30.0dip" android:layout_marginTop="@dimen/stock_portfolio_item_marginTop" android:layout_marginRight="@dimen/stock_portfolio_item_marginRight" android:layout_marginBottom="@dimen/stock_portfolio_item_marginBottom" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    <LinearLayout android:orientation="vertical" android:id="@id/stock_portfolio_bg_price_view" android:layout_width="100.0dip" android:layout_height="17.0dip" android:layout_marginTop="@dimen/stock_portfolio_item_marginTop" android:layout_marginRight="121.0dip" android:layout_marginBottom="@dimen/stock_portfolio_item_marginBottom" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    <LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/stock_portfolio_item_marginLeft">
+        <LinearLayout android:orientation="vertical" android:id="@id/stock_portfolio_bg_name_view" android:layout_width="100.0dip" android:layout_height="16.0dip" />
+        <LinearLayout android:orientation="vertical" android:id="@id/stock_portfolio_bg_code_view" android:layout_width="45.0dip" android:layout_height="8.0dip" android:layout_marginTop="8.0dip" />
+    </LinearLayout>
+</com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout>

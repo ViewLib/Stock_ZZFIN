@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/loading_container" android:layout_width="fill_parent" android:layout_height="240.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/loading_title" android:layout_width="fill_parent" android:layout_height="40.0dip">
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockSplitView android:id="@id/split_view" android:background="@color/stock_plate_cell_line_color" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.alipay.mobile.commonui.widget.APLinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.alipay.mobile.commonui.widget.APTitleBar android:id="@id/title_bar" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <com.antfortune.wealth.stock.stockdetail.view.PullRefreshLoading.AFPullRefreshView android:id="@id/pull_refresh_view" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="8.0dip">
+        <ListView android:id="@id/open_account_listview" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scrollingCache="true" android:cacheColorHint="@android:color/transparent" android:divider="@android:color/transparent" android:dividerHeight="0.5dip" android:fastScrollEnabled="false" android:smoothScrollbar="true" android:overScrollMode="never" />
+    </com.antfortune.wealth.stock.stockdetail.view.PullRefreshLoading.AFPullRefreshView>
+</com.alipay.mobile.commonui.widget.APLinearLayout>

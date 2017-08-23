@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:loading="http://schemas.android.com/apk/res-auto">
+    <com.alipay.android.phone.businesscommon.advertisement.ui.APAdvertisementView android:id="@id/adbannerview" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout android:id="@id/stock_portfolio_main_layout" android:background="@color/stock_portfolio_operation_background" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/adbannerview">
+        <com.antfortune.wealth.stock.portfolio.widget.PortfolioHeaderView android:id="@id/stock_trade_btn" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+        <com.antfortune.wealth.stock.stockdetail.view.PullRefreshLoading.AFPullRefreshView android:id="@id/stock_portfolio_pullrefreshview" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/stock_trade_btn">
+            <com.antfortune.wealth.stock.common.stickylistview.StickyListHeadersListView android:id="@id/stock_portfolio_list_view" android:layout_width="fill_parent" android:layout_height="fill_parent" android:cacheColorHint="@android:color/transparent" android:divider="@null" />
+        </com.antfortune.wealth.stock.stockdetail.view.PullRefreshLoading.AFPullRefreshView>
+        <com.antfortune.wealth.stock.common.uiwidget.AFLoadingView android:id="@id/portfolio_loading_view" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/adbannerview" loading:delayMilliSec="0" />
+    </com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout>
+</com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout>

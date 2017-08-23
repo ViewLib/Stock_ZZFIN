@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.alipay.mobile.commonui.widget.APScrollView android:scrollbars="none" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.alipay.mobile.commonui.widget.APLinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <com.alipay.mobile.commonui.widget.APImageView android:id="@id/banner_img" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="105.0dip" android:layout_marginBottom="10.0dip" android:scaleType="fitXY" />
+            <com.alipay.mobile.commonui.widget.APLinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/banner_text" android:background="@color/jn_common_white_color" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <com.alipay.mobile.commonui.widget.APTextView android:textSize="18.0sp" android:textColor="#ff2e2e2e" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="28.0dip" />
+                <com.alipay.mobile.commonui.widget.APTextView android:textSize="15.0sp" android:textColor="#ff2e2e2e" android:id="@id/content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" />
+                <com.alipay.mobile.commonui.widget.APView android:background="@color/stock_split_line_color" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_marginTop="33.0dip" />
+            </com.alipay.mobile.commonui.widget.APLinearLayout>
+            <com.alipay.mobile.commonui.widget.APLinearLayout android:orientation="vertical" android:background="@color/jn_common_white_color" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <com.alipay.mobile.commonui.widget.APLinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/bind_layout" android:background="@drawable/stock_trade_btn_selector" android:layout_width="fill_parent" android:layout_height="45.0dip" android:layout_marginLeft="15.0dip" android:layout_marginTop="50.0dip" android:layout_marginRight="15.0dip">
+                    <com.alipay.mobile.commonui.widget.APImageView android:layout_width="24.0dip" android:layout_height="24.0dip" android:src="@drawable/stocktrade_bind" />
+                    <com.alipay.mobile.commonui.widget.APTextView android:textSize="18.0sp" android:textColor="@color/jn_common_white_color" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:text="证券登录" />
+                </com.alipay.mobile.commonui.widget.APLinearLayout>
+                <com.alipay.mobile.commonui.widget.APLinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/open_layout" android:background="@drawable/stock_trade_openbtn_selector" android:layout_width="fill_parent" android:layout_height="45.0dip" android:layout_marginLeft="15.0dip" android:layout_marginTop="40.0dip" android:layout_marginRight="15.0dip" android:layout_marginBottom="50.0dip">
+                    <com.alipay.mobile.commonui.widget.APImageView android:layout_width="24.0dip" android:layout_height="24.0dip" android:src="@drawable/stocktrade_open" />
+                    <com.alipay.mobile.commonui.widget.APTextView android:textSize="18.0sp" android:textColor="@color/jn_common_white_color" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:text="A股开户" />
+                </com.alipay.mobile.commonui.widget.APLinearLayout>
+            </com.alipay.mobile.commonui.widget.APLinearLayout>
+        </com.alipay.mobile.commonui.widget.APLinearLayout>
+    </com.alipay.mobile.commonui.widget.APScrollView>
+</RelativeLayout>

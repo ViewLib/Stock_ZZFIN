@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout android:gravity="center_vertical" android:orientation="vertical" android:background="@color/plate_detail_page_background_color" android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="fill_parent" android:layout_height="116.0dip">
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="@dimen/plate_detail_header_today_increase_tip_size" android:textColor="@color/plate_detail_header_raise_percent_title_text_color" android:gravity="left" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/plate_detail_header_today_increase_tip" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dip">
+            <TextView android:textSize="@dimen/plate_detail_header_percent_text_size" android:textColor="@color/plate_detail_header_flat_color" android:id="@id/platedetail_header_percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" />
+            <ImageView android:id="@id/platedetail_header_percent_arrow" android:layout_width="13.0dip" android:layout_height="15.0dip" android:layout_marginLeft="5.0dip" android:scaleType="fitXY" />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:gravity="left" android:orientation="horizontal" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+                <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="@dimen/plate_detail_header_bottom_text_size" android:textColor="@color/plate_detail_header_tip_text_color" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/plate_detail_header_up_num_text" />
+                <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="@dimen/plate_detail_header_bottom_textvalue_size" android:textColor="@color/plate_detail_header_red_color" android:id="@id/platedetail_up_num" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dip" android:text="\ 0" />
+            </LinearLayout>
+            <LinearLayout android:gravity="left" android:orientation="horizontal" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+                <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="@dimen/plate_detail_header_bottom_text_size" android:textColor="@color/plate_detail_header_tip_text_color" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/plate_detail_header_down_num_text" />
+                <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="@dimen/plate_detail_header_bottom_textvalue_size" android:textColor="@color/plate_detail_header_green_color" android:id="@id/platedetail_down_num" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dip" android:text="\ 0" />
+            </LinearLayout>
+            <LinearLayout android:gravity="left" android:orientation="horizontal" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+                <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="@dimen/plate_detail_header_bottom_text_size" android:textColor="@color/plate_detail_header_tip_text_color" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/plate_detail_header_flat_num_text" />
+                <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="@dimen/plate_detail_header_bottom_textvalue_size" android:textColor="@color/plate_detail_header_flat_color" android:id="@id/platedetail_normal_num" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dip" android:text="\ 0" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout>
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockSplitView android:background="@color/plate_detail_split_line_color" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+</LinearLayout>

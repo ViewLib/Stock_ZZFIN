@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.alipay.mobile.commonui.widget.APLinearLayout android:orientation="vertical" android:background="@color/stocktrade_default_bg" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.alipay.mobile.commonui.widget.APTitleBar android:id="@id/title_bar" android:background="#ffffffff" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <com.alipay.mobile.commonui.widget.APView android:id="@id/split_line" android:background="@color/stock_split_line_color" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+    <FrameLayout android:id="@id/container" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0" />
+</com.alipay.mobile.commonui.widget.APLinearLayout>

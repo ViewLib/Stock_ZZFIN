@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/jn_common_container_color" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/topic_list_container" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <com.antfortune.wealth.stock.stockdetail.view.PullRefreshLoading.AFPullRefreshView android:id="@id/pull_refresh_view" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <ListView android:id="@id/list" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scrollingCache="false" android:cacheColorHint="@android:color/transparent" android:divider="@null" android:dividerHeight="0.0dip" />
+        </com.antfortune.wealth.stock.stockdetail.view.PullRefreshLoading.AFPullRefreshView>
+        <com.antfortune.wealth.stock.common.uiwidget.AFLoadingView android:id="@id/loading_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </FrameLayout>
+</LinearLayout>

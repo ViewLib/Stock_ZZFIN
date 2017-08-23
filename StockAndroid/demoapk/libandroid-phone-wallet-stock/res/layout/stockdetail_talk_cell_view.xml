@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout android:gravity="center_vertical" android:id="@id/sd_talk_container" android:background="@color/jn_stockdetail_talk_bak_color" android:layout_width="fill_parent" android:layout_height="40.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="15.0dip" android:textColor="@color/jn_stockdetail_talk_title_text_color" android:gravity="center_vertical" android:id="@id/sd_talk_title" android:layout_width="wrap_content" android:layout_height="40.0dip" android:layout_marginLeft="15.0dip" android:text="@string/stockdetail_talk_title" android:layout_alignParentLeft="true" />
+    <ImageView android:id="@id/sd_talk_right_arrow" android:layout_width="6.0dip" android:layout_height="12.0dip" android:layout_marginRight="15.0dip" android:src="@drawable/plate_title_arrow_icon" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="20.0dip" android:layout_marginRight="10.0dip" android:layout_toLeftOf="@id/sd_talk_right_arrow" android:layout_centerVertical="true">
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textColor="@color/jn_stockdetail_talk_num_text_color" android:gravity="center_vertical" android:id="@id/sd_talk_num" android:layout_width="wrap_content" android:layout_height="fill_parent" />
+        <View android:id="@id/sd_talk_red_point" android:background="@drawable/redpoint" android:visibility="gone" android:layout_width="6.0dip" android:layout_height="6.0dip" />
+    </LinearLayout>
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockSplitView android:background="@color/stock_detail_cell_news_line_color" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_alignParentBottom="true" />
+</com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout>

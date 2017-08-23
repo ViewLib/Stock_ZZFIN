@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@id/default_bg_container"
+    android:layout_width="fill_parent" android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout
+        android:id="@id/title_container"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip" android:background="@drawable/stock_plate_cell_index_item_background_drawable">
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView
+            android:id="@id/title_content"
+            android:layout_width="fill_parent" android:layout_height="wrap_content"
+            android:layout_centerVertical="true" android:layout_marginLeft="15.0dip"
+            android:layout_toLeftOf="@id/title_arrow" android:singleLine="true"
+            android:textColor="@color/stock_plate_cell_text_color" android:textSize="@dimen/stock_plate_cell_more_name_size" />
+        <com.alipay.mobile.commonui.widget.APImageView android:id="@id/title_arrow"
+            android:layout_width="8.0dip" android:layout_height="13.0dip" android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" android:layout_marginRight="15.0dip"
+            android:scaleType="fitXY" android:src="@drawable/plate_title_arrow_icon"
+            android:visibility="gone" />
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockSplitView android:id="@id/split_view"
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px" android:layout_alignParentBottom="true"
+            android:background="@color/stock_plate_cell_line_color" />
+    </com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout>
+    <com.antfortune.wealth.stock.common.uiwidget.AFModuleLoadingView
+        android:id="@id/default_bg_view" android:layout_width="fill_parent"
+        android:layout_height="160.0dip" />
+</LinearLayout>

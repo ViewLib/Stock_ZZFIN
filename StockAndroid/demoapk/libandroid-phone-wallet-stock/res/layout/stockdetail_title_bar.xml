@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/stock_detail_titlebar_container" android:layout_width="fill_parent"
+    android:layout_height="50.0dip" android:background="@color/jn_stockdetail_title_bar_color">
+    <LinearLayout android:id="@id/back_btn" android:layout_width="wrap_content"
+        android:layout_height="fill_parent" android:layout_centerVertical="true"
+        android:gravity="center_vertical" android:orientation="horizontal"
+        android:paddingLeft="15.0dip">
+        <ImageButton android:id="@id/stock_portfolio_edit_back_icon" android:layout_width="9.0dip"
+            android:layout_height="16.0dip"
+            android:background="@color/jn_stockdetail_title_bar_color" android:scaleType="fitXY"
+            android:src="@drawable/stock_title_back_icon_seletor" />
+        <TextView android:id="@id/stock_portfolo_edit_back_txt" android:layout_width="wrap_content"
+            android:layout_height="fill_parent" android:layout_centerVertical="true"
+            android:layout_marginLeft="4.0dip" android:gravity="center" android:text="返回"
+            android:textColor="@color/title_bar_back_selector" android:textSize="16.0dip" />
+    </LinearLayout>
+    <RelativeLayout android:id="@id/title_container" android:layout_width="wrap_content"
+        android:layout_height="fill_parent" android:layout_centerInParent="true" />
+    <RelativeLayout android:id="@id/right_btn" android:layout_width="60.0dip"
+        android:layout_height="fill_parent" android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" android:layout_centerVertical="true"
+            android:layout_marginRight="16.0dip" android:scaleType="center"
+            android:src="@drawable/stockdetail_title_bar_more" />
+    </RelativeLayout>
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockSplitView
+        android:layout_width="fill_parent" android:layout_height="0.5dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/jn_stockdetail_title_bar_split_color" />
+</RelativeLayout>

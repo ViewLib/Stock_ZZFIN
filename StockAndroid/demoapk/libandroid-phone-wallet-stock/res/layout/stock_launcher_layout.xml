@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:loading="http://schemas.android.com/apk/res-auto">
+    <com.antfortune.wealth.stock.common.StockTitleBar android:id="@id/stock_launcher_title_bar" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true" />
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout android:id="@id/title_bar_slip_line" android:background="@color/stock_portfolio_titlebar_slip_line" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_below="@id/stock_launcher_title_bar" />
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockFrameLayout android:orientation="vertical" android:id="@id/stock_launcher_view" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1.0" android:layout_below="@id/title_bar_slip_line">
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <View android:id="@id/stock_widgetgroup_top_line_bg_view" android:layout_width="fill_parent" android:layout_height="40.0dip" />
+            <com.antfortune.wealth.stock.common.uiwidget.AFLoadingView android:id="@id/stock_widgetgroup_bg_view" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/stock_widgetgroup_top_line_bg_view" loading:delayMilliSec="0" />
+        </RelativeLayout>
+    </com.antfortune.wealth.stock.common.themeuiwidget.StockFrameLayout>
+</RelativeLayout>

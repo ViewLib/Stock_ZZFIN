@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="36.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView android:textSize="15.0dip" android:textColor="@color/qzone_cell_name_color" android:gravity="bottom" android:id="@id/horizontal_pair_lable" android:layout_width="wrap_content" android:layout_height="17.0dip" android:includeFontPadding="false" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+        <com.antfortune.wealth.stock.common.uiwidget.AutoScaleTextView android:textSize="6.0dip" android:textColor="@color/qzone_cell_name_color" android:gravity="bottom" android:id="@id/horizontal_pair_lable_tip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:includeFontPadding="false" android:layout_toRightOf="@id/horizontal_pair_lable" android:layout_alignTop="@id/horizontal_pair_lable" />
+    </RelativeLayout>
+    <com.antfortune.wealth.stock.common.uiwidget.AutoScaleTextView android:textSize="20.0dip" android:textColor="@color/qzone_cell_value_color" android:gravity="top" android:layout_gravity="bottom" android:id="@id/horizontal_pair_value" android:layout_width="68.0dip" android:layout_height="19.0dip" android:includeFontPadding="false" />
+</LinearLayout>

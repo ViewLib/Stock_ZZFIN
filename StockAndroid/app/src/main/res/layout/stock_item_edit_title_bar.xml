@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="48dip"
+    android:background="#1d2228">
+
+    <LinearLayout
+        android:id="@+id/back_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <ImageView
+            android:id="@+id/stock_portfolio_edit_back_icon"
+            android:layout_width="12dp"
+            android:layout_height="22dp"
+            android:background="@drawable/stock_portfolio_edit_back_pressed" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line_view"
+        android:layout_width="1dp"
+        android:layout_height="22dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/back_btn"
+        android:background="@color/sub_text_color" />
+
+    <RelativeLayout
+        android:id="@+id/title_container"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_toLeftOf="@+id/right_view"
+        android:layout_toRightOf="@id/line_view"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="股票搜索"
+            android:textAppearance="@style/text_16_ffffff" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

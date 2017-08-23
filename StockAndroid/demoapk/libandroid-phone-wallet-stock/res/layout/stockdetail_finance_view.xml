@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.alipay.mobile.commonui.widget.APRelativeLayout android:orientation="vertical" android:id="@id/finance_view_container" android:background="@color/jn_common_item_normal_color" android:clickable="false" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.alipay.mobile.commonui.widget.APLinearLayout android:orientation="vertical" android:id="@id/finance_keyindex" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.alipay.mobile.commonui.widget.APRelativeLayout android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="fill_parent" android:layout_height="50.0dip">
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff2e2e2e" android:gravity="center_vertical" android:id="@id/finance_keyindex_title_text" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="关键指标" android:singleLine="true" />
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff2e2e2e" android:id="@id/finance_keyindex_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:layout_alignParentRight="true" android:layout_centerInParent="true" />
+        </com.alipay.mobile.commonui.widget.APRelativeLayout>
+    </com.alipay.mobile.commonui.widget.APLinearLayout>
+    <com.alipay.mobile.commonui.widget.APLinearLayout android:orientation="vertical" android:id="@id/finance_profit" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/finance_keyindex">
+        <com.alipay.mobile.commonui.widget.APRelativeLayout android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="fill_parent" android:layout_height="50.0dip">
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff2e2e2e" android:gravity="center_vertical" android:id="@id/finance_profit_title_text" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="利润表" android:singleLine="true" />
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff2e2e2e" android:gravity="center" android:id="@id/finance_profit_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:layout_alignParentRight="true" android:layout_centerInParent="true" />
+        </com.alipay.mobile.commonui.widget.APRelativeLayout>
+    </com.alipay.mobile.commonui.widget.APLinearLayout>
+    <com.alipay.mobile.commonui.widget.APLinearLayout android:orientation="vertical" android:id="@id/finance_cashflow" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/finance_profit">
+        <com.alipay.mobile.commonui.widget.APRelativeLayout android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="fill_parent" android:layout_height="50.0dip">
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff2e2e2e" android:gravity="center_vertical" android:id="@id/finance_cashflow_title_text" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="现金流量表" android:singleLine="true" />
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff2e2e2e" android:id="@id/finance_cashflow_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:layout_alignParentRight="true" android:layout_centerInParent="true" />
+        </com.alipay.mobile.commonui.widget.APRelativeLayout>
+    </com.alipay.mobile.commonui.widget.APLinearLayout>
+    <com.alipay.mobile.commonui.widget.APLinearLayout android:orientation="vertical" android:id="@id/finance_assetLiability" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/finance_cashflow">
+        <com.alipay.mobile.commonui.widget.APRelativeLayout android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="fill_parent" android:layout_height="50.0dip">
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff2e2e2e" android:gravity="center_vertical" android:id="@id/finance_title_text" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="资产负债表" android:singleLine="true" />
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff2e2e2e" android:gravity="center" android:id="@id/finance_assetLiability_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:layout_alignParentRight="true" android:layout_centerInParent="true" />
+        </com.alipay.mobile.commonui.widget.APRelativeLayout>
+    </com.alipay.mobile.commonui.widget.APLinearLayout>
+    <com.antfortune.wealth.stock.common.uiwidget.AFModuleLoadingView android:id="@id/finance_loading" android:layout_width="fill_parent" android:layout_height="@dimen/loading_view_height" />
+</com.alipay.mobile.commonui.widget.APRelativeLayout>

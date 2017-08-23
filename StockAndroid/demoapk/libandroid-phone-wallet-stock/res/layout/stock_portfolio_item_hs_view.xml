@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:id="@id/stock_portfolio_list_item_hs"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/stock_portfolio_item_height"
+    android:minHeight="@dimen/stock_portfolio_item_height">
+    <com.antfortune.wealth.stock.common.autofit.AutofitTextView android:id="@id/stock_portfolio_list_item_hs_qchange"
+        android:layout_width="75.0dip" android:layout_height="30.0dip"
+        android:layout_alignParentRight="true" android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/stock_portfolio_item_marginBottom"
+        android:layout_marginRight="@dimen/stock_portfolio_item_marginRight"
+        android:layout_marginTop="@dimen/stock_portfolio_item_marginTop"
+        android:gravity="center" android:maxLines="1"
+        android:singleLine="true" android:text="--" android:textColor="#ffffffff"
+        android:textSize="18.0dip" />
+    <com.antfortune.wealth.stock.common.autofit.AutofitTextView android:id="@id/stock_portfolio_list_item_hs_price"
+        android:layout_width="100.0dip" android:layout_height="fill_parent"
+        android:layout_alignParentRight="true" android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/stock_portfolio_item_marginBottom"
+        android:layout_marginRight="121.0dip"
+        android:layout_marginTop="@dimen/stock_portfolio_item_marginTop" android:gravity="center|right"
+        android:maxLines="1" android:singleLine="true" android:text="--"
+        android:textSize="22.0dip" />
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/stock_portfolio_item_marginLeft"
+        android:layout_toLeftOf="@id/stock_portfolio_list_item_hs_price"
+        android:gravity="center_vertical">
+        <com.antfortune.wealth.stock.common.autofit.AutofitTextView
+            android:id="@id/stock_portfolio_list_item_hs_name"
+            android:layout_width="fill_parent" android:layout_height="24.0dip"
+            android:layout_alignParentTop="true" android:layout_marginTop="7.0dip"
+            android:gravity="center|left" android:maxLines="1" android:singleLine="true"
+            android:text="--" android:textSize="@dimen/stock_portfolio_item_stockname_text" />
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:id="@id/stock_portfolio_list_item_hs_code"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_below="@id/stock_portfolio_list_item_hs_name" android:layout_marginTop="-2.0dip"
+            android:gravity="center|left" android:maxLines="1" android:singleLine="true"
+            android:text="--"
+            android:textSize="10.0dip" />
+    </RelativeLayout>
+</com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout>

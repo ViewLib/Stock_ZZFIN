@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:color="@color/jn_quotation_mystock_filter_selected_text_color" />
+    <item android:color="@color/jn_quotation_mystock_filter_normal_text_color" />
+</selector>

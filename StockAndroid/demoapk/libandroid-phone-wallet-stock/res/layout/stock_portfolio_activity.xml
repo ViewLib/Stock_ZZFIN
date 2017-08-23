@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout android:orientation="vertical" android:id="@id/portfolo_main_activity" android:background="@color/stock_portfolio_tab_background" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.antfortune.wealth.stock.portfolio.widget.PortfolioHeaderView android:id="@id/stock_trade_btn" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <com.antfortune.wealth.stock.common.tabLayout.AFWSTabLayoutView android:id="@id/portfolo_main_tablayout_view" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockSplitView android:id="@id/split_line" android:background="@color/stock_portfolio_tab_background" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_alignBottom="@id/portfolo_main_tablayout_view" />
+    </RelativeLayout>
+    <android.support.v4.view.ViewPager android:id="@id/portfolo_main_viewpager_view" android:background="@color/stock_portfolio_background" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1.0" />
+</com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout>

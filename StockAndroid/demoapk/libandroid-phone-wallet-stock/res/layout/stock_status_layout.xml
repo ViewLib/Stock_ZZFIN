@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.alipay.mobile.commonui.widget.APRelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.alipay.mobile.commonui.widget.APLinearLayout android:orientation="vertical" android:background="@color/jn_common_white_color" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip">
+        <com.alipay.mobile.commonui.widget.APLinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/header" android:layout_width="fill_parent" android:layout_height="67.0dip">
+            <com.alipay.mobile.commonui.widget.APImageView android:id="@id/stock_logo" android:layout_width="35.5dip" android:layout_height="35.5dip" android:layout_marginLeft="15.0dip" />
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="18.0dip" android:textColor="#ff2e2e2e" android:id="@id/stock_name" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" android:text="" android:layout_weight="1.0" />
+            <com.alipay.mobile.commonui.widget.APImageView android:layout_width="8.0dip" android:layout_height="13.0dip" android:layout_marginLeft="9.0dip" android:layout_marginRight="15.0dip" android:src="@drawable/arrow_right" android:layout_centerVertical="true" />
+        </com.alipay.mobile.commonui.widget.APLinearLayout>
+        <com.alipay.mobile.commonui.widget.APView android:background="@color/stock_split_line_color" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_marginLeft="15.0dip" />
+        <com.alipay.mobile.commonui.widget.APLinearLayout android:orientation="vertical" android:id="@id/content" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <com.alipay.mobile.commonui.widget.APLinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/content_header" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="67.0dip">
+                <com.alipay.mobile.commonui.widget.APImageView android:id="@id/content_header_logo" android:layout_width="35.5dip" android:layout_height="35.5dip" android:layout_marginLeft="15.0dip" />
+                <com.alipay.mobile.commonui.widget.APTextView android:textSize="18.0dip" android:textColor="#ff2e2e2e" android:id="@id/content_header_name" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginLeft="9.0dip" android:layout_weight="1.0" />
+            </com.alipay.mobile.commonui.widget.APLinearLayout>
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff2e2e2e" android:ellipsize="end" android:id="@id/stock_tips" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" android:layout_marginTop="17.0dip" android:layout_marginRight="15.0dip" android:maxLines="3" />
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff808080" android:id="@id/stock_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" android:layout_marginTop="7.0dip" />
+            <com.alipay.mobile.commonui.widget.APView android:background="@color/stock_split_line_color" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_marginLeft="15.0dip" android:layout_marginTop="17.0dip" />
+        </com.alipay.mobile.commonui.widget.APLinearLayout>
+        <com.alipay.mobile.commonui.widget.APTextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" android:layout_marginTop="17.0dip" android:text="你还可以进行" />
+        <com.alipay.mobile.commonui.widget.APButton android:textSize="18.0dip" android:textColor="@color/jn_common_white_color" android:id="@id/btn_continue_open_account" android:background="@drawable/stock_trade_btn_selector" android:layout_width="fill_parent" android:layout_height="43.0dip" android:layout_marginLeft="15.0dip" android:layout_marginTop="16.0dip" android:layout_marginRight="15.0dip" android:layout_marginBottom="16.5dip" android:text="继续开户" />
+        <com.alipay.mobile.commonui.widget.APLinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/bind_layout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="17.5dip">
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff606162" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="或已有证券账户，" />
+            <com.alipay.mobile.commonui.widget.APTextView android:textColor="#ff3f86e4" android:id="@id/tv_bind_account" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="立即登录" />
+        </com.alipay.mobile.commonui.widget.APLinearLayout>
+    </com.alipay.mobile.commonui.widget.APLinearLayout>
+</com.alipay.mobile.commonui.widget.APRelativeLayout>

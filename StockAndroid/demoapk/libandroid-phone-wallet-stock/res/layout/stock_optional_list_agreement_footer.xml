@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.alipay.mobile.commonui.widget.APRelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/content_box" android:layout_width="fill_parent" android:layout_height="50.0dip">
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="12.0dip" android:textColor="@color/stock_agreement_text" android:ellipsize="end" android:id="@id/stock_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:singleLine="true" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</com.alipay.mobile.commonui.widget.APRelativeLayout>

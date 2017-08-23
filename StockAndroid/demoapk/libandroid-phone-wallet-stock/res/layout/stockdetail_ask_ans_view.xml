@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout android:orientation="vertical" android:id="@id/stockdetail_ask_ans_container" android:background="@color/jn_stockdetail_ask_ans_bak_color" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/stockdetail_ask_ans_title_view" android:paddingLeft="15.0dip" android:paddingTop="10.0dip" android:paddingRight="15.0dip" android:paddingBottom="10.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip">
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="15.0dip" android:textColor="@color/jn_stockdetail_ask_ans_text_color" android:id="@id/stockdetail_ask_ans_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" />
+        <ImageView android:id="@id/right_arrow" android:layout_width="6.0dip" android:layout_height="12.0dip" android:src="@drawable/plate_title_arrow_icon" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+        <TextView android:textColor="#ff979797" android:id="@id/title_tip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="试试提问吧" android:layout_toLeftOf="@id/right_arrow" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/stockdetail_ask_ans_content_view" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockSplitView android:id="@id/top_list" android:background="@color/jn_stockdetail_divide_split_color" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/content_one" android:paddingLeft="15.0dip" android:paddingTop="20.0dip" android:paddingRight="15.0dip" android:paddingBottom="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="15.0dip" android:textColor="@color/jn_stockdetail_ask_ans_text_color" android:ellipsize="end" android:id="@id/stockdetail_ask_one_text" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:singleLine="true" android:layout_weight="1.0" />
+            <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="12.0dip" android:textColor="@color/jn_stockdetail_ask_ans_num_text_color" android:id="@id/stockdetail_ask_one_num" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/content_two" android:paddingLeft="15.0dip" android:paddingTop="10.0dip" android:paddingRight="15.0dip" android:paddingBottom="20.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="15.0dip" android:textColor="@color/jn_stockdetail_ask_ans_text_color" android:ellipsize="end" android:id="@id/stockdetail_ans_two_text" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:singleLine="true" android:layout_weight="1.0" />
+            <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="12.0dip" android:textColor="@color/jn_stockdetail_ask_ans_num_text_color" android:id="@id/stockdetail_ans_two_num" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" />
+        </LinearLayout>
+    </LinearLayout>
+</com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout>

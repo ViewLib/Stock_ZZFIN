@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout android:background="@color/stock_plate_page_background_color" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.antfortune.wealth.stock.platedetail.common.PlateDetailTitlebar android:id="@id/platedetail_titlebar" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <com.antfortune.wealth.stock.stockdetail.view.PullRefreshLoading.AFPullRefreshView android:id="@id/platedetail_refreshview" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/platedetail_titlebar">
+        <ListView android:id="@id/platedetail_listview" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scrollingCache="true" android:cacheColorHint="@android:color/transparent" android:dividerHeight="0.0dip" android:fastScrollEnabled="false" android:smoothScrollbar="true" android:overScrollMode="never" />
+    </com.antfortune.wealth.stock.stockdetail.view.PullRefreshLoading.AFPullRefreshView>
+    <com.antfortune.wealth.stock.common.uiwidget.AFLoadingView android:id="@id/platedetail_loading" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/platedetail_titlebar" />
+</com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout>

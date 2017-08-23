@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.alipay.mobile.commonui.widget.APRelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.669983sp" android:textColor="@color/sub_text_color" android:id="@id/history_clear" android:padding="13.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/stock_search_clear" android:layout_centerInParent="true" />
+</com.alipay.mobile.commonui.widget.APRelativeLayout>

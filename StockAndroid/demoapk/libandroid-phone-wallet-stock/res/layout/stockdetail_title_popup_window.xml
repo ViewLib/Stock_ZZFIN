@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="155.0dip" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/pop_content_view" android:background="@drawable/stockdetail_assets_popup_area_shape" android:layout_width="145.0dip" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:layout_marginRight="10.0dip">
+        <LinearLayout android:gravity="center|left" android:orientation="horizontal" android:id="@id/view_pop_message" android:background="@drawable/jn_common_item_top_selector" android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageView android:id="@id/popup_message_image" android:layout_width="23.0dip" android:layout_height="23.0dip" android:src="@drawable/stockdetail_popup_message_night" />
+            <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="14.0dip" android:textColor="@color/jn_stockdetail_popup_text" android:gravity="center" android:id="@id/tv_pop_message" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="45.0dip" android:layout_marginLeft="15.0dip" android:text="消息" />
+        </LinearLayout>
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockSplitView android:id="@id/line_pop_message" android:background="@color/jn_common_form_split_color" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" />
+        <LinearLayout android:gravity="center|left" android:orientation="horizontal" android:id="@id/view_pop_goto_main" android:background="@drawable/jn_common_item_top_selector" android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageView android:id="@id/popup_gohome_image" android:layout_width="23.0dip" android:layout_height="23.0dip" android:src="@drawable/stockdetail_popup_returnhome_night" />
+            <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="14.0dip" android:textColor="@color/jn_stockdetail_popup_text" android:gravity="center" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="45.0dip" android:layout_marginLeft="15.0dip" android:text="返回首页" />
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView android:layout_gravity="right" android:id="@id/popup_arrow" android:background="@drawable/stockdetail_popup_arrow_up_bg" android:layout_width="10.0dip" android:layout_height="5.0dip" android:layout_marginRight="20.0dip" android:layout_above="@id/pop_content_view" />
+</FrameLayout>

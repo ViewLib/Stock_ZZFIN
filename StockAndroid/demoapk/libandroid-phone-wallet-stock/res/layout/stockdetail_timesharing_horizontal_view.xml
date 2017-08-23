@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/stockdetail_timesharing_container" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.antfortune.wealth.financechart.view.timesharing.TimeSharingHorizontalView android:id="@id/new_stockdetails_graphics_timesharing_horizontal_canvas" android:background="#fffefefe" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="10.0dip" android:layout_marginBottom="2.0dip" />
+    <com.antfortune.wealth.stock.common.uiwidget.AFModuleLoadingView android:id="@id/important_news_loading" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.alipay.mobile.commonui.widget.APRelativeLayout android:id="@id/achievement_view_container" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.alipay.mobile.commonui.widget.APRelativeLayout android:id="@id/achievement_view_title_layout" android:layout_width="fill_parent" android:layout_height="40.0dip">
+        <com.alipay.mobile.commonui.widget.APTextView android:textSize="@dimen/stock_detail_cell_achievement_title_size" android:id="@id/achievement_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" android:singleLine="true" android:includeFontPadding="false" android:layout_alignParentBottom="true" />
+        <com.alipay.mobile.commonui.widget.APTextView android:textSize="@dimen/stock_detail_cell_achievement_state_size" android:id="@id/achievement_state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="15.0dip" android:singleLine="true" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" />
+    </com.alipay.mobile.commonui.widget.APRelativeLayout>
+    <com.antfortune.wealth.stock.stockdetail.view.StockGraphicsAchievementchart android:id="@id/stockGraphicsAchievementView" android:clickable="false" android:layout_width="fill_parent" android:layout_height="225.0dip" android:layout_below="@id/achievement_view_title_layout" />
+    <com.alipay.mobile.commonui.widget.APView android:id="@id/achievement_line" android:background="@color/stock_detail_cell_achievement_line_color" android:layout_width="fill_parent" android:layout_height="@dimen/stock_detail_cell_achievement_line_height_size" android:layout_marginLeft="15.0dip" android:layout_marginRight="15.0dip" android:layout_below="@id/stockGraphicsAchievementView" />
+    <com.antfortune.wealth.stock.common.uiwidget.AFModuleLoadingView android:id="@id/achievement_loading" android:layout_width="fill_parent" android:layout_height="@dimen/loading_view_height" />
+</com.alipay.mobile.commonui.widget.APRelativeLayout>

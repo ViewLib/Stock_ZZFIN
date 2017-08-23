@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/stockdetail_kline_container" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.antfortune.wealth.financechart.view.kline.KLineVerticalView android:id="@id/new_stockdetails_graphics_kline_canvas" android:background="@color/jn_common_item_normal_color" android:layout_width="fill_parent" android:layout_height="223.0dip" android:layout_marginTop="7.0dip" android:layout_marginBottom="13.0dip" />
+    <com.antfortune.wealth.stock.common.uiwidget.AFModuleLoadingView android:id="@id/important_news_loading" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="243.0dip" />
+</RelativeLayout>

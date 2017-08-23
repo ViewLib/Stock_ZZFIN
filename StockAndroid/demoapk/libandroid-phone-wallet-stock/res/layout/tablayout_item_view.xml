@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="40.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="16.0dip" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/tablayout_item_title_tv" android:layout_width="fill_parent" android:layout_height="38.0dip" android:text="测试" />
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout android:layout_gravity="center" android:id="@id/tablayout_item_selection_view" android:background="@color/stock_portfolio_tab_text_seleted" android:layout_width="fill_parent" android:layout_height="2.0dip" android:layout_marginLeft="20.0dip" android:layout_marginRight="20.0dip" />
+</LinearLayout>

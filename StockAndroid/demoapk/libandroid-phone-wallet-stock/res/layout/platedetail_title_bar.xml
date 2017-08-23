@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout android:background="@color/plate_detail_titlebar_background_color" android:layout_width="fill_parent" android:layout_height="50.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/pd_bk_layout" android:layout_width="60.0dip" android:layout_height="fill_parent" android:layout_marginLeft="15.0dip" android:layout_centerVertical="true">
+        <ImageButton android:id="@id/pd_bk_btn" android:background="@android:color/transparent" android:layout_width="9.0dip" android:layout_height="16.0dip" android:src="@drawable/stock_portfolio_edit_back" android:scaleType="fitXY" />
+        <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="16.0dip" android:textColor="@color/plate_detail_titlebar_text_color" android:gravity="center" android:id="@id/pd_bk_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dip" android:text="返回" android:singleLine="true" android:layout_centerVertical="true" />
+    </LinearLayout>
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="18.0dip" android:textColor="@color/plate_detail_titlebar_text_color" android:gravity="center" android:id="@id/pd_title" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="--" android:layout_centerInParent="true" />
+    <ImageButton android:id="@id/right_btn" android:background="@android:color/transparent" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dip" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+</com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout>

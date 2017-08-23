@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:id="@id/com_info_container" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/stockdetails_ziliao_divider" android:layout_width="fill_parent" android:layout_height="17.0dip" />
+    <LinearLayout android:orientation="vertical" android:id="@id/stockdetails_ziliao_layout" android:layout_width="fill_parent" android:layout_height="fill_parent" android:minHeight="@dimen/tabview_min_height" android:layout_below="@id/stockdetails_ziliao_divider" />
+    <com.antfortune.wealth.stock.common.uiwidget.AFModuleLoadingView android:id="@id/stockdetails_data_loading" android:layout_width="fill_parent" android:layout_height="@dimen/loading_view_height" />
+</RelativeLayout>

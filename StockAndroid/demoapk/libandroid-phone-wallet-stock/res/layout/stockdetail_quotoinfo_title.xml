@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:stockprice="http://schemas.android.com/apk/res-auto">
+    <TextView android:textSize="15.0dip" android:textColor="@color/text_black" android:id="@id/stock_code_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" />
+    <TextView android:textSize="15.0dip" android:textColor="@color/text_black" android:id="@id/stock_type_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:layout_toRightOf="@id/stock_code_tv" />
+    <TextView android:textSize="15.0dip" android:textColor="@color/text_black" android:id="@id/stock_name_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" android:text="--" android:layout_toRightOf="@id/stock_type_tv" />
+    <TextView android:textSize="10.0dip" android:textColor="#ff979797" android:gravity="bottom|center|left" android:id="@id/stockdetail_nav_state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="-- -- --" android:singleLine="true" android:layout_below="@id/stock_code_tv" android:contentDescription="@null" />
+    <TextView android:textSize="12.0dip" android:textColor="@color/btn_option_normal" android:gravity="center" android:id="@id/btn_option" android:background="@drawable/stockdetail_btn_option" android:layout_width="70.0dip" android:layout_height="23.0dip" android:text="--" android:layout_alignParentRight="true" android:layout_centerInParent="true" />
+</RelativeLayout>

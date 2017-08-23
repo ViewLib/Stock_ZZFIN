@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.alipay.mobile.commonui.widget.APLinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/account_item_content" android:background="@drawable/stocktrade_jn_common_list_bg" android:descendantFocusability="blocksDescendants" android:layout_width="fill_parent" android:layout_height="67.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.alipay.mobile.commonui.widget.APImageView android:id="@id/account_icon" android:layout_width="35.5dip" android:layout_height="35.5dip" android:layout_marginLeft="18.5dip" android:scaleType="fitXY" />
+    <com.alipay.mobile.commonui.widget.APLinearLayout android:gravity="center_vertical" android:orientation="vertical" android:id="@id/ll_content" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginLeft="11.0dip" android:layout_weight="1.0" android:layout_centerVertical="true">
+        <com.alipay.mobile.commonui.widget.APLinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="18.0dip" android:textColor="#ff2e2e2e" android:id="@id/account_title" android:layout_width="0.0dip" android:layout_height="wrap_content" android:singleLine="true" android:layout_weight="1.0" />
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="@color/stock_personal_desc_color" android:id="@id/tv_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:singleLine="true" android:layout_toRightOf="@id/ll_content" android:layout_centerVertical="true" />
+        </com.alipay.mobile.commonui.widget.APLinearLayout>
+        <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="@color/stock_personal_desc_color" android:id="@id/account_des" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </com.alipay.mobile.commonui.widget.APLinearLayout>
+    <com.alipay.mobile.commonui.widget.APImageView android:layout_width="8.0dip" android:layout_height="13.0dip" android:layout_marginLeft="10.0dip" android:layout_marginRight="15.0dip" android:src="@drawable/arrow_right" />
+</com.alipay.mobile.commonui.widget.APLinearLayout>

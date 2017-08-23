@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:id="@id/stockdetail_main_layout" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.antfortune.wealth.stock.stockdetail.view.SDStockDetailTitleBar android:id="@id/stock_detail_navi_bar" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <com.alipay.android.phone.businesscommon.advertisement.ui.APAdvertisementView android:id="@id/adbannerview" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/stock_detail_navi_bar" />
+    <com.antfortune.wealth.stock.stockdetail.view.PullRefreshLoading.AFPullRefreshView android:id="@id/stockdetails_page_expandableListview" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_above="@id/stock_bottom_bar" android:layout_below="@id/adbannerview">
+        <com.antfortune.wealth.transformer.core.TransformerListView.TransformerExpandableListView android:id="@id/expandablelistview" android:focusable="false" android:scrollbars="none" android:fadingEdge="none" android:layout_width="fill_parent" android:layout_height="fill_parent" android:listSelector="@android:color/transparent" android:scrollingCache="true" android:cacheColorHint="@android:color/transparent" android:divider="@null" android:fastScrollEnabled="false" android:smoothScrollbar="true" android:overScrollMode="never" />
+    </com.antfortune.wealth.stock.stockdetail.view.PullRefreshLoading.AFPullRefreshView>
+    <com.antfortune.wealth.stock.stockdetail.view.AFWDetailBottomBarView android:id="@id/stock_bottom_bar" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" />
+    <View android:id="@id/stockdetail_shade" android:background="#66000000" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</RelativeLayout>

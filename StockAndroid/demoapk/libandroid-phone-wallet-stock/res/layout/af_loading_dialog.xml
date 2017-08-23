@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:background="@drawable/loading_dialog_bg" android:layout_width="78.0dip" android:layout_height="78.0dip">
+        <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+            <FrameLayout android:id="@id/af_loading_new_img_container" android:layout_width="36.0dip" android:layout_height="36.0dip" android:layout_centerInParent="true">
+                <com.antfortune.wealth.stock.common.uiwidget.AFRotateLoadingView android:layout_gravity="center" android:id="@id/af_loading_new_progressbar" android:visibility="visible" android:layout_width="26.0dip" android:layout_height="26.0dip" />
+                <ImageView android:id="@id/af_loading_new_img" android:background="@drawable/af_loading_alert" android:visibility="gone" android:layout_width="36.0dip" android:layout_height="36.0dip" />
+            </FrameLayout>
+            <TextView android:textSize="13.0dip" android:textColor="#ffffffff" android:id="@id/af_loading_new_text" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9.0dip" android:maxEms="6" android:singleLine="true" android:layout_below="@id/af_loading_new_img_container" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

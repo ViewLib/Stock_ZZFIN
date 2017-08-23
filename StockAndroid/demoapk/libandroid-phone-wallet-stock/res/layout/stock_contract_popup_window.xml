@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.alipay.mobile.commonui.widget.APLinearLayout android:orientation="vertical" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.alipay.mobile.commonui.widget.APButton android:id="@id/btn_outside" android:background="#7f666666" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0" />
+    <LinearLayout android:orientation="vertical" android:background="@color/jn_common_white_color" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.alipay.mobile.commonui.widget.APRelativeLayout android:layout_width="fill_parent" android:layout_height="45.0dip">
+            <com.alipay.mobile.commonui.widget.APImageView android:id="@id/dismiss" android:layout_width="15.0dip" android:layout_height="15.0dip" android:layout_marginLeft="15.0dip" android:src="@drawable/stocktrade_dismiss" android:layout_centerVertical="true" />
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="16.0dip" android:textColor="#ff2e2e2e" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true" />
+        </com.alipay.mobile.commonui.widget.APRelativeLayout>
+        <com.alipay.mobile.commonui.widget.APView android:background="@color/stock_split_line_color" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        <com.alipay.mobile.commonui.widget.APImageView android:layout_gravity="center_horizontal" android:id="@id/stock_logo" android:padding="5.0dip" android:layout_width="80.0dip" android:layout_height="80.0dip" android:layout_marginTop="35.0dip" android:scaleType="fitXY" />
+        <com.alipay.mobile.commonui.widget.APTextView android:textSize="18.0dip" android:textColor="#ff2e2e2e" android:layout_gravity="center_horizontal" android:id="@id/stock_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dip" android:layout_centerInParent="true" />
+        <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#fff35833" android:layout_gravity="center_horizontal" android:id="@id/stock_des" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:layout_centerInParent="true" />
+        <com.alipay.mobile.commonui.widget.APView android:background="@color/stock_split_line_color" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_marginLeft="15.0dip" android:layout_marginTop="40.0dip" android:layout_marginRight="15.0dip" />
+        <com.alipay.mobile.commonui.widget.APTextView android:textSize="14.0dip" android:textColor="#ff808080" android:layout_gravity="center_horizontal" android:id="@id/des" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" android:layout_marginTop="12.0dip" android:layout_marginRight="15.0dip" />
+        <com.alipay.mobile.commonui.widget.APLinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" android:layout_marginTop="20.0dip" android:layout_marginRight="15.0dip">
+            <com.alipay.mobile.antui.basic.AUCheckBox android:layout_gravity="center_vertical" android:id="@id/agree_check" android:layout_width="30.0dip" android:layout_height="30.0dip" />
+            <com.alipay.mobile.commonui.widget.APTextView android:textSize="12.0dip" android:textColor="#ff808080" android:layout_gravity="center_vertical" android:id="@id/agree_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" />
+        </com.alipay.mobile.commonui.widget.APLinearLayout>
+        <com.alipay.mobile.commonui.widget.APButton android:enabled="false" android:textSize="18.0dip" android:textColor="@color/jn_common_white_color" android:id="@id/btn_agree" android:background="@drawable/stock_trade_btn_selector" android:layout_width="fill_parent" android:layout_height="45.0dip" android:layout_marginLeft="15.0dip" android:layout_marginTop="18.0dip" android:layout_marginRight="15.0dip" android:layout_marginBottom="26.0dip" />
+    </LinearLayout>
+</com.alipay.mobile.commonui.widget.APLinearLayout>

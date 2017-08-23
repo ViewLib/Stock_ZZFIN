@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout android:id="@id/popview_item_layout" android:background="@color/stock_portfolio_popup_item" android:descendantFocusability="blocksDescendants" android:layout_width="fill_parent" android:layout_height="45.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockTextView android:textSize="14.0dip" android:textColor="@color/stock_portfolio_item_price_text" android:id="@id/popview_item_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dip" android:text="--" android:layout_centerVertical="true" />
+    <ImageView android:id="@id/popview_item_image" android:layout_width="11.0dip" android:layout_height="8.0dip" android:layout_marginRight="15.0dip" android:src="@drawable/stock_portfolio_operation_pop_selected" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockLinearLayout android:id="@id/popview_item_divider" android:background="@color/stock_portfolio_pop_spilte_view" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_marginLeft="15.0dip" />
+</com.antfortune.wealth.stock.common.themeuiwidget.StockRelativeLayout>

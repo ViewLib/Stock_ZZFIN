@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.alipay.mobile.commonui.widget.APRelativeLayout android:id="@id/cash_view_container" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/single_card_container" layout="@layout/stockdetail_single_card_titile" />
+    <com.antfortune.wealth.stock.stockdetail.view.StockGraphicsFundFlowChart android:id="@id/cash_view_canvas" android:layout_width="fill_parent" android:layout_height="241.0dip" android:layout_below="@id/single_card_container" />
+    <com.antfortune.wealth.stock.common.uiwidget.AFModuleLoadingView android:id="@id/cash_view_loading" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="241.0dip" />
+    <com.antfortune.wealth.stock.common.themeuiwidget.StockSplitView android:id="@id/cash_bottom_line" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_alignParentBottom="true" />
+</com.alipay.mobile.commonui.widget.APRelativeLayout>
