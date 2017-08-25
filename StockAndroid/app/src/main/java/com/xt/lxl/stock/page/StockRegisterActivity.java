@@ -116,7 +116,7 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
         if (StringUtil.emptyOrNull(country) || country.equals("86")) {
             //大陆手机号
             if (phone.length() != 11) {
-                StockShowUtil.showToastOnMainThread(this, "请输入合法的手机号");
+                StockShowUtil.showToastOnMainThread(this, "请输入正确的手机号码");
                 return false;
             }
         }
