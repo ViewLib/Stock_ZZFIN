@@ -10,20 +10,19 @@
         android:id="@+id/stock_title_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:stock_title_text_msg="注册" />
+        app:stock_title_text_msg="注册/登录" />
 
     <TextView
-        android:id="@+id/stock_tv_SendPhoneCodeHint"
+        android:id="@+id/stock_tv_sendcode_hint"
         style="@style/text_14_aaaaaa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20.0dip"
         android:layout_marginLeft="30.0dip"
         android:layout_marginRight="30.0dip"
-        android:layout_marginTop="20.0dip"
+        android:layout_marginTop="50.0dip"
         android:lineSpacingExtra="5.0dip"
-        android:text="本次操作需要短信确认，校验码已发送至您手机"
-        android:visibility="invisible" />
+        android:text="" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -48,7 +47,7 @@
             android:textSize="16.0sp" />
 
         <Button
-            android:id="@+id/btn_ResendPhoneCode"
+            android:id="@+id/btn_resend_code"
             android:layout_width="100.0dip"
             android:layout_height="fill_parent"
             android:layout_margin="2.0dip"
@@ -59,7 +58,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/stock_btn_NextStep"
+        android:id="@+id/stock_verification_next_stepstock"
         style="@style/RoundButtonStyle"
         android:layout_marginLeft="15.0dip"
         android:layout_marginRight="15.0dip"

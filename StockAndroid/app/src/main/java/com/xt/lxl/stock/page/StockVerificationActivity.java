@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.util.LogUtil;
 import com.xt.lxl.stock.util.StockShowUtil;
 import com.xt.lxl.stock.util.StringUtil;
 
@@ -27,9 +28,10 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
     private EditText mVerificationCodeEdit;
     private TextView mNextStep;
     private TextView mResendBtn;
+    private TextView mStockSendcodeHint;
 
-    public String phone = "";
-    public String country = "86";
+    public String mPhone = "";
+    public String mCountry = "86";
     Handler mHandler = new Handler();
     EventHandler eh = new EventHandler() {
 
@@ -41,17 +43,15 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                     //提交验证码成功
 //                    注册操作
-
+                    sendUserRegister(mCountry, mPhone);
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                    //发送证码成功，开始刷新重发倒计时的操作
-                    String country = "";
-                    String phone = "";
-                    String code = "";
+                    //发送证码成功，开始刷新重发倒计时的操作，并且验证码提示修改
+                    mStockSendcodeHint.setText("验证码已发送至：" + mCountry + mPhone);
                     pollingResend(65);
-//                    SMSSDK.submitVerificationCode(country, phone, code);
                 } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                     //返回支持发送验证码的国家列表
-
+                    LogUtil.LogI("国家列表");
+                    sendVerificationCode(mCountry, mPhone);
                 }
             } else {
                 ((Throwable) data).printStackTrace();
@@ -70,7 +70,7 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
     }
 
     private void initAction() {
-        sendVerificationCode(phone);
+        sendGetSupportCountries();
         mResendBtn.setEnabled(false);
     }
 
@@ -83,6 +83,7 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
                 }
                 if (surplus <= 0) {
                     mResendBtn.setText("重新发送");
+                    mResendBtn.setEnabled(true);
                     return;
                 }
                 mResendBtn.setText("重新发送(" + surplus + ")");
@@ -92,14 +93,15 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
     }
 
     private void initData() {
-        phone = getIntent().getExtras().getString(INPUT_PHONE);
-        country = getIntent().getExtras().getString(INPUT_COUNTRY);
+        mPhone = getIntent().getExtras().getString(INPUT_PHONE);
+        mCountry = getIntent().getExtras().getString(INPUT_COUNTRY);
     }
 
     private void initView() {
         mVerificationCodeEdit = (EditText) findViewById(R.id.stock_et_VerificationCode);
-        mNextStep = (TextView) findViewById(R.id.stock_btn_NextStep);
-        mResendBtn = (TextView) findViewById(R.id.btn_ResendPhoneCode);
+        mResendBtn = (TextView) findViewById(R.id.btn_resend_code);
+        mNextStep = (TextView) findViewById(R.id.stock_verification_next_stepstock);
+        mStockSendcodeHint = (TextView) findViewById(R.id.stock_tv_sendcode_hint);
     }
 
     private void initListener() {
@@ -112,18 +114,22 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_ResendPhoneCode) {
-            sendVerificationCode(phone);
-        } else if (id == R.id.stock_register_next_step) {
+        if (id == R.id.btn_resend_code) {
+            sendVerificationCode(mCountry, mPhone);
+        } else if (id == R.id.stock_verification_next_stepstock) {
             //验证
             submitVerificationCode();
         }
     }
 
+    private void sendGetSupportCountries() {
+        SMSSDK.getSupportedCountries();
+    }
+
     /**
      * 发送验证码
      */
-    private void sendVerificationCode(String phone) {
+    private void sendVerificationCode(String country, String phone) {
         SMSSDK.getVerificationCode(country, phone, new OnSendMessageHandler() {
             @Override
             public boolean onSendMessage(String country, String phone) {
@@ -144,8 +150,17 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
         if (code.length() != 4) {
             StockShowUtil.showToastOnMainThread(this, "请输入正确的验证码");
         }
-        SMSSDK.submitVerificationCode(country, phone, code);
+        mStockSendcodeHint.setText("验证中，请稍后.");
+        SMSSDK.submitVerificationCode(mCountry, mPhone, code);
     }
+
+    /**
+     * 用户注册
+     */
+    private void sendUserRegister(String country, String phone) {
+        //发送用户注册服务。
+    }
+
 
     @Override
     protected void onDestroy() {

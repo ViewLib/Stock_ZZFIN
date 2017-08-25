@@ -81,10 +81,14 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
         int id = v.getId();
         if (id == R.id.stock_register_next_step) {
             String phone = mPhoneEdit.getText().toString();
-            if (!checkInputPhone(phone)) {
+            String country = "86";
+            if (isOversea) {
+                country = mCountryEdit.getText().toString();
+            }
+            if (!checkInputPhone(phone, country)) {
                 return;
             }
-            String country = "86";
+
             if (isOversea) {
                 country = mCountryEdit.getText().toString();
             }
@@ -104,15 +108,19 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
         }
     }
 
-    private boolean checkInputPhone(String phone) {
+    private boolean checkInputPhone(String phone, String country) {
         if (StringUtil.emptyOrNull(phone)) {
             StockShowUtil.showToastOnMainThread(this, "请输入手机号");
             return false;
         }
-        if (phone.length() == 6) {
-            StockShowUtil.showToastOnMainThread(this, "请输入合法的手机号");
-            return false;
+        if (StringUtil.emptyOrNull(country) || country.equals("86")) {
+            //大陆手机号
+            if (phone.length() != 11) {
+                StockShowUtil.showToastOnMainThread(this, "请输入合法的手机号");
+                return false;
+            }
         }
+        //海外不验证
         return true;
     }
 
