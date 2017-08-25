@@ -21,6 +21,7 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
 
     boolean isOversea = false;
     TextView mNextStep;
+    View mCountryView;
     EditText mCountryEdit;
     EditText mPhoneEdit;
     TextView mSpecialZoneReg;
@@ -36,6 +37,7 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
 
     private void initView() {
         mNextStep = (TextView) findViewById(R.id.stock_register_next_step);
+        mCountryView = findViewById(R.id.stock_register_country_view);
         mCountryEdit = (EditText) findViewById(R.id.stock_register_country_edit);
         mPhoneEdit = (EditText) findViewById(R.id.stock_register_phone_edit);
         mSpecialZoneReg = (TextView) findViewById(R.id.stock_register_tv_SpecialZoneReg);
@@ -91,10 +93,10 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
             if (isOversea) {
                 isOversea = false;
                 mSpecialZoneReg.setText("大陆用户注册");
-                mCountryEdit.setVisibility(View.GONE);
+                mCountryView.setVisibility(View.GONE);
             } else {
                 isOversea = true;
-                mCountryEdit.setVisibility(View.VISIBLE);
+                mCountryView.setVisibility(View.VISIBLE);
                 mSpecialZoneReg.setText("非大陆用户注册");
             }
         } else if (id == R.id.stock_register_tv_CompanyReg) {
