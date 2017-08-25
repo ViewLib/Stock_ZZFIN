@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+
+    <com.xt.lxl.stock.view.StockTitleView
+        android:id="@+id/stock_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:stock_title_text_msg="手机快速/注册" />
+
+    <RelativeLayout
+        android:id="@+id/stock_register_phone_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="120dp">
+
+        <EditText
+            android:id="@+id/stock_register_country_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="#ffffff"
+            android:hint="请输入区号"
+            android:inputType="phone"
+            android:paddingLeft="10dp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/stock_register_phone_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toRightOf="@id/stock_register_country_edit"
+            android:background="#ffffff"
+            android:hint="请输入手机号码"
+            android:inputType="phone"
+            android:paddingLeft="10dp"
+            android:textCursorDrawable="@drawable/stock_color_cursor" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/stock_register_phone_edit"
+            android:layout_marginTop="15dp"
+            android:background="#c4c4c4" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/stock_register_next_step"
+        style="@style/text_18_ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="26.0dip"
+        android:background="@drawable/stock_selector_common_round_button"
+        android:enabled="false"
+        android:gravity="center"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:text="下一步" />
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|center"-->
+    <!--android:layout_marginBottom="10.0dip"-->
+    <!--android:layout_marginTop="20.0dip"-->
+    <!--android:drawableLeft="@drawable/ic_common_component_safeguard"-->
+    <!--android:drawablePadding="9.0dip"-->
+    <!--android:gravity="center"-->
+    <!--android:text="您的资产由厦门银行存管系统全程监管"-->
+    <!--android:textColor="@color/textDefaultGrayColor1"-->
+    <!--android:textSize="13.0sp" />-->
+
+    <Space
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_marginBottom="30.0dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/stock_register_tv_SpecialZoneReg"
+            style="@style/text_14_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:paddingRight="15.0dip"
+            android:text="非大陆用户注册"
+            android:textSize="14.0sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="15.0dip"
+            android:background="#d4d4d4" />
+
+        <TextView
+            android:id="@+id/stock_register_tv_CompanyReg"
+            style="@style/text_14_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:paddingLeft="15.0dip"
+            android:text="企业注册" />
+    </LinearLayout>
+</LinearLayout>

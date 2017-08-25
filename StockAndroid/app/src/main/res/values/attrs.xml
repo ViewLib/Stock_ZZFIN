@@ -13,4 +13,9 @@
         <attr name="hotel_text_drawable_padding" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="StockTitleView">
+        <attr name="stock_title_text_msg" format="string|reference" />
+        <attr name="stock_title_text_style" format="string|reference" />
+    </declare-styleable>
+
 </resources>

@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:background="@drawable/hotel_list_top_search_background_normal"
-        android:drawableLeft="@drawable/hotel_icon_sarchcontrols"
+        android:drawableLeft="@drawable/stock_icon_sarchcontrols"
         android:gravity="center_vertical"
         android:hint="请输入代码/中文/全拼/首字母"
         android:imeOptions="actionDone"

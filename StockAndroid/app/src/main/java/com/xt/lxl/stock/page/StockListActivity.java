@@ -104,11 +104,11 @@ public class StockListActivity extends Activity implements View.OnClickListener 
         if (id == R.id.stock_list_search) {
             mCallBacks.mAddCallBack.onClick(null);
         } else if (id == R.id.stock_list_edit) {
-            StockShowUtil.showTextOnMainThread(StockListActivity.this, "暂不支持该动能");
+            StockShowUtil.showToastOnMainThread(StockListActivity.this, "暂不支持该动能");
         } else if (id == R.id.stock_self_optional) {
 
         } else if (id == R.id.stock_self_quotation) {
-            StockShowUtil.showTextOnMainThread(StockListActivity.this, "暂不支持该动能");
+            StockShowUtil.showToastOnMainThread(StockListActivity.this, "暂不支持该动能");
         } else if (id == R.id.back_btn) {
             finish();
         }

@@ -21,10 +21,10 @@ public class HotelTextView extends TextView {
 
     public HotelTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initFromAttributes(context, attrs);
+        initAttributes(context, attrs);
     }
 
-    private void initFromAttributes(Context context, AttributeSet attrs) {
+    private void initAttributes(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.HotelTextView);
 
         Drawable drawable = a.getDrawable(R.styleable.HotelTextView_hotel_text_drawable_src);

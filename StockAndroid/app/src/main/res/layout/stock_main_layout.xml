@@ -46,5 +46,13 @@
         android:minHeight="50dp"
         android:text="去股票详情" />
 
+    <TextView
+        android:id="@+id/xt_go_stock_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="50dp"
+        android:text="去注册" />
+
 
 </LinearLayout>

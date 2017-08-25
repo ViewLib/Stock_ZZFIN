@@ -11,7 +11,7 @@ import android.widget.Toast;
  */
 public class StockShowUtil {
 
-    public static void showTextOnMainThread(final Context context, final CharSequence msg) {
+    public static void showToastOnMainThread(final Context context, final CharSequence msg) {
         if (TextUtils.isEmpty(msg) || context == null) {
             return;
         }

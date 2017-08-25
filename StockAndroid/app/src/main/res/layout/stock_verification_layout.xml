@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+
+    <com.xt.lxl.stock.view.StockTitleView
+        android:id="@+id/stock_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:stock_title_text_msg="注册" />
+
+    <TextView
+        android:id="@+id/stock_tv_SendPhoneCodeHint"
+        style="@style/text_14_aaaaaa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20.0dip"
+        android:layout_marginLeft="30.0dip"
+        android:layout_marginRight="30.0dip"
+        android:layout_marginTop="20.0dip"
+        android:lineSpacingExtra="5.0dip"
+        android:text="本次操作需要短信确认，校验码已发送至您手机"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:layout_marginLeft="15.0dip"
+        android:layout_marginRight="15.0dip"
+        android:background="@drawable/stock_common_edittext_with_bottom_line"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/stock_et_VerificationCode"
+            android:layout_width="0.0dip"
+            android:layout_height="50.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/stock_common_edittext_with_bottom_line"
+            android:hint="请输入短信验证码"
+            android:inputType="number"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:textColor="#333333"
+            android:textColorHint="#cccccc"
+            android:textSize="16.0sp" />
+
+        <Button
+            android:id="@+id/btn_ResendPhoneCode"
+            android:layout_width="100.0dip"
+            android:layout_height="fill_parent"
+            android:layout_margin="2.0dip"
+            android:background="@null"
+            android:text="重新发送"
+            android:textColor="@color/stock_registe_text_color_blue_enabler_selector"
+            android:textSize="16.0sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/stock_btn_NextStep"
+        style="@style/RoundButtonStyle"
+        android:layout_marginLeft="15.0dip"
+        android:layout_marginRight="15.0dip"
+        android:layout_marginTop="28.0dip"
+        android:background="@drawable/stock_selector_common_round_button"
+        android:text="下一步"
+        android:textColor="#ffffffff" />
+</LinearLayout>
