@@ -46,7 +46,12 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
                     sendUserRegister(mCountry, mPhone);
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     //发送证码成功，开始刷新重发倒计时的操作，并且验证码提示修改
-                    mStockSendcodeHint.setText("验证码已发送至：" + mCountry + mPhone);
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mStockSendcodeHint.setText("验证码已发送至：" + mCountry + mPhone);
+                        }
+                    });
                     pollingResend(65);
                 } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                     //返回支持发送验证码的国家列表
