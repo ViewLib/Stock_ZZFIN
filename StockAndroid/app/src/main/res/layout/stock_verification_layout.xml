@@ -9,12 +9,12 @@
     <com.xt.lxl.stock.view.StockTitleView
         android:id="@+id/stock_title_view"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:stock_title_text_msg="注册/登录" />
+        android:layout_height="75dp"
+        app:stock_title_text_msg="请填写验证码" />
 
     <TextView
         android:id="@+id/stock_tv_sendcode_hint"
-        style="@style/text_14_aaaaaa"
+        style="@style/text_16_000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20.0dip"
@@ -52,7 +52,7 @@
             android:layout_height="fill_parent"
             android:layout_margin="2.0dip"
             android:background="@null"
-            android:text="重新发送"
+            android:text="正在发送"
             android:textColor="@color/stock_registe_text_color_blue_enabler_selector"
             android:textSize="16.0sp" />
     </LinearLayout>

@@ -13,11 +13,11 @@
 
     <ImageView
         android:id="@+id/back_btn"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="13dp"
+        android:layout_height="21dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/stock_common_black_close" />
+        android:background="@drawable/stock_common_icon_arrow" />
 
     <ImageView
         android:id="@+id/action_btn"

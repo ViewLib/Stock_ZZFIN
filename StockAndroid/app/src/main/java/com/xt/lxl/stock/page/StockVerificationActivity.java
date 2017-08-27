@@ -49,7 +49,11 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            mStockSendcodeHint.setText("验证码已发送至：" + mCountry + mPhone);
+                            String showText = "验证码已发送到手机：\n";
+                            if (!"86".equals(mCountry)) {
+                                showText += "验证码已发送到手机：" + mCountry + mPhone;
+                            }
+                            mStockSendcodeHint.setText(showText);
                         }
                     });
                     pollingResend(65);
