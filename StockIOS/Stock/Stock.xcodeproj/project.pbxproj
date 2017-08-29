@@ -12,7 +12,6 @@
 		847076251F4EE36100974772 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8470761E1F4EE36100974772 /* Info.plist */; };
 		847076261F4EE36100974772 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470761F1F4EE36100974772 /* main.m */; };
 		847076341F4EE66F00974772 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 847076291F4EE66F00974772 /* AppDelegate.m */; };
-		847076351F4EE66F00974772 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470762D1F4EE66F00974772 /* ViewController.m */; };
 		847076371F4EE6A800974772 /* Base.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847076361F4EE6A800974772 /* Base.storyboard */; };
 		8470763A1F4EED6300974772 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847076391F4EED6300974772 /* LoginViewController.m */; };
 		847077611F4EF73600974772 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470763D1F4EF73500974772 /* AFHTTPSessionManager.m */; };
@@ -150,6 +149,7 @@
 		847077E51F4EF73600974772 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470775C1F4EF73600974772 /* UIProgressView+AFNetworking.m */; };
 		847077E61F4EF73600974772 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470775E1F4EF73600974772 /* UIRefreshControl+AFNetworking.m */; };
 		847077E71F4EF73600974772 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 847077601F4EF73600974772 /* UIWebView+AFNetworking.m */; };
+		B67ADC081F55B10C00E17F5F /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B67ADC071F55B10C00E17F5F /* TabBarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -160,8 +160,6 @@
 		8470761F1F4EE36100974772 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		847076281F4EE66F00974772 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		847076291F4EE66F00974772 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8470762C1F4EE66F00974772 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8470762D1F4EE66F00974772 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		847076361F4EE6A800974772 /* Base.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Base.storyboard; sourceTree = "<group>"; };
 		847076381F4EED6300974772 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		847076391F4EED6300974772 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -448,6 +446,8 @@
 		8470775F1F4EF73600974772 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		847077601F4EF73600974772 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		847077E91F4EF7DC00974772 /* Stock.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stock.pch; sourceTree = "<group>"; };
+		B67ADC061F55B10C00E17F5F /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
+		B67ADC071F55B10C00E17F5F /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,8 +534,8 @@
 			isa = PBXGroup;
 			children = (
 				847076361F4EE6A800974772 /* Base.storyboard */,
-				8470762C1F4EE66F00974772 /* ViewController.h */,
-				8470762D1F4EE66F00974772 /* ViewController.m */,
+				B67ADC061F55B10C00E17F5F /* TabBarViewController.h */,
+				B67ADC071F55B10C00E17F5F /* TabBarViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1068,7 +1068,6 @@
 				847077D41F4EF73600974772 /* UIGestureRecognizer+RACSignalSupport.m in Sources */,
 				847077711F4EF73600974772 /* IQNSArray+Sort.m in Sources */,
 				847077D11F4EF73600974772 /* UIControl+RACSignalSupport.m in Sources */,
-				847076351F4EE66F00974772 /* ViewController.m in Sources */,
 				847077AF1F4EF73600974772 /* RACKVOChannel.m in Sources */,
 				847077DD1F4EF73600974772 /* UITextField+RACSignalSupport.m in Sources */,
 				847077D31F4EF73600974772 /* UIDatePicker+RACSignalSupport.m in Sources */,
@@ -1154,6 +1153,7 @@
 				847077B71F4EF73600974772 /* RACScheduler.m in Sources */,
 				847077821F4EF73600974772 /* MJRefreshConst.m in Sources */,
 				8470777E1F4EF73600974772 /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				B67ADC081F55B10C00E17F5F /* TabBarViewController.m in Sources */,
 				847077CE1F4EF73600974772 /* UIBarButtonItem+RACCommandSupport.m in Sources */,
 				847077891F4EF73600974772 /* NSDictionary+RACSequenceAdditions.m in Sources */,
 				847077D01F4EF73600974772 /* UICollectionReusableView+RACSignalSupport.m in Sources */,
@@ -1337,6 +1337,7 @@
 				847076121F4EE20400974772 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
