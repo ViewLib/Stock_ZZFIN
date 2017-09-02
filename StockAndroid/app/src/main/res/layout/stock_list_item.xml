@@ -67,6 +67,7 @@
         android:id="@+id/stock_list_item_change"
         android:layout_width="200dp"
         android:layout_height="25dp"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

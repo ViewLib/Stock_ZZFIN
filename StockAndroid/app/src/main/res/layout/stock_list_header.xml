@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/stock_list_top_edit"
         android:gravity="center"
-        android:text="`当前价"
+        android:text="当前价"
         android:textAppearance="@style/text_14_899198" />
 
     <TextView

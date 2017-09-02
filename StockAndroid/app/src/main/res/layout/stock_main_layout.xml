@@ -1,54 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/fl_main_content"
+        android:id="@+id/stock_main_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ff00ff" />
+        android:layout_height="match_parent" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
 
 
-        <RadioButton
+        <com.xt.lxl.stock.view.StockRadioButton
             android:id="@+id/stock_home_self"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#ffffff"
             android:button="@null"
-            android:drawableTop="@drawable/stock_optional_tab_normal"
             android:gravity="center"
-            android:text="自选" />
+            android:text="自选"
+            app:stock_radio_drawable_direction="stock_top"
+            app:stock_radio_drawable_height="20dp"
+            app:stock_radio_drawable_src="@drawable/stock_optional_tab_normal"
+            app:stock_radio_drawable_width="20dp" />
 
-        <RadioButton
+        <com.xt.lxl.stock.view.StockRadioButton
             android:id="@+id/stock_home_found"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#ffffff"
             android:button="@null"
-            android:drawableTop="@drawable/stock_optional_tab_normal"
             android:gravity="center"
-            android:text="发现" />
+            android:text="发现"
+            app:stock_radio_drawable_direction="stock_top"
+            app:stock_radio_drawable_height="20dp"
+            app:stock_radio_drawable_src="@drawable/stock_optional_tab_normal"
+            app:stock_radio_drawable_width="20dp" />
 
-        <RadioButton
+        <com.xt.lxl.stock.view.StockRadioButton
             android:id="@+id/stock_home_user"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#ffffff"
             android:button="@null"
-            android:drawableTop="@drawable/stock_optional_tab_normal"
             android:gravity="center"
-            android:text="用户" />
+            android:text="用户"
+            app:stock_radio_drawable_direction="stock_top"
+            app:stock_radio_drawable_height="20dp"
+            app:stock_radio_drawable_src="@drawable/stock_optional_tab_normal"
+            app:stock_radio_drawable_width="20dp" />
 
     </RadioGroup>
 

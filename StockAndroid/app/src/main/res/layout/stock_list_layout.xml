@@ -31,12 +31,4 @@
             android:background="#191f25" />
     </RelativeLayout>
 
-    <include
-        android:id="@+id/stock_list_bottom_view"
-        layout="@layout/stock_list_bottom_view"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="#333333" />
-
 </RelativeLayout>

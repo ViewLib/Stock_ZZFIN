@@ -26,18 +26,17 @@ public class StockRadioButton extends RadioButton {
     }
 
     private void initFromAttributes(Context context, AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.HotelTextView);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StockRadioButton);
 
-        Drawable drawable = a.getDrawable(R.styleable.HotelTextView_hotel_text_drawable_src);
+        Drawable drawable = a.getDrawable(R.styleable.StockRadioButton_stock_radio_drawable_src);
         if (drawable != null) {
-            int direction = a.getInt(R.styleable.HotelTextView_hotel_text_drawable_direction, 0);
+            int direction = a.getInt(R.styleable.StockRadioButton_stock_radio_drawable_direction, 0);
             if (direction < 0 || direction > 3) {
                 direction = 0;
             }
-
-            int width = a.getDimensionPixelSize(R.styleable.HotelTextView_hotel_text_drawable_width, 0);
-            int height = a.getDimensionPixelSize(R.styleable.HotelTextView_hotel_text_drawable_height, 0);
-            int padding = a.getDimensionPixelSize(R.styleable.HotelTextView_hotel_text_drawable_padding, 0);
+            int width = a.getDimensionPixelSize(R.styleable.StockRadioButton_stock_radio_drawable_width, 0);
+            int height = a.getDimensionPixelSize(R.styleable.StockRadioButton_stock_radio_drawable_height, 0);
+            int padding = a.getDimensionPixelSize(R.styleable.StockRadioButton_stock_radio_drawable_padding, 0);
             setCompoundDrawablePadding(padding);
             setCompoundDrawable(drawable, direction, width, height);
         }
