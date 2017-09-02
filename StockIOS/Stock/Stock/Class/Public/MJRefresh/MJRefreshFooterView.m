@@ -99,7 +99,7 @@
     {
 		case MJRefreshStatePulling:
         {
-            _statusLabel.text = QYLocalized(@"releaseformore", @"Order");
+            _statusLabel.text = @"松开加载更多";
             
             [UIView animateWithDuration:MJRefreshAnimationDuration animations:^{
                 _arrowImage.transform = CGAffineTransformIdentity;
@@ -112,7 +112,7 @@
             
 		case MJRefreshStateNormal:
         {
-            _statusLabel.text = QYLocalized(@"getmore", @"Order");
+            _statusLabel.text = @"加载更多";
             
             // 刚刷新完毕
             CGFloat animDuration = MJRefreshAnimationDuration;

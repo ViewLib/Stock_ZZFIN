@@ -16,7 +16,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    [self addTabControllers];
+}
+
+- (void)addTabControllers{
+    UIViewController *HomeVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Home"];
+    HomeVC.tabBarItem.title = @"首页";
+    HomeVC.tabBarItem.image = [UIImage imageNamed:@"home_off"];
+    HomeVC.tabBarItem.selectedImage = [UIImage imageNamed:@"home_on"];
+    
+    UIViewController *FindVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Find"];
+    FindVC.tabBarItem.title = @"发现";
+    FindVC.tabBarItem.image = [UIImage imageNamed:@"find_off"];
+    FindVC.tabBarItem.selectedImage = [UIImage imageNamed:@"find_on"];
+    
+    UIViewController *myVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"My"];
+    myVC.tabBarItem.title = @"我";
+    myVC.tabBarItem.image = [UIImage imageNamed:@"my_off"];
+    myVC.tabBarItem.selectedImage = [UIImage imageNamed:@"my_on"];
+    
+    NSArray *navsArr = [NSArray arrayWithObjects:HomeVC,FindVC,myVC,nil];//导航控制器
+    
+    [self setSelectedIndex:0];
+    [self setViewControllers:navsArr];
+    
+    [[UITabBar appearance]setTintColor:MAIN_COLOR];
+    
 }
 
 - (void)didReceiveMemoryWarning {

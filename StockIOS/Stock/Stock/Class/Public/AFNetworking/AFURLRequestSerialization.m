@@ -1261,9 +1261,7 @@ typedef enum {
             }
             return nil;
         }
-        
-         NSLog(@"parameters = %@",[parameters jsonString]);
-        
+                
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:parameters options:self.writingOptions error:error];
         
         if (!jsonData) {

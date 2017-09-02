@@ -9,6 +9,9 @@
 #ifndef Stock_pch
 #define Stock_pch
 
+#import "Utils.h"
+#import "DataManager.h"
+#import "GlobalConfig.h"
 #import "UIViewController+HUD.h"
 #import "UIViewController+DismissKeyboard.h"
 

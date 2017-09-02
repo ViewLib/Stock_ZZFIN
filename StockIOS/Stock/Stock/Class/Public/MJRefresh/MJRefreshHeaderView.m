@@ -71,8 +71,7 @@
     NSString *time = [formatter stringFromDate:_lastUpdateTime];
     
     // 3.显示日期
-    NSString *str2=QYLocalized(@"LastRefresh",@"Trip");
-    _lastUpdateTimeLabel.text = [NSString stringWithFormat:@"%@：%@",str2,time];
+    _lastUpdateTimeLabel.text = [NSString stringWithFormat:@"上次刷新时间：%@",time];
 }
 
 #pragma mark 设置状态
@@ -92,7 +91,7 @@
 		case MJRefreshStatePulling: // 松开可立即刷新
         {
             // 设置文字
-            _statusLabel.text = QYLocalized(@"releasetorefresh", @"Trip");
+            _statusLabel.text = @"松开可立即刷新";
             // 执行动画
             [UIView animateWithDuration:MJRefreshAnimationDuration animations:^{
                 _arrowImage.transform = CGAffineTransformMakeRotation(M_PI);
@@ -106,7 +105,7 @@
 		case MJRefreshStateNormal: // 下拉可以刷新
         {
             // 设置文字
-			_statusLabel.text = QYLocalized(@"pulltorefresh", @"Trip");
+			_statusLabel.text = @"下拉可以刷新";
             // 执行动画
             [UIView animateWithDuration:MJRefreshAnimationDuration animations:^{
                 _arrowImage.transform = CGAffineTransformIdentity;
@@ -126,7 +125,7 @@
 		case MJRefreshStateRefreshing: // 正在刷新中
         {
             // 设置文字
-            _statusLabel.text = QYLocalized(@"refreshing", @"Trip");
+            _statusLabel.text = @"正在刷新";
             // 执行动画
             [UIView animateWithDuration:MJRefreshAnimationDuration animations:^{
                 _arrowImage.transform = CGAffineTransformIdentity;
