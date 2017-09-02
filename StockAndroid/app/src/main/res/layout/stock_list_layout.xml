@@ -14,8 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/stock_detail_titlebar_container"
-        android:background="@color/plate_detail_page_background_color_night">
+        android:layout_below="@id/stock_detail_titlebar_container">
 
         <ListView
             android:id="@+id/stock_list"
@@ -23,8 +22,8 @@
             android:layout_height="match_parent" />
 
         <include
-            android:id="@+id/stock_list_top_view"
-            layout="@layout/stock_list_top_view" />
+            android:id="@+id/stock_list_header"
+            layout="@layout/stock_list_header" />
 
         <View
             android:layout_width="match_parent"

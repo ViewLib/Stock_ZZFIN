@@ -1,6 +1,10 @@
 package com.xt.lxl.stock.util;
 
+import android.content.Context;
+
+import com.xt.lxl.stock.model.StockIndexChangeModel;
 import com.xt.lxl.stock.model.StockViewModel;
+import com.xt.lxl.stock.view.HotelLabelDrawable;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -12,6 +16,39 @@ import java.util.List;
 public class DataShowUtil {
 
     static DecimalFormat df = new DecimalFormat("######0.00");
+
+    public static HotelLabelDrawable[] transforDrawables(Context context, StockViewModel viewModel) {
+        HotelLabelDrawable[] drawables = new HotelLabelDrawable[2];
+        drawables[0] = new HotelLabelDrawable(context);
+        drawables[1] = new HotelLabelDrawable(context);
+
+        StockIndexChangeModel leftModel = new StockIndexChangeModel();
+        StockIndexChangeModel rightModel = new StockIndexChangeModel();
+
+        if (viewModel.mStockChangeD > 0) {
+            leftModel.bgColor = "#F0F0F1";
+
+            rightModel.showText = viewModel.mStockChange + "%";
+            rightModel.showIndex = viewModel.mStockChangeD * 10;
+            rightModel.bgColor = "#FA5259";
+            rightModel.textColor = "#000000";
+        } else if (viewModel.mStockChangeD < 0) {
+            leftModel.showText = viewModel.mStockChange + "%";
+            leftModel.showIndex = viewModel.mStockChangeD * 10;
+            leftModel.bgColor = "#4CB774";
+            leftModel.textColor = "#000000";
+
+            rightModel.bgColor = "#F0F0F1";
+        } else {
+            leftModel.showText = viewModel.mStockChange;
+            leftModel.bgColor = "#F0F0F1";
+            rightModel.bgColor = "#F0F0F1";
+        }
+        drawables[0].setLabelModel(leftModel);
+        drawables[1].setLabelModel(rightModel);
+        return drawables;
+    }
+
 
     public static String getDisplayChangeStr(double change) {
         StringBuilder builder = new StringBuilder();
@@ -28,8 +65,8 @@ public class DataShowUtil {
         List<List<String>> divisionList = new ArrayList<>();
         for (int start = 0; start < list.size(); ) {
             int end = start + limit;
-            if (end >= list.size()) {
-                end = list.size() - 1;
+            if (end > list.size()) {
+                end = list.size();
             }
             divisionList.add(list.subList(start, end));
             start = end;

@@ -12,6 +12,8 @@ import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.HotelViewHolder;
+import com.xt.lxl.stock.view.HotelLabelDrawable;
+import com.xt.lxl.stock.view.StockChangeText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,8 +88,9 @@ public class StockAdapter extends BaseAdapter {
         final TextView stockName = HotelViewHolder.requestView(convertView, R.id.stock_list_item_name);
         final TextView stockCode = HotelViewHolder.requestView(convertView, R.id.stock_list_item_code);
         final TextView stockPrice = HotelViewHolder.requestView(convertView, R.id.stock_list_item_price);
-        final TextView stockChange = HotelViewHolder.requestView(convertView, R.id.stock_list_item_change);
+//        final TextView stockChange = HotelViewHolder.requestView(convertView, R.id.stock_list_item_change);
         final TextView stockType = HotelViewHolder.requestView(convertView, R.id.stock_list_item_type);
+        final StockChangeText stockChange = HotelViewHolder.requestView(convertView, R.id.stock_list_item_change);
 
         //展示国内海外标识
         if (StockViewModel.STOCK_TYPE_US.equals(stockViewModel.mStockType)) {
@@ -101,19 +104,21 @@ public class StockAdapter extends BaseAdapter {
         HotelViewHolder.showTextOrDefault(stockCode, stockViewModel.mStockCode, defaultStr);
         HotelViewHolder.showTextOrDefault(stockPrice, stockViewModel.mStockPirce, defaultStr);
         if (stockViewModel.mStockState == StockViewModel.STOCK_STATE_SUSPENSION) {
-            stockChange.setText("停牌");
+//            stockChange.setText("停牌");
             stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_gray_night));
             return;
         }
         HotelViewHolder.showTextOrDefault(stockChange, DataShowUtil.getDisplayChangeStr(stockViewModel.mStockChangeD), defaultStr);
         //展示涨跌幅背景色
-        if (stockViewModel.mStockChangeD == 0) {
-            stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_gray_night));
-        } else if (stockViewModel.mStockChangeD > 0) {
-            stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_red_night));
-        } else {
-            stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_green_night));
-        }
+        HotelLabelDrawable[] drawables = DataShowUtil.transforDrawables(mInflater.getContext(), stockViewModel);
+        stockChange.refreshLabelDrawables(drawables[0], drawables[1]);
+//        if (stockViewModel.mStockChangeD == 0) {
+//            stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_gray_night));
+//        } else if (stockViewModel.mStockChangeD > 0) {
+//            stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_red_night));
+//        } else {
+//            stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_green_night));
+//        }
     }
 
     public void initOneStockViewModel(List<StockViewModel> modelList) {

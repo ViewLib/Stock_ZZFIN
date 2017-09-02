@@ -4,36 +4,41 @@
     android:id="@+id/stock_title_desc"
     android:layout_width="match_parent"
     android:layout_height="35dp"
-    android:background="@color/plate_detail_page_background_color_night"
+    android:background="@drawable/stock_list_header_bg"
     android:gravity="center_vertical">
 
     <com.xt.lxl.stock.view.HotelTextView
-        android:id="@+id/stock_list_top_all"
+        android:id="@+id/stock_list_top_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="全部"
-        android:textAppearance="@style/text_14_899198"
-        app:hotel_text_drawable_direction="hotel_right"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="35dp"
+        android:gravity="center"
+        android:text="编辑"
+        android:textAppearance="@style/text_13_fa5259"
+        app:hotel_text_drawable_direction="hotel_left"
         app:hotel_text_drawable_height="14dp"
-        app:hotel_text_drawable_src="@drawable/stock_arrow_down"
+        app:hotel_text_drawable_src="@drawable/stock_head_edit"
         app:hotel_text_drawable_width="14dp" />
 
     <TextView
         android:id="@+id/stock_list_top_price"
-        android:layout_width="wrap_content"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="121dp"
-        android:text="最新价"
+        android:layout_toRightOf="@id/stock_list_top_edit"
+        android:gravity="center"
+        android:text="`当前价"
         android:textAppearance="@style/text_14_899198" />
 
     <TextView
         android:id="@+id/stock_list_top_change"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:text="涨跌幅"
         android:textAppearance="@style/text_14_899198" />
 </RelativeLayout>

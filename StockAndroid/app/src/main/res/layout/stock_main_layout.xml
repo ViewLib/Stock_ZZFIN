@@ -1,58 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/xt_go_stock_list"
+    <FrameLayout
+        android:id="@+id/fl_main_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:minHeight="50dp"
-        android:text="去股票列表页" />
+        android:layout_height="match_parent"
+        android:background="#ff00ff" />
 
-    <TextView
-        android:id="@+id/xt_go_stock_edit"
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:minHeight="50dp"
-        android:text="去股票编辑页" />
-
-    <TextView
-        android:id="@+id/xt_clear_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:minHeight="50dp"
-        android:text="清空缓存" />
-
-    <TextView
-        android:id="@+id/xt_go_user_center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:minHeight="50dp"
-        android:text="去个人中心" />
-
-    <TextView
-        android:id="@+id/xt_go_stock_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:minHeight="50dp"
-        android:text="去股票详情" />
-
-    <TextView
-        android:id="@+id/xt_go_stock_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:minHeight="50dp"
-        android:text="去注册" />
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
 
-</LinearLayout>
+        <RadioButton
+            android:id="@+id/stock_home_self"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:button="@null"
+            android:drawableTop="@drawable/stock_optional_tab_normal"
+            android:gravity="center"
+            android:text="自选" />
+
+        <RadioButton
+            android:id="@+id/stock_home_found"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:button="@null"
+            android:drawableTop="@drawable/stock_optional_tab_normal"
+            android:gravity="center"
+            android:text="发现" />
+
+        <RadioButton
+            android:id="@+id/stock_home_user"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:button="@null"
+            android:drawableTop="@drawable/stock_optional_tab_normal"
+            android:gravity="center"
+            android:text="用户" />
+
+    </RadioGroup>
+
+</RelativeLayout>

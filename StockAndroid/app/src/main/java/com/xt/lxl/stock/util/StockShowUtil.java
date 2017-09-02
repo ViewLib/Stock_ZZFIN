@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.widget.Toast;
 
 /**
@@ -21,6 +23,14 @@ public class StockShowUtil {
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static int getPixelFromDip(Context context, float f) {
+        return getPixelFromDip(context.getResources().getDisplayMetrics(), f);
+    }
+
+    public static int getPixelFromDip(DisplayMetrics dm, float dip) {
+        return (int) (TypedValue.applyDimension(1, dip, dm) + 0.5F);
     }
 
 

@@ -5,26 +5,58 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.xt.lxl.stock.config.StockConfig;
+import com.xt.lxl.stock.model.StockIndexChangeModel;
 import com.xt.lxl.stock.page.StockItemEditActivity;
 import com.xt.lxl.stock.page.StockListActivity;
+import com.xt.lxl.stock.page.StockMainActivity;
 import com.xt.lxl.stock.page.StockRegisterActivity;
 import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.view.HotelLabelDrawable;
+import com.xt.lxl.stock.view.StockChangeText;
 
 public class TestActivity extends FragmentActivity implements View.OnClickListener {
+
+    LinearLayout mContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.stock_main_layout);
+        setContentView(R.layout.stock_test_layout);
+        mContainer = (LinearLayout) findViewById(R.id.container);
         findViewById(R.id.xt_go_stock_list).setOnClickListener(this);
         findViewById(R.id.xt_go_stock_edit).setOnClickListener(this);
         findViewById(R.id.xt_go_user_center).setOnClickListener(this);
         findViewById(R.id.xt_go_stock_detail).setOnClickListener(this);
         findViewById(R.id.xt_clear_save).setOnClickListener(this);
         findViewById(R.id.xt_go_stock_register).setOnClickListener(this);
+        findViewById(R.id.xt_go_stock_home).setOnClickListener(this);
+        addTest();
+    }
+
+    public void addTest() {
+        HotelLabelDrawable leftDrawable = new HotelLabelDrawable(this);
+        StockIndexChangeModel leftModel = new StockIndexChangeModel();
+        leftModel.showText = "-1%";
+        leftModel.showIndex = -0.1;
+        leftModel.bgColor = "#4CB774";
+        leftModel.textColor = "#000000";
+        leftDrawable.setLabelModel(leftModel);
+
+        HotelLabelDrawable rightDrawable = new HotelLabelDrawable(this);
+        StockIndexChangeModel rightModel = new StockIndexChangeModel();
+        rightModel.bgColor = "#EE7AE9";
+//        rightModel.showText = "-10%";
+//        rightModel.textColor = "#4CB774";
+        rightDrawable.setLabelModel(rightModel);
+
+        StockChangeText text = new StockChangeText(this, null, 0);
+        text.refreshLabelDrawables(leftDrawable, rightDrawable);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(400, 100);
+        mContainer.addView(text, lp);
     }
 
     @Override
@@ -50,6 +82,8 @@ public class TestActivity extends FragmentActivity implements View.OnClickListen
             Toast.makeText(TestActivity.this, "清除成功", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.xt_go_stock_register) {
             intent.setClass(this, StockRegisterActivity.class);
+        } else if (id == R.id.xt_go_stock_home) {
+            intent.setClass(this, StockMainActivity.class);
         }
         if (intent.getComponent() == null) return;
         startActivity(intent);

@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.list.StockAdapter;
@@ -26,8 +26,7 @@ import java.util.List;
 public class StockListActivity extends Activity implements View.OnClickListener {
     public static final int RequestCodeForSearch = 1;
     StockListCallBacks mCallBacks = new StockListCallBacks();
-    RelativeLayout mStockListTitle;
-    RelativeLayout mStockListTopView;
+    EditText mStockKeywordEditText;//编辑按钮
     ListView mStockListView;
     StockAdapter mAdapter;
     Handler mHander = new Handler();
@@ -43,11 +42,6 @@ public class StockListActivity extends Activity implements View.OnClickListener 
     }
 
     private void initListener() {
-        findViewById(R.id.stock_list_search).setOnClickListener(this);
-        findViewById(R.id.stock_list_edit).setOnClickListener(this);
-        findViewById(R.id.stock_self_optional).setOnClickListener(this);
-        findViewById(R.id.stock_self_quotation).setOnClickListener(this);
-        findViewById(R.id.back_btn).setOnClickListener(this);
         mCallBacks.mAddCallBack = new View.OnClickListener() {
 
             @Override
@@ -81,8 +75,7 @@ public class StockListActivity extends Activity implements View.OnClickListener 
     }
 
     private void initView() {
-        mStockListTitle = (RelativeLayout) findViewById(R.id.stock_detail_titlebar_container);
-        mStockListTopView = (RelativeLayout) findViewById(R.id.stock_list_top_view);
+        mStockKeywordEditText = (EditText) findViewById(R.id.stock_keyword_edit_text);
         mStockListView = (ListView) findViewById(R.id.stock_list);
     }
 
@@ -101,10 +94,8 @@ public class StockListActivity extends Activity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.stock_list_search) {
+        if (id == R.id.stock_keyword_edit_text) {
             mCallBacks.mAddCallBack.onClick(null);
-        } else if (id == R.id.stock_list_edit) {
-            StockShowUtil.showToastOnMainThread(StockListActivity.this, "暂不支持该动能");
         } else if (id == R.id.stock_self_optional) {
 
         } else if (id == R.id.stock_self_quotation) {
