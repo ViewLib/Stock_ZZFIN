@@ -29,5 +29,6 @@
 
 #define SEARCHBAR_BGIMG         [Utils GetImageWithColor:MAIN_COLOR andHeight:K_FRAME_NAVIGATION_BAR_HEIGHT]
 
+#define isLogin                 [Config shareInstance].islogin
 
 #endif /* Globalconfig_h */

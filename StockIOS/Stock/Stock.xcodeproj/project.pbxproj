@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		045ED1671F5AD50200F7DE20 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045ED1661F5AD50200F7DE20 /* SearchViewController.m */; };
+		045ED16B1F5BA7B800F7DE20 /* NSObject+WKHud.m in Sources */ = {isa = PBXBuildFile; fileRef = 045ED16A1F5BA7B800F7DE20 /* NSObject+WKHud.m */; };
+		045ED16E1F5BAC3600F7DE20 /* UIViewController+WKVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 045ED16D1F5BAC3600F7DE20 /* UIViewController+WKVC.m */; };
+		045ED1711F5BADA800F7DE20 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 045ED1701F5BADA800F7DE20 /* Config.m */; };
+		045ED1741F5BB59D00F7DE20 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045ED1731F5BB59D00F7DE20 /* SMS_SDK.framework */; };
+		045ED1771F5BB97A00F7DE20 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 045ED1761F5BB97A00F7DE20 /* libz.tbd */; };
+		045ED1791F5BB98600F7DE20 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 045ED1781F5BB98600F7DE20 /* libstdc++.tbd */; };
+		045ED17C1F5BBD1600F7DE20 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045ED17B1F5BBD1600F7DE20 /* MOBFoundation.framework */; };
 		04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2131F598E3700C09D86 /* MyViewController.m */; };
 		04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2161F598E4600C09D86 /* HomeViewController.m */; };
 		04C2E21A1F598E5600C09D86 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2191F598E5600C09D86 /* FindViewController.m */; };
@@ -168,6 +175,16 @@
 /* Begin PBXFileReference section */
 		045ED1651F5AD50200F7DE20 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		045ED1661F5AD50200F7DE20 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		045ED1691F5BA7B800F7DE20 /* NSObject+WKHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+WKHud.h"; sourceTree = "<group>"; };
+		045ED16A1F5BA7B800F7DE20 /* NSObject+WKHud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+WKHud.m"; sourceTree = "<group>"; };
+		045ED16C1F5BAC3600F7DE20 /* UIViewController+WKVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WKVC.h"; sourceTree = "<group>"; };
+		045ED16D1F5BAC3600F7DE20 /* UIViewController+WKVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WKVC.m"; sourceTree = "<group>"; };
+		045ED16F1F5BADA800F7DE20 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		045ED1701F5BADA800F7DE20 /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
+		045ED1731F5BB59D00F7DE20 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		045ED1761F5BB97A00F7DE20 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		045ED1781F5BB98600F7DE20 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		045ED17B1F5BBD1600F7DE20 /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
 		04C2E2121F598E3700C09D86 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		04C2E2131F598E3700C09D86 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		04C2E2151F598E4600C09D86 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -494,12 +511,45 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				045ED17C1F5BBD1600F7DE20 /* MOBFoundation.framework in Frameworks */,
+				045ED1791F5BB98600F7DE20 /* libstdc++.tbd in Frameworks */,
+				045ED1771F5BB97A00F7DE20 /* libz.tbd in Frameworks */,
+				045ED1741F5BB59D00F7DE20 /* SMS_SDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		045ED1681F5BA70F00F7DE20 /* WK */ = {
+			isa = PBXGroup;
+			children = (
+				045ED1691F5BA7B800F7DE20 /* NSObject+WKHud.h */,
+				045ED16A1F5BA7B800F7DE20 /* NSObject+WKHud.m */,
+				045ED16C1F5BAC3600F7DE20 /* UIViewController+WKVC.h */,
+				045ED16D1F5BAC3600F7DE20 /* UIViewController+WKVC.m */,
+			);
+			name = WK;
+			sourceTree = "<group>";
+		};
+		045ED1721F5BB59D00F7DE20 /* SMS */ = {
+			isa = PBXGroup;
+			children = (
+				045ED17B1F5BBD1600F7DE20 /* MOBFoundation.framework */,
+				045ED1731F5BB59D00F7DE20 /* SMS_SDK.framework */,
+			);
+			path = SMS;
+			sourceTree = "<group>";
+		};
+		045ED1751F5BB97A00F7DE20 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				045ED1781F5BB98600F7DE20 /* libstdc++.tbd */,
+				045ED1761F5BB97A00F7DE20 /* libz.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		04C2E20F1F598DE500C09D86 /* Find */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,6 +633,7 @@
 				847075FB1F4EE20400974772 /* Stock */,
 				847075FA1F4EE20400974772 /* Products */,
 				04C2E23D1F59B3C500C09D86 /* Stock-Bridging-Header.h */,
+				045ED1751F5BB97A00F7DE20 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -673,6 +724,7 @@
 		847076301F4EE66F00974772 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				045ED1721F5BB59D00F7DE20 /* SMS */,
 				04C2E21B1F59942800C09D86 /* MBProgressHUD */,
 				8470763B1F4EF73500974772 /* AFNetworking */,
 				847076491F4EF73500974772 /* Category */,
@@ -699,6 +751,8 @@
 				04C2E2231F59961A00C09D86 /* Globalconfig.h */,
 				04C2E2241F5998B400C09D86 /* Utils.h */,
 				04C2E2251F5998B400C09D86 /* Utils.m */,
+				045ED16F1F5BADA800F7DE20 /* Config.h */,
+				045ED1701F5BADA800F7DE20 /* Config.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -734,6 +788,7 @@
 		847076491F4EF73500974772 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				045ED1681F5BA70F00F7DE20 /* WK */,
 				8470764A1F4EF73500974772 /* CALayer+UIColorToCGColor.h */,
 				8470764B1F4EF73500974772 /* CALayer+UIColorToCGColor.m */,
 				8470764C1F4EF73500974772 /* NSDate+Category.h */,
@@ -1271,6 +1326,7 @@
 				847077BA1F4EF73600974772 /* RACSerialDisposable.m in Sources */,
 				847077901F4EF73600974772 /* NSObject+RACDescription.m in Sources */,
 				847077E21F4EF73600974772 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				045ED16B1F5BA7B800F7DE20 /* NSObject+WKHud.m in Sources */,
 				847077B31F4EF73600974772 /* RACPassthroughSubscriber.m in Sources */,
 				847077CC1F4EF73600974772 /* UIActionSheet+RACSignalSupport.m in Sources */,
 				847077CB1F4EF73600974772 /* RACValueTransformer.m in Sources */,
@@ -1288,6 +1344,7 @@
 				04C2E22B1F599D0800C09D86 /* HomeTableViewCell.m in Sources */,
 				847077CE1F4EF73600974772 /* UIBarButtonItem+RACCommandSupport.m in Sources */,
 				847077891F4EF73600974772 /* NSDictionary+RACSequenceAdditions.m in Sources */,
+				045ED1711F5BADA800F7DE20 /* Config.m in Sources */,
 				847077D01F4EF73600974772 /* UICollectionReusableView+RACSignalSupport.m in Sources */,
 				847077A01F4EF73600974772 /* RACCommand.m in Sources */,
 				04C2E2611F59C1BB00C09D86 /* StockEntity.m in Sources */,
@@ -1303,6 +1360,7 @@
 				847077C41F4EF73600974772 /* RACSubscriptionScheduler.m in Sources */,
 				8470779D1F4EF73600974772 /* RACBehaviorSubject.m in Sources */,
 				847077E71F4EF73600974772 /* UIWebView+AFNetworking.m in Sources */,
+				045ED16E1F5BAC3600F7DE20 /* UIViewController+WKVC.m in Sources */,
 				847077D91F4EF73600974772 /* UIStepper+RACSignalSupport.m in Sources */,
 				847077BE1F4EF73600974772 /* RACSignalSequence.m in Sources */,
 				847077A81F4EF73600974772 /* RACEmptySequence.m in Sources */,
@@ -1425,6 +1483,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6UFBWMTJ8V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Stock/Class/Public/SMS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Stock/Supporting Files/Stock.pch";
 				INFOPLIST_FILE = "Stock/Supporting Files/Info.plist";
@@ -1447,6 +1509,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6UFBWMTJ8V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Stock/Class/Public/SMS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Stock/Supporting Files/Stock.pch";
 				INFOPLIST_FILE = "Stock/Supporting Files/Info.plist";

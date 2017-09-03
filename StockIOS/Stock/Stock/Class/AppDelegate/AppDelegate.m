@@ -27,6 +27,8 @@
     self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
     
+    self.loginVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Login"];
+    
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
@@ -35,6 +37,15 @@
     return YES;
 }
 
+/**
+ 转跳登陆页面
+ */
+- (void)pushToLogin {
+    UINavigationController *navi = (UINavigationController *)self.window.rootViewController;
+    [navi presentViewController:self.loginVC animated:YES completion:^{
+        [self showMessageHud:@"Sorry!Automatic logon failed.Please try to log in again!" hideAfter:1.5f];
+    }];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -102,4 +102,11 @@
     return img;
 }
 
+#pragma mark - 判断是否都为数字
++(BOOL)validateNum:(NSString*)string {
+    NSString *regex = @"^[0-9]+$";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    return [predicate evaluateWithObject:string];
+}
+
 @end

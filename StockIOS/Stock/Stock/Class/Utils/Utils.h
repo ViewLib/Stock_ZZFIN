@@ -32,4 +32,7 @@
  */
 + (UIImage*)GetImageWithColor:(UIColor*)color andPercent:(float)percent andPN:(NSString *)pn andSize:(CGSize)size;
 
+#pragma mark - 判断是否都为数字
++(BOOL)validateNum:(NSString*)string;
+
 @end
