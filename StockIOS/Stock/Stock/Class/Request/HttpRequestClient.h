@@ -14,4 +14,7 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 
 + (HttpRequestClient *)sharedClient;
 
+#pragma mark - 获取股票信息
+-(void)getStockInformation:(NSString *)stocks request:(request)request;
+
 @end

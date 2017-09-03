@@ -73,7 +73,14 @@
 #pragma mark - getOptionalStocks
 - (void)getTableData {
     _stocks = [[DataManager shareDataMangaer] queryStockEntitys];
+    NSString *stockCodes = @"";
     if (_stocks.count) {
+        for (StockEntity *entity in _stocks) {
+            [stockCodes stringByAppendingFormat:@",%@%@",entity.from,entity.code];
+        }
+        [[HttpRequestClient sharedClient] getStockInformation:stockCodes request:^(NSString *resultMsg, id dataDict, id error) {
+            
+        }];
         [_OptionalTable reloadData];
     }
 }
