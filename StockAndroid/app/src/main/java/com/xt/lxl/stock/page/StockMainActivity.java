@@ -52,6 +52,7 @@ public class StockMainActivity extends FragmentActivity implements View.OnClickL
     }
 
     private void setDefaultFragment() {
+        mStockHomeSelf.setSelected(true);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.stock_main_fragment_container, mStockListFragment);
@@ -65,6 +66,10 @@ public class StockMainActivity extends FragmentActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        mStockHomeSelf.setSelected(false);
+        mStockHomeFound.setSelected(false);
+        mStockHomeUser.setSelected(false);
+        v.setSelected(true);
         int id = v.getId();
         FragmentManager fm = getSupportFragmentManager();
         // 开启Fragment事务

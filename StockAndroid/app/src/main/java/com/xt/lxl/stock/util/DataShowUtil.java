@@ -16,33 +16,60 @@ import java.util.List;
 public class DataShowUtil {
 
     static DecimalFormat df = new DecimalFormat("######0.00");
+    //    static String defaultColor = "#F0F0F1";
+    static String defaultColor = "#00ffffff";
 
     public static HotelLabelDrawable[] transforDrawables(Context context, StockViewModel viewModel) {
+        if (viewModel.mStockChangeD == 0) {
+            HotelLabelDrawable[] drawables = new HotelLabelDrawable[1];
+            drawables[0] = new HotelLabelDrawable(context);
+            StockIndexChangeModel centerModel = new StockIndexChangeModel();
+            if (viewModel.isSuspension) {
+                centerModel.mShowText = "停牌";
+            } else {
+                centerModel.mShowText = viewModel.mStockChange + "%";
+            }
+            centerModel.mTextColor = "#5C5C5C";
+            centerModel.mShowIndex = 0;
+            centerModel.mBgColor = defaultColor;
+            centerModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_CENTER;
+            drawables[0].setLabelModel(centerModel);
+            return drawables;
+        }
+
         HotelLabelDrawable[] drawables = new HotelLabelDrawable[2];
         drawables[0] = new HotelLabelDrawable(context);
         drawables[1] = new HotelLabelDrawable(context);
-
         StockIndexChangeModel leftModel = new StockIndexChangeModel();
         StockIndexChangeModel rightModel = new StockIndexChangeModel();
-
         if (viewModel.mStockChangeD > 0) {
-            leftModel.bgColor = "#F0F0F1";
-
-            rightModel.showText = viewModel.mStockChange + "%";
-            rightModel.showIndex = viewModel.mStockChangeD * 10;
-            rightModel.bgColor = "#FA5259";
-            rightModel.textColor = "#000000";
-        } else if (viewModel.mStockChangeD < 0) {
-            leftModel.showText = viewModel.mStockChange + "%";
-            leftModel.showIndex = viewModel.mStockChangeD * 10;
-            leftModel.bgColor = "#4CB774";
-            leftModel.textColor = "#000000";
-
-            rightModel.bgColor = "#F0F0F1";
+            leftModel.mBgColor = defaultColor;
+            rightModel.mShowText = viewModel.mStockChange + "%";
+            rightModel.mShowIndex = viewModel.mStockChangeD * 10;
+            rightModel.mShowIndex = rightModel.mShowIndex > 1 ? 1 : rightModel.mShowIndex;
+            rightModel.mBgColor = "#FA5259";
+            if (viewModel.mStockChangeD > 0.03) {
+                rightModel.mTextColor = "#ffffff";
+                rightModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_CENTER;
+            } else {
+                rightModel.mTextColor = "#000000";
+                rightModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_RIGHT;
+            }
         } else {
-            leftModel.showText = viewModel.mStockChange;
-            leftModel.bgColor = "#F0F0F1";
-            rightModel.bgColor = "#F0F0F1";
+            rightModel.mBgColor = defaultColor;
+
+            leftModel.mShowText = viewModel.mStockChange + "%";
+            leftModel.mShowIndex = viewModel.mStockChangeD * 10;
+            leftModel.mShowIndex = leftModel.mShowIndex < -1 ? -1 : leftModel.mShowIndex;
+            leftModel.mBgColor = "#4CB774";
+            leftModel.mTextColor = "#000000";
+            if (viewModel.mStockChangeD < -0.03) {
+                leftModel.mTextColor = "#ffffff";
+                leftModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_CENTER;
+            } else {
+                leftModel.mTextColor = "#000000";
+                leftModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_LEFT;
+            }
         }
         drawables[0].setLabelModel(leftModel);
         drawables[1].setLabelModel(rightModel);
@@ -120,6 +147,11 @@ public class DataShowUtil {
         stockViewModel.mStockName = split[1];//股票名称
         stockViewModel.mStockCode = split[2];//股票代码
         stockViewModel.mStockPirce = split[3];//当前价格
+        if ("0.00".equals(stockViewModel.mStockPirce)) {
+            //当前价格为0时代表停牌，取上一次的
+            stockViewModel.mStockPirce = split[4];
+            stockViewModel.isSuspension = true;
+        }
 //        stockViewModel.mStockCode = split[4];//昨收价格
 //        stockViewModel.mStockCode = split[5];//今开
 //        stockViewModel.mStockCode = split[6];//成交量（手）

@@ -31,7 +31,7 @@
             android:text="自选"
             app:stock_radio_drawable_direction="stock_top"
             app:stock_radio_drawable_height="20dp"
-            app:stock_radio_drawable_src="@drawable/stock_optional_tab_normal"
+            app:stock_radio_drawable_src="@drawable/stock_main_home_selector"
             app:stock_radio_drawable_width="20dp" />
 
         <com.xt.lxl.stock.view.StockRadioButton
@@ -44,7 +44,7 @@
             android:text="发现"
             app:stock_radio_drawable_direction="stock_top"
             app:stock_radio_drawable_height="20dp"
-            app:stock_radio_drawable_src="@drawable/stock_optional_tab_normal"
+            app:stock_radio_drawable_src="@drawable/stock_main_found_selector"
             app:stock_radio_drawable_width="20dp" />
 
         <com.xt.lxl.stock.view.StockRadioButton
@@ -57,7 +57,7 @@
             android:text="用户"
             app:stock_radio_drawable_direction="stock_top"
             app:stock_radio_drawable_height="20dp"
-            app:stock_radio_drawable_src="@drawable/stock_optional_tab_normal"
+            app:stock_radio_drawable_src="@drawable/stock_main_user_selector"
             app:stock_radio_drawable_width="20dp" />
 
     </RadioGroup>

@@ -1,4 +1,4 @@
-package com.xt.lxl.stock.list;
+package com.xt.lxl.stock.page.list;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -111,7 +111,11 @@ public class StockAdapter extends BaseAdapter {
         HotelViewHolder.showTextOrDefault(stockChange, DataShowUtil.getDisplayChangeStr(stockViewModel.mStockChangeD), defaultStr);
         //展示涨跌幅背景色
         HotelLabelDrawable[] drawables = DataShowUtil.transforDrawables(mInflater.getContext(), stockViewModel);
-        stockChange.refreshLabelDrawables(drawables[0], drawables[1]);
+        if (drawables.length == 1) {
+            stockChange.refreshCenterDrawables(drawables[0]);
+        } else {
+            stockChange.refreshLabelDrawables(drawables[0], drawables[1]);
+        }
 //        if (stockViewModel.mStockChangeD == 0) {
 //            stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_gray_night));
 //        } else if (stockViewModel.mStockChangeD > 0) {

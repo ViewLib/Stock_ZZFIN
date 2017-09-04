@@ -1,4 +1,4 @@
-package com.xt.lxl.stock.list;
+package com.xt.lxl.stock.page.list;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -78,6 +78,9 @@ public class DataSource {
             String[] split = codeListStr.split(",");
             list.addAll(Arrays.asList(split));
         }
+        if (list.contains(code)) {
+            return false;
+        }
         list.add(code);
         StringBuilder builder = new StringBuilder();
         for (String str : list) {

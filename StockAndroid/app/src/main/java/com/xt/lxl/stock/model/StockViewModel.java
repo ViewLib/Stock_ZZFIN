@@ -34,6 +34,7 @@ public class StockViewModel implements Cloneable {
     public String mRatio = "";//市盈率
     public String mTurnover = "";//换手率
     public String mValueAll = "";//总市值
+    public boolean isSuspension = false;//是否停牌
 
     /**
      * 以下信息init方法生成
@@ -64,7 +65,9 @@ public class StockViewModel implements Cloneable {
     public void init() {
         //涨跌幅
         this.mStockChangeD = Double.parseDouble(mStockChange) / 100;
+        if (isSuspension) {
 
+        }
         //板块类型
         if (mStockCode.startsWith("6")) {
             mStockSubType = STOCK_SUB_TYPE_SH_MAIN;

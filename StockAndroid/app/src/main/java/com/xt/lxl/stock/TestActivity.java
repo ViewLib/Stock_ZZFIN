@@ -40,17 +40,15 @@ public class TestActivity extends FragmentActivity implements View.OnClickListen
     public void addTest() {
         HotelLabelDrawable leftDrawable = new HotelLabelDrawable(this);
         StockIndexChangeModel leftModel = new StockIndexChangeModel();
-        leftModel.showText = "-1%";
-        leftModel.showIndex = -0.1;
-        leftModel.bgColor = "#4CB774";
-        leftModel.textColor = "#000000";
+        leftModel.mShowText = "-1%";
+        leftModel.mShowIndex = -0.1;
+        leftModel.mBgColor = "#4CB774";
+        leftModel.mTextColor = "#000000";
         leftDrawable.setLabelModel(leftModel);
 
         HotelLabelDrawable rightDrawable = new HotelLabelDrawable(this);
         StockIndexChangeModel rightModel = new StockIndexChangeModel();
-        rightModel.bgColor = "#EE7AE9";
-//        rightModel.showText = "-10%";
-//        rightModel.textColor = "#4CB774";
+        rightModel.mBgColor = "#EE7AE9";
         rightDrawable.setLabelModel(rightModel);
 
         StockChangeText text = new StockChangeText(this, null, 0);

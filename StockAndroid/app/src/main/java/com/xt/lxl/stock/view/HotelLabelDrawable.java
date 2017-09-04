@@ -15,7 +15,6 @@ import android.view.View;
 
 import com.xt.lxl.stock.model.StockIndexChangeModel;
 import com.xt.lxl.stock.util.StockShowUtil;
-import com.xt.lxl.stock.util.StringUtil;
 
 /**
  * Created by wang_zx on 2015/12/17.
@@ -56,12 +55,12 @@ public class HotelLabelDrawable extends Drawable {
     }
 
     private void buildTextLayout() {
-        mFramePaint.setColor(parseColor(mViewModel.bgColor, Color.WHITE));
-        mMainBackgroundPaint.setColor(parseColor(mViewModel.bgColor, Color.WHITE));
-        if (!TextUtils.isEmpty(mViewModel.showText)) {
-            int textSize = getFontSize(mViewModel.textSize, DEFAULT_FONT_SIZE);
-            int textColor = parseColor(mViewModel.textColor, Color.BLACK);
-            mMainTextLayout = mTextLayoutMaker.makeTextLayout(mViewModel.showText, textSize, textColor);
+        mFramePaint.setColor(parseColor(mViewModel.mBgColor, Color.WHITE));
+        mMainBackgroundPaint.setColor(parseColor(mViewModel.mBgColor, Color.WHITE));
+        if (!TextUtils.isEmpty(mViewModel.mShowText)) {
+            int mTextSize = getFontSize(mViewModel.mTextSize, DEFAULT_FONT_SIZE);
+            int mTextColor = parseColor(mViewModel.mTextColor, Color.BLACK);
+            mMainTextLayout = mTextLayoutMaker.makeTextLayout(mViewModel.mShowText, mTextSize, mTextColor);
         }
     }
 
@@ -133,20 +132,17 @@ public class HotelLabelDrawable extends Drawable {
 
     private float drawSingleLabel(Canvas canvas, Layout textLayout, Paint backgroundPaint) {
         //绘制底色
-        double start = 0;
-        double end = mMeasuredWidth;
-        if (!StringUtil.emptyOrNull(mViewModel.showText)) {
-            if (mViewModel.showIndex < 0) {
-                start = (1.0 + mViewModel.showIndex) * 3 * mMeasuredWidth / 4;
-                end = mMeasuredWidth;
-            } else if (mViewModel.showIndex > 0) {
-                start = 0;
-                end = mMeasuredWidth / 4 + mViewModel.showIndex * 3 / 4;
-            } else {
-
-            }
+        float start = 0;
+        float end = mMeasuredWidth;
+        if (mViewModel.mShowIndex < 0) {
+            start = (float) (mMeasuredWidth * (1 + mViewModel.mShowIndex));
+        } else if (mViewModel.mShowIndex > 0) {
+            end = (float) (mMeasuredWidth * mViewModel.mShowIndex);
         }
+
+        //绘制背景
         drawSingleLabelBackground(canvas, backgroundPaint, start, end);
+
         //绘制字体
         if (textLayout != null) {
             Rect bounds = getBounds();
@@ -156,8 +152,16 @@ public class HotelLabelDrawable extends Drawable {
                 labelWidth = bounds.width();
             }
             canvas.save();
-            float dx = (labelWidth - textLayout.getLineWidth(0)) / 2;
+
+            float dx = 0;
             float dy = (height - textLayout.getHeight() + textLayout.getTopPadding() + textLayout.getBottomPadding()) / 2;
+            if (mViewModel.mShowLocation == StockIndexChangeModel.SHOW_LOCATION_RIGHT) {
+                dx = end + 10;
+            } else if (mViewModel.mShowLocation == StockIndexChangeModel.SHOW_LOCATION_LEFT) {
+                dx = start - textLayout.getLineWidth(0) - 10;
+            } else {
+                dx = (start + end - textLayout.getLineWidth(0)) / 2;
+            }
             canvas.translate(dx, dy);
             textLayout.draw(canvas);
             canvas.restore();

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.list.StockEditAdapter;
+import com.xt.lxl.stock.page.list.StockEditAdapter;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
 import com.xt.lxl.stock.sender.StockSender;

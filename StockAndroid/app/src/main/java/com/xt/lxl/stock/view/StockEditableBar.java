@@ -14,8 +14,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.util.StringUtil;
 
 /**
- * Created by bkhu on 16/8/13.
- * 发票的控件
+ * Created by lxl
  */
 public class StockEditableBar extends LinearLayout implements View.OnClickListener {
     private EditText mEditText;
@@ -39,6 +38,7 @@ public class StockEditableBar extends LinearLayout implements View.OnClickListen
         mCleanImage = (ImageView) findViewById(R.id.stock_edit_clean);
         mEditText.addTextChangedListener(mTextWacher);
         mEditText.setOnFocusChangeListener(mFocusChangeListener);
+        mCleanImage.setOnClickListener(this);
     }
 
     public OnFocusChangeListener mFocusChangeListener = new OnFocusChangeListener() {

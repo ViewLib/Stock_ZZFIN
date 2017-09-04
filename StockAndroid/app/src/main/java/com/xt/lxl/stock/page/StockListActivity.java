@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.list.StockAdapter;
+import com.xt.lxl.stock.page.list.StockAdapter;
 import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
 import com.xt.lxl.stock.sender.StockSender;
