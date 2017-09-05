@@ -1,4 +1,4 @@
-package com.xt.lxl.stock.page;
+package com.xt.lxl.stock.page.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.page.StockItemEditActivity;
 import com.xt.lxl.stock.page.list.StockAdapter;
 import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;

@@ -1,4 +1,4 @@
-package com.xt.lxl.stock.page;
+package com.xt.lxl.stock.page.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

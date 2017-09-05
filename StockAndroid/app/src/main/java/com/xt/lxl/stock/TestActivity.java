@@ -13,7 +13,7 @@ import com.xt.lxl.stock.model.StockIndexChangeModel;
 import com.xt.lxl.stock.page.StockItemEditActivity;
 import com.xt.lxl.stock.page.StockListActivity;
 import com.xt.lxl.stock.page.StockMainActivity;
-import com.xt.lxl.stock.page.StockRegisterActivity;
+import com.xt.lxl.stock.page.activity.StockRegisterActivity;
 import com.xt.lxl.stock.util.StockShowUtil;
 import com.xt.lxl.stock.view.HotelLabelDrawable;
 import com.xt.lxl.stock.view.StockChangeText;

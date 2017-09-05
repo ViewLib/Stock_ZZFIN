@@ -9,6 +9,7 @@
 
 
     <com.xt.lxl.stock.view.StockBannerView
+        android:id="@+id/stock_user_setting_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:stock_banner_icon="@drawable/stock_user_icon_setting"
@@ -16,6 +17,7 @@
         app:stock_banner_text_style="@style/text_14_000000" />
 
     <com.xt.lxl.stock.view.StockBannerView
+        android:id="@+id/stock_user_comment_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:stock_banner_icon="@drawable/stock_user_icon_comment"
@@ -23,6 +25,7 @@
         app:stock_banner_text_style="@style/text_14_000000" />
 
     <com.xt.lxl.stock.view.StockBannerView
+        android:id="@+id/stock_user_feedback_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:stock_banner_icon="@drawable/stock_user_icon_feedback"
@@ -30,6 +33,7 @@
         app:stock_banner_text_style="@style/text_14_000000" />
 
     <com.xt.lxl.stock.view.StockBannerView
+        android:id="@+id/stock_user_aboutus_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:stock_banner_icon="@drawable/stock_user_icon_aboutus"
@@ -37,6 +41,7 @@
         app:stock_banner_text_style="@style/text_14_000000" />
 
     <com.xt.lxl.stock.view.StockBannerView
+        android:id="@+id/stock_user_exitlogin_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:stock_banner_icon="@drawable/stock_user_icon_exit"

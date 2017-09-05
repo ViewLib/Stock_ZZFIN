@@ -12,6 +12,9 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.page.fragment.StockFoundFragment;
+import com.xt.lxl.stock.page.fragment.StockListFragment;
+import com.xt.lxl.stock.page.fragment.StockUserFragment;
 
 /**
  * Created by xiangleiliu on 2017/9/1.

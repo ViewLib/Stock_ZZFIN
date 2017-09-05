@@ -39,11 +39,11 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".page.StockRegisterActivity"
+            android:name=".page.activity.StockRegisterActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".page.StockVerificationActivity"
+            android:name=".page.activity.StockVerificationActivity"
             android:screenOrientation="portrait" />
 
         <activity

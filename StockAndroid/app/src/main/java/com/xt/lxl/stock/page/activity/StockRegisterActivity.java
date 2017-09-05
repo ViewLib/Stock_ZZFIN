@@ -1,4 +1,4 @@
-package com.xt.lxl.stock.page;
+package com.xt.lxl.stock.page.activity;
 
 import android.app.Activity;
 import android.content.Intent;
