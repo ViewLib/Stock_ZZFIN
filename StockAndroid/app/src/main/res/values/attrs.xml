@@ -31,4 +31,11 @@
         <attr name="stock_radio_drawable_padding" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="StockBannerView">
+        <attr name="stock_banner_text" format="string|reference" />
+        <attr name="stock_banner_text_style" format="string|reference" />
+        <attr name="stock_banner_icon" format="reference" />
+        <attr name="stock_banner_hasArrow" format="boolean" />
+    </declare-styleable>
+
 </resources>

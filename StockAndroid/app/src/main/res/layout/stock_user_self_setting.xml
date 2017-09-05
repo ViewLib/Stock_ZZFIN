@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@color/stock_main_color"
+    android:dividerPadding="1dp"
+    android:orientation="vertical">
+
+
+    <com.xt.lxl.stock.view.StockBannerView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:stock_banner_icon="@drawable/stock_user_icon_setting"
+        app:stock_banner_text="设置"
+        app:stock_banner_text_style="@style/text_14_000000" />
+
+    <com.xt.lxl.stock.view.StockBannerView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:stock_banner_icon="@drawable/stock_user_icon_comment"
+        app:stock_banner_text="喜欢就评分吧"
+        app:stock_banner_text_style="@style/text_14_000000" />
+
+    <com.xt.lxl.stock.view.StockBannerView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:stock_banner_icon="@drawable/stock_user_icon_feedback"
+        app:stock_banner_text="意见反馈"
+        app:stock_banner_text_style="@style/text_14_000000" />
+
+    <com.xt.lxl.stock.view.StockBannerView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:stock_banner_icon="@drawable/stock_user_icon_aboutus"
+        app:stock_banner_text="关于我们"
+        app:stock_banner_text_style="@style/text_14_000000" />
+
+    <com.xt.lxl.stock.view.StockBannerView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:stock_banner_icon="@drawable/stock_user_icon_exit"
+        app:stock_banner_text="退出登录"
+        app:stock_banner_text_style="@style/text_14_000000" />
+
+
+</LinearLayout>

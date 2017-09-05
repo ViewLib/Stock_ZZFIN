@@ -20,7 +20,7 @@ public class StockUserFragment extends Fragment {
     TextView mUserName;
     TextView mUserPhone;
     ImageView mUserIcon;
-    LinearLayout mOptionContainer;
+    LinearLayout mUserSetting;
 
 
     @Override
@@ -40,7 +40,7 @@ public class StockUserFragment extends Fragment {
         mUserName = (TextView) view.findViewById(R.id.stock_user_nickname);
         mUserPhone = (TextView) view.findViewById(R.id.stock_user_phone);
         mUserIcon = (ImageView) view.findViewById(R.id.stock_user_icon);
-        mOptionContainer = (LinearLayout) view.findViewById(R.id.stock_user_option);
+        mUserSetting = (LinearLayout) view.findViewById(R.id.stock_self_setting);
 
     }
 }

@@ -9,7 +9,7 @@
     <com.xt.lxl.stock.view.StockTitleView
         android:id="@+id/stock_title_view"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         app:stock_title_text_msg="手机快速/注册" />
 
 
