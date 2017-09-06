@@ -4,6 +4,7 @@
     <!--基调颜色-->
     <color name="stock_main_color">#214E82</color>
 
+    <color name="background_dialog">#99000000</color>
 
     <!--其它颜色-->
     <color name="colorPrimary">#3F51B5</color>
