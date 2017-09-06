@@ -22,3 +22,7 @@
 
 -dontwarn cn.smssdk.**
 -keep class cn.smssdk.**{*;}
+
+# bulgy
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
