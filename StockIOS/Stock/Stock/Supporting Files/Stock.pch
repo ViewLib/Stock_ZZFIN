@@ -13,7 +13,7 @@
 #import "Config.h"
 #import "DataManager.h"
 #import "AppDelegate.h"
-
+#import "AFNetworking.h"
 #import "GlobalConfig.h"
 #import "NSObject+WKHud.h"
 #import "UIViewController+WKVC.h"
