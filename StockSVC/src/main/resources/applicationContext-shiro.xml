@@ -14,6 +14,8 @@
         <property name="unauthorizedUrl" value="/rest/page/401"/>
         <property name="filterChainDefinitions">
             <value>
+                 <!-- api允许访问 -->
+                /api/** = anon
                 <!-- 静态资源允许访问 -->
                 /app/** = anon
                 /assets/** = anon

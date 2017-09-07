@@ -48,7 +48,7 @@
     </filter>
     <filter-mapping>
         <filter-name>shiroFilter</filter-name>
-        <url-pattern>/action/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <!-- 配置log4j配置文件路径 -->
