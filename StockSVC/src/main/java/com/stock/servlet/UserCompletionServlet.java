@@ -32,15 +32,19 @@ public class UserCompletionServlet extends HttpServlet {
         String nickname = request.getParameter("nickname");
         String area = request.getParameter("area");
         String age = request.getParameter("age");
-        boolean result = userService.updateUser(userid, moblie, nickname, area, age);
 
         PrintWriter writer = response.getWriter();
-        if (result) {
-            response.setStatus(200);
-            writer.write("update user success");
-        } else {
-            response.setStatus(500);
-            writer.write("update user fail");
+        response.setStatus(500);//默认值
+        try {
+            boolean result = userService.updateUser(userid, moblie, nickname, area, age);
+            if (result) {
+                response.setStatus(200);
+                writer.write("update user success");
+            } else {
+                writer.write("update user fail");
+            }
+        } catch (Exception e) {
+            writer.write(e.getMessage());
         }
         writer.flush();
     }

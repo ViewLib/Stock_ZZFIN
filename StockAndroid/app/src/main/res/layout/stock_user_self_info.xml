@@ -34,6 +34,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="手机号" />
+
+        <TextView
+            android:id="@+id/stock_user_registerdata"
+            style="@style/text_13_999999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册日期" />
     </LinearLayout>
 
     <ImageView

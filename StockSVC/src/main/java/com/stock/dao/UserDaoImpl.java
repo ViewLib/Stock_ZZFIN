@@ -58,13 +58,14 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean updateStockUserModel(StockUserModel stockUserModel) {
         PreparedStatement pstmt = null;
-        String sql = "UPDATE stock_user SET moblie = ?,nickname = ?,area = ?,age = ? WHERE userid = ?)";
+        String sql = "UPDATE stock_user SET moblie = ?,nickname = ?,area = ?,age = ? WHERE userid = ?";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, stockUserModel.mMoblie);
             pstmt.setString(2, stockUserModel.mNickName);
             pstmt.setString(3, stockUserModel.mArea);
             pstmt.setInt(4, stockUserModel.mAge);
+            pstmt.setInt(5, stockUserModel.mUserId);
             return pstmt.executeUpdate() > 0 ? true : false;
         } catch (Exception e) {
             e.printStackTrace();

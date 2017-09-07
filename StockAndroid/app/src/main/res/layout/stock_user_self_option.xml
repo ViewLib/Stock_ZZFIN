@@ -19,7 +19,7 @@
             style="@style/text_18_000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="39" />
+            android:text="0" />
 
         <TextView
             android:id="@+id/stock_self_option_selfstock_desc"
@@ -48,7 +48,7 @@
             style="@style/text_18_000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="888" />
+            android:text="0" />
 
         <TextView
             android:id="@+id/stock_self_option_message_desc"
@@ -78,7 +78,7 @@
             style="@style/text_18_000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="40" />
+            android:text="0" />
 
         <TextView
             android:id="@+id/stock_self_option_collection_desc"

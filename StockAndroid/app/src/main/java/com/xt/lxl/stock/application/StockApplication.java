@@ -8,6 +8,7 @@ import com.tencent.bugly.Bugly;
  */
 public class StockApplication extends MobApplication {
 
+    static StockApplication instance;
 
     public StockApplication() {
     }
@@ -15,7 +16,11 @@ public class StockApplication extends MobApplication {
     public void onCreate() {
         super.onCreate();
         Bugly.init(getApplicationContext(), "62ccdd2222", false);
+        instance = this;
     }
 
+    public static StockApplication getInstance() {
+        return instance;
+    }
 
 }

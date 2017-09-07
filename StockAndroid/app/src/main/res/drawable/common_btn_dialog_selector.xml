@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="#d7d7d7" android:state_pressed="true" />
-    <item android:drawable="#00000000" />
+    <item android:drawable="@color/custom_dialog_btn_press_bg" android:state_pressed="true" />
+    <item android:drawable="@android:color/transparent" />
 </selector>

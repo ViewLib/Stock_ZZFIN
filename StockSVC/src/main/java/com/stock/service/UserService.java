@@ -48,7 +48,16 @@ public class UserService {
     /**
      * 更新用户信息
      */
-    public boolean updateUser(String userid, String moblie, String nickname, String area, String age) {
+    public boolean updateUser(String userid, String moblie, String nickname, String area, String age) throws Exception {
+
+        int userId = 0;
+        try {
+            userId = Integer.parseInt(userid);
+        } catch (Exception e) {
+        }
+        if (userId < 10000000 || userId > 99999999) {
+            throw new Exception("userId异常");
+        }
         StockUserModel model = new StockUserModel();
         model.mUserId = Integer.parseInt(userid);
         model.mMoblie = moblie;

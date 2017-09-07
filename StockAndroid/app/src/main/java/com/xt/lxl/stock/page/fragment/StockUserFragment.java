@@ -1,5 +1,6 @@
 package com.xt.lxl.stock.page.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,15 +12,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.page.activity.StockRegisterActivity;
+import com.xt.lxl.stock.util.FormatUtil;
+import com.xt.lxl.stock.util.StockUser;
 import com.xt.lxl.stock.view.StockBannerView;
+import com.xt.lxl.stock.view.dialog.HotelCustomDialog;
 
 /**
  * Created by xiangleiliu on 2017/9/2.
  */
 public class StockUserFragment extends Fragment {
 
+    public static final int REGISTER_FROM_USER = 101;
+
     TextView mUserName;
     TextView mUserPhone;
+    TextView mUserRegisterDate;
     ImageView mUserIcon;
     LinearLayout mUserSetting;
 
@@ -45,11 +53,13 @@ public class StockUserFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        initCheck();
     }
 
     private void initView(View view) {
         mUserName = (TextView) view.findViewById(R.id.stock_user_nickname);
         mUserPhone = (TextView) view.findViewById(R.id.stock_user_phone);
+        mUserRegisterDate = (TextView) view.findViewById(R.id.stock_user_registerdata);
         mUserIcon = (ImageView) view.findViewById(R.id.stock_user_icon);
         mUserSetting = (LinearLayout) view.findViewById(R.id.stock_self_setting);
 
@@ -60,4 +70,58 @@ public class StockUserFragment extends Fragment {
         mStockUserExitLoginBtn = (StockBannerView) view.findViewById(R.id.stock_user_exitlogin_btn);
     }
 
+
+    private void initCheck() {
+        StockUser stockUser = StockUser.getStockUser(getContext());
+        if (stockUser.getUserId() == 0) {
+            //提示注册
+            HotelCustomDialog dialog = new HotelCustomDialog();
+            dialog.setTitle("注册");
+            dialog.setContent("您还没有注册，是否立即前往注册页？", "注册", "取消");
+            dialog.setDialogBtnClick(new HotelCustomDialog.HotelDialogBtnClickListener() {
+                @Override
+                public void leftBtnClick(HotelCustomDialog dialog) {
+                    jumpToRegister();
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void rightBtnClick(HotelCustomDialog dialog) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show(getFragmentManager(), "register");
+            return;
+        }
+        //注册的用户展示用户信息
+        bindDate(stockUser);
+    }
+
+    private void bindDate(StockUser stockUser) {
+        if (stockUser.getUserId() == 0) {
+            return;
+        }
+        mUserName.setText(stockUser.getNickName());
+        mUserPhone.setText(stockUser.getMoblie());
+        mUserRegisterDate.setText(FormatUtil.DATE_2_YYYY_MM_DD(stockUser.getCreateTime()));
+    }
+
+
+    /**
+     * 跳转注册界面
+     */
+    private void jumpToRegister() {
+        Intent intent = new Intent();
+        intent.setClass(getContext(), StockRegisterActivity.class);
+        startActivityForResult(intent, REGISTER_FROM_USER);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REGISTER_FROM_USER) {
+            StockUser stockUser = StockUser.getStockUser(getContext());
+            bindDate(stockUser);
+        }
+    }
 }

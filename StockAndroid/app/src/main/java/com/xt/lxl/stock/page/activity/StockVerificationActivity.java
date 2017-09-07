@@ -8,9 +8,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.LogUtil;
 import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.util.StockUser;
 import com.xt.lxl.stock.util.StringUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.OnSendMessageHandler;
@@ -49,9 +54,11 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            String showText = "验证码已发送到手机：\n";
+                            String showText = "验证码已发送到手机：";
                             if (!"86".equals(mCountry)) {
-                                showText += "验证码已发送到手机：" + mCountry + mPhone;
+                                showText += ("验证码已发送到手机：" + mCountry + mPhone);
+                            } else {
+                                showText += mPhone;
                             }
                             mStockSendcodeHint.setText(showText);
                         }
@@ -63,7 +70,15 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
                     sendVerificationCode(mCountry, mPhone);
                 }
             } else {
-                ((Throwable) data).printStackTrace();
+                Throwable throwable = (Throwable) data;
+                String message = throwable.getMessage();
+                try {
+                    JSONObject json = new JSONObject(message);
+                    String detail = json.getString("detail");
+                    StockShowUtil.showToastOnMainThread(StockVerificationActivity.this, detail);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     };
@@ -168,8 +183,39 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
      */
     private void sendUserRegister(String country, String phone) {
         //发送用户注册服务。
+        String moblie = phone;
+        if (!StringUtil.emptyOrNull(country)) {
+            moblie = country + "_" + moblie;
+        }
+
+        final String sendMoblie = moblie;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final String s = StockSender.getInstance().requestRegister(sendMoblie);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //刷新
+                        handleRegister(s);
+                    }
+                });
+            }
+        }).start();
     }
 
+    private void handleRegister(String resultStr) {
+        try {
+            JSONObject resultJson = new JSONObject(resultStr);
+            StockUser.getStockUser(this).saveUser(this, resultJson);
+            setResult(Activity.RESULT_OK);
+            finish();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     @Override
     protected void onDestroy() {

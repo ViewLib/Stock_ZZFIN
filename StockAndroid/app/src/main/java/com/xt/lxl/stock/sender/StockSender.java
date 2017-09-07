@@ -2,9 +2,11 @@ package com.xt.lxl.stock.sender;
 
 import android.util.Log;
 
+import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.StockViewModel;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.IOHelper;
+import com.xt.lxl.stock.util.StockShowUtil;
 import com.xt.lxl.stock.util.StringUtil;
 
 import java.net.HttpURLConnection;
@@ -19,8 +21,11 @@ import java.util.List;
  */
 public class StockSender {
     private static StockSender sender;
-    private static String baseUrl = "http://qt.gtimg.cn/q=";
-//    http://qt.gtimg.cn/q=sz300170,sz300171,sz300172,sz300173,sz300174,sz300170,sz300170,sz300170,sz300170,
+    private static String mBaseStockUrl = "http://qt.gtimg.cn/q=";
+    //    http://qt.gtimg.cn/q=sz300170,sz300171,sz300172,sz300173,sz300174,sz300170,sz300170,sz300170,sz300170,
+    private static String mBaseAPIUrl = "http://10.32.151.30:5389/api/";
+//    http://10.32.151.30:5389/api/completion?userid=10000002&moblie=15601817296&nickname=hahahah&area=山东日照&age=28
+//    http://10.32.151.30:5389/api/register?moblie=15601817211
 
     StockSender() {
     }
@@ -49,7 +54,7 @@ public class StockSender {
 
     //线程调用
     public List<StockViewModel> requestStockModelByCode(List<String> codeList) {
-        StringBuilder builder = new StringBuilder(baseUrl);
+        StringBuilder builder = new StringBuilder(mBaseStockUrl);
         builder.append(builderCodeStr(codeList));
         String stockInfoResult = requestGet(builder.toString(), new HashMap<String, String>());
         List<StockViewModel> stockList = new ArrayList<>();
@@ -59,6 +64,12 @@ public class StockSender {
         }
         stockList = DataShowUtil.resultStr2StockList(stockInfoResult);
         return stockList;
+    }
+
+    public String requestRegister(String moblie) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("moblie", moblie);
+        return requestGet(mBaseAPIUrl + "register?", paramsMap);
     }
 
 
@@ -100,6 +111,8 @@ public class StockSender {
                 Log.e("TEST", "Get方式请求成功，result--->" + result);
                 return result;
             } else {
+                String errorInfo = IOHelper.fromIputStreamToString(urlConn.getInputStream());
+                StockShowUtil.showToastOnMainThread(StockApplication.getInstance(), errorInfo);
                 Log.e("TEST", "Get方式请求失败");
             }
             // 关闭连接
