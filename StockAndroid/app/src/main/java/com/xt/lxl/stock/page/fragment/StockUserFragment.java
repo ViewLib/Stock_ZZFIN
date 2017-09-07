@@ -14,19 +14,21 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.page.activity.StockRegisterActivity;
 import com.xt.lxl.stock.util.FormatUtil;
+import com.xt.lxl.stock.util.HotelViewHolder;
 import com.xt.lxl.stock.util.StockUser;
+import com.xt.lxl.stock.util.StringUtil;
 import com.xt.lxl.stock.view.StockBannerView;
 import com.xt.lxl.stock.view.dialog.HotelCustomDialog;
 
 /**
  * Created by xiangleiliu on 2017/9/2.
  */
-public class StockUserFragment extends Fragment {
+public class StockUserFragment extends Fragment implements View.OnClickListener {
 
     public static final int REGISTER_FROM_USER = 101;
 
     TextView mUserName;
-    TextView mUserPhone;
+    TextView mUserID;
     TextView mUserRegisterDate;
     ImageView mUserIcon;
     LinearLayout mUserSetting;
@@ -53,12 +55,13 @@ public class StockUserFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        initListener();
         initCheck();
     }
 
     private void initView(View view) {
         mUserName = (TextView) view.findViewById(R.id.stock_user_nickname);
-        mUserPhone = (TextView) view.findViewById(R.id.stock_user_phone);
+        mUserID = (TextView) view.findViewById(R.id.stock_user_id);
         mUserRegisterDate = (TextView) view.findViewById(R.id.stock_user_registerdata);
         mUserIcon = (ImageView) view.findViewById(R.id.stock_user_icon);
         mUserSetting = (LinearLayout) view.findViewById(R.id.stock_self_setting);
@@ -70,6 +73,20 @@ public class StockUserFragment extends Fragment {
         mStockUserExitLoginBtn = (StockBannerView) view.findViewById(R.id.stock_user_exitlogin_btn);
     }
 
+    private void initListener() {
+        mStockUserExitLoginBtn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.stock_user_exitlogin_btn) {
+            StockUser stockUser = StockUser.getStockUser(getContext());
+            stockUser.clearUser(getContext());
+            stockUser.setExit(true);
+            bindDate(stockUser);
+        }
+    }
 
     private void initCheck() {
         StockUser stockUser = StockUser.getStockUser(getContext());
@@ -98,12 +115,16 @@ public class StockUserFragment extends Fragment {
     }
 
     private void bindDate(StockUser stockUser) {
-        if (stockUser.getUserId() == 0) {
+        if (stockUser.getUserId() == 0 && !stockUser.isExit()) {
             return;
         }
-        mUserName.setText(stockUser.getNickName());
-        mUserPhone.setText(stockUser.getMoblie());
-        mUserRegisterDate.setText(FormatUtil.DATE_2_YYYY_MM_DD(stockUser.getCreateTime()));
+        String nickName = stockUser.getNickName();
+        if (StringUtil.emptyOrNull(nickName)) {
+            nickName = "用户" + stockUser.getUserId();
+        }
+        mUserName.setText(nickName);
+        mUserID.setText(String.valueOf(stockUser.getUserId()));
+        HotelViewHolder.showText(mUserRegisterDate, FormatUtil.DATE_2_YYYY_MM_DD(stockUser.getCreateTime()));
     }
 
 
@@ -124,4 +145,5 @@ public class StockUserFragment extends Fragment {
             bindDate(stockUser);
         }
     }
+
 }

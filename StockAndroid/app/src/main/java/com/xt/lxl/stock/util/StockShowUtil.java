@@ -25,6 +25,8 @@ public class StockShowUtil {
         });
     }
 
+
+
     public static int getPixelFromDip(Context context, float f) {
         return getPixelFromDip(context.getResources().getDisplayMetrics(), f);
     }

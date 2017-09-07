@@ -69,6 +69,7 @@ public class StockSender {
     public String requestRegister(String moblie) {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("moblie", moblie);
+        paramsMap.put("clientId", "123");
         return requestGet(mBaseAPIUrl + "register?", paramsMap);
     }
 
@@ -119,6 +120,7 @@ public class StockSender {
             urlConn.disconnect();
         } catch (Exception e) {
             Log.e("TEST", e.toString());
+            return e.getMessage();
         }
         return "";
     }

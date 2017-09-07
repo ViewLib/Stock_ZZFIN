@@ -23,6 +23,8 @@ public class StockUser {
     private String area;
     private int age;
     private Date createTime;
+    private boolean isExit;
+
     private static StockUser user = null;
 
     private StockUser() {
@@ -116,5 +118,13 @@ public class StockUser {
 
     public Date getCreateTime() {
         return createTime;
+    }
+
+    public void setExit(boolean isExit) {
+        this.isExit = isExit;
+    }
+
+    public boolean isExit() {
+        return isExit;
     }
 }

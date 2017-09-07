@@ -30,13 +30,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int insertStockUserModel(StockUserModel stockUserModel) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("insert into stock_user (moblie) values ");
-        sql.append("(" + stockUserModel.mMoblie + ")");
+        String sql = "insert into stock_user (moblie) values (?)";
         PreparedStatement state = null;
         ResultSet rs = null;
         try {
-            state = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+            state = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            state.setString(1, stockUserModel.mMoblie);
             int i = state.executeUpdate();
             if (i <= 0) {
                 return 0;

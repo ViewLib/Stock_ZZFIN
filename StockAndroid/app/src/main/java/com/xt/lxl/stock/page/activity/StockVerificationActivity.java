@@ -170,12 +170,15 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
         String code = mVerificationCodeEdit.getText().toString();
         if (StringUtil.emptyOrNull(code)) {
             StockShowUtil.showToastOnMainThread(this, "请输入验证码");
+            return;
         }
         if (code.length() != 4) {
             StockShowUtil.showToastOnMainThread(this, "请输入正确的验证码");
+            return;
         }
         mStockSendcodeHint.setText("验证中，请稍后.");
-        SMSSDK.submitVerificationCode(mCountry, mPhone, code);
+//        SMSSDK.submitVerificationCode(mCountry, mPhone, code);
+        sendUserRegister(mCountry, mPhone);
     }
 
     /**
@@ -211,10 +214,9 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
             setResult(Activity.RESULT_OK);
             finish();
         } catch (JSONException e) {
+            StockShowUtil.showToastOnMainThread(StockVerificationActivity.this, resultStr);
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -222,6 +224,5 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
         super.onDestroy();
         SMSSDK.unregisterEventHandler(eh);
     }
-
 
 }
