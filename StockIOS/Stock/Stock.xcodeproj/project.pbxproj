@@ -17,6 +17,8 @@
 		045ED17C1F5BBD1600F7DE20 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045ED17B1F5BBD1600F7DE20 /* MOBFoundation.framework */; };
 		0465E5541F603A94006F7F9C /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5531F603A94006F7F9C /* SettingViewController.m */; };
 		0465E5581F603EB9006F7F9C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5571F603EB9006F7F9C /* SearchViewController.m */; };
+		0465E5E01F6183E1006F7F9C /* JPEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5DE1F6183E1006F7F9C /* JPEngine.m */; };
+		0465E5E11F6183E1006F7F9C /* JSPatch.js in Resources */ = {isa = PBXBuildFile; fileRef = 0465E5DF1F6183E1006F7F9C /* JSPatch.js */; };
 		04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2131F598E3700C09D86 /* MyViewController.m */; };
 		04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2161F598E4600C09D86 /* HomeViewController.m */; };
 		04C2E21A1F598E5600C09D86 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2191F598E5600C09D86 /* FindViewController.m */; };
@@ -174,6 +176,9 @@
 		0465E5531F603A94006F7F9C /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		0465E5561F603EB9006F7F9C /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		0465E5571F603EB9006F7F9C /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		0465E5DD1F6183E1006F7F9C /* JPEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPEngine.h; sourceTree = "<group>"; };
+		0465E5DE1F6183E1006F7F9C /* JPEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPEngine.m; sourceTree = "<group>"; };
+		0465E5DF1F6183E1006F7F9C /* JSPatch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = JSPatch.js; sourceTree = "<group>"; };
 		04C2E2121F598E3700C09D86 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		04C2E2131F598E3700C09D86 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		04C2E2151F598E4600C09D86 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -529,6 +534,16 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		0465E5DC1F6183E1006F7F9C /* JSPatch */ = {
+			isa = PBXGroup;
+			children = (
+				0465E5DD1F6183E1006F7F9C /* JPEngine.h */,
+				0465E5DE1F6183E1006F7F9C /* JPEngine.m */,
+				0465E5DF1F6183E1006F7F9C /* JSPatch.js */,
+			);
+			path = JSPatch;
+			sourceTree = "<group>";
+		};
 		04C2E20F1F598DE500C09D86 /* Find */ = {
 			isa = PBXGroup;
 			children = (
@@ -713,6 +728,7 @@
 		847076301F4EE66F00974772 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				0465E5DC1F6183E1006F7F9C /* JSPatch */,
 				045ED1721F5BB59D00F7DE20 /* SMS */,
 				04C2E21B1F59942800C09D86 /* MBProgressHUD */,
 				847076491F4EF73500974772 /* Category */,
@@ -1143,6 +1159,7 @@
 			files = (
 				8470777F1F4EF73600974772 /* IQKeyboardManager.bundle in Resources */,
 				04C2E22C1F599D0800C09D86 /* HomeTableViewCell.xib in Resources */,
+				0465E5E11F6183E1006F7F9C /* JSPatch.js in Resources */,
 				847076251F4EE36100974772 /* Info.plist in Resources */,
 				847077801F4EF73600974772 /* MJRefresh.bundle in Resources */,
 				847076371F4EE6A800974772 /* Base.storyboard in Resources */,
@@ -1224,6 +1241,7 @@
 				847077AE1F4EF73600974772 /* RACIndexSetSequence.m in Sources */,
 				847077871F4EF73600974772 /* NSArray+RACSequenceAdditions.m in Sources */,
 				847077CD1F4EF73600974772 /* UIAlertView+RACSignalSupport.m in Sources */,
+				0465E5E01F6183E1006F7F9C /* JPEngine.m in Sources */,
 				847077971F4EF73600974772 /* NSString+RACKeyPathUtilities.m in Sources */,
 				8470779A1F4EF73600974772 /* NSURLConnection+RACSupport.m in Sources */,
 				847077781F4EF73600974772 /* IQKeyboardReturnKeyHandler.m in Sources */,

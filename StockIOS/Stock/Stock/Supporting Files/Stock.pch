@@ -18,7 +18,9 @@
 #import "NSObject+WKHud.h"
 #import "UIViewController+WKVC.h"
 #import "UIViewController+HUD.h"
-#import "HttpRequestClient.h";
+#import "HttpRequestClient.h"
 #import "UIViewController+DismissKeyboard.h"
+#include "BuglyHotfixConfuse_pch.h"
+
 
 #endif /* Stock_pch */

@@ -45,11 +45,12 @@
     
     return YES;
 }
+
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    
+    [searchBar setValue:@"取消" forKey:@"_cancelButtonText"];
 }
+
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
-    
     
     return YES;
 }

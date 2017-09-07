@@ -2,4 +2,5 @@ platform:ios,'8.0'
 use_frameworks!
 target 'Stock' do
 pod 'AFNetworking'
+pod 'BuglyHotfix'
 end
