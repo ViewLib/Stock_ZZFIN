@@ -1,5 +1,6 @@
 package com.stock.servlet;
 
+import com.stock.model.StockUserModel;
 import com.stock.service.UserService;
 
 import javax.servlet.ServletException;
@@ -12,10 +13,15 @@ import java.io.PrintWriter;
 
 /**
  * Created by xiangleiliu on 2017/9/6.
+ * 用户注册
  */
-@WebServlet(name = "RegisterServlet")
-public class RegisterServlet extends HttpServlet {
-    UserService service = new UserService();
+@WebServlet(name = "UserRegisterServlet")
+public class UserRegisterServlet extends HttpServlet {
+    UserService userService;
+
+    public UserRegisterServlet() {
+        userService = UserService.getInstance();
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request, response);
@@ -25,10 +31,16 @@ public class RegisterServlet extends HttpServlet {
         //处理注册
         String moblie = request.getParameter("moblie");
         String clientId = request.getParameter("clientId");
-        boolean result = service.registerUser(moblie, clientId);
-
         PrintWriter writer = response.getWriter();
-        writer.write(result ? "插入成功" : "插入失败");
+        try {
+            StockUserModel userModel = userService.registerUser(moblie, clientId);
+            String userJson = userModel.toString();
+            writer.write(userJson);
+            response.setStatus(200);
+        } catch (Exception e) {
+            response.setStatus(501);
+            writer.write(e.getMessage());
+        }
         writer.flush();
     }
 }

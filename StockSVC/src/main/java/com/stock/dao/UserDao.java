@@ -8,14 +8,16 @@ import com.stock.model.StockUserModel;
  */
 public interface UserDao {
 
-    //用户
-    public boolean insertStockUserModel(StockUserModel stockUserModel);
+    //鐢ㄦ埛
+    public int insertStockUserModel(StockUserModel stockUserModel);
 
-    public boolean updateStockUserModel(StockUserModel stockUserModel);//以userId为准
+    public boolean updateStockUserModel(StockUserModel stockUserModel);//浠serId涓哄噯
 
     public boolean deleteStockUserModel(int userId);
 
     public StockUserModel selectStockUserModel(int userId);
+
+    public StockUserModel selectStockUserModel(String moblie);
 
 
 }

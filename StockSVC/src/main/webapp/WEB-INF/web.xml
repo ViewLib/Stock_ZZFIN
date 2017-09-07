@@ -48,7 +48,7 @@
     </filter>
     <filter-mapping>
         <filter-name>shiroFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/action/*</url-pattern>
     </filter-mapping>
 
     <!-- 配置log4j配置文件路径 -->
@@ -86,11 +86,20 @@
     <!-- 注册 -->
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>com.stock.servlet.RegisterServlet</servlet-class>
+        <servlet-class>com.stock.servlet.UserRegisterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/register</url-pattern>
+        <url-pattern>/api/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CompletionServlet</servlet-name>
+        <servlet-class>com.stock.servlet.UserCompletionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CompletionServlet</servlet-name>
+        <url-pattern>/api/completion</url-pattern>
     </servlet-mapping>
 
     <!-- 首页 -->
