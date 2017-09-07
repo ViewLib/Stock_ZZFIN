@@ -79,7 +79,9 @@ public class StockUser {
         edit.putString(StockConfig.STOCK_USER_DATA_AREA, mArea);
         edit.putInt(StockConfig.STOCK_USER_DATA_AGE, mAge);
         edit.putLong(StockConfig.STOCK_USER_DATA_CREATETIME, mCreateTime);
-        edit.apply();
+        if (edit.commit()) {
+            initUser(context);
+        }
     }
 
     public void clearUser(Context context) {
