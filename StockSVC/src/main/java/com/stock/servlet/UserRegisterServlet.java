@@ -2,6 +2,7 @@ package com.stock.servlet;
 
 import com.stock.model.StockUserModel;
 import com.stock.service.UserService;
+import com.stock.util.StringUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +34,10 @@ public class UserRegisterServlet extends HttpServlet {
         String clientId = request.getParameter("clientId");
         PrintWriter writer = response.getWriter();
         try {
+            //对moblie做个处理
+            if (!moblie.contains("_")) {
+                moblie = "86_" + moblie;
+            }
             StockUserModel userModel = userService.registerUser(moblie, clientId);
             String userJson = userModel.toString();
             writer.write(userJson);

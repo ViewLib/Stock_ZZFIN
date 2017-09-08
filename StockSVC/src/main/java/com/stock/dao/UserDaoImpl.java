@@ -122,10 +122,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public StockUserModel selectStockUserModel(String moblie) {
-        String sql = "select * from stock_user where moblie = " + moblie;
+        String sql = "select * from stock_user where moblie = ?";
         PreparedStatement preStmt = null;
         try {
             preStmt = conn.prepareStatement(sql);
+            preStmt.setString(1, moblie);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
                 int userid = rs.getInt("userid");
