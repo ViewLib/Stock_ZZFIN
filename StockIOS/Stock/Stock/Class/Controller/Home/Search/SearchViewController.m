@@ -8,7 +8,13 @@
 
 #import "SearchViewController.h"
 
-@interface SearchViewController ()
+@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *searchTable;
+
+@property (strong, nonatomic)   NSMutableArray   *tableDate;
+
+@property (assign, nonatomic)   BOOL             isSearch;
 
 @end
 
@@ -18,6 +24,29 @@
     [super viewDidLoad];
     self.definesPresentationContext = YES;
     
+    _isSearch = NO;
+    _tableDate = [NSMutableArray array];
+}
+
+#pragma mark - UITableViewDelegateAndDateSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _tableDate.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
+    NSDictionary *dic = _tableDate[indexPath.row];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell.textLabel.text = dic[@"title"];
+    return cell;
 }
 
 #pragma mark - SearchController
@@ -59,7 +88,24 @@
     
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self filterBySubstring:searchText];
+}
+
+/**
+ 筛选数据并展示
+ @param subStr 输入的搜索数据
+ */
+- (void) filterBySubstring:(NSString*) subStr
+{
+    // 设置为搜索状态
+    _isSearch = YES;
+    // 定义搜索谓词
+    NSPredicate* pred = [NSPredicate predicateWithFormat:@"title contains[cd] %@", subStr];
+    // 使用谓词过滤NSArray
+    _tableDate = [[Config shareInstance].localStocks filteredArrayUsingPredicate:pred].mutableCopy;
     
+    // 让表格控件重新加载数据
+    [_searchTable reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

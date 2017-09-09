@@ -35,4 +35,7 @@
 #pragma mark - 判断是否都为数字
 +(BOOL)validateNum:(NSString*)string;
 
+#pragma mark - 获取json文件中的数据
++ (NSArray *)getArrayFromJsonFile:(NSString *)jsonName;
+
 @end

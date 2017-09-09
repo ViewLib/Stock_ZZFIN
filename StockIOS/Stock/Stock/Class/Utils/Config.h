@@ -12,6 +12,8 @@
 
 @property (nonatomic ,assign)   BOOL    islogin;
 
+@property (nonatomic ,strong)   NSArray       *localStocks;
+
 +(Config *) shareInstance;
 
 

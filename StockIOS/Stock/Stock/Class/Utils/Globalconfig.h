@@ -27,6 +27,10 @@
 #define UP_COLOR                [Utils colorFromHexRGB:@"FA5259"]
 #define DOWN_COLOR              [Utils colorFromHexRGB:@"4CB774"]
 
+#define WS(obj) /*autoreleasepool{}*/ __weak typeof(obj) obj##Weak = obj;
+#define SS(obj) __strong typeof(obj) obj##Strong = obj;
+#define BS(obj) autoreleasepool{} __block typeof(obj) obj##Block = obj;
+
 #define SEARCHBAR_BGIMG         [Utils GetImageWithColor:MAIN_COLOR andHeight:K_FRAME_NAVIGATION_BAR_HEIGHT]
 
 #define isLogin                 [Config shareInstance].islogin

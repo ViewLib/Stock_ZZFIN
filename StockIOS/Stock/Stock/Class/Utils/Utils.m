@@ -109,4 +109,12 @@
     return [predicate evaluateWithObject:string];
 }
 
+#pragma mark - 获取json文件中的数据
++ (NSArray *)getArrayFromJsonFile:(NSString *)jsonName {
+    NSString *path = [[NSBundle mainBundle] pathForResource:jsonName ofType:@"geojson"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSArray *jsonArr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    return jsonArr;
+}
+
 @end

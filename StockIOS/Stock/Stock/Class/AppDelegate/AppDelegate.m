@@ -32,6 +32,8 @@
     
     self.loginVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Login"];
     
+    [self getStocks];
+    
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
@@ -98,6 +100,13 @@
     [navi presentViewController:self.loginVC animated:YES completion:^{
         [self showMessageHud:@"Sorry!Automatic logon failed.Please try to log in again!" hideAfter:1.5f];
     }];
+}
+
+/**
+ 获取搜索列表的本地化股票数据
+ */
+- (void)getStocks {
+    [[Config shareInstance] setLocalStocks:[Utils getArrayFromJsonFile:@"DefaultStock"]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

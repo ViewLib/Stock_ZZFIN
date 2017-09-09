@@ -19,6 +19,11 @@
 		0465E5581F603EB9006F7F9C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5571F603EB9006F7F9C /* SearchViewController.m */; };
 		0465E5E01F6183E1006F7F9C /* JPEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5DE1F6183E1006F7F9C /* JPEngine.m */; };
 		0465E5E11F6183E1006F7F9C /* JSPatch.js in Resources */ = {isa = PBXBuildFile; fileRef = 0465E5DF1F6183E1006F7F9C /* JSPatch.js */; };
+		0465E5E41F619064006F7F9C /* DefaultStock.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 0465E5E31F619064006F7F9C /* DefaultStock.geojson */; };
+		0465E5E91F643D73006F7F9C /* FindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5E71F643D73006F7F9C /* FindTableViewCell.m */; };
+		0465E5EA1F643D73006F7F9C /* FindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0465E5E81F643D73006F7F9C /* FindTableViewCell.xib */; };
+		0465E5EE1F645043006F7F9C /* RankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5ED1F645043006F7F9C /* RankViewController.m */; };
+		0465E5F11F64560E006F7F9C /* UIButton+WKType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5F01F64560E006F7F9C /* UIButton+WKType.m */; };
 		04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2131F598E3700C09D86 /* MyViewController.m */; };
 		04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2161F598E4600C09D86 /* HomeViewController.m */; };
 		04C2E21A1F598E5600C09D86 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2191F598E5600C09D86 /* FindViewController.m */; };
@@ -179,6 +184,14 @@
 		0465E5DD1F6183E1006F7F9C /* JPEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPEngine.h; sourceTree = "<group>"; };
 		0465E5DE1F6183E1006F7F9C /* JPEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPEngine.m; sourceTree = "<group>"; };
 		0465E5DF1F6183E1006F7F9C /* JSPatch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = JSPatch.js; sourceTree = "<group>"; };
+		0465E5E31F619064006F7F9C /* DefaultStock.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DefaultStock.geojson; sourceTree = "<group>"; };
+		0465E5E61F643D73006F7F9C /* FindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindTableViewCell.h; sourceTree = "<group>"; };
+		0465E5E71F643D73006F7F9C /* FindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindTableViewCell.m; sourceTree = "<group>"; };
+		0465E5E81F643D73006F7F9C /* FindTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindTableViewCell.xib; sourceTree = "<group>"; };
+		0465E5EC1F645043006F7F9C /* RankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankViewController.h; sourceTree = "<group>"; };
+		0465E5ED1F645043006F7F9C /* RankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankViewController.m; sourceTree = "<group>"; };
+		0465E5EF1F64560E006F7F9C /* UIButton+WKType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WKType.h"; sourceTree = "<group>"; };
+		0465E5F01F64560E006F7F9C /* UIButton+WKType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WKType.m"; sourceTree = "<group>"; };
 		04C2E2121F598E3700C09D86 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		04C2E2131F598E3700C09D86 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		04C2E2151F598E4600C09D86 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -493,6 +506,8 @@
 				045ED16A1F5BA7B800F7DE20 /* NSObject+WKHud.m */,
 				045ED16C1F5BAC3600F7DE20 /* UIViewController+WKVC.h */,
 				045ED16D1F5BAC3600F7DE20 /* UIViewController+WKVC.m */,
+				0465E5EF1F64560E006F7F9C /* UIButton+WKType.h */,
+				0465E5F01F64560E006F7F9C /* UIButton+WKType.m */,
 			);
 			name = WK;
 			sourceTree = "<group>";
@@ -544,9 +559,37 @@
 			path = JSPatch;
 			sourceTree = "<group>";
 		};
+		0465E5E21F61903E006F7F9C /* DefaultData */ = {
+			isa = PBXGroup;
+			children = (
+				0465E5E31F619064006F7F9C /* DefaultStock.geojson */,
+			);
+			path = DefaultData;
+			sourceTree = "<group>";
+		};
+		0465E5E51F643D44006F7F9C /* FindTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				0465E5E61F643D73006F7F9C /* FindTableViewCell.h */,
+				0465E5E71F643D73006F7F9C /* FindTableViewCell.m */,
+				0465E5E81F643D73006F7F9C /* FindTableViewCell.xib */,
+			);
+			name = FindTableCell;
+			sourceTree = "<group>";
+		};
+		0465E5EB1F645022006F7F9C /* Rank */ = {
+			isa = PBXGroup;
+			children = (
+				0465E5EC1F645043006F7F9C /* RankViewController.h */,
+				0465E5ED1F645043006F7F9C /* RankViewController.m */,
+			);
+			path = Rank;
+			sourceTree = "<group>";
+		};
 		04C2E20F1F598DE500C09D86 /* Find */ = {
 			isa = PBXGroup;
 			children = (
+				0465E5EB1F645022006F7F9C /* Rank */,
 				04C2E2181F598E5600C09D86 /* FindViewController.h */,
 				04C2E2191F598E5600C09D86 /* FindViewController.m */,
 			);
@@ -675,6 +718,7 @@
 		847076181F4EE36100974772 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0465E5E21F61903E006F7F9C /* DefaultData */,
 				847076191F4EE36100974772 /* Assets.xcassets */,
 				8470761A1F4EE36100974772 /* LaunchScreen.storyboard */,
 				8470761E1F4EE36100974772 /* Info.plist */,
@@ -763,6 +807,7 @@
 		847076331F4EE66F00974772 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0465E5E51F643D44006F7F9C /* FindTableCell */,
 				04C2E2271F599CE200C09D86 /* HomeTableCell */,
 			);
 			path = View;
@@ -1164,6 +1209,8 @@
 				847077801F4EF73600974772 /* MJRefresh.bundle in Resources */,
 				847076371F4EE6A800974772 /* Base.storyboard in Resources */,
 				847076221F4EE36100974772 /* Assets.xcassets in Resources */,
+				0465E5E41F619064006F7F9C /* DefaultStock.geojson in Resources */,
+				0465E5EA1F643D73006F7F9C /* FindTableViewCell.xib in Resources */,
 				847076231F4EE36100974772 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1252,6 +1299,7 @@
 				8470778A1F4EF73600974772 /* NSEnumerator+RACSequenceAdditions.m in Sources */,
 				847077C51F4EF73600974772 /* RACTargetQueueScheduler.m in Sources */,
 				8470778B1F4EF73600974772 /* NSFileHandle+RACSupport.m in Sources */,
+				0465E5F11F64560E006F7F9C /* UIButton+WKType.m in Sources */,
 				0465E5581F603EB9006F7F9C /* SearchViewController.m in Sources */,
 				8470779E1F4EF73600974772 /* RACBlockTrampoline.m in Sources */,
 				847077851F4EF73600974772 /* RACEXTRuntimeExtensions.m in Sources */,
@@ -1303,6 +1351,7 @@
 				847077991F4EF73600974772 /* NSString+RACSupport.m in Sources */,
 				847077A31F4EF73600974772 /* RACDelegateProxy.m in Sources */,
 				847077731F4EF73600974772 /* IQUITextFieldView+Additions.m in Sources */,
+				0465E5EE1F645043006F7F9C /* RankViewController.m in Sources */,
 				847076341F4EE66F00974772 /* AppDelegate.m in Sources */,
 				847077791F4EF73600974772 /* IQTextView.m in Sources */,
 				04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */,
@@ -1331,6 +1380,7 @@
 				847077901F4EF73600974772 /* NSObject+RACDescription.m in Sources */,
 				045ED16B1F5BA7B800F7DE20 /* NSObject+WKHud.m in Sources */,
 				847077B31F4EF73600974772 /* RACPassthroughSubscriber.m in Sources */,
+				0465E5E91F643D73006F7F9C /* FindTableViewCell.m in Sources */,
 				847077CC1F4EF73600974772 /* UIActionSheet+RACSignalSupport.m in Sources */,
 				847077CB1F4EF73600974772 /* RACValueTransformer.m in Sources */,
 				8470776D1F4EF73600974772 /* UIResponder+Router.m in Sources */,
