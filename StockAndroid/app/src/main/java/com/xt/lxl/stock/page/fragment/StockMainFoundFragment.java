@@ -8,9 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.util.DataSource;
+import com.xt.lxl.stock.widget.helper.DividerGridItemDecoration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by xiangleiliu on 2017/9/2.
@@ -20,6 +26,7 @@ public class StockMainFoundFragment extends Fragment {
     TextView mRankTitleText;
     RecyclerView mRankContainer;
     FoundRankAdapter mAdapter;
+    List<String> mDatas = new ArrayList();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,11 +49,12 @@ public class StockMainFoundFragment extends Fragment {
     }
 
     private void initData() {
-
+        mDatas.clear();
+        mDatas.addAll(DataSource.getRankList(getContext()));
     }
 
     private void initView(View view) {
-        mRankTitleText = (TextView) view.findViewById(R.id.stock_found_rank_title_text);
+//        mRankTitleText = (TextView) view.findViewById(R.id.stock_found_rank_title_text);
         mRankContainer = (RecyclerView) view.findViewById(R.id.stock_found_rank_container);
     }
 
@@ -60,6 +68,8 @@ public class StockMainFoundFragment extends Fragment {
         mRankContainer.setLayoutManager(gridLayoutManager);
         mRankContainer.setHasFixedSize(true);
         mRankContainer.setAdapter(mAdapter);
+        mRankContainer.addItemDecoration(new DividerGridItemDecoration(getContext(), getResources().getDrawable(R.drawable.stock_divider)));
+        mAdapter.notifyDataSetChanged();
     }
 
     class FoundRankAdapter extends RecyclerView.Adapter<FoundRankAdapter.MyViewHolder> {
@@ -74,22 +84,25 @@ public class StockMainFoundFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-
+            String s = mDatas.get(position);
+            holder.mRankText.setText(s);
         }
 
 
         @Override
         public int getItemCount() {
-//            return mDatas.size();
+            return mDatas.size();
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
 
-            TextView tv;
+            TextView mRankText;
+            ImageView mRankType;
 
             public MyViewHolder(View view) {
                 super(view);
-                tv = (TextView) view.findViewById(R.id.id_num);
+                mRankText = (TextView) view.findViewById(R.id.stock_found_rank_text);
+                mRankType = (ImageView) view.findViewById(R.id.stock_found_rank_type_bg);
             }
         }
     }

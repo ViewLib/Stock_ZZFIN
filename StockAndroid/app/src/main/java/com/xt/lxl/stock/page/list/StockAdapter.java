@@ -12,8 +12,8 @@ import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.HotelViewHolder;
-import com.xt.lxl.stock.view.HotelLabelDrawable;
-import com.xt.lxl.stock.view.StockChangeText;
+import com.xt.lxl.stock.widget.helper.HotelLabelDrawable;
+import com.xt.lxl.stock.widget.view.StockChangeText;
 
 import java.util.ArrayList;
 import java.util.List;

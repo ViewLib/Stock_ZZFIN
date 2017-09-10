@@ -1,56 +1,47 @@
-package com.xt.lxl.stock.view;
+package com.xt.lxl.stock.widget.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.TextView;
+import android.widget.RadioButton;
 
 import com.xt.lxl.stock.R;
 
 /**
- * Created by xiangleiliu on 2016/7/4.
- * 公共类未实现setCompoundDrawablePadding方法，补上
+ * Created by xiangleiliu on 2017/9/1.
  */
-public class HotelTextView extends TextView {
-
-
-    public HotelTextView(Context context) {
+public class StockRadioButton extends RadioButton {
+    public StockRadioButton(Context context) {
         this(context, null);
     }
 
-    public HotelTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initAttributes(context, attrs);
+    public StockRadioButton(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-    private void initAttributes(Context context, AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.HotelTextView);
+    public StockRadioButton(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initFromAttributes(context, attrs);
+    }
 
-        Drawable drawable = a.getDrawable(R.styleable.HotelTextView_hotel_text_drawable_src);
+    private void initFromAttributes(Context context, AttributeSet attrs) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StockRadioButton);
+
+        Drawable drawable = a.getDrawable(R.styleable.StockRadioButton_stock_radio_drawable_src);
         if (drawable != null) {
-            int direction = a.getInt(R.styleable.HotelTextView_hotel_text_drawable_direction, 0);
+            int direction = a.getInt(R.styleable.StockRadioButton_stock_radio_drawable_direction, 0);
             if (direction < 0 || direction > 3) {
                 direction = 0;
             }
-
-            int width = a.getDimensionPixelSize(R.styleable.HotelTextView_hotel_text_drawable_width, 0);
-            int height = a.getDimensionPixelSize(R.styleable.HotelTextView_hotel_text_drawable_height, 0);
-            int padding = a.getDimensionPixelSize(R.styleable.HotelTextView_hotel_text_drawable_padding, 0);
+            int width = a.getDimensionPixelSize(R.styleable.StockRadioButton_stock_radio_drawable_width, 0);
+            int height = a.getDimensionPixelSize(R.styleable.StockRadioButton_stock_radio_drawable_height, 0);
+            int padding = a.getDimensionPixelSize(R.styleable.StockRadioButton_stock_radio_drawable_padding, 0);
             setCompoundDrawablePadding(padding);
             setCompoundDrawable(drawable, direction, width, height);
         }
 
         a.recycle();
-    }
-
-    /**
-     * 设置TextView的CompoundDrawable于默认方向（左）
-     *
-     * @param drawable CompoundDrawable对象
-     */
-    public void setCompoundDrawable(Drawable drawable) {
-        setCompoundDrawable(drawable, 0, 0, 0);
     }
 
     /**

@@ -7,7 +7,7 @@
     android:background="@drawable/stock_list_header_bg"
     android:gravity="center_vertical">
 
-    <com.xt.lxl.stock.view.HotelTextView
+    <com.xt.lxl.stock.widget.view.HotelTextView
         android:id="@+id/stock_list_top_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

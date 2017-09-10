@@ -2,6 +2,7 @@ package com.stock.dao;
 
 
 import com.stock.model.StockUserModel;
+import com.stock.util.Logger;
 
 import java.io.Serializable;
 import java.sql.*;
@@ -57,115 +58,116 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean updateStockUserModel(StockUserModel stockUserModel) {
         PreparedStatement pstmt = null;
+        Logger.getLogger().showMessage("updateStockUserModel area:" + stockUserModel.mArea);
         String sql = "UPDATE stock_user SET nickname = ?,area = ?,age = ? WHERE userid = ?";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, stockUserModel.mNickName);
             pstmt.setString(2, stockUserModel.mArea);
             pstmt.setInt(3, stockUserModel.mAge);
-            pstmt.setInt(4, stockUserModel.mUserId);
-            return pstmt.executeUpdate() > 0 ? true : false;
+pstmt.setInt(4, stockUserModel.mUserId);
+        return pstmt.executeUpdate() > 0 ? true : false;
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        e.printStackTrace();
+        return false;
         } finally {
-            closeSql(pstmt, null);
+        closeSql(pstmt, null);
         }
-    }
+        }
 
-    @Override
-    public boolean deleteStockUserModel(int userId) {
+@Override
+public boolean deleteStockUserModel(int userId) {
         String sql = "delete from stock_user where userid =" + userId;
         Statement stmt = null;
         try {
-            stmt = conn.createStatement();
-            return stmt.executeUpdate(sql) > 0 ? true : false;
+        stmt = conn.createStatement();
+        return stmt.executeUpdate(sql) > 0 ? true : false;
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        e.printStackTrace();
+        return false;
         } finally {
-            closeSql(stmt, null);
+        closeSql(stmt, null);
         }
-    }
+        }
 
-    @Override
-    public StockUserModel selectStockUserModel(int shopId) {
+@Override
+public StockUserModel selectStockUserModel(int shopId) {
         String sql = "select * from trading where shopid = " + shopId;
         PreparedStatement preStmt = null;
         try {
-            preStmt = conn.prepareStatement(sql);
-            ResultSet rs = preStmt.executeQuery();
-            while (rs.next()) {
-                int userId = rs.getInt("userid");
-                String moblie = rs.getString("moblie");
-                String nickName = rs.getString("nickname");
-                String area = rs.getString("area");
-                int age = rs.getInt("age");
-                Timestamp createTime = rs.getTimestamp("createTime");
-                StockUserModel shopModel = new StockUserModel();
-                shopModel.mUserId = userId;
-                shopModel.mMoblie = moblie;
-                shopModel.mNickName = nickName;
-                shopModel.mArea = area;
-                shopModel.mAge = age;
-                shopModel.mCreateTime = new Date(createTime.getTime());
-                return shopModel;
-            }
+        preStmt = conn.prepareStatement(sql);
+        ResultSet rs = preStmt.executeQuery();
+        while (rs.next()) {
+        int userId = rs.getInt("userid");
+        String moblie = rs.getString("moblie");
+        String nickName = rs.getString("nickname");
+        String area = rs.getString("area");
+        int age = rs.getInt("age");
+        Timestamp createTime = rs.getTimestamp("createTime");
+        StockUserModel shopModel = new StockUserModel();
+        shopModel.mUserId = userId;
+        shopModel.mMoblie = moblie;
+        shopModel.mNickName = nickName;
+        shopModel.mArea = area;
+        shopModel.mAge = age;
+        shopModel.mCreateTime = new Date(createTime.getTime());
+        return shopModel;
+        }
         } catch (Exception e) {
-            e.printStackTrace();
+        e.printStackTrace();
         } finally {
-            closeSql(preStmt, null);
+        closeSql(preStmt, null);
         }
         return null;
-    }
+        }
 
-    @Override
-    public StockUserModel selectStockUserModel(String moblie) {
+@Override
+public StockUserModel selectStockUserModel(String moblie) {
         String sql = "select * from stock_user where moblie = ?";
         PreparedStatement preStmt = null;
         try {
-            preStmt = conn.prepareStatement(sql);
-            preStmt.setString(1, moblie);
-            ResultSet rs = preStmt.executeQuery();
-            while (rs.next()) {
-                int userid = rs.getInt("userid");
-                String nickname = rs.getString("nickname");
-                String area = rs.getString("area");
-                int age = rs.getInt("age");
-                Timestamp createTime = rs.getTimestamp("createTime");
+        preStmt = conn.prepareStatement(sql);
+        preStmt.setString(1, moblie);
+        ResultSet rs = preStmt.executeQuery();
+        while (rs.next()) {
+        int userid = rs.getInt("userid");
+        String nickname = rs.getString("nickname");
+        String area = rs.getString("area");
+        int age = rs.getInt("age");
+        Timestamp createTime = rs.getTimestamp("createTime");
 
-                StockUserModel userModel = new StockUserModel();
-                userModel.mUserId = userid;
-                userModel.mMoblie = moblie;
-                userModel.mNickName = nickname;
-                userModel.mArea = area;
-                userModel.mAge = age;
-                userModel.mCreateTime = new Date(createTime.getTime());
-                return userModel;
-            }
+        StockUserModel userModel = new StockUserModel();
+        userModel.mUserId = userid;
+        userModel.mMoblie = moblie;
+        userModel.mNickName = nickname;
+        userModel.mArea = area;
+        userModel.mAge = age;
+        userModel.mCreateTime = new Date(createTime.getTime());
+        return userModel;
+        }
         } catch (Exception e) {
-            e.printStackTrace();
+        e.printStackTrace();
         } finally {
-            closeSql(preStmt, null);
+        closeSql(preStmt, null);
         }
         return null;
-    }
+        }
 
-    private void closeSql(Statement stmt, ResultSet rs) {
+private void closeSql(Statement stmt, ResultSet rs) {
         if (stmt != null) {
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try {
+        stmt.close();
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
         }
         if (rs != null) {
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try {
+        rs.close();
+        } catch (SQLException e) {
+        e.printStackTrace();
         }
-    }
+        }
+        }
 
-}
+        }

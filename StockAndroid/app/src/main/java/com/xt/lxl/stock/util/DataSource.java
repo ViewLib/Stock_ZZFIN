@@ -67,6 +67,7 @@ public class DataSource {
         return Arrays.asList(split);
     }
 
+
     public static boolean addStockCode(Context context, String code) {
         List<String> list = new ArrayList<>();
         SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
@@ -88,6 +89,21 @@ public class DataSource {
             builder.append(",");
         }
         return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
+    }
+
+    public static List<String> getRankList(Context context) {
+        List<String> list = new ArrayList<>();
+        list.add("本日融资融券的前十家公司");
+        list.add("社保公司重仓流通股排行（持股数量变化）");
+        list.add("本月限售解禁前十名");
+        list.add("央企净资产从小到大排行");
+        list.add("放量大涨前十名");
+        list.add("沪港通活跃程序-买入");
+        list.add("本日融资融券的前十家公司");
+        list.add("放量大涨前十名");
+        list.add("娘度最佳");
+        list.add("本日融资融券的前十家公司");
+        return list;
     }
 
 }

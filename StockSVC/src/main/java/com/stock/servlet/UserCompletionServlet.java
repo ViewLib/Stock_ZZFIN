@@ -1,6 +1,7 @@
 package com.stock.servlet;
 
 import com.stock.service.UserService;
+import com.stock.util.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +33,8 @@ public class UserCompletionServlet extends HttpServlet {
         String nickname = request.getParameter("nickname");
         String area = request.getParameter("area");
         String age = request.getParameter("age");
+
+        Logger.getLogger().showMessage("doGet area:" + area);
 
         PrintWriter writer = response.getWriter();
         response.setStatus(500);//默认值

@@ -12,7 +12,7 @@ import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
-import com.xt.lxl.stock.view.StockEditableBar;
+import com.xt.lxl.stock.widget.view.StockEditableBar;
 
 import java.util.ArrayList;
 import java.util.List;

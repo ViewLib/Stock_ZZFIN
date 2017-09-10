@@ -1,4 +1,4 @@
-package com.xt.lxl.stock.view;
+package com.xt.lxl.stock.widget.view;
 
 import android.app.Activity;
 import android.content.Context;

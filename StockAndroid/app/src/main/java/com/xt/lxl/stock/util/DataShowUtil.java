@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.xt.lxl.stock.model.StockIndexChangeModel;
 import com.xt.lxl.stock.model.StockViewModel;
-import com.xt.lxl.stock.view.HotelLabelDrawable;
+import com.xt.lxl.stock.widget.helper.HotelLabelDrawable;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

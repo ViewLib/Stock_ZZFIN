@@ -1,10 +1,12 @@
-package com.xt.lxl.stock.view;
+package com.xt.lxl.stock.widget.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.xt.lxl.stock.widget.helper.HotelLabelDrawable;
 
 /**
  * Created by xiangleiliu on 2017/8/27.

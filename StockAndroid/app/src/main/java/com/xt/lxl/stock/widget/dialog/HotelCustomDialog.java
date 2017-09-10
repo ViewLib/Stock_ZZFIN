@@ -1,4 +1,4 @@
-package com.xt.lxl.stock.view.dialog;
+package com.xt.lxl.stock.widget.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -21,7 +21,7 @@
         android:paddingRight="50dp">
 
 
-        <com.xt.lxl.stock.view.StockRadioButton
+        <com.xt.lxl.stock.widget.view.StockRadioButton
             android:id="@+id/stock_home_self"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             app:stock_radio_drawable_src="@drawable/stock_main_home_selector"
             app:stock_radio_drawable_width="20dp" />
 
-        <com.xt.lxl.stock.view.StockRadioButton
+        <com.xt.lxl.stock.widget.view.StockRadioButton
             android:id="@+id/stock_home_found"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             app:stock_radio_drawable_src="@drawable/stock_main_found_selector"
             app:stock_radio_drawable_width="20dp" />
 
-        <com.xt.lxl.stock.view.StockRadioButton
+        <com.xt.lxl.stock.widget.view.StockRadioButton
             android:id="@+id/stock_home_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

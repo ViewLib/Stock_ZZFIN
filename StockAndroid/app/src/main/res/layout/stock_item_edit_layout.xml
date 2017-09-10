@@ -12,7 +12,7 @@
         android:layout_height="48dip"
         android:layout_alignParentTop="true" />
 
-    <com.xt.lxl.stock.view.StockEditableBar
+    <com.xt.lxl.stock.widget.view.StockEditableBar
         android:id="@+id/stock_edit_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

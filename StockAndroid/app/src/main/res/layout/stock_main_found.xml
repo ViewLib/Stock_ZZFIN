@@ -5,41 +5,51 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.xt.lxl.stock.view.StockTitleView
+    <com.xt.lxl.stock.widget.view.StockTitleView
         android:id="@+id/stock_title_view"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
         app:stock_title_text_msg="发现" />
 
-    <RelativeLayout
-        android:id="@+id/stock_found_rank_title"
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/stock_main_found_top10"
+        android:scaleType="fitXY" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="104dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/stock_main_found_top10"
-            android:scaleType="fitXY" />
+    <!--<LinearLayout-->
+    <!--android:id="@+id/stock_found_rank_title"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:padding="15dp">-->
 
-        <TextView
-            android:id="@+id/stock_found_rank_title_text"
-            style="@style/hotel_text_30_186DB7_b"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="十佳精彩榜单" />
+    <!--<ImageView-->
+    <!--android:layout_width="204dp"-->
+    <!--android:layout_height="149dp"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--android:background="@drawable/stock_main_found_top10"-->
+    <!--android:scaleType="fitXY" />-->
 
-    </RelativeLayout>
+    <!--<TextView-->
+    <!--android:id="@+id/stock_found_rank_title_text"-->
+    <!--style="@style/hotel_text_30_186DB7_b"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:text="十佳精彩榜单" />-->
+
+    <!--</LinearLayout>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/stock_found_rank_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:padding="10dp" />
 
 
 </LinearLayout>

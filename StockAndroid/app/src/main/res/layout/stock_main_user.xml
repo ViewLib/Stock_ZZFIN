@@ -46,7 +46,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.xt.lxl.stock.view.StockTitleView
+    <com.xt.lxl.stock.widget.view.StockTitleView
         android:id="@+id/stock_title_view"
         android:layout_width="match_parent"
         android:layout_height="60dp"

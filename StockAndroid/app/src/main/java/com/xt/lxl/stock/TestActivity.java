@@ -15,8 +15,8 @@ import com.xt.lxl.stock.page.StockListActivity;
 import com.xt.lxl.stock.page.StockMainActivity;
 import com.xt.lxl.stock.page.activity.StockRegisterActivity;
 import com.xt.lxl.stock.util.StockShowUtil;
-import com.xt.lxl.stock.view.HotelLabelDrawable;
-import com.xt.lxl.stock.view.StockChangeText;
+import com.xt.lxl.stock.widget.helper.HotelLabelDrawable;
+import com.xt.lxl.stock.widget.view.StockChangeText;
 
 public class TestActivity extends FragmentActivity implements View.OnClickListener {
 

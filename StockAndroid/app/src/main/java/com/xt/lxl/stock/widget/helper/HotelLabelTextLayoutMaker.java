@@ -1,4 +1,4 @@
-package com.xt.lxl.stock.view;
+package com.xt.lxl.stock.widget.helper;
 
 import android.text.Layout;
 import android.text.StaticLayout;

@@ -17,8 +17,8 @@ import com.xt.lxl.stock.util.FormatUtil;
 import com.xt.lxl.stock.util.HotelViewHolder;
 import com.xt.lxl.stock.util.StockUser;
 import com.xt.lxl.stock.util.StringUtil;
-import com.xt.lxl.stock.view.StockBannerView;
-import com.xt.lxl.stock.view.dialog.HotelCustomDialog;
+import com.xt.lxl.stock.widget.view.StockBannerView;
+import com.xt.lxl.stock.widget.dialog.HotelCustomDialog;
 
 /**
  * Created by xiangleiliu on 2017/9/2.
