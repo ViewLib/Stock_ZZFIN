@@ -2,14 +2,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.eliteams</groupId>
-    <artifactId>quick4j</artifactId>
+    <artifactId>zzfin</artifactId>
     <packaging>war</packaging>
     <version>1.0.0</version>
-    <name>quick4j App</name>
+    <name>zzfin App</name>
     <url>https://github.com/starzou/quick4j</url>
 
     <build>
-        <finalName>quick4j</finalName>
+        <finalName>zzfin</finalName>
         <plugins>
             <!-- Mybatis generator代码生成插件 配置 -->
             <plugin>
