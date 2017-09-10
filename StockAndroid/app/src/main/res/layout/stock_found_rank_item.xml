@@ -3,18 +3,21 @@
     android:id="@+id/stock_found_rank_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/stock_found_rank_item_bg">
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="16dp"
+    android:background="@drawable/stock_found_rank_item_bg"
+    android:minHeight="55dp">
 
     <ImageView
         android:id="@+id/stock_found_rank_type_bg"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/stock_found_rank_type1" />
 
     <TextView
         android:id="@+id/stock_found_rank_text"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:maxLines="2"

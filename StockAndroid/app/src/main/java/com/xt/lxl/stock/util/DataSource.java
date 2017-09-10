@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.xt.lxl.stock.config.StockConfig;
+import com.xt.lxl.stock.model.StockFoundRankModel;
 import com.xt.lxl.stock.model.StockViewModel;
 
 import java.util.ArrayList;
@@ -91,18 +92,18 @@ public class DataSource {
         return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
     }
 
-    public static List<String> getRankList(Context context) {
-        List<String> list = new ArrayList<>();
-        list.add("本日融资融券的前十家公司");
-        list.add("社保公司重仓流通股排行（持股数量变化）");
-        list.add("本月限售解禁前十名");
-        list.add("央企净资产从小到大排行");
-        list.add("放量大涨前十名");
-        list.add("沪港通活跃程序-买入");
-        list.add("本日融资融券的前十家公司");
-        list.add("放量大涨前十名");
-        list.add("娘度最佳");
-        list.add("本日融资融券的前十家公司");
+    public static List<StockFoundRankModel> getRankList(Context context) {
+        List<StockFoundRankModel> list = new ArrayList<>();
+        list.add(new StockFoundRankModel("本日融资融券的前十家公司"));
+        list.add(new StockFoundRankModel("社保公司重仓流通股排行（持股数量变化）"));
+        list.add(new StockFoundRankModel("本月限售解禁前十名"));
+        list.add(new StockFoundRankModel("央企净资产从小到大排行"));
+        list.add(new StockFoundRankModel("放量大涨前十名"));
+        list.add(new StockFoundRankModel("沪港通活跃程序-买入"));
+        list.add(new StockFoundRankModel("本日融资融券的前十家公司"));
+        list.add(new StockFoundRankModel("放量大涨前十名"));
+        list.add(new StockFoundRankModel("年度最佳"));
+        list.add(new StockFoundRankModel("本日融资融券的前十家公司"));
         return list;
     }
 

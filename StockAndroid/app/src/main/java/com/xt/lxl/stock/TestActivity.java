@@ -25,7 +25,7 @@ public class TestActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.stock_test_layout);
+        setContentView(R.layout.a_stock_test_layout);
         mContainer = (LinearLayout) findViewById(R.id.container);
         findViewById(R.id.xt_go_stock_list).setOnClickListener(this);
         findViewById(R.id.xt_go_stock_edit).setOnClickListener(this);

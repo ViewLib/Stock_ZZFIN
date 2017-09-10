@@ -48,6 +48,14 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".page.activity.StockRankActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".page.activity.StockDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".page.StockMainActivity"
             android:screenOrientation="portrait" />
 

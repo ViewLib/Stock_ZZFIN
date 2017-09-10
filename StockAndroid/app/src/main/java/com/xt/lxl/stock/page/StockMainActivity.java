@@ -15,6 +15,12 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.page.fragment.StockMainFoundFragment;
 import com.xt.lxl.stock.page.fragment.StockMainListFragment;
 import com.xt.lxl.stock.page.fragment.StockMainUserFragment;
+import com.xt.lxl.stock.sender.StockSender;
+import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.util.StockUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by xiangleiliu on 2017/9/1.
@@ -40,6 +46,7 @@ public class StockMainActivity extends FragmentActivity implements View.OnClickL
         initListener();
         initFragment();
         setDefaultFragment();
+        initCheck();
     }
 
     private void initListener() {
@@ -60,6 +67,26 @@ public class StockMainActivity extends FragmentActivity implements View.OnClickL
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.stock_main_fragment_container, mStockListFragment);
         transaction.commit();
+    }
+
+    private void initCheck() {
+        final StockUser stockUser = StockUser.getStockUser(this);
+        if (stockUser.isExit()) {
+            return;
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String resultStr = StockSender.getInstance().requestRegister(stockUser.getMoblie());
+                try {
+                    JSONObject resultJson = new JSONObject(resultStr);
+                    stockUser.saveUser(StockMainActivity.this, resultJson);
+                } catch (JSONException e) {
+                    StockShowUtil.showToastOnMainThread(StockMainActivity.this, resultStr);
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override

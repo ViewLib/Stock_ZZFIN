@@ -12,44 +12,22 @@
         android:layout_alignParentTop="true"
         app:stock_title_text_msg="发现" />
 
-    <ImageView
+    <com.xt.lxl.stock.widget.view.ResizableImageView
+        android:id="@+id/stock_main_found_top10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/stock_main_found_top10"
-        android:scaleType="fitXY" />
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/stock_found_rank_title"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:padding="15dp">-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="204dp"-->
-    <!--android:layout_height="149dp"-->
-    <!--android:adjustViewBounds="true"-->
-    <!--android:background="@drawable/stock_main_found_top10"-->
-    <!--android:scaleType="fitXY" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/stock_found_rank_title_text"-->
-    <!--style="@style/hotel_text_30_186DB7_b"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center_vertical"-->
-    <!--android:text="十佳精彩榜单" />-->
-
-    <!--</LinearLayout>-->
+        android:layout_marginTop="15dp"
+        android:background="@drawable/stock_main_found_top10" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/stock_found_rank_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp" />
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
 
 </LinearLayout>

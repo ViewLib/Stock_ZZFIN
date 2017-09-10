@@ -1,14 +1,17 @@
-package com.xt.lxl.stock;
+package com.xt.lxl.stock.page.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
 
+import com.xt.lxl.stock.R;
+
 /**
  * Created by xiangleiliu on 2017/8/24.
  */
-public class MainActivity extends FragmentActivity {
+public class StockRankActivity extends FragmentActivity {
+
     TextView mTv;
 
     @Override
@@ -30,12 +33,11 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void bindData() {
-        mTv.setText("测试界面");
+        mTv.setText("股票排行界面");
     }
 
     private void initListener() {
 
     }
-
 
 }

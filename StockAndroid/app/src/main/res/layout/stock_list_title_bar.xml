@@ -12,7 +12,7 @@
     <TextView
         android:id="@+id/stock_keyword_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
         android:layout_centerInParent="true"
         android:background="@drawable/stock_home_search_background"
         android:drawableLeft="@drawable/hotel_icon_sarchcontrols"

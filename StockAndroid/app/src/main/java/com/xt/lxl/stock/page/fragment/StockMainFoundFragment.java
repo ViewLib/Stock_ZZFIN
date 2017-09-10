@@ -1,5 +1,6 @@
 package com.xt.lxl.stock.page.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.model.StockFoundRankModel;
+import com.xt.lxl.stock.page.activity.StockRankActivity;
 import com.xt.lxl.stock.util.DataSource;
-import com.xt.lxl.stock.widget.helper.DividerGridItemDecoration;
+import com.xt.lxl.stock.util.StockShowUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +28,10 @@ import java.util.List;
 public class StockMainFoundFragment extends Fragment {
 
     TextView mRankTitleText;
+    ImageView top10;
     RecyclerView mRankContainer;
     FoundRankAdapter mAdapter;
-    List<String> mDatas = new ArrayList();
+    List<StockFoundRankModel> mDatas = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,8 +49,8 @@ public class StockMainFoundFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initData();
         initView(view);
-        initListener();
         bindData();
+        initListener();
     }
 
     private void initData() {
@@ -56,10 +61,17 @@ public class StockMainFoundFragment extends Fragment {
     private void initView(View view) {
 //        mRankTitleText = (TextView) view.findViewById(R.id.stock_found_rank_title_text);
         mRankContainer = (RecyclerView) view.findViewById(R.id.stock_found_rank_container);
+        top10 = (ImageView) view.findViewById(R.id.stock_main_found_top10);
     }
 
     private void initListener() {
-
+        mAdapter.setItemOnClickCallBack(new ItemOnClickCallBack() {
+            @Override
+            public void onItemClick(View view, int position) {
+                StockFoundRankModel rankModel = (StockFoundRankModel) view.getTag();
+                gotoStockRankPage(rankModel);
+            }
+        });
     }
 
     private void bindData() {
@@ -68,11 +80,20 @@ public class StockMainFoundFragment extends Fragment {
         mRankContainer.setLayoutManager(gridLayoutManager);
         mRankContainer.setHasFixedSize(true);
         mRankContainer.setAdapter(mAdapter);
-        mRankContainer.addItemDecoration(new DividerGridItemDecoration(getContext(), getResources().getDrawable(R.drawable.stock_divider)));
         mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * 跳转股票排行界面
+     */
+    private void gotoStockRankPage(StockFoundRankModel rankModel) {
+        Intent intent = new Intent(getActivity(), StockRankActivity.class);
+        startActivity(intent);
+    }
+
     class FoundRankAdapter extends RecyclerView.Adapter<FoundRankAdapter.MyViewHolder> {
+
+        ItemOnClickCallBack mItemOnClickCallBack;
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -83,9 +104,21 @@ public class StockMainFoundFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
-            String s = mDatas.get(position);
-            holder.mRankText.setText(s);
+        public void onBindViewHolder(final MyViewHolder holder, final int position) {
+            StockFoundRankModel stockFoundRankModel = mDatas.get(position);
+            holder.mRankText.setText(stockFoundRankModel.mTitle);
+            GridLayoutManager.LayoutParams layoutParams = (GridLayoutManager.LayoutParams) holder.mView.getLayoutParams();
+            int margin = StockShowUtil.getPixelFromDip(getContext(), 16);
+            layoutParams.setMargins(0, margin, position % 2 == 0 ? margin : 0, 0);
+            if (mItemOnClickCallBack != null) {
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mItemOnClickCallBack.onItemClick(holder.mView, position);
+                    }
+                });
+                holder.mView.setTag(stockFoundRankModel);
+            }
         }
 
 
@@ -94,18 +127,25 @@ public class StockMainFoundFragment extends Fragment {
             return mDatas.size();
         }
 
-        class MyViewHolder extends RecyclerView.ViewHolder {
+        public void setItemOnClickCallBack(ItemOnClickCallBack itemOnClickCallBack) {
+            mItemOnClickCallBack = itemOnClickCallBack;
+        }
 
+        class MyViewHolder extends RecyclerView.ViewHolder {
+            RelativeLayout mView;
             TextView mRankText;
             ImageView mRankType;
 
             public MyViewHolder(View view) {
                 super(view);
+                mView = (RelativeLayout) view;
                 mRankText = (TextView) view.findViewById(R.id.stock_found_rank_text);
                 mRankType = (ImageView) view.findViewById(R.id.stock_found_rank_type_bg);
             }
         }
     }
 
-
+    public interface ItemOnClickCallBack {
+        void onItemClick(View view, int position);
+    }
 }

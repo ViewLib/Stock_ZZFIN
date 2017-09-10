@@ -68,6 +68,10 @@ public class IOHelper {
     }
 
     public static String fromIputStreamToString(InputStream is) {
+        return fromIputStreamToString(is, "utf-8");
+    }
+
+    public static String fromIputStreamToString(InputStream is, String code) {
         if (is == null)
             return null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -83,7 +87,7 @@ public class IOHelper {
         byte[] lens = baos.toByteArray();
         String result = null;
         try {
-            result = new String(lens, "gbk");
+            result = new String(lens, code);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

@@ -21,10 +21,17 @@
                 android:layout_height="60dp" />
 
             <include
-                android:id="@+id/user_view"
+                android:id="@+id/stock_user_info"
                 layout="@layout/stock_user_self_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <include
+                android:id="@+id/stock_user_register"
+                layout="@layout/stock_user_self_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
 
             <include
                 android:id="@+id/stock_self_option"

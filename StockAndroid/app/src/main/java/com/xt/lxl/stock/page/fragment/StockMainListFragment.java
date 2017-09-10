@@ -10,14 +10,16 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.page.StockItemEditActivity;
-import com.xt.lxl.stock.page.list.StockAdapter;
 import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
+import com.xt.lxl.stock.page.StockItemEditActivity;
+import com.xt.lxl.stock.page.activity.StockDetailActivity;
+import com.xt.lxl.stock.page.list.StockAdapter;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.DataSource;
@@ -29,7 +31,7 @@ import java.util.List;
 /**
  * Created by xiangleiliu on 2017/9/2.
  */
-public class StockMainListFragment extends Fragment implements View.OnClickListener {
+public class StockMainListFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     public static final int RequestCodeForSearch = 1;
     StockListCallBacks mCallBacks = new StockListCallBacks();
@@ -69,6 +71,7 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
             }
         };
         mStockKeywordEditText.setOnClickListener(this);
+        mStockListView.setOnItemClickListener(this);
     }
 
     private void initData() {
@@ -105,6 +108,14 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
     }
 
     @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        StockViewModel stockViewModel = (StockViewModel) parent.getItemAtPosition(position);
+        Intent intent = new Intent(getActivity(), StockDetailActivity.class);
+        intent.putExtra(StockDetailActivity.STOCK_DETAIL, stockViewModel);
+        startActivity(intent);
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.stock_keyword_edit_text) {
@@ -130,4 +141,5 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
             initData();
         }
     }
+
 }

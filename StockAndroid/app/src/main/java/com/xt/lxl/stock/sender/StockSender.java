@@ -23,11 +23,12 @@ public class StockSender {
     private static StockSender sender;
     private static String mBaseStockUrl = "http://qt.gtimg.cn/q=";
     //    http://qt.gtimg.cn/q=sz300170,sz300171,sz300172,sz300173,sz300174,sz300170,sz300170,sz300170,sz300170,
-    private static String mBaseAPIUrl = "http://10.32.151.30:5389/api/";
-//    http://10.32.151.30:5389/api/completion?userid=10000002&moblie=15601817296&nickname=hahahah&area=山东日照&age=28
-//    http://10.32.151.30:5389/api/register?moblie=15601817211
+//    private static String mBaseAPIUrl = "http://10.32.151.30:8090/zzfin/api/";
+    private static String mBaseAPIUrl = "http://115.159.31.128:8090/zzfin/api/";
+//    http://10.32.151.30:8090/zzfin/api/register?moblie=15601817211
+//    http://10.32.151.30:8090/zzfin/api/completion?userid=10000002&moblie=15601817296&nickname=hahahah&area=山东日照&age=28
 
-    StockSender() {
+    private StockSender() {
     }
 
     public static synchronized StockSender getInstance() {
@@ -56,7 +57,7 @@ public class StockSender {
     public List<StockViewModel> requestStockModelByCode(List<String> codeList) {
         StringBuilder builder = new StringBuilder(mBaseStockUrl);
         builder.append(builderCodeStr(codeList));
-        String stockInfoResult = requestGet(builder.toString(), new HashMap<String, String>());
+        String stockInfoResult = requestGet(builder.toString(), new HashMap<String, String>(), "gbk");
         List<StockViewModel> stockList = new ArrayList<>();
         //解析stockInfo 转换成 StockModel
         if (StringUtil.emptyOrNull(stockInfoResult)) {
@@ -70,11 +71,11 @@ public class StockSender {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("moblie", moblie);
         paramsMap.put("clientId", "123");
-        return requestGet(mBaseAPIUrl + "register?", paramsMap);
+        return requestGet(mBaseAPIUrl + "register?", paramsMap, "utf-8");
     }
 
 
-    private static String requestGet(String baseUrl, HashMap<String, String> paramsMap) {
+    private static String requestGet(String baseUrl, HashMap<String, String> paramsMap, String code) {
         try {
             StringBuilder tempParams = new StringBuilder();
             int pos = 0;
@@ -108,11 +109,11 @@ public class StockSender {
             // 判断请求是否成功
             if (urlConn.getResponseCode() == 200) {
                 // 获取返回的数据
-                String result = IOHelper.fromIputStreamToString(urlConn.getInputStream());
+                String result = IOHelper.fromIputStreamToString(urlConn.getInputStream(), code);
                 Log.e("TEST", "Get方式请求成功，result--->" + result);
                 return result;
             } else {
-                String errorInfo = IOHelper.fromIputStreamToString(urlConn.getInputStream());
+                String errorInfo = IOHelper.fromIputStreamToString(urlConn.getInputStream(), code);
                 StockShowUtil.showToastOnMainThread(StockApplication.getInstance(), errorInfo);
                 Log.e("TEST", "Get方式请求失败");
             }

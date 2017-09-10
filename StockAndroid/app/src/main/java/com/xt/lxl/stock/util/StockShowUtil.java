@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 /**
@@ -26,7 +27,6 @@ public class StockShowUtil {
     }
 
 
-
     public static int getPixelFromDip(Context context, float f) {
         return getPixelFromDip(context.getResources().getDisplayMetrics(), f);
     }
@@ -35,5 +35,13 @@ public class StockShowUtil {
         return (int) (TypedValue.applyDimension(1, dip, dm) + 0.5F);
     }
 
+    public static int getScreenWidth(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        return wm.getDefaultDisplay().getWidth();
+    }
 
+    public static int getScreenHeight(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        return wm.getDefaultDisplay().getHeight();
+    }
 }

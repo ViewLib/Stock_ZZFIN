@@ -23,7 +23,7 @@ public class StockUser {
     private String area;
     private int age;
     private Date createTime;
-    private boolean isExit;
+    private boolean isExit;//true代表退出状态
 
     private static StockUser user = null;
 
@@ -127,6 +127,6 @@ public class StockUser {
     }
 
     public boolean isExit() {
-        return isExit;
+        return isExit || userId == 0;
     }
 }
