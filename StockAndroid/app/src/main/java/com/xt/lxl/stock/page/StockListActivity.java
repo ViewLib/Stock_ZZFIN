@@ -34,7 +34,7 @@ public class StockListActivity extends Activity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.stock_list_layout);
+        setContentView(R.layout.stock_main_selflist);
         initData();
         initView();
         initListener();

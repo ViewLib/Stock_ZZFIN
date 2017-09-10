@@ -23,7 +23,7 @@ import com.xt.lxl.stock.view.dialog.HotelCustomDialog;
 /**
  * Created by xiangleiliu on 2017/9/2.
  */
-public class StockUserFragment extends Fragment implements View.OnClickListener {
+public class StockMainUserFragment extends Fragment implements View.OnClickListener {
 
     public static final int REGISTER_FROM_USER = 101;
 

@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Created by xiangleiliu on 2017/9/2.
  */
-public class StockListFragment extends Fragment implements View.OnClickListener {
+public class StockMainListFragment extends Fragment implements View.OnClickListener {
 
     public static final int RequestCodeForSearch = 1;
     StockListCallBacks mCallBacks = new StockListCallBacks();
@@ -46,14 +46,12 @@ public class StockListFragment extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.stock_list_layout, container, false);
+        return inflater.inflate(R.layout.stock_main_selflist, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        TextView text = (TextView) view.findViewById(R.id.main_show_text);
-//        text.setText("StockListFragment");
         initData();
         initView(view);
         initListener();

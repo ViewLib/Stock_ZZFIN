@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.page.fragment.StockUserFragment;
+import com.xt.lxl.stock.page.fragment.StockMainUserFragment;
 import com.xt.lxl.stock.util.StockShowUtil;
 import com.xt.lxl.stock.util.StringUtil;
 
@@ -131,7 +131,7 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
         intent.setClass(this, StockVerificationActivity.class);
         intent.putExtra(StockVerificationActivity.INPUT_PHONE, phone);
         intent.putExtra(StockVerificationActivity.INPUT_COUNTRY, country);
-        startActivityForResult(intent, StockUserFragment.REGISTER_FROM_USER);
+        startActivityForResult(intent, StockMainUserFragment.REGISTER_FROM_USER);
     }
 
     @Override
