@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.page.list.StockAdapter;
 import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
+import com.xt.lxl.stock.page.list.StockAdapter;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.DataSource;
@@ -26,7 +26,7 @@ import java.util.List;
 public class StockListActivity extends Activity implements View.OnClickListener {
     public static final int RequestCodeForSearch = 1;
     StockListCallBacks mCallBacks = new StockListCallBacks();
-    EditText mStockKeywordEditText;//编辑按钮
+    TextView mStockKeywordEditText;//编辑按钮
     ListView mStockListView;
     StockAdapter mAdapter;
     Handler mHander = new Handler();
@@ -75,7 +75,7 @@ public class StockListActivity extends Activity implements View.OnClickListener 
     }
 
     private void initView() {
-        mStockKeywordEditText = (EditText) findViewById(R.id.stock_keyword_edit_text);
+        mStockKeywordEditText = (TextView) findViewById(R.id.stock_keyword_edit_text);
         mStockListView = (ListView) findViewById(R.id.stock_list);
     }
 

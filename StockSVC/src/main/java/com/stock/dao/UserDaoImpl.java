@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
     public UserDaoImpl() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/stock_zzfin";
+            String url = "jdbc:mysql://localhost:3306/stock_zzfin?useUnicode=true&characterEncoding=utf-8";
             String user = "lxl";
             String password = "lxl301lxl";
             conn = DriverManager.getConnection(url, user, password);
