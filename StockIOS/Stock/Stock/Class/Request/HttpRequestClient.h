@@ -12,6 +12,8 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 
 @interface HttpRequestClient : NSObject
 
+@property (nonatomic,assign) BOOL responseIsNotJson;
+
 + (HttpRequestClient *)sharedClient;
 
 #pragma mark - 注册

@@ -17,6 +17,7 @@
     dispatch_once(&onceToken, ^{
         _sharedClient = [[HttpRequestClient alloc] init];
     });
+    _sharedClient.responseIsNotJson = NO;
     return _sharedClient;
 }
 
@@ -36,6 +37,7 @@
 #pragma mark - 获取股票信息
 -(void)getStockInformation:(NSString *)stocks request:(request)request{
     NSString *urlStr = [NSString stringWithFormat:@"http://qt.gtimg.cn/q=%@",stocks];
+    self.responseIsNotJson = YES;
     [self httpGet:urlStr paramDict:nil completion:request];
 }
 
@@ -60,7 +62,11 @@
 
     manager.requestSerializer.timeoutInterval = 30.f;
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/html",@"application/json", nil];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/html",@"application/x-javascript",@"application/json", nil];
+    
+    if (self.responseIsNotJson) {
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    }
     
     if ([type isEqual:@"post"]) {
         [manager POST:url parameters:paramDict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

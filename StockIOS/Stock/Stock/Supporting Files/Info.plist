@@ -24,6 +24,11 @@
 	<string>20ab29c102bb4</string>
 	<key>MOBAppSecret</key>
 	<string>18bda9298a707e98e0bfcdcf056e365f</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

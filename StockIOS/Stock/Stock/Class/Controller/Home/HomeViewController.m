@@ -28,23 +28,26 @@
 
 @implementation HomeViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self getTableData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
-//    [self inputStockData];
-    
     [self createSearchBar];
-    
-//    [_OptionalTable registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier:@"HomeCell"];
-    [self getTableData];
+        
 }
 
 - (void)createSearchBar {
     
     SearchViewController *search = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Search"];
-    
+    search.searchViewCancelBlock = ^{
+        [self getTableData];
+    };
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:search];
     self.searchController.definesPresentationContext = YES;
     self.searchController.searchResultsUpdater = search;
@@ -57,27 +60,14 @@
     [_topView addSubview:self.searchController.searchBar];
 }
 
-- (void)inputStockData {
-    NSDictionary *dic1 = @{@"name": @"五粮液", @"code": @"000858", @"from": @"sz", @"price": @"12.3", @"risefall": @"0.25"};
-    [[DataManager shareDataMangaer] updateSotckEntitys:dic1];
-    NSDictionary *dic2 = @{@"name": @"国风塑业", @"code": @"000859", @"from": @"sz", @"price": @"5.19", @"risefall": @"0.58"};
-    [[DataManager shareDataMangaer] updateSotckEntitys:dic2];
-    NSDictionary *dic3 = @{@"name": @"鞍钢股份", @"code": @"000898", @"from": @"sz", @"price": @"7.83", @"risefall": @"6.82"};
-    [[DataManager shareDataMangaer] updateSotckEntitys:dic3];
-    NSDictionary *dic4 = @{@"name": @"深赛格", @"code": @"000058", @"from": @"sz", @"price": @"7.67", @"risefall": @"-2.13"};
-    [[DataManager shareDataMangaer] updateSotckEntitys:dic4];
-    NSDictionary *dic5 = @{@"name": @"高鸿股份", @"code": @"000851", @"from": @"sz", @"price": @"10.60", @"risefall": @"1.15"};
-    [[DataManager shareDataMangaer] updateSotckEntitys:dic5];
-}
-
 #pragma mark - getOptionalStocks
 - (void)getTableData {
     _stocks = [[DataManager shareDataMangaer] queryStockEntitys];
     NSString *stockCodes = @"";
     if (_stocks.count) {
-        for (StockEntity *entity in _stocks) {
-            [stockCodes stringByAppendingFormat:@",%@%@",entity.from,entity.code];
-        }
+//        for (StockEntity *entity in _stocks) {
+//            [stockCodes stringByAppendingFormat:@",%@%@",entity.from,entity.code];
+//        }
         [[HttpRequestClient sharedClient] getStockInformation:stockCodes request:^(NSString *resultMsg, id dataDict, id error) {
             
         }];

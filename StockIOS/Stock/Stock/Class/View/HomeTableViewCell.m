@@ -19,18 +19,19 @@
 - (void)updateCell:(StockEntity *)entity {
     self.name.text = entity.name;
     self.code.text = entity.code;
-    self.price.text = entity.price;
+    self.price.text = entity.currentprice;
     
     NSString *PN = @"+";
-    _percentage = [entity.risefall floatValue]/100;
-    _upValue.text = [NSString stringWithFormat:@" %.1f%@",_percentage*100,@"%"];
     UIColor *color = UP_COLOR;
-    
-    if ([entity.risefall hasPrefix:@"-"]) {
+    if ([entity.pricefluctuation hasPrefix:@"-"]) {
         PN = @"-";
-        _percentage = [[entity.risefall stringByReplacingOccurrencesOfString:@"-" withString:@""] floatValue]/100;
-        _downValue.text = [NSString stringWithFormat:@"%.1f%@  ",_percentage*100,@"%"];
+        _percentage = [[entity.pricefluctuation stringByReplacingOccurrencesOfString:@"-" withString:@""] floatValue]/10;
+        _downValue.text = [entity.pricefluctuation stringByAppendingString:@"%"];
         color = DOWN_COLOR;
+    } else {
+        NSString *value = [entity.pricefluctuation stringByReplacingOccurrencesOfString:@"+" withString:@""];
+        _percentage = [value floatValue]/10;
+        _upValue.text = [entity.pricefluctuation stringByAppendingString:@"%"];
     }
     
     if (_percentage == 0) {

@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="StockEntity" representedClassName="StockEntity" isAbstract="YES" syncable="YES">
+        <attribute name="amplitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buy1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buy1num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buy2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buy2num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buy3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buy3num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buy4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buy4num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buy5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buy5num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="from" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currentprice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="famc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="highest" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="highlimit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="invol" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="jkprice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="limit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lowest" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="odisc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pbratio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="peratios" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="risefall" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pricefluctuation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recentTransaction" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sell1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sell1num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sell2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sell2num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sell3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sell3num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sell4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sell4num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sell5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sell5num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="totalmarketcapitalization" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transactions" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="turnoverrate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="upsdowns" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="volume" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zsprice" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="StockEntity" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="StockEntity" positionX="-63" positionY="-18" width="128" height="705"/>
     </elements>
 </model>

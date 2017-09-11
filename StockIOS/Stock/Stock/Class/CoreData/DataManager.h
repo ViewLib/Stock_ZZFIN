@@ -19,7 +19,7 @@
 -(NSArray *)queryStockEntitys;
 
 //保存
--(BOOL)updateSotckEntitys:(NSDictionary *)stockDic;
+-(BOOL)updateSotckEntitys:(NSArray *)stockDic;
 
 
 @end

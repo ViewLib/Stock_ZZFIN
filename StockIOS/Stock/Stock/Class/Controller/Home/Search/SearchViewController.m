@@ -49,6 +49,33 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *dic = _tableDate[indexPath.row];
+    [self insertCoreData:dic];
+    NSLog(@"%@",dic);
+}
+
+/**
+ 搜索结果获取网络数据并写入coreData
+*/
+- (void)insertCoreData:(NSDictionary *)dic {
+    [[HttpRequestClient sharedClient] getStockInformation:dic[@"code"] request:^(NSString *resultMsg, id dataDict, id error) {
+        if (dataDict) {
+            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
+            if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
+                NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
+                [[DataManager shareDataMangaer] updateSotckEntitys:responseValues];
+                [self showHint:@"已添加自选"];
+            } else {
+                [self showHint:@"您选的股票已退市"];
+            }
+            
+//            [self dismissViewControllerAnimated:NO completion:nil];
+        }
+    }];
+}
+
 #pragma mark - SearchController
 
 - (void)willPresentSearchController:(UISearchController *)searchController {
@@ -80,15 +107,21 @@
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
-    
+    NSLog(@"searchBarShouldEndEditing");
     return YES;
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    
+    NSLog(@"searchBarTextDidEndEditing");
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [self filterBySubstring:searchText];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    if (self.searchViewCancelBlock) {
+        self.searchViewCancelBlock();
+    }
 }
 
 /**
@@ -106,6 +139,10 @@
     
     // 让表格控件重新加载数据
     [_searchTable reloadData];
+}
+
+- (void)dealloc {
+    NSLog(@"dealloc");
 }
 
 - (void)didReceiveMemoryWarning {
