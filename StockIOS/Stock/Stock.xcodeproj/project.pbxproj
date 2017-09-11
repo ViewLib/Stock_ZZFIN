@@ -24,6 +24,8 @@
 		0465E5EA1F643D73006F7F9C /* FindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0465E5E81F643D73006F7F9C /* FindTableViewCell.xib */; };
 		0465E5EE1F645043006F7F9C /* RankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5ED1F645043006F7F9C /* RankViewController.m */; };
 		0465E5F11F64560E006F7F9C /* UIButton+WKType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5F01F64560E006F7F9C /* UIButton+WKType.m */; };
+		0465E5F31F657427006F7F9C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0465E5F21F657427006F7F9C /* AdSupport.framework */; };
+		0465E5F71F65771B006F7F9C /* loginEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5F61F65771B006F7F9C /* loginEntity.m */; };
 		04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2131F598E3700C09D86 /* MyViewController.m */; };
 		04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2161F598E4600C09D86 /* HomeViewController.m */; };
 		04C2E21A1F598E5600C09D86 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2191F598E5600C09D86 /* FindViewController.m */; };
@@ -192,6 +194,9 @@
 		0465E5ED1F645043006F7F9C /* RankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankViewController.m; sourceTree = "<group>"; };
 		0465E5EF1F64560E006F7F9C /* UIButton+WKType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WKType.h"; sourceTree = "<group>"; };
 		0465E5F01F64560E006F7F9C /* UIButton+WKType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WKType.m"; sourceTree = "<group>"; };
+		0465E5F21F657427006F7F9C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		0465E5F51F65771B006F7F9C /* loginEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginEntity.h; sourceTree = "<group>"; };
+		0465E5F61F65771B006F7F9C /* loginEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginEntity.m; sourceTree = "<group>"; };
 		04C2E2121F598E3700C09D86 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		04C2E2131F598E3700C09D86 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		04C2E2151F598E4600C09D86 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -488,6 +493,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0465E5F31F657427006F7F9C /* AdSupport.framework in Frameworks */,
 				045ED17C1F5BBD1600F7DE20 /* MOBFoundation.framework in Frameworks */,
 				045ED1791F5BB98600F7DE20 /* libstdc++.tbd in Frameworks */,
 				045ED1771F5BB97A00F7DE20 /* libz.tbd in Frameworks */,
@@ -524,6 +530,7 @@
 		045ED1751F5BB97A00F7DE20 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0465E5F21F657427006F7F9C /* AdSupport.framework */,
 				045ED1781F5BB98600F7DE20 /* libstdc++.tbd */,
 				045ED1761F5BB97A00F7DE20 /* libz.tbd */,
 				C42DE0CD6223DE9B68410EC8 /* Pods_Stock.framework */,
@@ -584,6 +591,15 @@
 				0465E5ED1F645043006F7F9C /* RankViewController.m */,
 			);
 			path = Rank;
+			sourceTree = "<group>";
+		};
+		0465E5F41F65761D006F7F9C /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				0465E5F51F65771B006F7F9C /* loginEntity.h */,
+				0465E5F61F65771B006F7F9C /* loginEntity.m */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		04C2E20F1F598DE500C09D86 /* Find */ = {
@@ -707,6 +723,7 @@
 				847076271F4EE66F00974772 /* AppDelegate */,
 				8470762A1F4EE66F00974772 /* Controller */,
 				04C2E2311F59A20F00C09D86 /* CoreData */,
+				0465E5F41F65761D006F7F9C /* Entity */,
 				847076301F4EE66F00974772 /* Public */,
 				847076311F4EE66F00974772 /* Request */,
 				847076321F4EE66F00974772 /* Utils */,
@@ -1296,6 +1313,7 @@
 				847077811F4EF73600974772 /* MJRefreshBaseView.m in Sources */,
 				847077C31F4EF73600974772 /* RACSubscriptingAssignmentTrampoline.m in Sources */,
 				847077B81F4EF73600974772 /* RACScopedDisposable.m in Sources */,
+				0465E5F71F65771B006F7F9C /* loginEntity.m in Sources */,
 				8470778A1F4EF73600974772 /* NSEnumerator+RACSequenceAdditions.m in Sources */,
 				847077C51F4EF73600974772 /* RACTargetQueueScheduler.m in Sources */,
 				8470778B1F4EF73600974772 /* NSFileHandle+RACSupport.m in Sources */,

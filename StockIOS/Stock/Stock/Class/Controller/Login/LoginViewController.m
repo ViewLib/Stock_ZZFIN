@@ -8,6 +8,7 @@
 
 #import <SMS_SDK/SMSSDK.h>
 #import "LoginViewController.h"
+#import "loginEntity.h"
 
 static int num = 60;
 
@@ -31,8 +32,6 @@ static int num = 60;
 @property (weak, nonatomic) IBOutlet UILabel *Verification2;
 @property (weak, nonatomic) IBOutlet UILabel *Verification3;
 @property (weak, nonatomic) IBOutlet UILabel *Verification4;
-@property (weak, nonatomic) IBOutlet UILabel *Verification5;
-@property (weak, nonatomic) IBOutlet UILabel *Verification6;
 
 @property (weak, nonatomic) IBOutlet UIButton *againBtn;
 
@@ -44,7 +43,7 @@ static int num = 60;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _verificationLabs = @[_Verification1,_Verification2,_Verification3,_Verification4,_Verification5,_Verification6];
+    _verificationLabs = @[_Verification1,_Verification2,_Verification3,_Verification4];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
@@ -56,7 +55,7 @@ static int num = 60;
 //                [self showHint:@"验证码发送成功"];
 //                [self showSecondView];
 //            } else {
-//                // error
+//                [self showHint:@"手机号码有误"];
 //            }
 //        }];
     }
@@ -114,8 +113,8 @@ static int num = 60;
 
 - (void)textFieldDidChange:(UITextField *)textField {
     
-    if (textField.text.length > 6) {
-        textField.text = [textField.text substringToIndex:6];
+    if (textField.text.length > 4) {
+        textField.text = [textField.text substringToIndex:4];
     }
     for (UILabel *label in _verificationLabs) {
         [label setText:@""];
@@ -130,7 +129,7 @@ static int num = 60;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    if (textField.text.length == 6) {
+    if (textField.text.length == 4) {
         [self commitCode:textField.text];
     }
     textField.text = @"";
@@ -138,19 +137,31 @@ static int num = 60;
 }
 
 - (void)commitCode:(NSString *)string {
-    
+    [self showHudInView:self.Verification hint:@"正在登录"];
     [SMSSDK commitVerificationCode:string phoneNumber:_phoneNum.text zone:@"86" result:^(NSError *error) {
         if (!error) {
-            [self showHint:@"登录成功"];
+            [self login];
+        } else {
+            [self hideHud];
+            [self showHint:@"验证码认证失败"];
+        }
+    }];
+}
+
+- (void)login {
+    [[HttpRequestClient sharedClient] registerWithPhone:[NSString stringWithFormat:@"86_%@",_phoneNum.text] request:^(NSString *resultMsg, id dataDict, id error) {
+        [self hideHud];
+        if (dataDict) {
             [[Config shareInstance] setIslogin:YES];
+            [Config shareInstance].login = [[loginEntity alloc] initWithDictionary:dataDict];
             if (_login_success) {
                 _login_success();
             }
+            [self showHint:@"注册/登录成功"];
             [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            
         }
     }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

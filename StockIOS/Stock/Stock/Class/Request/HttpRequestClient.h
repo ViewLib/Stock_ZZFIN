@@ -14,6 +14,12 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 
 + (HttpRequestClient *)sharedClient;
 
+#pragma mark - 注册
+- (void)registerWithPhone:(NSString *)phone request:(request)request;
+
+#pragma mark - 个人信息补全
+- (void)completionUserInformation:(NSDictionary *)userInfo request:(request)request;
+
 #pragma mark - 获取股票信息
 -(void)getStockInformation:(NSString *)stocks request:(request)request;
 

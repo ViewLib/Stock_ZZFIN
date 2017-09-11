@@ -12,6 +12,7 @@
 #import <BuglyHotfix/Bugly.h>
 #import <BuglyHotfix/BuglyMender.h>
 #import "JPEngine.h"
+#import <AdSupport/AdSupport.h>
 
 @interface AppDelegate ()<BuglyDelegate>
 
@@ -41,6 +42,9 @@
     
     [self configBugly];
     
+    //获取设备UUID
+    [Config shareInstance].uuid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    
     return YES;
 }
 
@@ -50,7 +54,7 @@
     config.delegate = self;
     config.debugMode = YES;
     config.reportLogLevel = BuglyLogLevelInfo;
-    [Bugly startWithAppId:@"900001055"
+    [Bugly startWithAppId:@"5206ad404f"
 #if DEBUG
      developmentDevice:YES
 #endif

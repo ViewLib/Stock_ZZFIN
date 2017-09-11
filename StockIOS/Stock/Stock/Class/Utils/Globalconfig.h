@@ -35,4 +35,6 @@
 
 #define isLogin                 [Config shareInstance].islogin
 
+#define SERVICE                 @"http://115.159.31.128:8090"
+
 #endif /* Globalconfig_h */

@@ -20,6 +20,19 @@
     return _sharedClient;
 }
 
+#pragma mark - 注册
+- (void)registerWithPhone:(NSString *)phone request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/register",SERVICE];
+    NSDictionary *dic = @{@"moblie": phone,@"clientId":[Config shareInstance].uuid};
+    [self httpGet:urlStr paramDict:dic completion:request];
+}
+
+#pragma mark - 个人信息补全
+- (void)completionUserInformation:(NSDictionary *)userInfo request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/completion",SERVICE];
+    [self httpGet:urlStr paramDict:userInfo completion:request];
+}
+
 #pragma mark - 获取股票信息
 -(void)getStockInformation:(NSString *)stocks request:(request)request{
     NSString *urlStr = [NSString stringWithFormat:@"http://qt.gtimg.cn/q=%@",stocks];
