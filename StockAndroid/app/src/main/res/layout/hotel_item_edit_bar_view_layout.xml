@@ -2,19 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/inputLayout"
     android:layout_width="fill_parent"
-    android:layout_height="40dip"
+    android:layout_height="30dip"
     android:layout_gravity="center_vertical">
 
     <EditText
         android:id="@+id/stock_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="30dp"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/hotel_list_top_search_background_normal"
+        android:background="@drawable/stock_home_search_background"
         android:drawableLeft="@drawable/stock_icon_sarchcontrols"
         android:gravity="center_vertical"
-        android:hint="请输入代码/中文/全拼/首字母"
-        android:imeOptions="actionDone"
+        android:hint="搜索"
         android:inputType="number"
         android:maxLength="6"
         android:paddingLeft="10dp"

@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.model.StockIndexChangeModel;
 import com.xt.lxl.stock.page.StockItemEditActivity;
-import com.xt.lxl.stock.page.StockListActivity;
 import com.xt.lxl.stock.page.StockMainActivity;
 import com.xt.lxl.stock.page.activity.StockRegisterActivity;
 import com.xt.lxl.stock.util.StockShowUtil;
@@ -27,7 +26,7 @@ public class TestActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_stock_test_layout);
         mContainer = (LinearLayout) findViewById(R.id.container);
-        findViewById(R.id.xt_go_stock_list).setOnClickListener(this);
+//        findViewById(R.id.xt_go_stock_list).setOnClickListener(this);
         findViewById(R.id.xt_go_stock_edit).setOnClickListener(this);
         findViewById(R.id.xt_go_user_center).setOnClickListener(this);
         findViewById(R.id.xt_go_stock_detail).setOnClickListener(this);
@@ -66,9 +65,7 @@ public class TestActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View v) {
         Intent intent = new Intent();
         int id = v.getId();
-        if (id == R.id.xt_go_stock_list) {
-            intent.setClass(this, StockListActivity.class);
-        } else if (id == R.id.xt_go_user_center) {
+        if (id == R.id.xt_go_user_center) {
             StockShowUtil.showToastOnMainThread(TestActivity.this, "暂不支持该动能");
         } else if (id == R.id.xt_go_stock_detail) {
             StockShowUtil.showToastOnMainThread(TestActivity.this, "暂不支持该动能");
