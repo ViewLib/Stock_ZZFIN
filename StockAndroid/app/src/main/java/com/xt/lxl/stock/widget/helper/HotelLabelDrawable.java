@@ -156,11 +156,11 @@ public class HotelLabelDrawable extends Drawable {
             float dx = 0;
             float dy = (height - textLayout.getHeight() + textLayout.getTopPadding() + textLayout.getBottomPadding()) / 2;
             if (mViewModel.mShowLocation == StockIndexChangeModel.SHOW_LOCATION_RIGHT) {
-                dx = end + 10;
+                dx = 10;
             } else if (mViewModel.mShowLocation == StockIndexChangeModel.SHOW_LOCATION_LEFT) {
-                dx = start - textLayout.getLineWidth(0) - 10;
+                dx = mMeasuredWidth - textLayout.getLineWidth(0) - 10;
             } else {
-                dx = (start + end - textLayout.getLineWidth(0)) / 2;
+                dx = (mMeasuredWidth - textLayout.getLineWidth(0)) / 2;
             }
             canvas.translate(dx, dy);
             textLayout.draw(canvas);
