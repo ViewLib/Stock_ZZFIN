@@ -47,7 +47,7 @@ public class StockListActivity extends Activity implements View.OnClickListener 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(StockListActivity.this, StockItemEditActivity.class);
+                intent.setClass(StockListActivity.this, StockSearchActivity.class);
                 startActivityForResult(intent, RequestCodeForSearch);
             }
         };

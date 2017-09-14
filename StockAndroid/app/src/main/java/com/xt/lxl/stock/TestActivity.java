@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.model.StockIndexChangeModel;
-import com.xt.lxl.stock.page.StockItemEditActivity;
+import com.xt.lxl.stock.page.StockSearchActivity;
 import com.xt.lxl.stock.page.StockMainActivity;
 import com.xt.lxl.stock.page.activity.StockRegisterActivity;
 import com.xt.lxl.stock.util.StockShowUtil;
@@ -70,7 +70,7 @@ public class TestActivity extends FragmentActivity implements View.OnClickListen
         } else if (id == R.id.xt_go_stock_detail) {
             StockShowUtil.showToastOnMainThread(TestActivity.this, "暂不支持该动能");
         } else if (id == R.id.xt_go_stock_edit) {
-            intent.setClass(this, StockItemEditActivity.class);
+            intent.setClass(this, StockSearchActivity.class);
         } else if (id == R.id.xt_clear_save) {
             SharedPreferences codeList = getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
             codeList.edit().clear().apply();

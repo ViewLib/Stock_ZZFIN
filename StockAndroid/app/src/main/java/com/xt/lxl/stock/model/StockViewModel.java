@@ -55,6 +55,11 @@ public class StockViewModel implements Cloneable, Serializable {
         mShowType = showType;
     }
 
+    public StockViewModel(String stockCode, String stockName) {
+        mStockCode = stockCode;
+        mStockName = stockName;
+    }
+
     public Object clone() {
         try {
             return super.clone();

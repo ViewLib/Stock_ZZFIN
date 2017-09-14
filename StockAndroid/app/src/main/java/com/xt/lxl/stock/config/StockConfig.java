@@ -5,7 +5,8 @@ package com.xt.lxl.stock.config;
  */
 public class StockConfig {
     public static final String STOCK_SAVE_DB_NAME = "STOCK_SAVE_DB_NAME";
-    public static final String STOCK_SAVE_DATA_NAME = "STOCK_SAVE_DATA_NAME";
+    public static final String STOCK_SAVE_DATA_NAME = "STOCK_SAVE_DATA_NAME";//用户存储的股票代码集合
+    public static final String STOCK_SAVE_DATA_HISTORY = "STOCK_SAVE_DATA_HISTORY";//用户历史搜索的关键词集合
 
     public static final String STOCK_USER_DB_NAME = "STOCK_USER_DB_NAME";
     public static final String STOCK_USER_DATA_USERID = "STOCK_SAVE_USERID";

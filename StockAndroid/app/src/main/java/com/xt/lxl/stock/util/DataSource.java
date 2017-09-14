@@ -68,18 +68,8 @@ public class DataSource {
         return Arrays.asList(split);
     }
 
-
     public static boolean addStockCode(Context context, String code) {
-        List<String> list = new ArrayList<>();
-        SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
-        String codeListStr = codeList.getString(StockConfig.STOCK_SAVE_DATA_NAME, "");
-        if (!StringUtil.emptyOrNull(codeListStr)) {
-            if (codeListStr.endsWith(",")) {
-                codeListStr = codeListStr.substring(0, codeListStr.length() - 1);
-            }
-            String[] split = codeListStr.split(",");
-            list.addAll(Arrays.asList(split));
-        }
+        List<String> list = getSaveStockCodeList(context);
         if (list.contains(code)) {
             return false;
         }
@@ -89,8 +79,55 @@ public class DataSource {
             builder.append(str);
             builder.append(",");
         }
+        SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
         return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
     }
+
+    public static List<String> getHistoryStockCodeList(Context context) {
+        SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
+        String codeListStr = codeList.getString(StockConfig.STOCK_SAVE_DATA_HISTORY, "");
+        if (StringUtil.emptyOrNull(codeListStr)) {
+            return new ArrayList<>();
+        }
+        if (codeListStr.endsWith(",")) {
+            String substring = codeListStr.substring(0, codeListStr.length() - 1);
+            codeListStr = substring;
+        }
+        String[] split = codeListStr.split(",");
+        return Arrays.asList(split);
+    }
+
+    public static boolean addHistrySearch(Context context, String searchKey) {
+        List<String> list = getHistoryStockCodeList(context);
+        SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
+        StringBuilder builder = new StringBuilder();
+        if (list.size() > 10) {
+            list.remove(0);
+        }
+        list.add(searchKey);
+        for (String str : list) {
+            builder.append(str);
+            builder.append(",");
+        }
+        return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
+    }
+
+    /**
+     * 获取所有本地存储的股票信息
+     *
+     * @return
+     */
+    public static List<StockViewModel> getSearchAllData() {
+        List<StockViewModel> list = new ArrayList<>();
+        list.add(new StockViewModel("300170", "汉得信息"));
+        list.add(new StockViewModel("300171", "东富龙"));
+        list.add(new StockViewModel("300172", "中电环保"));
+        list.add(new StockViewModel("300173", "智慧松德"));
+        list.add(new StockViewModel("300174", "原理股份"));
+        list.add(new StockViewModel("600174", "桂东电力"));
+        return list;
+    }
+
 
     public static List<StockFoundRankModel> getRankList(Context context) {
         List<StockFoundRankModel> list = new ArrayList<>();

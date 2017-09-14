@@ -36,7 +36,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".page.StockItemEditActivity"
+            android:name=".page.StockSearchActivity"
             android:screenOrientation="portrait" />
 
         <activity

@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
-import com.xt.lxl.stock.page.StockItemEditActivity;
+import com.xt.lxl.stock.page.StockSearchActivity;
 import com.xt.lxl.stock.page.activity.StockDetailActivity;
 import com.xt.lxl.stock.page.list.StockAdapter;
 import com.xt.lxl.stock.sender.StockSender;
@@ -66,7 +66,7 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(getActivity(), StockItemEditActivity.class);
+                intent.setClass(getActivity(), StockSearchActivity.class);
                 startActivityForResult(intent, RequestCodeForSearch);
             }
         };
