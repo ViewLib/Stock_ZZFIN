@@ -26,6 +26,8 @@
 		0465E5F11F64560E006F7F9C /* UIButton+WKType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5F01F64560E006F7F9C /* UIButton+WKType.m */; };
 		0465E5F31F657427006F7F9C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0465E5F21F657427006F7F9C /* AdSupport.framework */; };
 		0465E5F71F65771B006F7F9C /* loginEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5F61F65771B006F7F9C /* loginEntity.m */; };
+		049699081F6830A600CF9185 /* SearchHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049699061F6830A600CF9185 /* SearchHistoryTableViewCell.m */; };
+		049699091F6830A600CF9185 /* SearchHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049699071F6830A600CF9185 /* SearchHistoryTableViewCell.xib */; };
 		04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2131F598E3700C09D86 /* MyViewController.m */; };
 		04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2161F598E4600C09D86 /* HomeViewController.m */; };
 		04C2E21A1F598E5600C09D86 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2191F598E5600C09D86 /* FindViewController.m */; };
@@ -197,6 +199,9 @@
 		0465E5F21F657427006F7F9C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		0465E5F51F65771B006F7F9C /* loginEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginEntity.h; sourceTree = "<group>"; };
 		0465E5F61F65771B006F7F9C /* loginEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginEntity.m; sourceTree = "<group>"; };
+		049699051F6830A600CF9185 /* SearchHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryTableViewCell.h; sourceTree = "<group>"; };
+		049699061F6830A600CF9185 /* SearchHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryTableViewCell.m; sourceTree = "<group>"; };
+		049699071F6830A600CF9185 /* SearchHistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHistoryTableViewCell.xib; sourceTree = "<group>"; };
 		04C2E2121F598E3700C09D86 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		04C2E2131F598E3700C09D86 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		04C2E2151F598E4600C09D86 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -602,6 +607,16 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		049699041F68306900CF9185 /* SearchHistoryTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				049699051F6830A600CF9185 /* SearchHistoryTableViewCell.h */,
+				049699061F6830A600CF9185 /* SearchHistoryTableViewCell.m */,
+				049699071F6830A600CF9185 /* SearchHistoryTableViewCell.xib */,
+			);
+			name = SearchHistoryTableCell;
+			sourceTree = "<group>";
+		};
 		04C2E20F1F598DE500C09D86 /* Find */ = {
 			isa = PBXGroup;
 			children = (
@@ -824,6 +839,7 @@
 		847076331F4EE66F00974772 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				049699041F68306900CF9185 /* SearchHistoryTableCell */,
 				0465E5E51F643D44006F7F9C /* FindTableCell */,
 				04C2E2271F599CE200C09D86 /* HomeTableCell */,
 			);
@@ -1228,6 +1244,7 @@
 				847076221F4EE36100974772 /* Assets.xcassets in Resources */,
 				0465E5E41F619064006F7F9C /* DefaultStock.geojson in Resources */,
 				0465E5EA1F643D73006F7F9C /* FindTableViewCell.xib in Resources */,
+				049699091F6830A600CF9185 /* SearchHistoryTableViewCell.xib in Resources */,
 				847076231F4EE36100974772 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1311,6 +1328,7 @@
 				847077781F4EF73600974772 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				847077721F4EF73600974772 /* IQUIScrollView+Additions.m in Sources */,
 				847077811F4EF73600974772 /* MJRefreshBaseView.m in Sources */,
+				049699081F6830A600CF9185 /* SearchHistoryTableViewCell.m in Sources */,
 				847077C31F4EF73600974772 /* RACSubscriptingAssignmentTrampoline.m in Sources */,
 				847077B81F4EF73600974772 /* RACScopedDisposable.m in Sources */,
 				0465E5F71F65771B006F7F9C /* loginEntity.m in Sources */,

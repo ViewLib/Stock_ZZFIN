@@ -54,8 +54,13 @@
     self.searchController.dimsBackgroundDuringPresentation = NO;
     [self.searchController.searchBar sizeToFit];
     self.searchController.searchBar.placeholder = @"请输入搜索内容";
-    self.searchController.searchBar.backgroundImage = SEARCHBAR_BGIMG;
-    [self.searchController.searchBar setBackgroundColor:[UIColor clearColor]];
+    UIView *firstSubView = self.searchController.searchBar.subviews.firstObject;
+    firstSubView.backgroundColor = MAIN_COLOR;
+    UIView *backgroundImageView = [firstSubView.subviews firstObject];
+    [backgroundImageView removeFromSuperview];
+    
+    self.searchController.searchBar.tintColor = [UIColor whiteColor];
+
     self.searchController.searchBar.delegate = search;
     [_topView addSubview:self.searchController.searchBar];
 }
@@ -63,6 +68,7 @@
 #pragma mark - getOptionalStocks
 - (void)getTableData {
     _stocks = [[DataManager shareDataMangaer] queryStockEntitys];
+    [[Config shareInstance] setOptionalStocks:_stocks];
     NSString *stockCodes = @"";
     if (_stocks.count) {
 //        for (StockEntity *entity in _stocks) {

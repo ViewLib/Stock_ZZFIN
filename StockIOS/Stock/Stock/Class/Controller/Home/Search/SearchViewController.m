@@ -7,10 +7,17 @@
 //
 
 #import "SearchViewController.h"
+#import "SearchHistoryTableViewCell.h"
 
 @interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *searchTable;
+@property (weak, nonatomic) IBOutlet UIView *hot1;
+@property (weak, nonatomic) IBOutlet UIView *hot2;
+@property (weak, nonatomic) IBOutlet UIView *hot3;
+@property (weak, nonatomic) IBOutlet UIView *hot4;
+@property (weak, nonatomic) IBOutlet UIView *hot5;
+@property (weak, nonatomic) IBOutlet UIView *hot6;
 
 @property (strong, nonatomic)   NSMutableArray   *tableDate;
 
@@ -23,9 +30,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.definesPresentationContext = YES;
-    
+    [self.view setBackgroundColor:MAIN_COLOR];
     _isSearch = NO;
     _tableDate = [NSMutableArray array];
+    
+    for (UIView *view in @[_hot1,_hot2,_hot3,_hot4,_hot5,_hot6]) {
+        view.layer.borderWidth = 0.3f;
+        view.layer.borderColor = MAIN_COLOR.CGColor;
+        view.layer.cornerRadius = view.bounds.size.height/2;
+    }
 }
 
 #pragma mark - UITableViewDelegateAndDateSource
@@ -39,19 +52,23 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
     NSDictionary *dic = _tableDate[indexPath.row];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    static NSString *cellID =@"SearchHistoryTableViewCell";
+    SearchHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (nil == cell) {
+        cell= (SearchHistoryTableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"SearchHistoryTableViewCell" owner:nil options:nil] firstObject];
+        [cell updateCell:dic];
+        cell.addOptionalBlock = ^(NSInteger row) {
+            [self insertCoreData:dic];
+        };
     }
-    cell.textLabel.text = dic[@"title"];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dic = _tableDate[indexPath.row];
-    [self insertCoreData:dic];
+//    [self insertCoreData:dic];
     NSLog(@"%@",dic);
 }
 

@@ -15,9 +15,13 @@
 
 @property (nonatomic ,strong)   NSString      *uuid;
 
+//本地固化的股票数据
 @property (nonatomic ,strong)   NSArray       *localStocks;
 
 @property (nonatomic ,strong)   loginEntity   *login;
+
+//用户自选股
+@property (nonatomic ,strong)   NSArray       *optionalStocks;
 
 +(Config *) shareInstance;
 
