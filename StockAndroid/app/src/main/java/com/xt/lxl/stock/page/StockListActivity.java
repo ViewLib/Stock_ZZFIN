@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
-import com.xt.lxl.stock.page.list.StockAdapter;
+import com.xt.lxl.stock.page.list.StockListAdapter;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.DataSource;
@@ -28,7 +28,7 @@ public class StockListActivity extends Activity implements View.OnClickListener 
     StockListCallBacks mCallBacks = new StockListCallBacks();
     TextView mStockKeywordEditText;//编辑按钮
     ListView mStockListView;
-    StockAdapter mAdapter;
+    StockListAdapter mAdapter;
     Handler mHander = new Handler();
 
     @Override
@@ -80,7 +80,7 @@ public class StockListActivity extends Activity implements View.OnClickListener 
     }
 
     private void bindData() {
-        mAdapter = new StockAdapter(this, mCallBacks);
+        mAdapter = new StockListAdapter(this, mCallBacks);
         mStockListView.setAdapter(mAdapter);
         mAdapter.initOneStockViewModel(new ArrayList<StockViewModel>());
         mAdapter.notifyDataSetChanged();

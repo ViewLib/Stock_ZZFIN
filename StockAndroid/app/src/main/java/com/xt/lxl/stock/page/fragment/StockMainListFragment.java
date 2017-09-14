@@ -19,7 +19,7 @@ import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
 import com.xt.lxl.stock.page.StockSearchActivity;
 import com.xt.lxl.stock.page.activity.StockDetailActivity;
-import com.xt.lxl.stock.page.list.StockAdapter;
+import com.xt.lxl.stock.page.list.StockListAdapter;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.DataSource;
@@ -37,7 +37,7 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
     StockListCallBacks mCallBacks = new StockListCallBacks();
     TextView mStockKeywordEditText;//编辑按钮
     ListView mStockListView;
-    StockAdapter mAdapter;
+    StockListAdapter mAdapter;
     Handler mHander = new Handler();
 
     @Override
@@ -101,7 +101,7 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
     }
 
     private void bindData() {
-        mAdapter = new StockAdapter(getContext(), mCallBacks);
+        mAdapter = new StockListAdapter(getContext(), mCallBacks);
         mStockListView.setAdapter(mAdapter);
         mAdapter.initOneStockViewModel(new ArrayList<StockViewModel>());
         mAdapter.notifyDataSetChanged();

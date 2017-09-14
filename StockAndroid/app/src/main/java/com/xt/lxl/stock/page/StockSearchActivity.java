@@ -11,7 +11,8 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.StockViewModel;
-import com.xt.lxl.stock.page.list.StockEditAdapter;
+import com.xt.lxl.stock.page.list.StoctHistoryAdapter;
+import com.xt.lxl.stock.page.list.StoctResultAdapter;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.MatchUtil;
@@ -20,7 +21,9 @@ import com.xt.lxl.stock.widget.view.HotelTagsViewV2;
 import com.xt.lxl.stock.widget.view.StockEditableBar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiangleiliu on 2017/8/6.
@@ -32,17 +35,23 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
 
     private LinearLayout mHistoryView;//历史搜索界面
     private HotelTagsViewV2 mHotContainer;//热门搜索列表
-    private ListView mHistoryList;//历史搜索
+    private ListView mHistoryListView;//历史搜索
 
     private LinearLayout mResultView;//搜索结果界面
-    private ListView mResultList;//搜索结果List
+    private ListView mResultListView;//搜索结果List
 
-    List<StockViewModel> stockList = new ArrayList<>();
-    StockEditAdapter editAdapter;
+    StoctResultAdapter mResultAdapter;//搜索结果的adapter
+    StoctHistoryAdapter mHistoryAdapter;//搜索结果的adapter
 
-    StockItemEditCallBacks mCallBacks = new StockItemEditCallBacks();
+    List<StockViewModel> mSearchAllDataList = new ArrayList<>();//缓存的全部股票
+    Map<String, StockViewModel> mSearchAllDataMap = new HashMap<>();//缓存的全部股票
     List<String> mSaveList = new ArrayList<>();
+    List<StockViewModel> mResultList = new ArrayList<>();//搜索结果
+    List<StockViewModel> mHotList = new ArrayList<>();//热门搜索结果集
+    List<StockViewModel> mHistoryList = new ArrayList<>();//历史搜索结果集
+
     Handler mHandler = new Handler();
+    StockItemEditCallBacks mCallBacks = new StockItemEditCallBacks();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +60,31 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         initData();
         initView();
         initListener();
-        bindData();
+        mResultAdapter = new StoctResultAdapter(this, mCallBacks);
+        mResultAdapter.setSaveList(mSaveList);
+        mResultAdapter.setData(mResultList);
+
+        mHistoryAdapter = new StoctHistoryAdapter(this, mCallBacks);
+        mHistoryAdapter.setSaveList(mSaveList);
+        mHistoryAdapter.setData(mHistoryList);
+        bindHistoryData();
     }
 
-    private void bindData() {
-        editAdapter = new StockEditAdapter(this, mCallBacks);
-        editAdapter.setData(stockList);
-        editAdapter.setSaveList(mSaveList);
-        mResultList.setAdapter(editAdapter);
+    /**
+     *
+     */
+    public void bindResultData() {
+        mHistoryView.setVisibility(View.GONE);
+        mResultView.setVisibility(View.VISIBLE);
+
+        mResultAdapter.notifyDataSetChanged();
+    }
+
+    private void bindHistoryData() {
+        mHistoryView.setVisibility(View.VISIBLE);
+        mResultView.setVisibility(View.GONE);
+
+        mHistoryAdapter.notifyDataSetChanged();
     }
 
     private void initListener() {
@@ -68,12 +94,15 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
             public void getInput(String inputString) {
                 //输入开始联想，6个数字或者匹配本地成功触发全量的联想
                 if (StringUtil.emptyOrNull(inputString)) {
+                    bindHistoryData();
                     return;
                 }
                 boolean searchResult = handleAssoSearchKey(inputString);
                 //本地联想失败
                 if (!searchResult) {
                     assoStockByCode(inputString);
+                } else {
+                    bindResultData();
                 }
             }
         });
@@ -89,7 +118,7 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
                 //添加操作
                 mSaveList.add(model.mStockCode);
                 DataSource.addStockCode(StockSearchActivity.this, model.mStockCode);
-                editAdapter.notifyDataSetChanged();
+                mResultAdapter.notifyDataSetChanged();
             }
         };
     }
@@ -101,16 +130,34 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         //历史搜索
         mHistoryView = (LinearLayout) findViewById(R.id.stock_search_history_layout);
         mHotContainer = (HotelTagsViewV2) findViewById(R.id.stock_hot_found_view);
-        mHistoryList = (ListView) findViewById(R.id.stock_asso_list);
+        mHistoryListView = (ListView) findViewById(R.id.stock_asso_list);
 
         //搜索结果
         mResultView = (LinearLayout) findViewById(R.id.stock_search_result_layout);
-        mResultList = (ListView) findViewById(R.id.stock_result_list);
+        mResultListView = (ListView) findViewById(R.id.stock_result_list);
     }
 
     private void initData() {
+        mSearchAllDataList.clear();
+        mSearchAllDataList.addAll(DataSource.getSearchAllData());
+        //List转成map形式
+        for (StockViewModel model : mSearchAllDataList) {
+            mSearchAllDataMap.put(model.mStockCode, model);
+        }
+
+        //已经保存的集合
         mSaveList.clear();
         mSaveList.addAll(DataSource.getSaveStockCodeList(this));
+
+        //TODO 热门搜索需要发服务
+        mHotList.clear();
+
+        mHistoryList.clear();
+        List<String> historyStockCodeList = DataSource.getHistoryStockCodeList(this);//这里记录的都是code
+        for (String code : historyStockCodeList) {
+            StockViewModel stockViewModel = mSearchAllDataMap.get(code);
+            mHistoryList.add(stockViewModel);
+        }
     }
 
     //联想输入的关键词
@@ -120,10 +167,10 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         if (isAllNumber && searchKey.length() == 6) {
             return false;
         }
-        List<StockViewModel> searchAllData = DataSource.getSearchAllData();
+
         //如果纯数字进行联想
         List<StockViewModel> searchResultList = new ArrayList<>();
-        for (StockViewModel stockViewModel : searchAllData) {
+        for (StockViewModel stockViewModel : mSearchAllDataList) {
             if (isAllNumber) {
                 if (stockViewModel.mStockCode.startsWith(searchKey)) {
                     searchResultList.add(stockViewModel);
@@ -135,9 +182,9 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
             }
         }
         if (searchResultList.size() > 0) {
-            stockList.clear();
-            stockList.addAll(searchResultList);
-            editAdapter.notifyDataSetChanged();
+            //这里构造数据，外部刷新
+            mResultList.clear();
+            mResultList.addAll(searchResultList);
         }
         return true;
     }
@@ -147,12 +194,13 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
             @Override
             public void run() {
                 List<StockViewModel> stockViewModels = StockSender.getInstance().requestStockModelByCode(code);
-                stockList.clear();
-                stockList.addAll(stockViewModels);
+                mResultList.clear();
+                mResultList.addAll(stockViewModels);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        editAdapter.notifyDataSetChanged();
+                        bindResultData();
+//                        mResultAdapter.notifyDataSetChanged();
                     }
                 });
             }

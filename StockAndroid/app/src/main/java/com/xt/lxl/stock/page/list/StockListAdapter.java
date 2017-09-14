@@ -21,12 +21,12 @@ import java.util.List;
 /**
  * Created by xiangleiliu on 2017/8/5.
  */
-public class StockAdapter extends BaseAdapter {
+public class StockListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private StockListCallBacks mCallBacks;
     private List<StockViewModel> mStockList = new ArrayList<>();
 
-    public StockAdapter(Context context, StockListCallBacks callBacks) {
+    public StockListAdapter(Context context, StockListCallBacks callBacks) {
         mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mCallBacks = callBacks;

@@ -18,13 +18,13 @@ import java.util.List;
 /**
  * Created by xiangleiliu on 2017/8/5.
  */
-public class StockEditAdapter extends BaseAdapter {
+public class StoctHistoryAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<StockViewModel> mStockList = new ArrayList<>();
     private List<String> mSaveList = new ArrayList<>();
     private StockItemEditCallBacks mCallBacks;
 
-    public StockEditAdapter(Context context, StockItemEditCallBacks callBacks) {
+    public StoctHistoryAdapter(Context context, StockItemEditCallBacks callBacks) {
         mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mCallBacks = callBacks;
