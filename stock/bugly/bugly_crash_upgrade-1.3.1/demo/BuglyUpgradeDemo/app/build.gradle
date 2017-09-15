@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.bugly.upgrade.demo"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.1"
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' , 'x86'//, 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // 本地集成aar需要此配置
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.0.0'
+    // 推荐集成方式， 其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.0
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+
+    // 本地集成aar方式
+    // compile(name: 'bugly_crashreport_upgrade-1.2.5', ext: 'aar')
+}

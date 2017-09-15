@@ -1,0 +1,81 @@
+一、搜索界面
+1、热门搜索	需要DB配置，需要数据DB配置哪几个属于热门搜索
+搜索之后出来什么？
+返回List<String> mHotSearch;//热门搜索的关键词集合
+
+2、历史搜索//存在用户本地，不计入数据库
+
+二、股票搜索界面：
+1、股票排行top10	需要DB配置
+返回List<StockFoundRankModel>
+StockFoundRankModel定义类型：
+public String mTitle;//展示的文本
+public int mShowType;//展示的类型，左上角的选择类型
+public int mType;//跳转类型，是那种类型的排行
+public String mForeignKey;//外键，关联到对应的信息
+
+2、股票排行详情
+进入到详情界面，发送两个API接口服务。
+2.1、请求所有的筛选类型，默认进入是不带任何筛选类型的
+请求参数
+public String mForeignKey//外键
+
+返回参数
+List<StockRankFilterModel>
+StockRankFilterModel 定义类型
+{
+public int mStockRankFilterId;
+public String mStockRankFilterText;
+}
+
+2.2、根据类型需要展示不同的类型，
+请求参数：
+public String mForeignKey//外键
+
+返回参数
+List<StockRankDetailModel>
+StockRankDetailModel定义类型：
+public int mIndex;//排序顺序，当index为0时代表的是title（筛选）这一栏
+public String name;//显示的名称
+public String showType1;//显示数据类型1，比如连续跌停
+public String showType2;//显示数据类型2，比如今年表现
+public String showType3;//显示数据类型2，其他
+
+三、股票详情界面
+股票详情有 公司详情、重大事件列表、公司介绍、财务信息、重大信息、横向比较、券商评级这七个API接口
+1、公司详情
+请求参数
+public String stockCode//股票代码
+返回参数
+StockDetailInfoModel//定义类型股票基础信息
+StockRankDetailModel	定义类型如下：
+public String mStockCode;//公司代码
+public String mCompanyDesc;//公司介绍
+其它的信息往这里面加。
+
+
+2、重大事件列表
+请求参数
+public String stockCode//股票代码
+返回参数
+List<StockDetailEventModel>//
+StockDetailEventModel
+public int mEventDetailId//事件详情ID
+public String mEventDetailTitle;//事件详情的标题
+
+
+3、公司介绍
+
+4、财务信息
+
+5、重大信息
+
+6、横向比较
+
+7、券商评级
+
+
+
+
+
+
