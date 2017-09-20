@@ -8,6 +8,14 @@ public class Config {
     //定义的参数
 
     /**
+     * 注意：
+     * 测试的前缀使用
+     * http://localhost:8080/zzfin/api/
+     * 生成的前缀使用
+     * http://115.159.31.128:8090/zzfin/api/
+     */
+
+    /**
      * 用户注册
      * http://localhost:5389/register?moblie=86_17863333330&clientId=32001000010001
      * http://115.159.31.128:8090/zzfin/api/register?moblie=86_17863333333&clientId=32001000010001
