@@ -39,4 +39,9 @@ public class Config {
      * top10
      */
     public String Search_RecommendList = "http://localhost:8080/zzfin/api/stock_ranklist";
+
+    /**
+     * stock_sync
+     */
+    public String Search_Sync = "http://localhost:8080/zzfin/api/stock_sync";
 }

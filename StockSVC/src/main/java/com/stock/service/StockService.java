@@ -4,10 +4,13 @@ import com.stock.dao.StockDao;
 import com.stock.dao.StockDaoImpl;
 import com.stock.model.model.StockRankResultModel;
 import com.stock.model.model.StockSearchModel;
+import com.stock.model.model.StockSyncModel;
 import com.stock.model.request.StockHotSearchRequest;
 import com.stock.model.request.StockRankListResquest;
+import com.stock.model.request.StockSyncReqeust;
 import com.stock.model.response.StockHotSearchResponse;
 import com.stock.model.response.StockRankListResponse;
+import com.stock.model.response.StockSyncResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,7 @@ public class StockService {
     public static StockService stockService;
 
     private StockService() {
-        dao = new StockDaoImpl();
+        dao = StockDaoImpl.getDao();
     }
 
     public static synchronized StockService getInstance() {
@@ -42,5 +45,11 @@ public class StockService {
         List<StockSearchModel> searchModels = dao.selectSerchModelRankList(StockSearchModel.STOCK_SHOW_TYPE_HOTSEARCH, 3);
         stockSearchModelList.addAll(searchModels);
         return stockSearchModelList;
+    }
+
+    public List<StockSyncModel> getStockSyncList(StockSyncReqeust syncReqeust, StockSyncResponse syncResponse) {
+        int version = syncReqeust.version;
+        List<StockSyncModel> syncModelList = dao.selectSyncModelList(version);
+        return syncModelList;
     }
 }

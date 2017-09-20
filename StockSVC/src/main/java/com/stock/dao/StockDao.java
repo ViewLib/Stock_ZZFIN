@@ -1,6 +1,7 @@
 package com.stock.dao;
 
 import com.stock.model.model.StockSearchModel;
+import com.stock.model.model.StockSyncModel;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface StockDao {
      */
     public List<StockSearchModel> selectSerchModelRankList(int showType,int limit);
 
+    List<StockSyncModel> selectSyncModelList(int version);
 }

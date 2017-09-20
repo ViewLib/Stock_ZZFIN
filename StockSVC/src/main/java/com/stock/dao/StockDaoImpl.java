@@ -1,6 +1,7 @@
 package com.stock.dao;
 
 import com.stock.model.model.StockSearchModel;
+import com.stock.model.model.StockSyncModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,8 +9,9 @@ import java.util.List;
 
 public class StockDaoImpl implements StockDao {
     Connection conn;
+    private static StockDaoImpl dao;
 
-    public StockDaoImpl() {
+    private StockDaoImpl() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/stock_zzfin?useUnicode=true&characterEncoding=utf-8";
@@ -19,6 +21,13 @@ public class StockDaoImpl implements StockDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public synchronized static StockDaoImpl getDao() {
+        if (dao == null) {
+            dao = new StockDaoImpl();
+        }
+        return dao;
     }
 
 
@@ -63,6 +72,35 @@ public class StockDaoImpl implements StockDao {
         }
 
         return searchModelList;
+    }
+
+    @Override
+    public List<StockSyncModel> selectSyncModelList(int version) {
+        List<StockSyncModel> syncModelList = new ArrayList<>();
+        String sql = "select * from stock_all_db where version > ? order by stock_code";
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            preStmt.setInt(1, version);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String stockCode = rs.getString("stock_code");
+                String stockName = rs.getString("stock_name");
+                int sversion = rs.getInt("version");
+                StockSyncModel syncModel = new StockSyncModel();
+                syncModel.stockCode = stockCode;
+                syncModel.stockName = stockName;
+                syncModel.version = sversion;
+                syncModelList.add(syncModel);
+            }
+            return syncModelList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+
+        return syncModelList;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {

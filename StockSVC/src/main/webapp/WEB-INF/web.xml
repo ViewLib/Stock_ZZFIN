@@ -128,6 +128,15 @@
         <url-pattern>/api/stock_rankfilter</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>StockSyncServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockSyncServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockSyncServlet</servlet-name>
+        <url-pattern>/api/stock_sync</url-pattern>
+    </servlet-mapping>
+
 
     <servlet>
         <servlet-name>StockRankListServlet</servlet-name>
