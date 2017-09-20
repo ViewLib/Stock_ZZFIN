@@ -19,7 +19,7 @@ public class Config {
      * <p>
      * http://115.159.31.128:8090/zzfin/api/completion?userid=10000003&moblie=86_17863333330&nickname=祥磊&area=上海&age=27
      */
-    public String Completion = "http://localhost:8080/zzfin/api/user_completion?userid=10000002&moblie=86_17863333330&nickname=哈哈&area=山东日照&age=28";
+    public String Completion = "http://localhost:8080/zzfin/api/user_completion?userid%3d10000002%26moblie%3d86_17863333330%26nickname%3d%e5%93%88%e5%93%88%26area%3d%e5%b1%b1%e4%b8%9c%e6%97%a5%e7%85%a7%26age%3d28";
 
     /**
      * 热搜推荐
