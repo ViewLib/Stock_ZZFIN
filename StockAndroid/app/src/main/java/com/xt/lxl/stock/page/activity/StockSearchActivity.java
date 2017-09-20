@@ -203,6 +203,9 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         List<String> historyStockCodeList = DataSource.getHistoryStockCodeList(this);//这里记录的都是code
         for (String code : historyStockCodeList) {
             StockViewModel stockViewModel = mSearchAllDataMap.get(code);
+            if (stockViewModel == null) {
+                continue;
+            }
             mHistoryList.add(stockViewModel);
         }
     }

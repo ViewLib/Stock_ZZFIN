@@ -7,8 +7,7 @@ import android.view.View;
  */
 public class StockItemEditCallBacks {
 
+    //搜索添加股票，以及历史记录添加股票
     public View.OnClickListener mActionCallBack;
-
-    public View.OnClickListener mActionAddCallBack;//历史搜索点击添加
 
 }

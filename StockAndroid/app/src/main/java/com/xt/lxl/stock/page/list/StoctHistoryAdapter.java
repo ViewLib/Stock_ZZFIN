@@ -73,10 +73,11 @@ public class StoctHistoryAdapter extends BaseAdapter {
 
         if (mSaveList.contains(stockViewModel.mStockCode)) {
             stockAction.setText("已添加");
+            stockAction.setCompoundDrawable(null, 0, 0, 0);
         } else {
             int pixelFromDip = StockShowUtil.getPixelFromDip(convertView.getContext(), 15);
             stockAction.setText("");
-            stockAction.setCompoundDrawable(convertView.getResources().getDrawable(R.drawable.stock_history_item_add),0,pixelFromDip,pixelFromDip);
+            stockAction.setCompoundDrawable(convertView.getResources().getDrawable(R.drawable.stock_history_item_add), 0, pixelFromDip, pixelFromDip);
             stockAction.setOnClickListener(mCallBacks.mActionCallBack);
         }
         stockAction.setTag(stockViewModel);
