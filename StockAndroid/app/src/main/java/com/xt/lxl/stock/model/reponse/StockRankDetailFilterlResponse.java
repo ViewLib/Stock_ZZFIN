@@ -1,7 +1,6 @@
 package com.xt.lxl.stock.model.reponse;
 
 import com.xt.lxl.stock.model.model.StockRankFilterModel;
-import com.xt.lxl.stock.model.model.StockSearchViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

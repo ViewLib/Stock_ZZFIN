@@ -3,7 +3,11 @@ package com.stock.service;
 import com.stock.dao.UserDao;
 import com.stock.dao.UserDaoImpl;
 import com.stock.model.ServiceResponse;
-import com.stock.model.StockUserModel;
+import com.stock.model.model.StockUserModel;
+import com.stock.model.request.StockUserCompletionRequest;
+import com.stock.model.request.StockUserRegisterRequest;
+import com.stock.model.response.StockUserCompletionResponse;
+import com.stock.model.response.StockUserRegisterResponse;
 
 /**
  * Created by xiangleiliu on 2017/9/6.
@@ -27,7 +31,11 @@ public class UserService {
     /**
      * 注册用户
      */
-    public StockUserModel registerUser(String moblie, String clientId) throws Exception {
+    public StockUserModel registerUser(StockUserRegisterRequest stockUserRegisterRequest,StockUserRegisterResponse registerResponse) throws Exception {
+        if (!stockUserRegisterRequest.moblie.contains("_")) {
+            stockUserRegisterRequest.moblie = "86_" + stockUserRegisterRequest.moblie;
+        }
+        String moblie = stockUserRegisterRequest.moblie;
         //首先查询这个手机号是否有注册用户
         StockUserModel selectModel = dao.selectStockUserModel(moblie);
         if (selectModel != null) {
@@ -35,7 +43,7 @@ public class UserService {
         }
         selectModel = new StockUserModel();
         selectModel.mMoblie = moblie;
-        selectModel.mClientId = clientId;
+        selectModel.mClientId = stockUserRegisterRequest.clientId;
         int userId = dao.insertStockUserModel(selectModel);
         if (userId > 0) {
             selectModel.mUserId = userId;
@@ -48,30 +56,20 @@ public class UserService {
     /**
      * 更新用户信息
      */
-    public boolean updateUser(String userid, String moblie, String nickname, String area, String age) throws Exception {
-
+    public void updateUser(StockUserCompletionRequest completionRequest, StockUserCompletionResponse completionResponse) throws Exception {
+//        String userid, String moblie, String nickname, String area, String age
         int userId = 0;
-        try {
-            userId = Integer.parseInt(userid);
-        } catch (Exception e) {
-        }
+        userId = completionRequest.userid;
         if (userId < 10000000 || userId > 99999999) {
             throw new Exception("userId异常");
         }
         StockUserModel model = new StockUserModel();
-        model.mUserId = Integer.parseInt(userid);
-        model.mMoblie = moblie;
-        model.mNickName = nickname;
-        model.mArea = area;
-        model.mAge = Integer.parseInt(age);
-        return dao.updateStockUserModel(model);
+        model.mUserId = userId;
+        model.mMoblie = completionRequest.moblie;
+        model.mNickName = completionRequest.nickname;
+        model.mArea = completionRequest.area;
+        model.mAge = completionRequest.age;
+        boolean b = dao.updateStockUserModel(model);
     }
-
-    public ServiceResponse result2Response(int code, String resultMessage, String result) {
-        ServiceResponse response = new ServiceResponse();
-
-        return response;
-    }
-
 
 }

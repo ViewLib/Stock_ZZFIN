@@ -7,7 +7,7 @@ import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.model.model.StockRankFilterModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
-import com.xt.lxl.stock.model.model.StockSearchViewModel;
+import com.xt.lxl.stock.model.model.StockSearchModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
@@ -154,23 +154,23 @@ public class DataSource {
     }
 
     public static StockHotSearchResponse getStockHotSearchResponse(StockSearchActivity stockSearchActivity) {
-        List<StockSearchViewModel> list = new ArrayList<>();
-        StockSearchViewModel model1 = new StockSearchViewModel();
-        model1.mSearchType = StockSearchViewModel.STOCK_FOUND_TYPE_RNAK;
+        List<StockSearchModel> list = new ArrayList<>();
+        StockSearchModel model1 = new StockSearchModel();
+        model1.mSearchType = StockSearchModel.STOCK_FOUND_TYPE_RNAK;
         model1.rankModel = new StockFoundRankModel("事件一一一一一一一啊");
 
-        StockSearchViewModel model2 = new StockSearchViewModel();
-        model2.mSearchType = StockSearchViewModel.STOCK_FOUND_TYPE_RNAK;
+        StockSearchModel model2 = new StockSearchModel();
+        model2.mSearchType = StockSearchModel.STOCK_FOUND_TYPE_RNAK;
         model2.rankModel = new StockFoundRankModel("事件二喽喽");
 
-        StockSearchViewModel model3 = new StockSearchViewModel();
+        StockSearchModel model3 = new StockSearchModel();
         model3.stockViewModel = new StockViewModel();
-        model3.mSearchType = StockSearchViewModel.STOCK_FOUND_TYPE_STOCK;
+        model3.mSearchType = StockSearchModel.STOCK_FOUND_TYPE_STOCK;
         model3.stockViewModel.mStockName = "汉得信息";
         model3.stockViewModel.mStockCode = "300170";
 
-        StockSearchViewModel model4 = new StockSearchViewModel();
-        model4.mSearchType = StockSearchViewModel.STOCK_FOUND_TYPE_RNAK;
+        StockSearchModel model4 = new StockSearchModel();
+        model4.mSearchType = StockSearchModel.STOCK_FOUND_TYPE_RNAK;
         model4.rankModel = new StockFoundRankModel("事件四");
 
         list.add(model1);

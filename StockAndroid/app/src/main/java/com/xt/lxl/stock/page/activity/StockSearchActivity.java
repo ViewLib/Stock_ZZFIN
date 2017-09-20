@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
-import com.xt.lxl.stock.model.model.StockSearchViewModel;
+import com.xt.lxl.stock.model.model.StockSearchModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
 import com.xt.lxl.stock.page.list.StoctHistoryAdapter;
@@ -49,7 +49,7 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
     Map<String, StockViewModel> mSearchAllDataMap = new HashMap<>();//缓存的全部股票
     List<String> mSaveList = new ArrayList<>();
     List<StockViewModel> mResultList = new ArrayList<>();//搜索结果
-    List<StockSearchViewModel> mHotList = new ArrayList<>();//热门搜索结果集
+    List<StockSearchModel> mHotList = new ArrayList<>();//热门搜索结果集
     List<StockViewModel> mHistoryList = new ArrayList<>();//历史搜索结果集
 
     Handler mHandler = new Handler();
@@ -81,13 +81,13 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
 
     public void bindHotSearch() {
         mHotContainer.removeAllViews();
-        for (StockSearchViewModel stockSearchViewModel : mHotList) {
+        for (StockSearchModel stockSearchViewModel : mHotList) {
             View inflate = null;
-            if (stockSearchViewModel.mSearchType == StockSearchViewModel.STOCK_FOUND_TYPE_RNAK) {
+            if (stockSearchViewModel.mSearchType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
                 inflate = View.inflate(this, R.layout.stock_search_hot_item, null);
                 TextView textView = (TextView) inflate.findViewById(R.id.hot_search_text);
                 textView.setText(stockSearchViewModel.rankModel.mTitle);
-            } else if (stockSearchViewModel.mSearchType == StockSearchViewModel.STOCK_FOUND_TYPE_STOCK) {
+            } else if (stockSearchViewModel.mSearchType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
                 inflate = View.inflate(this, R.layout.stock_search_hot_item, null);
                 TextView textView = (TextView) inflate.findViewById(R.id.hot_search_text);
                 textView.setText(stockSearchViewModel.stockViewModel.mStockName + " " + stockSearchViewModel.stockViewModel.mStockCode);

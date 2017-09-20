@@ -1,15 +1,11 @@
 package com.stock.dao;
 
 
-import com.stock.model.StockUserModel;
+import com.stock.model.model.StockUserModel;
 import com.stock.util.Logger;
 
-import java.io.Serializable;
 import java.sql.*;
-import java.util.*;
 import java.util.Date;
-
-import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 /**
  * Created by xiangleiliu on 2017/5/4.

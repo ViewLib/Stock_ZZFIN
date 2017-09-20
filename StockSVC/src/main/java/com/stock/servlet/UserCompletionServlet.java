@@ -1,5 +1,9 @@
 package com.stock.servlet;
 
+import com.alibaba.fastjson.JSON;
+import com.stock.model.request.StockUserCompletionRequest;
+import com.stock.model.request.StockUserRegisterRequest;
+import com.stock.model.response.StockUserCompletionResponse;
 import com.stock.service.UserService;
 import com.stock.util.Logger;
 
@@ -28,27 +32,21 @@ public class UserCompletionServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userid = request.getParameter("userid");
-        String moblie = request.getParameter("moblie");
-        String nickname = request.getParameter("nickname");
-        String area = request.getParameter("area");
-        String age = request.getParameter("age");
-
-        Logger.getLogger().showMessage("doGet area:" + area);
+        String data = request.getParameter("data");
+        StockUserCompletionRequest stockUserCompletionRequest = JSON.parseObject(data, StockUserCompletionRequest.class);
+        Logger.getLogger().showMessage("doGet area:" + stockUserCompletionRequest.area);
 
         PrintWriter writer = response.getWriter();
         response.setStatus(500);//默认值
+        StockUserCompletionResponse stockUserCompletionResponse = new StockUserCompletionResponse();
         try {
-            boolean result = userService.updateUser(userid, moblie, nickname, area, age);
-            if (result) {
-                response.setStatus(200);
-                writer.write("update user success");
-            } else {
-                writer.write("update user fail");
-            }
+            userService.updateUser(stockUserCompletionRequest, stockUserCompletionResponse);
+            response.setStatus(200);
+            stockUserCompletionResponse.resultMessage = "sucess";
         } catch (Exception e) {
-            writer.write(e.getMessage());
+            response.setStatus(500);
         }
+        writer.write(JSON.toJSONString(stockUserCompletionResponse));
         writer.flush();
     }
 }

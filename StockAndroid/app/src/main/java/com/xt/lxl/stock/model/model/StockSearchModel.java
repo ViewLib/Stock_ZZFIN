@@ -8,7 +8,7 @@ package com.xt.lxl.stock.model.model;
  * StockViewModel 股票
  */
 
-public class StockSearchViewModel {
+public class StockSearchModel {
     public final static int STOCK_FOUND_TYPE_STOCK = 1;//股票
     public final static int STOCK_FOUND_TYPE_RNAK = 2;//事件性排行
 

@@ -1,6 +1,6 @@
 package com.xt.lxl.stock.model.reponse;
 
-import com.xt.lxl.stock.model.model.StockSearchViewModel;
+import com.xt.lxl.stock.model.model.StockSearchModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,6 @@ public class StockHotSearchResponse {
 
     public int resultCode = 200;
     public String resultMessage = "";
-    public List<StockSearchViewModel> mHotSearchList = new ArrayList<>();
+    public List<StockSearchModel> mHotSearchList = new ArrayList<>();
 
 }

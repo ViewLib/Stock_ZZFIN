@@ -1,7 +1,7 @@
 package com.stock.dao;
 
 
-import com.stock.model.StockUserModel;
+import com.stock.model.model.StockUserModel;
 
 /**
  * Created by xiangleiliu on 2017/5/25.
