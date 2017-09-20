@@ -7,7 +7,6 @@ import com.stock.model.ServiceRequest;
  */
 public class StockUserRegisterRequest extends ServiceRequest {
     public final int serviceCode = 3001;//服务号
-    public int versionCode = 1;
 
     public String moblie = "";
     public String clientId = "";

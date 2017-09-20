@@ -5,6 +5,7 @@ import com.stock.model.ServiceRequest;
 import com.stock.model.ServiceResponse;
 import com.stock.model.request.StockUserRegisterRequest;
 import com.stock.model.response.StockUserRegisterResponse;
+import com.stock.util.StringUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,26 +36,48 @@ public abstract class BaseServlet extends HttpServlet {
 
     //处理注册
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ServiceRequest baseRequest = (ServiceRequest) getRequest(request, getActionRequestClass());
+        String data = request.getParameter("data");
+        ServiceRequest baseRequest = null;
+        if (StringUtil.emptyOrNull(data)) {
+            try {
+                baseRequest = (ServiceRequest) getActionRequestClass().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            baseRequest = (ServiceRequest) getRequest(request, getActionRequestClass());
+        }
+
         ServiceResponse baserResponse = null;
         try {
             baserResponse = (ServiceResponse) getActionResponseClass().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try {
-            //对moblie做个处理
-            servletAction(baseRequest, baserResponse);
-            baserResponse.resultMessage = "sucess";
-            response.setStatus(200);
-        } catch (Exception e) {
-            baserResponse.resultMessage = e.getMessage();
-            response.setStatus(500);
+
+        if (!isVerification(baseRequest)) {
+            baserResponse.resultMessage = "参数验证不通过";
+            baserResponse.resultCode = 500;
+        } else {
+            try {
+                //对moblie做个处理
+                servletAction(baseRequest, baserResponse);
+                baserResponse.resultMessage = "sucess";
+                response.setStatus(200);
+            } catch (Exception e) {
+                baserResponse.resultMessage = e.getMessage();
+                response.setStatus(500);
+            }
         }
         PrintWriter writer = response.getWriter();
         writer.write(JSON.toJSONString(baserResponse));
         writer.flush();
     }
+
+    protected boolean isVerification(ServiceRequest baseRequest) {
+        return true;
+    }
+
 
     protected abstract Class getActionRequestClass();
 

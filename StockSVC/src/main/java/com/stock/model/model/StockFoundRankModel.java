@@ -10,9 +10,9 @@ public class StockFoundRankModel {
     public static final int SHOW_TYPE_YELLOW = 2;
 
 
-    public String mTitle;//title
-    public int mShowType;//展示的类型，左上角的选择类型
-    public int mType;//跳转类型，是那种类型的排行
+    public String title;//title
+    public int showType;//展示的类型，左上角的选择类型
+    public int searchRelation;//跳转类型，是那种类型的排行
 
     public StockFoundRankModel(String mTitle) {
         this(mTitle, SHOW_TYPE_BULE);
@@ -20,8 +20,8 @@ public class StockFoundRankModel {
 
 
     public StockFoundRankModel(String title, int showType) {
-        mTitle = title;
-        mShowType = showType;
+        this.title = title;
+        this.showType = showType;
     }
 
 

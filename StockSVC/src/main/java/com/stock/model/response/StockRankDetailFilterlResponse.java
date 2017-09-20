@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/9/19 0019.
- * 排行详情response
+ * 排行详情筛选项response
  */
 
 public class StockRankDetailFilterlResponse {

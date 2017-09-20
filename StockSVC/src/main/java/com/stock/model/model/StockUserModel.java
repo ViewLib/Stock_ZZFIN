@@ -9,13 +9,13 @@ import java.util.Date;
  */
 public class StockUserModel {
 
-    public int mUserId;//用户id
-    public String mMoblie;//手机号
-    public String mClientId;//clinetId
-    public String mNickName;//用户昵称
-    public String mArea;//地区
-    public int mAge;//年龄
-    public Date mCreateTime;//注册时间
+    public int userId;//用户id
+    public String moblie;//手机号
+    public String clientId;//clinetId
+    public String nickName;//用户昵称
+    public String area;//地区
+    public int age;//年龄
+    public Date createTime;//注册时间
 
     @Override
     public String toString() {

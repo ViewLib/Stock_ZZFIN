@@ -2,7 +2,6 @@ package com.stock.service;
 
 import com.stock.dao.UserDao;
 import com.stock.dao.UserDaoImpl;
-import com.stock.model.ServiceResponse;
 import com.stock.model.model.StockUserModel;
 import com.stock.model.request.StockUserCompletionRequest;
 import com.stock.model.request.StockUserRegisterRequest;
@@ -31,7 +30,7 @@ public class UserService {
     /**
      * 注册用户
      */
-    public StockUserModel registerUser(StockUserRegisterRequest stockUserRegisterRequest,StockUserRegisterResponse registerResponse) throws Exception {
+    public StockUserModel registerUser(StockUserRegisterRequest stockUserRegisterRequest, StockUserRegisterResponse registerResponse) throws Exception {
         if (!stockUserRegisterRequest.moblie.contains("_")) {
             stockUserRegisterRequest.moblie = "86_" + stockUserRegisterRequest.moblie;
         }
@@ -42,11 +41,11 @@ public class UserService {
             return selectModel;
         }
         selectModel = new StockUserModel();
-        selectModel.mMoblie = moblie;
-        selectModel.mClientId = stockUserRegisterRequest.clientId;
+        selectModel.moblie = moblie;
+        selectModel.clientId = stockUserRegisterRequest.clientId;
         int userId = dao.insertStockUserModel(selectModel);
         if (userId > 0) {
-            selectModel.mUserId = userId;
+            selectModel.userId = userId;
             return selectModel;
         }
         //如果插入失败的话，则抛出异常
@@ -56,7 +55,7 @@ public class UserService {
     /**
      * 更新用户信息
      */
-    public void updateUser(StockUserCompletionRequest completionRequest, StockUserCompletionResponse completionResponse) throws Exception {
+    public StockUserModel updateUser(StockUserCompletionRequest completionRequest, StockUserCompletionResponse completionResponse) throws Exception {
 //        String userid, String moblie, String nickname, String area, String age
         int userId = 0;
         userId = completionRequest.userid;
@@ -64,12 +63,16 @@ public class UserService {
             throw new Exception("userId异常");
         }
         StockUserModel model = new StockUserModel();
-        model.mUserId = userId;
-        model.mMoblie = completionRequest.moblie;
-        model.mNickName = completionRequest.nickname;
-        model.mArea = completionRequest.area;
-        model.mAge = completionRequest.age;
-        boolean b = dao.updateStockUserModel(model);
+        model.userId = userId;
+        model.moblie = completionRequest.moblie;
+        model.nickName = completionRequest.nickname;
+        model.area = completionRequest.area;
+        model.age = completionRequest.age;
+        if (dao.updateStockUserModel(model)) {
+            return model;
+        } else {
+            throw new Exception("修改数据失败");
+        }
     }
 
 }

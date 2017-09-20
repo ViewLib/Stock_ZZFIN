@@ -1,10 +1,9 @@
 package com.stock.model.response;
 
+import com.stock.model.ServiceResponse;
 import com.stock.model.model.StockUserModel;
 
-public class StockUserCompletionResponse {
+public class StockUserCompletionResponse extends ServiceResponse {
     public final int serviceCode = 3002;//服务号
-    public int resultCode = 200;
-    public String resultMessage = "";
     public StockUserModel userModel = new StockUserModel();
 }

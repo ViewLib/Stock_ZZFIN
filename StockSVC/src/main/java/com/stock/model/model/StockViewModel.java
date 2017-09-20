@@ -28,36 +28,36 @@ public class StockViewModel implements Cloneable, Serializable {
     /**
      * 以下信息直接录入
      */
-    public String mStockName = "";
-    public String mStockPirce = "";
-    public String mStockCode = "";//股票代码
-    public String mStockType = STOCK_TYPE_CHINA;//股票类型 美股orA股
-    public String mStockChange = "";//涨跌幅 string类型
-    public String mRatio = "";//市盈率
-    public String mTurnover = "";//换手率
-    public String mValueAll = "";//总市值
+    public String stockName = "";
+    public String stockPirce = "";
+    public String stockCode = "";//股票代码
+    public String stockType = STOCK_TYPE_CHINA;//股票类型 美股orA股
+    public String stockChange = "";//涨跌幅 string类型
+    public String ratio = "";//市盈率
+    public String turnover = "";//换手率
+    public String valueAll = "";//总市值
     public boolean isSuspension = false;//是否停牌
 
     /**
      * 以下信息init方法生成
      */
-    public String mStockPriceUS = "";//当前价格，美元
-    public int mShowType = STOCK_SHOW_TYPE_NORMAL;
-    public double mStockChangeD = 0;//当前股票涨跌幅
-    public int mStockState = STOCK_STATE_NORMAL;//股票状态
-    public String mStockSubType = "";//股票类型， 沪主板/深主板/创业板/中小板
+    public String stockPriceUS = "";//当前价格，美元
+    public int showType = STOCK_SHOW_TYPE_NORMAL;
+    public double stockChangeD = 0;//当前股票涨跌幅
+    public int stockState = STOCK_STATE_NORMAL;//股票状态
+    public String stockSubType = "";//股票类型， 沪主板/深主板/创业板/中小板
 
     public StockViewModel() {
 
     }
 
     public StockViewModel(int showType) {
-        mShowType = showType;
+        this.showType = showType;
     }
 
     public StockViewModel(String stockCode, String stockName) {
-        mStockCode = stockCode;
-        mStockName = stockName;
+        this.stockCode = stockCode;
+        this.stockName = stockName;
     }
 
     public Object clone() {
@@ -71,19 +71,19 @@ public class StockViewModel implements Cloneable, Serializable {
 
     public void init() {
         //涨跌幅
-        this.mStockChangeD = Double.parseDouble(mStockChange) / 100;
+        this.stockChangeD = Double.parseDouble(stockChange) / 100;
         if (isSuspension) {
 
         }
         //板块类型
-        if (mStockCode.startsWith("6")) {
-            mStockSubType = STOCK_SUB_TYPE_SH_MAIN;
-        } else if (mStockCode.startsWith("000")) {
-            mStockSubType = STOCK_SUB_TYPE_SZ_MAIN;
-        } else if (mStockCode.startsWith("3")) {
-            mStockSubType = STOCK_SUB_TYPE_SZ_GEM;
+        if (stockCode.startsWith("6")) {
+            stockSubType = STOCK_SUB_TYPE_SH_MAIN;
+        } else if (stockCode.startsWith("000")) {
+            stockSubType = STOCK_SUB_TYPE_SZ_MAIN;
+        } else if (stockCode.startsWith("3")) {
+            stockSubType = STOCK_SUB_TYPE_SZ_GEM;
         } else {
-            mStockSubType = STOCK_SUB_TYPE_SZ_LITTLE;
+            stockSubType = STOCK_SUB_TYPE_SZ_LITTLE;
         }
     }
 }

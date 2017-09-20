@@ -89,7 +89,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/api/register</url-pattern>
+        <url-pattern>/api/user_register</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -98,7 +98,44 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>CompletionServlet</servlet-name>
-        <url-pattern>/api/completion</url-pattern>
+        <url-pattern>/api/user_completion</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StockHotSearchServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockHotSearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockHotSearchServlet</servlet-name>
+        <url-pattern>/api/stock_hotsearch</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StockRankDetailServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockRankDetailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockRankDetailServlet</servlet-name>
+        <url-pattern>/api/stock_rankdetail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StockRankFilterServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockRankFilterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockRankFilterServlet</servlet-name>
+        <url-pattern>/api/stock_rankfilter</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>StockRankListServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockRankListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockRankListServlet</servlet-name>
+        <url-pattern>/api/stock_ranklist</url-pattern>
     </servlet-mapping>
 
     <!-- 首页 -->

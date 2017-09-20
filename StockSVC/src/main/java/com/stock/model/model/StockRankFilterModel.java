@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 public class StockRankFilterModel {
-    public int mDefaultPosition;//默认筛选位置
-    public List<String> mFilteList=new ArrayList<>();//筛选列表，比如央企/私企/外企/等等
+    public int defaultPosition;//默认筛选位置
+    public List<String> filteList=new ArrayList<>();//筛选列表，比如央企/私企/外企/等等
 }

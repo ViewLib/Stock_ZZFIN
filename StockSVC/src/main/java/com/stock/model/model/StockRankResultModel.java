@@ -5,10 +5,10 @@ package com.stock.model.model;
  */
 
 public class StockRankResultModel {
-    public int mPosition;
-    public String mStockName = "";
-    public String mStockCode = "";
-    public String mAttr1 = "";
-    public String mAttr2 = "";
-    public String mAttr3 = "";
+    public int position;
+    public String stockName = "";
+    public String stockCode = "";
+    public String attr1 = "";
+    public String attr2 = "";
+    public String attr3 = "";
 }

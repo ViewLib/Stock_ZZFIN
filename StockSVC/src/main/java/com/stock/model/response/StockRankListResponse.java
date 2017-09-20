@@ -1,7 +1,8 @@
 package com.stock.model.response;
 
-
+import com.stock.model.ServiceResponse;
 import com.stock.model.model.StockRankResultModel;
+import com.stock.model.model.StockSearchModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,9 @@ import java.util.List;
  * top10排行列表
  */
 
-public class StockRankListResponse {
+public class StockRankListResponse extends ServiceResponse {
     final public int serviceCode = 2001;//服务号
-    public int resultCode = 0;
-    public String mTitle = "";//界面标题，比如 本日融资融券的前十家公司
-    public List<StockRankResultModel> mRankResultList = new ArrayList<>();//界面筛选项列表
+    public String title = "";//界面标题，比如 本日融资融券的前十家公司
+    public List<StockSearchModel> rankSearchList = new ArrayList<>();//界面筛选项列表
 
 }
