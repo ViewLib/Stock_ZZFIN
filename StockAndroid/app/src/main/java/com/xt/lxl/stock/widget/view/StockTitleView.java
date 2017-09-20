@@ -64,10 +64,12 @@ public class StockTitleView extends RelativeLayout {
         mActionBtn = (ImageView) findViewById(R.id.action_btn);
     }
 
+    public void setTitle(String title) {
+        setTitle(title, R.style.text_18_ffffff);
+    }
+
     public void setTitle(String title, int style) {
         mTitle.setText(title);
         mTitle.setTextAppearance(mContext, style);
     }
-
-
 }

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockListCallBacks;
-import com.xt.lxl.stock.model.StockViewModel;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.HotelViewHolder;
 import com.xt.lxl.stock.widget.helper.HotelLabelDrawable;

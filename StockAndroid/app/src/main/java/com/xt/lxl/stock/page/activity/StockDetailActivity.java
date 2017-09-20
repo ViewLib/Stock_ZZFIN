@@ -26,6 +26,7 @@ public class StockDetailActivity extends FragmentActivity {
         initListener();
     }
 
+
     private void initData() {
 
     }
@@ -35,7 +36,7 @@ public class StockDetailActivity extends FragmentActivity {
     }
 
     private void bindData() {
-        mTv.setText("股票详情界面");
+        mTv.setText("股票详情界面-一张图看懂万达");
     }
 
     private void initListener() {

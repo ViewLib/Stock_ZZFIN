@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.xt.lxl.stock.widget.view.StockTitleView
+        android:id="@+id/stock_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:stock_title_text_msg="股票排行界面" />
+
+    <LinearLayout
+        android:id="@+id/stock_rank_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <com.xt.lxl.stock.widget.view.StockTextView
+            android:id="@+id/filter1"
+            style="@style/hotel_text_14_186DB7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="央企"
+            app:hotel_text_drawable_direction="hotel_right"
+            app:hotel_text_drawable_height="7dp"
+            app:hotel_text_drawable_padding="5dp"
+            app:hotel_text_drawable_src="@drawable/stock_rank_filter"
+            app:hotel_text_drawable_width="11dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <com.xt.lxl.stock.widget.view.StockTextView
+            android:id="@+id/filter2"
+            style="@style/hotel_text_14_186DB7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="银行业"
+            app:hotel_text_drawable_direction="hotel_right"
+            app:hotel_text_drawable_height="7dp"
+            app:hotel_text_drawable_padding="5dp"
+            app:hotel_text_drawable_src="@drawable/stock_rank_filter"
+            app:hotel_text_drawable_width="11dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <com.xt.lxl.stock.widget.view.StockTextView
+            android:id="@+id/filter3"
+            style="@style/hotel_text_14_186DB7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全部盘"
+            app:hotel_text_drawable_direction="hotel_right"
+            app:hotel_text_drawable_height="7dp"
+            app:hotel_text_drawable_padding="5dp"
+            app:hotel_text_drawable_src="@drawable/stock_rank_filter"
+            app:hotel_text_drawable_width="11dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <com.xt.lxl.stock.widget.view.StockTextView
+            android:id="@+id/filter4"
+            style="@style/hotel_text_14_186DB7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其他筛选"
+            app:hotel_text_drawable_direction="hotel_right"
+            app:hotel_text_drawable_height="7dp"
+            app:hotel_text_drawable_padding="5dp"
+            app:hotel_text_drawable_src="@drawable/stock_rank_filter"
+            app:hotel_text_drawable_width="11dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/stock_filter_header"
+            layout="@layout/stock_rank_header_view" />
+
+        <ListView
+            android:id="@+id/stock_rank_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.model.StockFoundRankModel;
+import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.page.activity.StockRankActivity;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.StockShowUtil;

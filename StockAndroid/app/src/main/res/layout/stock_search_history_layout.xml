@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -11,7 +12,7 @@
         android:padding="10dp">
 
         <TextView
-            style="@style/text_14_899198"
+            style="@style/text_13_888888"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="热门搜索" />
@@ -29,16 +30,26 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            style="@style/text_14_899198"
+        <com.xt.lxl.stock.widget.view.StockTextView
+            style="@style/text_13_888888"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="历史搜索" />
+            app:hotel_text_drawable_src="@drawable/stock_history_icon"
+            app:hotel_text_drawable_height="15dp"
+            app:hotel_text_drawable_width="15dp"
+            app:hotel_text_drawable_direction="hotel_left"
+            app:hotel_text_drawable_padding="5dp"
+            android:text="历史搜索"
+            android:layout_marginBottom="5dp"
+            />
 
         <ListView
             android:id="@+id/stock_asso_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:divider="@color/stock_divider"
+            android:dividerHeight="1px"
+            />
 
     </LinearLayout>
 </LinearLayout>

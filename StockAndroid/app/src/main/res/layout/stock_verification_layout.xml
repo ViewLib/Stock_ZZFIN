@@ -63,7 +63,7 @@
         android:layout_marginLeft="15.0dip"
         android:layout_marginRight="15.0dip"
         android:layout_marginTop="28.0dip"
-        android:background="@drawable/stock_selector_common_round_button"
+        android:background="@drawable/stock_common_round_button_selector"
         android:text="下一步"
         android:textColor="#ffffffff" />
 </LinearLayout>

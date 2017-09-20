@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockListCallBacks;
-import com.xt.lxl.stock.model.StockViewModel;
-import com.xt.lxl.stock.page.StockSearchActivity;
+import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.page.activity.StockSearchActivity;
 import com.xt.lxl.stock.page.activity.StockDetailActivity;
 import com.xt.lxl.stock.page.list.StockListAdapter;
 import com.xt.lxl.stock.sender.StockSender;

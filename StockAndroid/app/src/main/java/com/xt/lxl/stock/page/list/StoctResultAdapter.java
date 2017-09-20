@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
-import com.xt.lxl.stock.model.StockViewModel;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.util.HotelViewHolder;
 
 import java.util.ArrayList;

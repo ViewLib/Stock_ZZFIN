@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
-import com.xt.lxl.stock.model.StockViewModel;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.util.HotelViewHolder;
+import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,24 +59,26 @@ public class StoctHistoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.stock_item_edit_item, parent, false);
+            convertView = mInflater.inflate(R.layout.stock_item_history_item, parent, false);
         }
         bindData(convertView, getItem(position));
         return convertView;
     }
 
     private void bindData(View convertView, StockViewModel stockViewModel) {
-        final TextView stockName = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_name);
-        final TextView stockCode = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_code);
-        final TextView stockAction = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_action);
+        final TextView stockName = HotelViewHolder.requestView(convertView, R.id.stock_item_list_history_item_name);
+        final TextView stockCode = HotelViewHolder.requestView(convertView, R.id.stock_item_list_history_item_code);
+        final StockTextView stockAction = HotelViewHolder.requestView(convertView, R.id.stock_item_list_history_item_action);
         String defaultStr = "数据缺失";
 
         if (mSaveList.contains(stockViewModel.mStockCode)) {
             stockAction.setText("已添加");
         } else {
-            stockAction.setText("+ 自选");
+            int pixelFromDip = StockShowUtil.getPixelFromDip(convertView.getContext(), 15);
+            stockAction.setText("");
+            stockAction.setCompoundDrawable(convertView.getResources().getDrawable(R.drawable.stock_history_item_add),0,pixelFromDip,pixelFromDip);
+            stockAction.setOnClickListener(mCallBacks.mActionCallBack);
         }
-        stockAction.setOnClickListener(mCallBacks.mActionCallBack);
         stockAction.setTag(stockViewModel);
         HotelViewHolder.showTextOrDefault(stockName, stockViewModel.mStockName, defaultStr);
         HotelViewHolder.showTextOrDefault(stockCode, stockViewModel.mStockCode, defaultStr);

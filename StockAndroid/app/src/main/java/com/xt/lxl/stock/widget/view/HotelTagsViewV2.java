@@ -24,12 +24,12 @@ public class HotelTagsViewV2 extends ViewGroup {
      * 水平方向间隔
      */
     private int mHorizontalSpacing = StockShowUtil.getPixelFromDip(getContext(),
-            3);
+            10);
     /**
      * 竖直方向间隔
      */
     private int mVerticalSpacing = StockShowUtil.getPixelFromDip(getContext(),
-            5);
+            15);
 
     /**
      * 记录要展示的view

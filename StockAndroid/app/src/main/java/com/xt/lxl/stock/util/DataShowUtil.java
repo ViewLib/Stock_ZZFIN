@@ -2,8 +2,8 @@ package com.xt.lxl.stock.util;
 
 import android.content.Context;
 
-import com.xt.lxl.stock.model.StockIndexChangeModel;
-import com.xt.lxl.stock.model.StockViewModel;
+import com.xt.lxl.stock.model.model.StockIndexChangeModel;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.widget.helper.HotelLabelDrawable;
 
 import java.text.DecimalFormat;

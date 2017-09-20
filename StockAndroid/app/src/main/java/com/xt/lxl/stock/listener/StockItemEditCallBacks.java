@@ -9,4 +9,6 @@ public class StockItemEditCallBacks {
 
     public View.OnClickListener mActionCallBack;
 
+    public View.OnClickListener mActionAddCallBack;//历史搜索点击添加
+
 }

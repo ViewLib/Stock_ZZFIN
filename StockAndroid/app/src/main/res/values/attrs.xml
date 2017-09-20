@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="HotelTextView">
+    <declare-styleable name="StockTextView">
         <attr name="hotel_text_drawable_src" format="reference" />
         <attr name="hotel_text_drawable_direction">
             <enum name="hotel_left" value="0" />

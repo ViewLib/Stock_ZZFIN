@@ -13,7 +13,7 @@ import android.text.Layout;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.xt.lxl.stock.model.StockIndexChangeModel;
+import com.xt.lxl.stock.model.model.StockIndexChangeModel;
 import com.xt.lxl.stock.util.StockShowUtil;
 
 /**

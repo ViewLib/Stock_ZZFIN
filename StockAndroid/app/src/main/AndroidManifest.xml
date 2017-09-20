@@ -32,11 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".page.StockListActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".page.StockSearchActivity"
+            android:name=".page.activity.StockSearchActivity"
             android:screenOrientation="portrait" />
 
         <activity

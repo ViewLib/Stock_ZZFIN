@@ -96,7 +96,7 @@
         android:layout_gravity="center_vertical|right"
         android:layout_marginRight="30dp"
         android:layout_marginTop="26.0dip"
-        android:background="@drawable/stock_selector_common_round_button"
+        android:background="@drawable/stock_common_round_button_selector"
         android:enabled="false"
         android:gravity="center"
         android:paddingLeft="50dp"

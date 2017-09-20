@@ -14,7 +14,7 @@ public class MatchUtil {
      * @return
      */
     public static boolean matchAllNumber(String line) {
-        Pattern compile = Pattern.compile("^(\\d)*&");
+        Pattern compile = Pattern.compile("^(\\d)*$");
         Matcher matcher = compile.matcher(line);
         return matcher.matches();
     }

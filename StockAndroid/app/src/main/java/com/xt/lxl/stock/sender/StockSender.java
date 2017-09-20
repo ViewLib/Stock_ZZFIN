@@ -3,7 +3,7 @@ package com.xt.lxl.stock.sender;
 import android.util.Log;
 
 import com.xt.lxl.stock.application.StockApplication;
-import com.xt.lxl.stock.model.StockViewModel;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.IOHelper;
 import com.xt.lxl.stock.util.StockShowUtil;

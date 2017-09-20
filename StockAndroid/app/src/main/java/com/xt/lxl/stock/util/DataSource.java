@@ -4,8 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.xt.lxl.stock.config.StockConfig;
-import com.xt.lxl.stock.model.StockFoundRankModel;
-import com.xt.lxl.stock.model.StockViewModel;
+import com.xt.lxl.stock.model.model.StockFoundRankModel;
+import com.xt.lxl.stock.model.model.StockRankFilterModel;
+import com.xt.lxl.stock.model.model.StockRankResultModel;
+import com.xt.lxl.stock.model.model.StockSearchViewModel;
+import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
+import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
+import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
+import com.xt.lxl.stock.page.activity.StockSearchActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,7 +76,8 @@ public class DataSource {
     }
 
     public static boolean addStockCode(Context context, String code) {
-        List<String> list = getSaveStockCodeList(context);
+        List<String> list = new ArrayList<>();
+        list.addAll(getSaveStockCodeList(context));
         if (list.contains(code)) {
             return false;
         }
@@ -98,7 +106,8 @@ public class DataSource {
     }
 
     public static boolean addHistrySearch(Context context, String searchKey) {
-        List<String> list = getHistoryStockCodeList(context);
+        List<String> list = new ArrayList<>();
+        list.addAll(getHistoryStockCodeList(context));
         SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
         StringBuilder builder = new StringBuilder();
         if (list.size() > 10) {
@@ -109,7 +118,7 @@ public class DataSource {
             builder.append(str);
             builder.append(",");
         }
-        return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
+        return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_HISTORY, builder.toString()).commit();
     }
 
     /**
@@ -144,4 +153,105 @@ public class DataSource {
         return list;
     }
 
+    public static StockHotSearchResponse getStockHotSearchResponse(StockSearchActivity stockSearchActivity) {
+        List<StockSearchViewModel> list = new ArrayList<>();
+        StockSearchViewModel model1 = new StockSearchViewModel();
+        model1.mSearchType = StockSearchViewModel.STOCK_FOUND_TYPE_RNAK;
+        model1.rankModel = new StockFoundRankModel("事件一一一一一一一啊");
+
+        StockSearchViewModel model2 = new StockSearchViewModel();
+        model2.mSearchType = StockSearchViewModel.STOCK_FOUND_TYPE_RNAK;
+        model2.rankModel = new StockFoundRankModel("事件二喽喽");
+
+        StockSearchViewModel model3 = new StockSearchViewModel();
+        model3.stockViewModel = new StockViewModel();
+        model3.mSearchType = StockSearchViewModel.STOCK_FOUND_TYPE_STOCK;
+        model3.stockViewModel.mStockName = "汉得信息";
+        model3.stockViewModel.mStockCode = "300170";
+
+        StockSearchViewModel model4 = new StockSearchViewModel();
+        model4.mSearchType = StockSearchViewModel.STOCK_FOUND_TYPE_RNAK;
+        model4.rankModel = new StockFoundRankModel("事件四");
+
+        list.add(model1);
+        list.add(model2);
+        list.add(model3);
+        list.add(model4);
+
+        StockHotSearchResponse response = new StockHotSearchResponse();
+        response.resultCode = 200;
+        response.resultMessage = "success";
+        response.mHotSearchList = list;
+        return response;
+    }
+
+    public static StockRankDetailFilterlResponse getRankDetailFilterResponse() {
+        StockRankDetailFilterlResponse response = new StockRankDetailFilterlResponse();
+        StockRankFilterModel model1 = new StockRankFilterModel();
+        model1.mDefaultPosition = 0;
+        model1.mFilteList.add("央企");
+        model1.mFilteList.add("私企");
+        model1.mFilteList.add("欧美");
+
+        StockRankFilterModel model2 = new StockRankFilterModel();
+        model2.mDefaultPosition = 0;
+        model2.mFilteList.add("银行业");
+        model2.mFilteList.add("建筑业");
+        model2.mFilteList.add("计算机");
+        model2.mFilteList.add("金融");
+
+        StockRankFilterModel model3 = new StockRankFilterModel();
+        model3.mDefaultPosition = 0;
+        model3.mFilteList.add("全部盘");
+        model3.mFilteList.add("流通盘");
+        model3.mFilteList.add("解禁盘");
+        model3.mFilteList.add("市值");
+
+        StockRankFilterModel model4 = new StockRankFilterModel();
+        model4.mDefaultPosition = 0;
+        model4.mFilteList.add("其它筛选");
+        model4.mFilteList.add("高新科技");
+        model4.mFilteList.add("雄安新区");
+        model4.mFilteList.add("评级较高");
+
+        response.mRankFilterList.add(model1);
+        response.mRankFilterList.add(model2);
+        response.mRankFilterList.add(model3);
+        response.mRankFilterList.add(model4);
+        return response;
+    }
+
+    public static StockRankDetailResponse getRankDetailResponse() {
+        StockRankDetailResponse response = new StockRankDetailResponse();
+        response.mTitle = "本日融资融券的前十家公司";
+
+        StockRankResultModel model0 = new StockRankResultModel();
+        model0.mPosition = 0;
+        model0.mStockName = "名称";
+//        model0.mStockCode = "加入自选";
+        model0.mAttr1 = "连续跌停天数";
+        model0.mAttr2 = "今年表现";
+        model0.mAttr3 = "今天涨跌";
+
+        StockRankResultModel model1 = new StockRankResultModel();
+        model1.mPosition = 1;
+        model1.mStockName = "中国银行";
+        model1.mStockCode = "601988";
+        model1.mAttr1 = "7";
+        model1.mAttr2 = "-36%";
+        model1.mAttr3 = "-7%";
+
+        StockRankResultModel model2 = new StockRankResultModel();
+        model2.mPosition = 2;
+        model2.mStockName = "农业银行";
+        model2.mStockCode = "601288";
+        model2.mAttr1 = "5";
+        model2.mAttr2 = "-30%";
+        model2.mAttr3 = "-5%";
+
+        response.mRankResultList.add(model0);
+        response.mRankResultList.add(model1);
+        response.mRankResultList.add(model2);
+        return response;
+    }
 }

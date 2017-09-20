@@ -7,7 +7,7 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <com.xt.lxl.stock.widget.view.HotelTextView
+    <com.xt.lxl.stock.widget.view.StockTextView
         android:id="@+id/stock_self_optional"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         app:hotel_text_drawable_src="@drawable/stock_optional_tab_selected"
         app:hotel_text_drawable_width="30dp" />
 
-    <com.xt.lxl.stock.widget.view.HotelTextView
+    <com.xt.lxl.stock.widget.view.StockTextView
         android:id="@+id/stock_self_quotation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

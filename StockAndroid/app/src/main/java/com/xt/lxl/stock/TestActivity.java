@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.xt.lxl.stock.config.StockConfig;
-import com.xt.lxl.stock.model.StockIndexChangeModel;
-import com.xt.lxl.stock.page.StockSearchActivity;
+import com.xt.lxl.stock.model.model.StockIndexChangeModel;
+import com.xt.lxl.stock.page.activity.StockSearchActivity;
 import com.xt.lxl.stock.page.StockMainActivity;
 import com.xt.lxl.stock.page.activity.StockRegisterActivity;
 import com.xt.lxl.stock.util.StockShowUtil;
