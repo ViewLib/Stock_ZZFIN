@@ -14,6 +14,10 @@ public class StockFoundRankModel {
     public int showType;//展示的类型，左上角的选择类型
     public int searchRelation;//跳转类型，是那种类型的排行
 
+    public StockFoundRankModel(){
+
+    }
+
     public StockFoundRankModel(String mTitle) {
         this(mTitle, SHOW_TYPE_BULE);
     }

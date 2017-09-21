@@ -187,9 +187,9 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockHotSearchResponse stockHotSearchResponse = DataSource.getStockHotSearchResponse(StockSearchActivity.this);
+                StockHotSearchResponse hotSearchResponse = StockSender.getInstance().requestHosSearchList();
                 mHotList.clear();
-                mHotList.addAll(stockHotSearchResponse.hotSearchList);
+                mHotList.addAll(hotSearchResponse.hotSearchList);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {

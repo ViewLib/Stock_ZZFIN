@@ -5,7 +5,11 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
+import com.xt.lxl.stock.model.reponse.StockRankListResponse;
 import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
+import com.xt.lxl.stock.model.request.StockHotSearchRequest;
+import com.xt.lxl.stock.model.request.StockRankListResquest;
 import com.xt.lxl.stock.model.request.StockUserRegisterRequest;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.IOHelper;
@@ -88,6 +92,37 @@ public class StockSender {
         return registerResponse;
     }
 
+
+    public StockRankListResponse requestRankList() {
+        StockRankListResquest registerRequest = new StockRankListResquest();
+        String requestJsonStr = JSON.toJSONString(registerRequest);
+        String s = requestGet(mBaseAPIUrl + "stock_ranklist?", requestJsonStr, "utf-8");
+        StockRankListResponse rankResponse;
+        try {
+            rankResponse = JSON.parseObject(s, StockRankListResponse.class);
+        } catch (Exception e) {
+            rankResponse = new StockRankListResponse();
+            rankResponse.resultCode = 500;
+            rankResponse.resultMessage = "序列化失败";
+        }
+        return rankResponse;
+    }
+
+    public StockHotSearchResponse requestHosSearchList() {
+        StockHotSearchRequest registerRequest = new StockHotSearchRequest();
+        String requestJsonStr = JSON.toJSONString(registerRequest);
+        String s = requestGet(mBaseAPIUrl + "stock_hotsearch?", requestJsonStr, "utf-8");
+        StockHotSearchResponse hotSearchResponse;
+        try {
+            hotSearchResponse = JSON.parseObject(s, StockHotSearchResponse.class);
+        } catch (Exception e) {
+            hotSearchResponse = new StockHotSearchResponse();
+            hotSearchResponse.resultCode = 500;
+            hotSearchResponse.resultMessage = "序列化失败";
+        }
+        return hotSearchResponse;
+    }
+
     private static String requestGet(String baseUrl, String requestJsonStr, String code) {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("data", requestJsonStr);
@@ -144,4 +179,5 @@ public class StockSender {
         }
         return "";
     }
+
 }

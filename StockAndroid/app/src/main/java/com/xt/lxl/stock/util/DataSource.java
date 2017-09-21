@@ -23,43 +23,43 @@ import java.util.List;
  */
 public class DataSource {
 
-    public static void initStockList(List<StockViewModel> mStockList) {
-        StockViewModel viewModel1 = new StockViewModel();
-        StockViewModel viewModel2 = new StockViewModel();
-        mStockList.add(viewModel1);
-        mStockList.add(viewModel2);
-
-        viewModel1.stockName = "汉得信息";
-        viewModel1.stockPirce = "10.26";
-        viewModel1.stockCode = "300170";
-        viewModel1.stockChangeD = -0.0182;
-
-        viewModel2.stockName = "朗新科技";
-        viewModel2.stockPirce = "10.55";
-        viewModel2.stockCode = "300682";
-        viewModel2.stockChangeD = 0.1001;
-
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-        mStockList.add((StockViewModel) viewModel1.clone());
-    }
+//    public static void initStockList(List<StockViewModel> mStockList) {
+//        StockViewModel viewModel1 = new StockViewModel();
+//        StockViewModel viewModel2 = new StockViewModel();
+//        mStockList.add(viewModel1);
+//        mStockList.add(viewModel2);
+//
+//        viewModel1.stockName = "汉得信息";
+//        viewModel1.stockPirce = "10.26";
+//        viewModel1.stockCode = "300170";
+//        viewModel1.stockChangeD = -0.0182;
+//
+//        viewModel2.stockName = "朗新科技";
+//        viewModel2.stockPirce = "10.55";
+//        viewModel2.stockCode = "300682";
+//        viewModel2.stockChangeD = 0.1001;
+//
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//        mStockList.add((StockViewModel) viewModel1.clone());
+//    }
 
     public static List<String> getSaveStockCodeList(Context context) {
         SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
@@ -138,52 +138,52 @@ public class DataSource {
     }
 
 
-    public static List<StockFoundRankModel> getRankList(Context context) {
-        List<StockFoundRankModel> list = new ArrayList<>();
-        list.add(new StockFoundRankModel("本日融资融券的前十家公司"));
-        list.add(new StockFoundRankModel("社保公司重仓流通股排行（持股数量变化）"));
-        list.add(new StockFoundRankModel("本月限售解禁前十名"));
-        list.add(new StockFoundRankModel("央企净资产从小到大排行"));
-        list.add(new StockFoundRankModel("放量大涨前十名"));
-        list.add(new StockFoundRankModel("沪港通活跃程序-买入"));
-        list.add(new StockFoundRankModel("本日融资融券的前十家公司"));
-        list.add(new StockFoundRankModel("放量大涨前十名"));
-        list.add(new StockFoundRankModel("年度最佳"));
-        list.add(new StockFoundRankModel("本日融资融券的前十家公司"));
-        return list;
-    }
+//    public static List<StockFoundRankModel> getRankList(Context context) {
+//        List<StockFoundRankModel> list = new ArrayList<>();
+//        list.add(new StockFoundRankModel("本日融资融券的前十家公司"));
+//        list.add(new StockFoundRankModel("社保公司重仓流通股排行（持股数量变化）"));
+//        list.add(new StockFoundRankModel("本月限售解禁前十名"));
+//        list.add(new StockFoundRankModel("央企净资产从小到大排行"));
+//        list.add(new StockFoundRankModel("放量大涨前十名"));
+//        list.add(new StockFoundRankModel("沪港通活跃程序-买入"));
+//        list.add(new StockFoundRankModel("本日融资融券的前十家公司"));
+//        list.add(new StockFoundRankModel("放量大涨前十名"));
+//        list.add(new StockFoundRankModel("年度最佳"));
+//        list.add(new StockFoundRankModel("本日融资融券的前十家公司"));
+//        return list;
+//    }
 
-    public static StockHotSearchResponse getStockHotSearchResponse(StockSearchActivity stockSearchActivity) {
-        List<StockSearchModel> list = new ArrayList<>();
-        StockSearchModel model1 = new StockSearchModel();
-        model1.searchType = StockSearchModel.STOCK_FOUND_TYPE_RNAK;
-        model1.rankModel = new StockFoundRankModel("事件一一一一一一一啊");
-
-        StockSearchModel model2 = new StockSearchModel();
-        model2.searchType = StockSearchModel.STOCK_FOUND_TYPE_RNAK;
-        model2.rankModel = new StockFoundRankModel("事件二喽喽");
-
-        StockSearchModel model3 = new StockSearchModel();
-        model3.stockViewModel = new StockViewModel();
-        model3.searchType = StockSearchModel.STOCK_FOUND_TYPE_STOCK;
-        model3.stockViewModel.stockName = "汉得信息";
-        model3.stockViewModel.stockCode = "300170";
-
-        StockSearchModel model4 = new StockSearchModel();
-        model4.searchType = StockSearchModel.STOCK_FOUND_TYPE_RNAK;
-        model4.rankModel = new StockFoundRankModel("事件四");
-
-        list.add(model1);
-        list.add(model2);
-        list.add(model3);
-        list.add(model4);
-
-        StockHotSearchResponse response = new StockHotSearchResponse();
-        response.resultCode = 200;
-        response.resultMessage = "success";
-        response.hotSearchList = list;
-        return response;
-    }
+//    public static StockHotSearchResponse getStockHotSearchResponse(StockSearchActivity stockSearchActivity) {
+//        List<StockSearchModel> list = new ArrayList<>();
+//        StockSearchModel model1 = new StockSearchModel();
+//        model1.searchType = StockSearchModel.STOCK_FOUND_TYPE_RNAK;
+//        model1.rankModel = new StockFoundRankModel("事件一一一一一一一啊");
+//
+//        StockSearchModel model2 = new StockSearchModel();
+//        model2.searchType = StockSearchModel.STOCK_FOUND_TYPE_RNAK;
+//        model2.rankModel = new StockFoundRankModel("事件二喽喽");
+//
+//        StockSearchModel model3 = new StockSearchModel();
+//        model3.stockViewModel = new StockViewModel();
+//        model3.searchType = StockSearchModel.STOCK_FOUND_TYPE_STOCK;
+//        model3.stockViewModel.stockName = "汉得信息";
+//        model3.stockViewModel.stockCode = "300170";
+//
+//        StockSearchModel model4 = new StockSearchModel();
+//        model4.searchType = StockSearchModel.STOCK_FOUND_TYPE_RNAK;
+//        model4.rankModel = new StockFoundRankModel("事件四");
+//
+//        list.add(model1);
+//        list.add(model2);
+//        list.add(model3);
+//        list.add(model4);
+//
+//        StockHotSearchResponse response = new StockHotSearchResponse();
+//        response.resultCode = 200;
+//        response.resultMessage = "success";
+//        response.hotSearchList = list;
+//        return response;
+//    }
 
     public static StockRankDetailFilterlResponse getRankDetailFilterResponse() {
         StockRankDetailFilterlResponse response = new StockRankDetailFilterlResponse();

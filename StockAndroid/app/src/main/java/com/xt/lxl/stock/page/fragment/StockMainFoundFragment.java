@@ -2,6 +2,7 @@ package com.xt.lxl.stock.page.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,7 +16,10 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockFoundRankModel;
+import com.xt.lxl.stock.model.model.StockSearchModel;
+import com.xt.lxl.stock.model.reponse.StockRankListResponse;
 import com.xt.lxl.stock.page.activity.StockRankActivity;
+import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.DeviceUtil;
 
@@ -32,6 +36,8 @@ public class StockMainFoundFragment extends Fragment {
     RecyclerView mRankContainer;
     FoundRankAdapter mAdapter;
     List<StockFoundRankModel> mDatas = new ArrayList<>();
+
+    Handler mHander = new Handler();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,8 +60,28 @@ public class StockMainFoundFragment extends Fragment {
     }
 
     private void initData() {
-        mDatas.clear();
-        mDatas.addAll(DataSource.getRankList(getContext()));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                StockRankListResponse stockRankListResponse = StockSender.getInstance().requestRankList();
+                final List<StockSearchModel> rankList = stockRankListResponse.rankSearchList;
+                final List<StockFoundRankModel> foundRankModelList = new ArrayList<StockFoundRankModel>();
+                for (StockSearchModel searchModel : rankList) {
+                    if (searchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
+                        foundRankModelList.add(searchModel.rankModel);
+                    }
+                }
+                mHander.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mDatas.clear();
+                        mDatas.addAll(foundRankModelList);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        }).start();
+
     }
 
     private void initView(View view) {
