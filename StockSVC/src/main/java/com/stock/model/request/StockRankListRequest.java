@@ -12,7 +12,7 @@ import java.util.List;
  * top10排行列表
  */
 
-public class StockRankListResquest extends ServiceRequest {
-    final public int serviceCode = 2001;//服务号
+public class StockRankListRequest extends ServiceRequest {
+    public int serviceCode = 2001;//服务号
 
 }

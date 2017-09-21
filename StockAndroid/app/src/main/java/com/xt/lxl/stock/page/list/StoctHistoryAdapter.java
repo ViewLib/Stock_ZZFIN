@@ -11,7 +11,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.util.HotelViewHolder;
-import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
@@ -71,17 +71,17 @@ public class StoctHistoryAdapter extends BaseAdapter {
         final StockTextView stockAction = HotelViewHolder.requestView(convertView, R.id.stock_item_list_history_item_action);
         String defaultStr = "数据缺失";
 
-        if (mSaveList.contains(stockViewModel.mStockCode)) {
+        if (mSaveList.contains(stockViewModel.stockCode)) {
             stockAction.setText("已添加");
             stockAction.setCompoundDrawable(null, 0, 0, 0);
         } else {
-            int pixelFromDip = StockShowUtil.getPixelFromDip(convertView.getContext(), 15);
+            int pixelFromDip = DeviceUtil.getPixelFromDip(convertView.getContext(), 15);
             stockAction.setText("");
             stockAction.setCompoundDrawable(convertView.getResources().getDrawable(R.drawable.stock_history_item_add), 0, pixelFromDip, pixelFromDip);
             stockAction.setOnClickListener(mCallBacks.mActionCallBack);
         }
         stockAction.setTag(stockViewModel);
-        HotelViewHolder.showTextOrDefault(stockName, stockViewModel.mStockName, defaultStr);
-        HotelViewHolder.showTextOrDefault(stockCode, stockViewModel.mStockCode, defaultStr);
+        HotelViewHolder.showTextOrDefault(stockName, stockViewModel.stockName, defaultStr);
+        HotelViewHolder.showTextOrDefault(stockCode, stockViewModel.stockCode, defaultStr);
     }
 }

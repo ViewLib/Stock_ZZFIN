@@ -69,14 +69,14 @@ public class StoctResultAdapter extends BaseAdapter {
         final TextView stockAction = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_action);
         String defaultStr = "数据缺失";
 
-        if (mSaveList.contains(stockViewModel.mStockCode)) {
+        if (mSaveList.contains(stockViewModel.stockCode)) {
             stockAction.setText("已添加");
         } else {
             stockAction.setText("+ 自选");
         }
         stockAction.setOnClickListener(mCallBacks.mActionCallBack);
         stockAction.setTag(stockViewModel);
-        HotelViewHolder.showTextOrDefault(stockName, stockViewModel.mStockName, defaultStr);
-        HotelViewHolder.showTextOrDefault(stockCode, stockViewModel.mStockCode, defaultStr);
+        HotelViewHolder.showTextOrDefault(stockName, stockViewModel.stockName, defaultStr);
+        HotelViewHolder.showTextOrDefault(stockCode, stockViewModel.stockCode, defaultStr);
     }
 }

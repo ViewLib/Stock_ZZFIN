@@ -2,8 +2,11 @@ package com.xt.lxl.stock.sender;
 
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
+import com.xt.lxl.stock.model.request.StockUserRegisterRequest;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.IOHelper;
 import com.xt.lxl.stock.util.StockShowUtil;
@@ -15,6 +18,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by xiangleiliu on 2017/8/6.
@@ -67,13 +71,28 @@ public class StockSender {
         return stockList;
     }
 
-    public String requestRegister(String moblie) {
-        HashMap<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("moblie", moblie);
-        paramsMap.put("clientId", "123");
-        return requestGet(mBaseAPIUrl + "register?", paramsMap, "utf-8");
+    public StockUserRegisterResponse requestRegister(String moblie, String clientId) {
+        StockUserRegisterRequest registerRequest = new StockUserRegisterRequest();
+        registerRequest.moblie = moblie;
+        registerRequest.clientId = clientId;
+        String requestJsonStr = JSON.toJSONString(registerRequest);
+        String s = requestGet(mBaseAPIUrl + "user_register?", requestJsonStr, "utf-8");
+        StockUserRegisterResponse registerResponse;
+        try {
+            registerResponse = JSON.parseObject(s, StockUserRegisterResponse.class);
+        } catch (Exception e) {
+            registerResponse = new StockUserRegisterResponse();
+            registerResponse.resultCode = 500;
+            registerResponse.resultMessage = "序列化失败";
+        }
+        return registerResponse;
     }
 
+    private static String requestGet(String baseUrl, String requestJsonStr, String code) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("data", requestJsonStr);
+        return requestGet(baseUrl, paramsMap, "utf-8");
+    }
 
     private static String requestGet(String baseUrl, HashMap<String, String> paramsMap, String code) {
         try {
@@ -83,7 +102,7 @@ public class StockSender {
                 if (pos > 0) {
                     tempParams.append("&");
                 }
-                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), "gbk")));
+                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), code)));
                 pos++;
             }
             String requestUrl = baseUrl + tempParams.toString();

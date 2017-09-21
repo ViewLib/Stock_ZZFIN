@@ -1,5 +1,7 @@
 package com.xt.lxl.stock.model.reponse;
 
+
+import com.xt.lxl.stock.model.ServiceResponse;
 import com.xt.lxl.stock.model.model.StockSearchModel;
 
 import java.util.ArrayList;
@@ -10,10 +12,10 @@ import java.util.List;
  * 热门搜索推荐
  */
 
-public class StockHotSearchResponse {
+public class StockHotSearchResponse extends ServiceResponse {
 
-    public int resultCode = 200;
-    public String resultMessage = "";
-    public List<StockSearchModel> mHotSearchList = new ArrayList<>();
+    public int serviceCode = 1001;//服务号
+
+    public List<StockSearchModel> hotSearchList = new ArrayList<>();
 
 }

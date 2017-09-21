@@ -1,5 +1,6 @@
 package com.stock.model.request;
 
+import com.stock.model.ServiceRequest;
 import com.stock.model.model.StockRankFilterModel;
 
 import java.util.ArrayList;
@@ -10,9 +11,8 @@ import java.util.List;
  * 排行详情response
  */
 
-public class StockRankDetailFilterlRequest {
-    final public int serviceCode = 2002;//服务号
-    public int versionCode = 1;
+public class StockRankDetailFilterlRequest extends ServiceRequest {
+    public int serviceCode = 2002;//服务号
 
     public int type = 0;//类型
 

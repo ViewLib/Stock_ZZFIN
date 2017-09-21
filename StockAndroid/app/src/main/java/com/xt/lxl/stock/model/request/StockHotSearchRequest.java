@@ -1,8 +1,7 @@
-package com.stock.model.request;
+package com.xt.lxl.stock.model.request;
 
-import com.stock.model.ServiceRequest;
-import com.stock.model.ServiceResponse;
-import com.stock.model.model.StockSearchModel;
+
+import com.xt.lxl.stock.model.ServiceRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class StockHotSearchRequest extends ServiceRequest {
 
-    public int serviceCode = 1001;//服务号
+    public int serviceCode = 2002;//服务号
 
     //不需要基本参数
 

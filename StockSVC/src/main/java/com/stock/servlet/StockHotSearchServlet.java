@@ -4,9 +4,7 @@ import com.stock.model.ServiceRequest;
 import com.stock.model.ServiceResponse;
 import com.stock.model.model.StockSearchModel;
 import com.stock.model.request.StockHotSearchRequest;
-import com.stock.model.request.StockRankListResquest;
 import com.stock.model.response.StockHotSearchResponse;
-import com.stock.model.response.StockRankListResponse;
 import com.stock.service.StockService;
 import com.stock.servlet.base.BaseServlet;
 

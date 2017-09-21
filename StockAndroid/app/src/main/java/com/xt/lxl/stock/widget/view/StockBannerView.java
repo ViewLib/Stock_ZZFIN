@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.StockShowUtil;
 
 /**
@@ -42,7 +43,7 @@ public class StockBannerView extends RelativeLayout {
         int textStyle = a.getResourceId(R.styleable.StockBannerView_stock_banner_icon, R.style.text_14_000000);
         a.recycle();
         inflate(context, R.layout.stock_view_banner, this);
-        int padding = StockShowUtil.getPixelFromDip(mContext, 15);
+        int padding = DeviceUtil.getPixelFromDip(mContext, 15);
         setPadding(padding, 0, padding, 0);
         initView();
         bindText(text, textStyle);

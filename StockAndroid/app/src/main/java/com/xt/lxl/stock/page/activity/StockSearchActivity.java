@@ -83,14 +83,14 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         mHotContainer.removeAllViews();
         for (StockSearchModel stockSearchViewModel : mHotList) {
             View inflate = null;
-            if (stockSearchViewModel.mSearchType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
+            if (stockSearchViewModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
                 inflate = View.inflate(this, R.layout.stock_search_hot_item, null);
                 TextView textView = (TextView) inflate.findViewById(R.id.hot_search_text);
-                textView.setText(stockSearchViewModel.rankModel.mTitle);
-            } else if (stockSearchViewModel.mSearchType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
+                textView.setText(stockSearchViewModel.rankModel.title);
+            } else if (stockSearchViewModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
                 inflate = View.inflate(this, R.layout.stock_search_hot_item, null);
                 TextView textView = (TextView) inflate.findViewById(R.id.hot_search_text);
-                textView.setText(stockSearchViewModel.stockViewModel.mStockName + " " + stockSearchViewModel.stockViewModel.mStockCode);
+                textView.setText(stockSearchViewModel.stockViewModel.stockName + " " + stockSearchViewModel.stockViewModel.stockCode);
             }
             if (inflate == null) {
                 continue;
@@ -145,8 +145,8 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
                 }
                 StockViewModel model = (StockViewModel) v.getTag();
                 //添加操作
-                mSaveList.add(model.mStockCode);
-                DataSource.addStockCode(StockSearchActivity.this, model.mStockCode);
+                mSaveList.add(model.stockCode);
+                DataSource.addStockCode(StockSearchActivity.this, model.stockCode);
                 if (v.getId() == R.id.stock_item_list_history_item_action) {
                     //历史搜索中点击添加
                     mHistoryAdapter.notifyDataSetChanged();
@@ -176,7 +176,7 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         mSearchAllDataList.addAll(DataSource.getSearchAllData());
         //List转成map形式
         for (StockViewModel model : mSearchAllDataList) {
-            mSearchAllDataMap.put(model.mStockCode, model);
+            mSearchAllDataMap.put(model.stockCode, model);
         }
 
         //已经保存的集合
@@ -189,7 +189,7 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
             public void run() {
                 StockHotSearchResponse stockHotSearchResponse = DataSource.getStockHotSearchResponse(StockSearchActivity.this);
                 mHotList.clear();
-                mHotList.addAll(stockHotSearchResponse.mHotSearchList);
+                mHotList.addAll(stockHotSearchResponse.hotSearchList);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -222,11 +222,11 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         List<StockViewModel> searchResultList = new ArrayList<>();
         for (StockViewModel stockViewModel : mSearchAllDataList) {
             if (isAllNumber) {
-                if (stockViewModel.mStockCode.startsWith(searchKey)) {
+                if (stockViewModel.stockCode.startsWith(searchKey)) {
                     searchResultList.add(stockViewModel);
                 }
             } else {
-                if (stockViewModel.mStockName.startsWith(searchKey)) {
+                if (stockViewModel.stockName.startsWith(searchKey)) {
                     searchResultList.add(stockViewModel);
                 }
             }

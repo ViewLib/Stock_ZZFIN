@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.StockShowUtil;
 
 import java.util.ArrayList;
@@ -23,12 +24,12 @@ public class HotelTagsViewV2 extends ViewGroup {
     /**
      * 水平方向间隔
      */
-    private int mHorizontalSpacing = StockShowUtil.getPixelFromDip(getContext(),
+    private int mHorizontalSpacing = DeviceUtil.getPixelFromDip(getContext(),
             10);
     /**
      * 竖直方向间隔
      */
-    private int mVerticalSpacing = StockShowUtil.getPixelFromDip(getContext(),
+    private int mVerticalSpacing = DeviceUtil.getPixelFromDip(getContext(),
             15);
 
     /**

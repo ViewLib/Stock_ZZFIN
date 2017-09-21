@@ -11,11 +11,15 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 
+import com.alibaba.fastjson.JSON;
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
+import com.xt.lxl.stock.model.request.StockUserRegisterRequest;
 import com.xt.lxl.stock.page.fragment.StockMainFoundFragment;
 import com.xt.lxl.stock.page.fragment.StockMainListFragment;
 import com.xt.lxl.stock.page.fragment.StockMainUserFragment;
 import com.xt.lxl.stock.sender.StockSender;
+import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.StockShowUtil;
 import com.xt.lxl.stock.util.StockUser;
 
@@ -77,14 +81,9 @@ public class StockMainActivity extends FragmentActivity implements View.OnClickL
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String resultStr = StockSender.getInstance().requestRegister(stockUser.getMoblie());
-                try {
-                    JSONObject resultJson = new JSONObject(resultStr);
-                    stockUser.saveUser(StockMainActivity.this, resultJson);
-                } catch (JSONException e) {
-                    StockShowUtil.showToastOnMainThread(StockMainActivity.this, resultStr);
-                    e.printStackTrace();
-                }
+                //更新用户资料
+                StockUserRegisterResponse registerResponse = StockSender.getInstance().requestRegister(stockUser.getMoblie(), "");
+                stockUser.saveUser(StockMainActivity.this, registerResponse.userModel);
             }
         }).start();
     }

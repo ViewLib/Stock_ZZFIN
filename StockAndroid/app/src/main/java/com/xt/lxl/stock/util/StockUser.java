@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.xt.lxl.stock.config.StockConfig;
+import com.xt.lxl.stock.model.model.StockUserModel;
 
 import org.json.JSONObject;
 
@@ -56,29 +57,21 @@ public class StockUser {
         createTime = new Date(createTimeL);
     }
 
-    public void saveUser(Context context, JSONObject userJson) {
+    public void saveUser(Context context, StockUserModel userModel) {
         if (context == null) {
             return;
         }
-        int mUserId = userJson.optInt("mUserId");
-        if (mUserId == 0) {
+        if (userModel.userId == 0) {
             return;
         }
-        String mMoblie = userJson.optString("mMoblie");
-        String mClientId = userJson.optString("mClientId");
-        String mNickName = userJson.optString("mNickName");
-        String mArea = userJson.optString("mArea");
-        int mAge = userJson.optInt("mAge");
-        long mCreateTime = userJson.optLong("mCreateTime");
-
         SharedPreferences db = context.getSharedPreferences(StockConfig.STOCK_USER_DB_NAME, 0);
         SharedPreferences.Editor edit = db.edit();
-        edit.putInt(StockConfig.STOCK_USER_DATA_USERID, mUserId);
-        edit.putString(StockConfig.STOCK_USER_DATA_MOBLIE, mMoblie);
-        edit.putString(StockConfig.STOCK_USER_DATA_NICKNAME, mNickName);
-        edit.putString(StockConfig.STOCK_USER_DATA_AREA, mArea);
-        edit.putInt(StockConfig.STOCK_USER_DATA_AGE, mAge);
-        edit.putLong(StockConfig.STOCK_USER_DATA_CREATETIME, mCreateTime);
+        edit.putInt(StockConfig.STOCK_USER_DATA_USERID, userModel.userId);
+        edit.putString(StockConfig.STOCK_USER_DATA_MOBLIE, userModel.moblie);
+        edit.putString(StockConfig.STOCK_USER_DATA_NICKNAME, userModel.nickName);
+        edit.putString(StockConfig.STOCK_USER_DATA_AREA, userModel.area);
+        edit.putInt(StockConfig.STOCK_USER_DATA_AGE, userModel.age);
+        edit.putLong(StockConfig.STOCK_USER_DATA_CREATETIME, userModel.createTime.getTime());
         if (edit.commit()) {
             initUser(context);
         }

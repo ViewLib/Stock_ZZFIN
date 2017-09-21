@@ -17,7 +17,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.page.activity.StockRankActivity;
 import com.xt.lxl.stock.util.DataSource;
-import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.util.DeviceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,9 +106,9 @@ public class StockMainFoundFragment extends Fragment {
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
             StockFoundRankModel stockFoundRankModel = mDatas.get(position);
-            holder.mRankText.setText(stockFoundRankModel.mTitle);
+            holder.mRankText.setText(stockFoundRankModel.title);
             GridLayoutManager.LayoutParams layoutParams = (GridLayoutManager.LayoutParams) holder.mView.getLayoutParams();
-            int margin = StockShowUtil.getPixelFromDip(getContext(), 16);
+            int margin = DeviceUtil.getPixelFromDip(getContext(), 16);
             layoutParams.setMargins(0, margin, position % 2 == 0 ? margin : 0, 0);
             if (mItemOnClickCallBack != null) {
                 holder.mView.setOnClickListener(new View.OnClickListener() {

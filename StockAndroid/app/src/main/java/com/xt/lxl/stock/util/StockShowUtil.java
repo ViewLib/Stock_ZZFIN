@@ -25,23 +25,4 @@ public class StockShowUtil {
             }
         });
     }
-
-
-    public static int getPixelFromDip(Context context, float f) {
-        return getPixelFromDip(context.getResources().getDisplayMetrics(), f);
-    }
-
-    public static int getPixelFromDip(DisplayMetrics dm, float dip) {
-        return (int) (TypedValue.applyDimension(1, dip, dm) + 0.5F);
-    }
-
-    public static int getScreenWidth(Context context) {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        return wm.getDefaultDisplay().getWidth();
-    }
-
-    public static int getScreenHeight(Context context) {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        return wm.getDefaultDisplay().getHeight();
-    }
 }

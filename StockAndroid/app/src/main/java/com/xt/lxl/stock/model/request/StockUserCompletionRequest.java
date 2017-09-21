@@ -1,6 +1,7 @@
-package com.stock.model.request;
+package com.xt.lxl.stock.model.request;
 
-import com.stock.model.ServiceRequest;
+
+import com.xt.lxl.stock.model.ServiceRequest;
 
 /**
  * 用户信息补全

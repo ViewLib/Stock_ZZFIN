@@ -1,5 +1,6 @@
 package com.xt.lxl.stock.page.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,14 +9,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
 import com.xt.lxl.stock.sender.StockSender;
+import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.LogUtil;
 import com.xt.lxl.stock.util.StockShowUtil;
 import com.xt.lxl.stock.util.StockUser;
 import com.xt.lxl.stock.util.StringUtil;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.PermissionListener;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.OnSendMessageHandler;
@@ -195,28 +205,52 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final String s = StockSender.getInstance().requestRegister(sendMoblie);
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //刷新
-                        handleRegister(s);
-                    }
-                });
+//                String[] perms = {"android.permission.CAMERA"};
+//                int permsRequestCode = 200;
+//                requestPermissions(perms, permsRequestCode);
+
+                AndPermission.with(StockVerificationActivity.this)
+                        .requestCode(200)
+                        .rationale(new RationaleListener() {
+                            @Override
+                            public void showRequestPermissionRationale(int requestCode, Rationale rationale) {
+
+                            }
+                        })
+                        .permission(Manifest.permission.READ_PHONE_STATE)
+                        .callback(new PermissionListener() {
+                            @Override
+                            public void onSucceed(int requestCode, List<String> grantedPermissions) {
+                                // Successfully.
+                                if (requestCode == 200) {
+                                    // TODO ...
+                                    final StockUserRegisterResponse registerResponse = StockSender.getInstance().requestRegister(sendMoblie, DeviceUtil.getImei(StockVerificationActivity.this));
+                                    mHandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //刷新
+                                            handleRegister(registerResponse);
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onFailed(int requestCode, List<String> deniedPermissions) {
+                                // Failure.
+                                if (requestCode == 200) {
+                                    // TODO ...
+                                }
+                            }
+                        }).start();
             }
         }).start();
     }
 
-    private void handleRegister(String resultStr) {
-        try {
-            JSONObject resultJson = new JSONObject(resultStr);
-            StockUser.getStockUser(this).saveUser(this, resultJson);
-            setResult(Activity.RESULT_OK);
-            finish();
-        } catch (JSONException e) {
-            StockShowUtil.showToastOnMainThread(StockVerificationActivity.this, resultStr);
-            e.printStackTrace();
-        }
+    private void handleRegister(StockUserRegisterResponse registerResponse) {
+        StockUser.getStockUser(this).saveUser(this, registerResponse.userModel);
+        setResult(Activity.RESULT_OK);
+        finish();
     }
 
     @Override

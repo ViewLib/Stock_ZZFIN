@@ -24,6 +24,7 @@
         <activity
             android:name=".TestActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,7 +69,6 @@
         <meta-data
             android:name="Mob-AppSecret"
             android:value="7f16c9c6e845704fdc78a0a4877fc132" />
-
 
         <!--bugly-->
         <activity

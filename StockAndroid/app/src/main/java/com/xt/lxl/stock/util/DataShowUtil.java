@@ -20,14 +20,14 @@ public class DataShowUtil {
     static String defaultColor = "#00ffffff";
 
     public static HotelLabelDrawable[] transforDrawables(Context context, StockViewModel viewModel) {
-        if (viewModel.mStockChangeD == 0) {
+        if (viewModel.stockChangeD == 0) {
             HotelLabelDrawable[] drawables = new HotelLabelDrawable[1];
             drawables[0] = new HotelLabelDrawable(context);
             StockIndexChangeModel centerModel = new StockIndexChangeModel();
             if (viewModel.isSuspension) {
                 centerModel.mShowText = "停牌";
             } else {
-                centerModel.mShowText = viewModel.mStockChange + "%";
+                centerModel.mShowText = viewModel.stockChange + "%";
             }
             centerModel.mTextColor = "#5C5C5C";
             centerModel.mShowIndex = 0;
@@ -42,13 +42,13 @@ public class DataShowUtil {
         drawables[1] = new HotelLabelDrawable(context);
         StockIndexChangeModel leftModel = new StockIndexChangeModel();
         StockIndexChangeModel rightModel = new StockIndexChangeModel();
-        if (viewModel.mStockChangeD > 0) {
+        if (viewModel.stockChangeD > 0) {
             leftModel.mBgColor = defaultColor;
-            rightModel.mShowText = viewModel.mStockChange + "%";
-            rightModel.mShowIndex = viewModel.mStockChangeD * 10;
+            rightModel.mShowText = viewModel.stockChange + "%";
+            rightModel.mShowIndex = viewModel.stockChangeD * 10;
             rightModel.mShowIndex = rightModel.mShowIndex > 1 ? 1 : rightModel.mShowIndex;
             rightModel.mBgColor = "#FA5259";
-            if (viewModel.mStockChangeD > 0.03) {
+            if (viewModel.stockChangeD > 0.03) {
                 rightModel.mTextColor = "#ffffff";
                 rightModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_CENTER;
             } else {
@@ -58,12 +58,12 @@ public class DataShowUtil {
         } else {
             rightModel.mBgColor = defaultColor;
 
-            leftModel.mShowText = viewModel.mStockChange + "%";
-            leftModel.mShowIndex = viewModel.mStockChangeD * 10;
+            leftModel.mShowText = viewModel.stockChange + "%";
+            leftModel.mShowIndex = viewModel.stockChangeD * 10;
             leftModel.mShowIndex = leftModel.mShowIndex < -1 ? -1 : leftModel.mShowIndex;
             leftModel.mBgColor = "#4CB774";
             leftModel.mTextColor = "#000000";
-            if (viewModel.mStockChangeD < -0.03) {
+            if (viewModel.stockChangeD < -0.03) {
                 leftModel.mTextColor = "#ffffff";
                 leftModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_CENTER;
             } else {
@@ -144,59 +144,59 @@ public class DataShowUtil {
         String substring = resultOne.substring(beginIndex, endIndex);
         String[] split = substring.split("~");
         StockViewModel stockViewModel = new StockViewModel();
-        stockViewModel.mStockName = split[1];//股票名称
-        stockViewModel.mStockCode = split[2];//股票代码
-        stockViewModel.mStockPirce = split[3];//当前价格
-        if ("0.00".equals(stockViewModel.mStockPirce)) {
+        stockViewModel.stockName = split[1];//股票名称
+        stockViewModel.stockCode = split[2];//股票代码
+        stockViewModel.stockPirce = split[3];//当前价格
+        if ("0.00".equals(stockViewModel.stockPirce)) {
             //当前价格为0时代表停牌，取上一次的
-            stockViewModel.mStockPirce = split[4];
+            stockViewModel.stockPirce = split[4];
             stockViewModel.isSuspension = true;
         }
-//        stockViewModel.mStockCode = split[4];//昨收价格
-//        stockViewModel.mStockCode = split[5];//今开
-//        stockViewModel.mStockCode = split[6];//成交量（手）
-//        stockViewModel.mStockCode = split[7];//外盘
-//        stockViewModel.mStockCode = split[8];//内盘
-//        stockViewModel.mStockCode = split[9];//买一
-//        stockViewModel.mStockCode = split[10];//买一量（手）
-//        stockViewModel.mStockCode = split[11];//买二
-//        stockViewModel.mStockCode = split[12];//买二量（手）
-//        stockViewModel.mStockCode = split[13];//买三
-//        stockViewModel.mStockCode = split[14];//买三量（手）
-//        stockViewModel.mStockCode = split[15];//买四
-//        stockViewModel.mStockCode = split[16];//买四量（手）
-//        stockViewModel.mStockCode = split[17];//买五
-//        stockViewModel.mStockCode = split[18];//买五量（手）
-//        stockViewModel.mStockCode = split[19];//卖一
-//        stockViewModel.mStockCode = split[20];//卖一量（手）
-//        stockViewModel.mStockCode = split[21];//卖二
-//        stockViewModel.mStockCode = split[22];//卖二量（手）
-//        stockViewModel.mStockCode = split[23];//卖三
-//        stockViewModel.mStockCode = split[24];//卖三量（手）
-//        stockViewModel.mStockCode = split[25];//卖四
-//        stockViewModel.mStockCode = split[26];//卖四量（手）
-//        stockViewModel.mStockCode = split[27];//卖五
-//        stockViewModel.mStockCode = split[28];//卖五量（手）
-//        stockViewModel.mStockCode = split[29];//最近逐笔成交
-//        stockViewModel.mStockCode = split[30];//时间
-//        stockViewModel.mStockCode = split[31];//涨跌
-        stockViewModel.mStockChange = split[32];//涨跌%
-//        stockViewModel.mStockCode = split[33];//最高
-//        stockViewModel.mStockCode = split[34];//最低
-//        stockViewModel.mStockCode = split[35];//价格/成交量（手）/成交额
-//        stockViewModel.mStockCode = split[36];//成交量（手）
-//        stockViewModel.mStockCode = split[37];//成交额（万）
-        stockViewModel.mTurnover = split[38];//换手率
-        stockViewModel.mRatio = split[39];//市盈率
-//        stockViewModel.mStockCode = split[40];//无
-//        stockViewModel.mStockCode = split[41];//最高
-//        stockViewModel.mStockCode = split[42];//最低
-//        stockViewModel.mStockCode = split[43];//振幅
-//        stockViewModel.mStockCode = split[44];//流通市值
-        stockViewModel.mValueAll = split[45];//总市值
-//        stockViewModel.mStockCode = split[46];//市净率
-//        stockViewModel.mStockCode = split[47];//涨停价
-//        stockViewModel.mStockCode = split[48];//跌停价
+//        stockViewModel.stockCode = split[4];//昨收价格
+//        stockViewModel.stockCode = split[5];//今开
+//        stockViewModel.stockCode = split[6];//成交量（手）
+//        stockViewModel.stockCode = split[7];//外盘
+//        stockViewModel.stockCode = split[8];//内盘
+//        stockViewModel.stockCode = split[9];//买一
+//        stockViewModel.stockCode = split[10];//买一量（手）
+//        stockViewModel.stockCode = split[11];//买二
+//        stockViewModel.stockCode = split[12];//买二量（手）
+//        stockViewModel.stockCode = split[13];//买三
+//        stockViewModel.stockCode = split[14];//买三量（手）
+//        stockViewModel.stockCode = split[15];//买四
+//        stockViewModel.stockCode = split[16];//买四量（手）
+//        stockViewModel.stockCode = split[17];//买五
+//        stockViewModel.stockCode = split[18];//买五量（手）
+//        stockViewModel.stockCode = split[19];//卖一
+//        stockViewModel.stockCode = split[20];//卖一量（手）
+//        stockViewModel.stockCode = split[21];//卖二
+//        stockViewModel.stockCode = split[22];//卖二量（手）
+//        stockViewModel.stockCode = split[23];//卖三
+//        stockViewModel.stockCode = split[24];//卖三量（手）
+//        stockViewModel.stockCode = split[25];//卖四
+//        stockViewModel.stockCode = split[26];//卖四量（手）
+//        stockViewModel.stockCode = split[27];//卖五
+//        stockViewModel.stockCode = split[28];//卖五量（手）
+//        stockViewModel.stockCode = split[29];//最近逐笔成交
+//        stockViewModel.stockCode = split[30];//时间
+//        stockViewModel.stockCode = split[31];//涨跌
+        stockViewModel.stockChange = split[32];//涨跌%
+//        stockViewModel.stockCode = split[33];//最高
+//        stockViewModel.stockCode = split[34];//最低
+//        stockViewModel.stockCode = split[35];//价格/成交量（手）/成交额
+//        stockViewModel.stockCode = split[36];//成交量（手）
+//        stockViewModel.stockCode = split[37];//成交额（万）
+        stockViewModel.turnover = split[38];//换手率
+        stockViewModel.ratio = split[39];//市盈率
+//        stockViewModel.stockCode = split[40];//无
+//        stockViewModel.stockCode = split[41];//最高
+//        stockViewModel.stockCode = split[42];//最低
+//        stockViewModel.stockCode = split[43];//振幅
+//        stockViewModel.stockCode = split[44];//流通市值
+        stockViewModel.valueAll = split[45];//总市值
+//        stockViewModel.stockCode = split[46];//市净率
+//        stockViewModel.stockCode = split[47];//涨停价
+//        stockViewModel.stockCode = split[48];//跌停价
         stockViewModel.init();
         return stockViewModel;
     }

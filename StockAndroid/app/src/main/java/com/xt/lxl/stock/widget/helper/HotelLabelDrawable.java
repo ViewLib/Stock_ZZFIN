@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.xt.lxl.stock.model.model.StockIndexChangeModel;
-import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.util.DeviceUtil;
 
 /**
  * Created by wang_zx on 2015/12/17.
@@ -74,9 +74,9 @@ public class HotelLabelDrawable extends Drawable {
 
     private int getFontSize(float fontSize, float defaultFontSize) {
         if (fontSize > 0) {
-            return StockShowUtil.getPixelFromDip(mContext, fontSize);
+            return DeviceUtil.getPixelFromDip(mContext, fontSize);
         } else {
-            return StockShowUtil.getPixelFromDip(mContext, defaultFontSize);
+            return DeviceUtil.getPixelFromDip(mContext, defaultFontSize);
         }
     }
 

@@ -93,22 +93,22 @@ public class StockListAdapter extends BaseAdapter {
         final StockChangeText stockChange = HotelViewHolder.requestView(convertView, R.id.stock_list_item_change);
 
         //展示国内海外标识
-        if (StockViewModel.STOCK_TYPE_US.equals(stockViewModel.mStockType)) {
+        if (StockViewModel.STOCK_TYPE_US.equals(stockViewModel.stockType)) {
             stockType.setVisibility(View.VISIBLE);
         } else {
             stockType.setVisibility(View.INVISIBLE);
         }
 
         String defaultStr = "数据缺失";
-        HotelViewHolder.showTextOrDefault(stockName, stockViewModel.mStockName, defaultStr);
-        HotelViewHolder.showTextOrDefault(stockCode, stockViewModel.mStockCode, defaultStr);
-        HotelViewHolder.showTextOrDefault(stockPrice, stockViewModel.mStockPirce, defaultStr);
-        if (stockViewModel.mStockState == StockViewModel.STOCK_STATE_SUSPENSION) {
+        HotelViewHolder.showTextOrDefault(stockName, stockViewModel.stockName, defaultStr);
+        HotelViewHolder.showTextOrDefault(stockCode, stockViewModel.stockCode, defaultStr);
+        HotelViewHolder.showTextOrDefault(stockPrice, stockViewModel.stockPirce, defaultStr);
+        if (stockViewModel.stockState == StockViewModel.STOCK_STATE_SUSPENSION) {
 //            stockChange.setText("停牌");
             stockChange.setBackgroundColor(convertView.getResources().getColor(R.color.stock_portfolio_quotation_color_gray_night));
             return;
         }
-        HotelViewHolder.showTextOrDefault(stockChange, DataShowUtil.getDisplayChangeStr(stockViewModel.mStockChangeD), defaultStr);
+        HotelViewHolder.showTextOrDefault(stockChange, DataShowUtil.getDisplayChangeStr(stockViewModel.stockChangeD), defaultStr);
         //展示涨跌幅背景色
         HotelLabelDrawable[] drawables = DataShowUtil.transforDrawables(mInflater.getContext(), stockViewModel);
         if (drawables.length == 1) {

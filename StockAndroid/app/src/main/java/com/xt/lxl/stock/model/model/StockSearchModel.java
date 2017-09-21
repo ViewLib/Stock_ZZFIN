@@ -12,7 +12,7 @@ public class StockSearchModel {
     public final static int STOCK_FOUND_TYPE_STOCK = 1;//股票
     public final static int STOCK_FOUND_TYPE_RNAK = 2;//事件性排行
 
-    public int mSearchType = 1;
+    public int searchType = 1;
     public StockViewModel stockViewModel=new StockViewModel();//股票
     public StockFoundRankModel rankModel=new StockFoundRankModel("");
 }

@@ -17,7 +17,6 @@ import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.page.list.StockRankAdapter;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.HotelViewHolder;
-import com.xt.lxl.stock.util.StockShowUtil;
 import com.xt.lxl.stock.widget.view.StockTextView;
 import com.xt.lxl.stock.widget.view.StockTitleView;
 
@@ -73,7 +72,7 @@ public class StockRankActivity extends FragmentActivity {
                         //赋值逻辑
                         StockRankDetailResponse rankDetailResponse = DataSource.getRankDetailResponse();
                         mRankList.clear();
-                        mRankList.addAll(rankDetailResponse.mRankResultList);
+                        mRankList.addAll(rankDetailResponse.rankResultList);
                         bindRankData();
                     }
                 });
@@ -90,7 +89,7 @@ public class StockRankActivity extends FragmentActivity {
                         //赋值逻辑
                         StockRankDetailFilterlResponse rankDetailFilterResponse = DataSource.getRankDetailFilterResponse();
                         mRankFilerList.clear();
-                        mRankFilerList.addAll(rankDetailFilterResponse.mRankFilterList);
+                        mRankFilerList.addAll(rankDetailFilterResponse.rankFilterList);
                         bindFilterData();
                     }
                 });
@@ -123,7 +122,7 @@ public class StockRankActivity extends FragmentActivity {
             } else if (i == 3) {
                 filter = filter4;
             }
-            HotelViewHolder.showText(filter, filterModel.mFilteList.get(filterModel.mDefaultPosition));
+            HotelViewHolder.showText(filter, filterModel.filteList.get(filterModel.defaultPosition));
         }
 
     }
@@ -138,11 +137,11 @@ public class StockRankActivity extends FragmentActivity {
         TextView attr3 = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_attr3);
         //header
         StockRankResultModel stockRankResultModel = mRankList.get(0);
-        HotelViewHolder.showText(name, stockRankResultModel.mStockName);
+        HotelViewHolder.showText(name, stockRankResultModel.stockName);
         HotelViewHolder.showText(add, "加入自选");
-        HotelViewHolder.showText(attr1, stockRankResultModel.mAttr1);
-        HotelViewHolder.showText(attr2, stockRankResultModel.mAttr2);
-        HotelViewHolder.showText(attr3, stockRankResultModel.mAttr3);
+        HotelViewHolder.showText(attr1, stockRankResultModel.attr1);
+        HotelViewHolder.showText(attr2, stockRankResultModel.attr2);
+        HotelViewHolder.showText(attr3, stockRankResultModel.attr3);
 
 
         mRankAdapter.notifyDataSetChanged();
