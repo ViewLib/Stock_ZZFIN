@@ -20,7 +20,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    for (NSDictionary *dic in [Config shareInstance].hotStocks) {
+        NSLog(@"%@",dic);
+    }
 }
 
 #pragma mark - 
@@ -31,7 +33,13 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    NSInteger num;
+    if ([Config shareInstance].hotStocks.count%2 != 0) {
+        num = [Config shareInstance].hotStocks.count/2 + 1;
+    } else {
+        num = [Config shareInstance].hotStocks.count/2;
+    }
+    return num;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -44,6 +52,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FindTableViewCell"];
+    NSInteger row1 = indexPath.row * 2;
+    NSInteger row2 = indexPath.row * 2 + 1;
+    NSMutableArray *ary = [NSMutableArray array];
+    NSDictionary *dic = [Config shareInstance].hotStocks[row1];
+    [ary addObject:dic];
+    if (row2 < [Config shareInstance].hotStocks.count) {
+        NSDictionary *dic2 = [Config shareInstance].hotStocks[row2];
+        [ary addObject:dic2];
+    }
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"FindTableViewCell" owner:nil options:nil] firstObject];
         WS(self)
@@ -53,12 +70,19 @@
         cell.viewTwoClickBlock = ^(NSInteger row) {
             [selfWeak clickView:row type:@"Two"];
         };
+        [cell updateCell:ary];
     }
     return cell;
 }
 
 -(void)clickView:(NSInteger)row type:(NSString *)type {
     RankViewController *rankVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Rank"];
+    NSInteger num = row * 2;
+    if ([type isEqual:@"Two"]) {
+        num += 1;
+    };
+    NSDictionary *dic = [Config shareInstance].hotStocks[num];
+    rankVC.valueDic = dic;
     [self.navigationController pushViewController:rankVC animated:YES];
 }
 

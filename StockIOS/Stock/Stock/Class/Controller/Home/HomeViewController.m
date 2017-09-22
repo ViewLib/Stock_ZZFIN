@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHigh;
+
 @property (weak, nonatomic) IBOutlet UIButton *EditBtn;
 
 @property (weak, nonatomic) IBOutlet UITableView *OptionalTable;
@@ -60,8 +62,8 @@
     [backgroundImageView removeFromSuperview];
     
     self.searchController.searchBar.tintColor = [UIColor whiteColor];
-
     self.searchController.searchBar.delegate = search;
+    _topHigh.constant = self.searchController.searchBar.bounds.size.height;
     [_topView addSubview:self.searchController.searchBar];
 }
 

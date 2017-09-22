@@ -41,8 +41,15 @@
  更新cell
  @param dic 更新的内容
  */
-- (void)updateCell:(NSDictionary *)dic {
-    NSLog(@"%@",dic);
+- (void)updateCell:(NSArray *)dics {
+    if (dics.count == 1) {
+        _viewTwo.hidden = YES;
+    }
+    NSDictionary *dic = [dics firstObject];
+    _oneValue.text = dic[@"stockViewModel"][@"stockCode"];
+    
+    NSDictionary *dic2 = [dics lastObject];
+    _towValue.text = dic2[@"stockViewModel"][@"stockCode"];
 }
 
 - (IBAction)clickOneBtn:(UIButton *)sender {

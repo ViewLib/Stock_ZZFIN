@@ -8,7 +8,6 @@
 
 #import "DataManager.h"
 #import "AppDelegate.h"
-#import "StockEntity.h"
 
 
 @implementation DataManager
@@ -37,16 +36,35 @@
     return _mManagerContent;
 }
 
+//查询历史股票对象
+-(NSArray *)queryHistoryStockEntitys {
+    NSArray *array = [self InfoSearchManagerWith:@"HistoryStockEntity" and:nil];
+    return array;
+}
+
+//保存历史股票
+-(BOOL)insertHistoryStock:(NSDictionary *)dic {
+    NSMutableArray *array = [self queryHistoryStockEntitys].mutableCopy;
+    if (array.count == 10) {
+        HistoryStockEntity *entity = [array firstObject];
+        [self.mManagerContent deleteObject:entity];
+    }
+    
+    HistoryStockEntity *entity = (HistoryStockEntity*)[NSEntityDescription insertNewObjectForEntityForName:@"HistoryStockEntity" inManagedObjectContext:self.mManagerContent];
+    entity.name = dic[@"title"];
+    entity.code = dic[@"code"];
+    
+    return [self.mManagerContent save:nil];
+}
+
 //查询自选股票列表
--(NSArray *)queryStockEntitys
-{
+-(NSArray *)queryStockEntitys {
     NSArray *array = [self InfoSearchManagerWith:@"StockEntity" and:nil];
     return array;
 }
 
 //保存
--(BOOL)updateSotckEntitys:(NSArray *)stockValue
-{
+-(BOOL)updateSotckEntitys:(NSArray *)stockValue {
     StockEntity *entity;
     NSArray *entitys = [self queryStockWithName:stockValue[1]];
     if (entitys.count > 0) {
@@ -161,8 +179,7 @@
     return array;
 }
 
--(NSArray *)InfoSearchManagerWith:(NSString *)entityName and:(NSPredicate *)pred
-{
+-(NSArray *)InfoSearchManagerWith:(NSString *)entityName and:(NSPredicate *)pred {
     NSFetchRequest* fR = [[NSFetchRequest alloc] init] ;
     
     NSEntityDescription* desc= [NSEntityDescription entityForName:entityName inManagedObjectContext:self.mManagerContent];

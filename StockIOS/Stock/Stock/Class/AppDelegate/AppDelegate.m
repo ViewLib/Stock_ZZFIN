@@ -33,19 +33,29 @@
     
     self.loginVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Login"];
     
-    [self getStocks];
-    
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
     [IQKeyboardManager sharedManager].toolbarDoneBarButtonItemText = @"完成";
     
-    [self configBugly];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self getStocks];
+        [self configBugly];
+        [self getHotStock];
+    });
     
     //获取设备UUID
     [Config shareInstance].uuid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     
     return YES;
+}
+
+- (void)getHotStock {
+    [[HttpRequestClient sharedClient] getHotStocksRequest:^(NSString *resultMsg, id dataDict, id error) {
+        if ([dataDict[@"resultCode"] floatValue] == 200) {
+            [[Config shareInstance] setHotStocks:dataDict[@"hotSearchList"]];
+        }
+    }];
 }
 
 - (void)configBugly {

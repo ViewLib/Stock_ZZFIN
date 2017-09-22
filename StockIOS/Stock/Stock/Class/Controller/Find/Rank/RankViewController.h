@@ -10,4 +10,6 @@
 
 @interface RankViewController : UIViewController
 
+@property (nonatomic, strong)   NSDictionary    *valueDic;
+
 @end

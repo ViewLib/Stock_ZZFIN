@@ -21,6 +21,6 @@ typedef void(^viewTwoClickBlock)(NSInteger row);
  更新cell
  @param dic 更新的内容
  */
-- (void)updateCell:(NSDictionary *)dic;
+- (void)updateCell:(NSArray *)dics;
 
 @end

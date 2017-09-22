@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="HistoryStockEntity" representedClassName="HistoryStockEntity" isAbstract="YES" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="StockEntity" representedClassName="StockEntity" isAbstract="YES" syncable="YES">
         <attribute name="amplitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="buy1" optional="YES" attributeType="String" syncable="YES"/>
@@ -47,6 +52,7 @@
         <attribute name="zsprice" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="StockEntity" positionX="-63" positionY="-18" width="128" height="705"/>
+        <element name="StockEntity" positionX="-63" positionY="-18" width="128" height="703"/>
+        <element name="HistoryStockEntity" positionX="-63" positionY="135" width="128" height="88"/>
     </elements>
 </model>

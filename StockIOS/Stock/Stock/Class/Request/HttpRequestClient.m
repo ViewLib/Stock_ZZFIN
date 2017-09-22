@@ -41,6 +41,13 @@
     [self httpGet:urlStr paramDict:nil completion:request];
 }
 
+#pragma mark - 获取热门
+-(void)getHotStocksRequest:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_hotsearch",SERVICE];
+//    self.responseIsNotJson = YES;
+    [self httpGet:urlStr paramDict:nil completion:request];
+}
+
 #pragma mark - 提交get请求
 -(void) httpGet:(NSString *) urlstring paramDict:(NSDictionary *)paramDict completion:(request )completion {
     [self httpBossWith:urlstring type:@"get" paramDict:paramDict completion:completion];

@@ -31,6 +31,8 @@
     
     [_collectionBtn ImgTopTextButtom];
     
+    [_topLabel setText:self.valueDic[@"stockViewModel"][@"stockCode"]];
+    
     for (UIButton *btn in @[_filterOne,_filterTwo,_filterThr,_filterFor]) {
         [btn ImgRightTextLeft];
     }

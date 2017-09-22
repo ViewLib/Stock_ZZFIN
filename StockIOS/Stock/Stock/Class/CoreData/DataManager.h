@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "StockEntity.h"
+#import "HistoryStockEntity.h"
 
 @interface DataManager : NSObject
 
@@ -17,6 +19,12 @@
 
 //查询自选股票对象
 -(NSArray *)queryStockEntitys;
+
+//保存历史股票
+-(BOOL)insertHistoryStock:(NSDictionary *)dic;
+
+//查询历史股票对象
+-(NSArray *)queryHistoryStockEntitys;
 
 //保存
 -(BOOL)updateSotckEntitys:(NSArray *)stockDic;

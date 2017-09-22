@@ -18,10 +18,17 @@
 //本地固化的股票数据
 @property (nonatomic ,strong)   NSArray       *localStocks;
 
+//用户对象
 @property (nonatomic ,strong)   loginEntity   *login;
 
 //用户自选股
 @property (nonatomic ,strong)   NSArray       *optionalStocks;
+
+//热门推荐股票列表
+@property (nonatomic ,strong)   NSArray       *hotStocks;
+
+//热门推荐的高度
+@property (nonatomic ,assign)   float         defaultHotHigh;
 
 +(Config *) shareInstance;
 

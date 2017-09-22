@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0280DB47328A74FBC457E42C /* Pods_Stock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DE0CD6223DE9B68410EC8 /* Pods_Stock.framework */; };
+		043702591F755F6C0070A807 /* HistoryStockEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 043702581F755F6C0070A807 /* HistoryStockEntity.m */; };
+		0437025D1F756E810070A807 /* StockValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437025C1F756E810070A807 /* StockValueViewController.m */; };
 		045ED16B1F5BA7B800F7DE20 /* NSObject+WKHud.m in Sources */ = {isa = PBXBuildFile; fileRef = 045ED16A1F5BA7B800F7DE20 /* NSObject+WKHud.m */; };
 		045ED16E1F5BAC3600F7DE20 /* UIViewController+WKVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 045ED16D1F5BAC3600F7DE20 /* UIViewController+WKVC.m */; };
 		045ED1711F5BADA800F7DE20 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 045ED1701F5BADA800F7DE20 /* Config.m */; };
@@ -171,6 +173,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		043702571F755F6C0070A807 /* HistoryStockEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryStockEntity.h; sourceTree = "<group>"; };
+		043702581F755F6C0070A807 /* HistoryStockEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryStockEntity.m; sourceTree = "<group>"; };
+		0437025B1F756E810070A807 /* StockValueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockValueViewController.h; sourceTree = "<group>"; };
+		0437025C1F756E810070A807 /* StockValueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StockValueViewController.m; sourceTree = "<group>"; };
 		045ED1691F5BA7B800F7DE20 /* NSObject+WKHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+WKHud.h"; sourceTree = "<group>"; };
 		045ED16A1F5BA7B800F7DE20 /* NSObject+WKHud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+WKHud.m"; sourceTree = "<group>"; };
 		045ED16C1F5BAC3600F7DE20 /* UIViewController+WKVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WKVC.h"; sourceTree = "<group>"; };
@@ -510,6 +516,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0437025A1F756E670070A807 /* Value */ = {
+			isa = PBXGroup;
+			children = (
+				0437025B1F756E810070A807 /* StockValueViewController.h */,
+				0437025C1F756E810070A807 /* StockValueViewController.m */,
+			);
+			path = Value;
+			sourceTree = "<group>";
+		};
 		045ED1681F5BA70F00F7DE20 /* WK */ = {
 			isa = PBXGroup;
 			children = (
@@ -630,6 +645,7 @@
 		04C2E2101F598DE500C09D86 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				0437025A1F756E670070A807 /* Value */,
 				0465E5551F603EB9006F7F9C /* Search */,
 				04C2E2151F598E4600C09D86 /* HomeViewController.h */,
 				04C2E2161F598E4600C09D86 /* HomeViewController.m */,
@@ -691,6 +707,8 @@
 			children = (
 				04C2E25F1F59C1BB00C09D86 /* StockEntity.h */,
 				04C2E2601F59C1BB00C09D86 /* StockEntity.m */,
+				043702571F755F6C0070A807 /* HistoryStockEntity.h */,
+				043702581F755F6C0070A807 /* HistoryStockEntity.m */,
 			);
 			path = Entitys;
 			sourceTree = "<group>";
@@ -1313,6 +1331,7 @@
 				847077BC1F4EF73600974772 /* RACSignal.m in Sources */,
 				847077B01F4EF73600974772 /* RACKVOProxy.m in Sources */,
 				847077DA1F4EF73600974772 /* UISwitch+RACSignalSupport.m in Sources */,
+				043702591F755F6C0070A807 /* HistoryStockEntity.m in Sources */,
 				847077D61F4EF73600974772 /* UIRefreshControl+RACCommandSupport.m in Sources */,
 				8470779F1F4EF73600974772 /* RACChannel.m in Sources */,
 				8470778C1F4EF73600974772 /* NSIndexSet+RACSequenceAdditions.m in Sources */,
@@ -1428,6 +1447,7 @@
 				847077B71F4EF73600974772 /* RACScheduler.m in Sources */,
 				847077821F4EF73600974772 /* MJRefreshConst.m in Sources */,
 				8470777E1F4EF73600974772 /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				0437025D1F756E810070A807 /* StockValueViewController.m in Sources */,
 				B67ADC081F55B10C00E17F5F /* TabBarViewController.m in Sources */,
 				04C2E22B1F599D0800C09D86 /* HomeTableViewCell.m in Sources */,
 				847077CE1F4EF73600974772 /* UIBarButtonItem+RACCommandSupport.m in Sources */,

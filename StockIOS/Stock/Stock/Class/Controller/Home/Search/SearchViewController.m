@@ -8,10 +8,12 @@
 
 #import "SearchViewController.h"
 #import "SearchHistoryTableViewCell.h"
+#import "StockValueViewController.h"
 
 @interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *searchTable;
+
 @property (weak, nonatomic) IBOutlet UIView *hot1;
 @property (weak, nonatomic) IBOutlet UIView *hot2;
 @property (weak, nonatomic) IBOutlet UIView *hot3;
@@ -19,13 +21,33 @@
 @property (weak, nonatomic) IBOutlet UIView *hot5;
 @property (weak, nonatomic) IBOutlet UIView *hot6;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHigh;
+
+@property (weak, nonatomic) IBOutlet UIView *topView;
+
 @property (strong, nonatomic)   NSMutableArray   *tableDate;
 
 @property (assign, nonatomic)   BOOL             isSearch;
 
+@property (weak, nonatomic) IBOutlet UIView *hot;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hotHigh;
+
+@property (weak, nonatomic) IBOutlet UIView *hotView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hotViewHigh;
+
+
+
 @end
 
 @implementation SearchViewController
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
+    [_searchTable reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,6 +61,18 @@
         view.layer.borderColor = MAIN_COLOR.CGColor;
         view.layer.cornerRadius = view.bounds.size.height/2;
     }
+    
+//    if ([Config shareInstance].hotStocks.count == 0) {
+//        _hotHigh.constant -= _hotViewHigh.constant;
+//        _hotViewHigh.constant = 0;
+//        _hotView.hidden = YES;
+//    } else {
+//        for (NSDictionary *dic in [Config shareInstance].hotStocks) {
+//            NSLog(@"%@",dic);
+//        }
+//    }
+    
+    _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
 }
 
 #pragma mark - UITableViewDelegateAndDateSource
@@ -53,6 +87,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dic = _tableDate[indexPath.row];
+    if (!self.isSearch) {
+        HistoryStockEntity *entity = (HistoryStockEntity *)_tableDate[indexPath.row];
+        dic = @{@"title": entity.name,@"code":entity.code};
+    }
     
     static NSString *cellID =@"SearchHistoryTableViewCell";
     SearchHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
@@ -68,8 +106,37 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dic = _tableDate[indexPath.row];
-//    [self insertCoreData:dic];
-    NSLog(@"%@",dic);
+    if (!self.isSearch) {
+        HistoryStockEntity *entity = (HistoryStockEntity *)_tableDate[indexPath.row];
+        dic = @{@"title": entity.name,@"code":entity.code};
+    }
+    [[DataManager shareDataMangaer] insertHistoryStock:dic];
+    
+    
+    StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
+//    [viewController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+
+    CATransition *animation = [CATransition animation];
+    
+    animation.duration = .5;
+    
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    
+    animation.type = kCATransitionPush;
+    
+    animation.subtype = kCATransitionFromRight;
+    
+    [self.view.window.layer addAnimation:animation forKey:nil];
+    
+    [self presentViewController:viewController animated:NO completion:^{
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }];
+    
+//    [self.view endEditing:YES];
+//    _hot.hidden = NO;
+//    _hotHigh.constant = [Config shareInstance].defaultHotHigh;
+//    _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
+//    [_searchTable reloadData];
 }
 
 /**
@@ -96,17 +163,7 @@
 #pragma mark - SearchController
 
 - (void)willPresentSearchController:(UISearchController *)searchController {
-    UIView *searchBarTextField = nil;
-    if ([[UIDevice currentDevice].systemVersion floatValue] > 10.0) {
-        UIView *searchBackground = [[searchController.searchBar.subviews.firstObject subviews] objectAtIndex:0];
-        searchBackground.alpha = 0;
-        searchController.view.backgroundColor = MAIN_COLOR;
-        searchBarTextField = [[searchController.searchBar.subviews.firstObject subviews] objectAtIndex:1];
-    } else {
-        searchController.searchBar.backgroundImage = SEARCHBAR_BGIMG;
-        searchBarTextField = [[searchController.searchBar.subviews.firstObject subviews] lastObject];
-    }
-    searchBarTextField.backgroundColor = MAIN_COLOR;
+
 }
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
@@ -124,12 +181,20 @@
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
+    CGRect new = searchBar.frame;
+    if (searchBar.frame.origin.y == 0) {
+        new.origin.y = 12;
+        _topHigh.constant = searchBar.frame.size.height;
+    }
+    searchBar.frame = new;
+    
     NSLog(@"searchBarShouldEndEditing");
     return YES;
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     NSLog(@"searchBarTextDidEndEditing");
+    self.isSearch = NO;
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [self filterBySubstring:searchText];
@@ -153,6 +218,12 @@
     NSPredicate* pred = [NSPredicate predicateWithFormat:@"title contains[cd] %@", subStr];
     // 使用谓词过滤NSArray
     _tableDate = [[Config shareInstance].localStocks filteredArrayUsingPredicate:pred].mutableCopy;
+    
+    if (_hotHigh.constant != 0) {
+        _hot.hidden = YES;
+        [[Config shareInstance] setDefaultHotHigh:_hotHigh.constant];
+        _hotHigh.constant = 0;
+    }
     
     // 让表格控件重新加载数据
     [_searchTable reloadData];
