@@ -9,17 +9,23 @@
 #import "SearchViewController.h"
 #import "SearchHistoryTableViewCell.h"
 #import "StockValueViewController.h"
+#import "hotStockView.h"
 
 @interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *searchTable;
 
-@property (weak, nonatomic) IBOutlet UIView *hot1;
-@property (weak, nonatomic) IBOutlet UIView *hot2;
-@property (weak, nonatomic) IBOutlet UIView *hot3;
-@property (weak, nonatomic) IBOutlet UIView *hot4;
-@property (weak, nonatomic) IBOutlet UIView *hot5;
-@property (weak, nonatomic) IBOutlet UIView *hot6;
+@property (weak, nonatomic) IBOutlet hotStockView *hot1;
+
+@property (weak, nonatomic) IBOutlet hotStockView *hot2;
+
+@property (weak, nonatomic) IBOutlet hotStockView *hot3;
+
+@property (weak, nonatomic) IBOutlet hotStockView *hot4;
+
+@property (weak, nonatomic) IBOutlet hotStockView *hot5;
+
+@property (weak, nonatomic) IBOutlet hotStockView *hot6;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHigh;
 
@@ -36,7 +42,6 @@
 @property (weak, nonatomic) IBOutlet UIView *hotView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *hotViewHigh;
-
 
 
 @end
@@ -56,21 +61,26 @@
     _isSearch = NO;
     _tableDate = [NSMutableArray array];
     
-    for (UIView *view in @[_hot1,_hot2,_hot3,_hot4,_hot5,_hot6]) {
-        view.layer.borderWidth = 0.3f;
-        view.layer.borderColor = MAIN_COLOR.CGColor;
-        view.layer.cornerRadius = view.bounds.size.height/2;
+    NSArray *hots = @[_hot1,_hot2,_hot3,_hot4,_hot5,_hot6];
+    
+    if ([Config shareInstance].hotStocks.count == 0) {
+        _hotHigh.constant -= _hotViewHigh.constant;
+        _hotViewHigh.constant = 0;
+        _hotView.hidden = YES;
+    } else if ([Config shareInstance].hotStocks.count <= 3) {
+        _hotHigh.constant -= _hotViewHigh.constant/2;
+        _hotViewHigh.constant = 40;
     }
     
-//    if ([Config shareInstance].hotStocks.count == 0) {
-//        _hotHigh.constant -= _hotViewHigh.constant;
-//        _hotViewHigh.constant = 0;
-//        _hotView.hidden = YES;
-//    } else {
-//        for (NSDictionary *dic in [Config shareInstance].hotStocks) {
-//            NSLog(@"%@",dic);
-//        }
-//    }
+    for (int i = 0; i < hots.count; i++) {
+        hotStockView *view = hots[i];
+        if (i < [Config shareInstance].hotStocks.count) {
+            NSDictionary *dic = [Config shareInstance].hotStocks[i];
+            view.value.text = dic[@"stockViewModel"][@"stockCode"];
+        } else {
+            view.hidden = YES;
+        }
+    }
     
     _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
 }
@@ -147,12 +157,16 @@
         if (dataDict) {
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
             NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
-            if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
-                NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
-                [[DataManager shareDataMangaer] updateSotckEntitys:responseValues];
-                [self showHint:@"已添加自选"];
+            if (![responseString isEqualToString:@"pv_none_match=1"]) {
+                if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
+                    NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
+                    [[DataManager shareDataMangaer] updateSotckEntitys:responseValues];
+                    [self showHint:@"已添加自选"];
+                } else {
+                    [self showHint:@"您选的股票已退市"];
+                }
             } else {
-                [self showHint:@"您选的股票已退市"];
+                [self showHint:@"服务器访问失败，请重试"];
             }
             
 //            [self dismissViewControllerAnimated:NO completion:nil];

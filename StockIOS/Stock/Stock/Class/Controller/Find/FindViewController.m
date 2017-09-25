@@ -20,9 +20,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    for (NSDictionary *dic in [Config shareInstance].hotStocks) {
-        NSLog(@"%@",dic);
-    }
+    
+    WS(self)
+    [RACObserve([Config shareInstance], top10List) subscribeNext:^(NSArray *x) {
+        if (x.count > 0) {
+            [selfWeak.contentTable reloadData];
+        }
+    }];
+
+//    for (NSDictionary *dic in [Config shareInstance].hotStocks) {
+//        NSLog(@"%@",dic);
+//    }
 }
 
 #pragma mark - 
@@ -34,12 +42,13 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger num;
-    if ([Config shareInstance].hotStocks.count%2 != 0) {
-        num = [Config shareInstance].hotStocks.count/2 + 1;
+    if ([Config shareInstance].top10List.count%2 != 0) {
+        num = [Config shareInstance].top10List.count/2 + 1;
     } else {
-        num = [Config shareInstance].hotStocks.count/2;
+        num = [Config shareInstance].top10List.count/2;
     }
     return num;
+//    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -55,10 +64,10 @@
     NSInteger row1 = indexPath.row * 2;
     NSInteger row2 = indexPath.row * 2 + 1;
     NSMutableArray *ary = [NSMutableArray array];
-    NSDictionary *dic = [Config shareInstance].hotStocks[row1];
+    NSDictionary *dic = [Config shareInstance].top10List[row1];
     [ary addObject:dic];
-    if (row2 < [Config shareInstance].hotStocks.count) {
-        NSDictionary *dic2 = [Config shareInstance].hotStocks[row2];
+    if (row2 < [Config shareInstance].top10List.count) {
+        NSDictionary *dic2 = [Config shareInstance].top10List[row2];
         [ary addObject:dic2];
     }
     if (!cell) {
@@ -81,7 +90,7 @@
     if ([type isEqual:@"Two"]) {
         num += 1;
     };
-    NSDictionary *dic = [Config shareInstance].hotStocks[num];
+    NSDictionary *dic = [Config shareInstance].top10List[num];
     rankVC.valueDic = dic;
     [self.navigationController pushViewController:rankVC animated:YES];
 }

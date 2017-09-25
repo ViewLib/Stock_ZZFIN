@@ -28,4 +28,7 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 #pragma mark - 获取热门
 -(void)getHotStocksRequest:(request)request;
 
+#pragma mark - 获取top10
+-(void)getRankListStocksRequest:(request)request;
+
 @end
