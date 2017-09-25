@@ -178,7 +178,8 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
 
     private void initData() {
         mSearchAllDataList.clear();
-        List<StockSyncModel> searchAllData = DataSource.getSearchAllData();
+        final SqliteService service = new SqliteService(StockSearchActivity.this);
+        List<StockSyncModel> searchAllData = service.selectAllStockSyncModelList();
         mSearchAllDataList.addAll(DataShowUtil.stockList2stockSyncList(searchAllData));
         //List转成map形式
         for (StockViewModel model : mSearchAllDataList) {
@@ -297,6 +298,8 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.back_btn) {
+            finish();
+        } else if (id == R.id.stock_found_cancel) {
             finish();
         }
     }

@@ -209,6 +209,7 @@ public class DataShowUtil {
             StockViewModel viewModel = new StockViewModel();
             viewModel.stockCode = syncModel.stockCode;
             viewModel.stockName = syncModel.stockName;
+            stockViewModelList.add(viewModel);
         }
         return stockViewModelList;
     }

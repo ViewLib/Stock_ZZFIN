@@ -25,6 +25,7 @@ public class SqliteService {
     public List<StockSyncModel> selectAllStockSyncModelList() {
         List<StockSyncModel> list = new ArrayList<>();
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
+        localSQLiteDatabase.beginTransaction();
         String format = String.format(Locale.CHINA, "select * from %s", DBHelper.TABLE_NAME);
         Cursor localCursor = localSQLiteDatabase.rawQuery(format, new String[]{});
         while (localCursor.moveToNext()) {
@@ -34,11 +35,13 @@ public class SqliteService {
             syncModel.version = localCursor.getInt(localCursor.getColumnIndex(DBHelper.STOCK_VERSION));
             list.add(syncModel);
         }
-        localSQLiteDatabase.close();
+        localSQLiteDatabase.setTransactionSuccessful();
+        localSQLiteDatabase.endTransaction();
         return list;
     }
 
     public static void addStockModel(SQLiteDatabase localSQLiteDatabase, List<StockSyncModel> syncModelList) {
+        localSQLiteDatabase.beginTransaction();
         for (StockSyncModel syncModel : syncModelList) {
             String stockCode = syncModel.stockCode;
             String stockName = syncModel.stockName;
@@ -49,7 +52,8 @@ public class SqliteService {
             String format = String.format(Locale.CHINA, "insert into %s (%s,%s,%s) values(?,?,?)", DBHelper.TABLE_NAME, DBHelper.STOCK_CODE, DBHelper.STOCK_NAME, DBHelper.STOCK_VERSION);
             localSQLiteDatabase.execSQL(format, arrayOfObject);
         }
-        localSQLiteDatabase.close();
+        localSQLiteDatabase.setTransactionSuccessful();
+        localSQLiteDatabase.endTransaction();
     }
 
     /**
@@ -70,7 +74,6 @@ public class SqliteService {
         };
         String format = String.format(Locale.CHINA, "insert into %s (%s,%s,%s) values(?,?,?)", DBHelper.TABLE_NAME, DBHelper.STOCK_CODE, DBHelper.STOCK_NAME, DBHelper.STOCK_VERSION);
         localSQLiteDatabase.execSQL(format, arrayOfObject);
-        localSQLiteDatabase.close();
     }
 
     public int selectCurrentVersion() {
@@ -82,7 +85,6 @@ public class SqliteService {
             version = localCursor.getInt(localCursor.getColumnIndex(DBHelper.VERSION_VERSION));
             break;
         }
-        localSQLiteDatabase.close();
         return version;
     }
 
@@ -91,7 +93,6 @@ public class SqliteService {
         Object[] arrayOfObject = new Object[1];
         arrayOfObject[0] = version;
         localSQLiteDatabase.execSQL("update students set student_name=?,score=?,class_id=?  where student_id=?", arrayOfObject);
-        localSQLiteDatabase.close();
     }
 
 
