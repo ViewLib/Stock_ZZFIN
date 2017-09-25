@@ -6,3 +6,4 @@ StockAndroid/.idea/
 StockAndroid/StockAndroid.iml
 StockAndroid/app/app.iml
 StockAndroid/.gitignore
+StockAndroid/local.properties
