@@ -245,9 +245,18 @@ public class DataSource {
         model2.attr2 = "-30%";
         model2.attr3 = "-5%";
 
+        StockRankResultModel model3 = new StockRankResultModel();
+        model3.position = 3;
+        model3.stockName = "汉得信息";
+        model3.stockCode = "300170";
+        model3.attr1 = "5";
+        model3.attr2 = "-30%";
+        model3.attr3 = "-5%";
+
         response.rankResultList.add(model0);
         response.rankResultList.add(model1);
         response.rankResultList.add(model2);
+        response.rankResultList.add(model3);
         return response;
     }
 }

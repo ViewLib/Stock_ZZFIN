@@ -11,9 +11,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.listener.StockListCallBacks;
+import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.model.StockRankFilterModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.page.list.StockRankAdapter;
@@ -35,7 +36,7 @@ public class StockRankActivity extends FragmentActivity {
     LinearLayout mStockRankFilterContainer;
     LinearLayout mStockFilterHeaderContainer;
     ListView mStockRankListView;
-    StockListCallBacks callBacks = new StockListCallBacks();
+    StockItemEditCallBacks mCallBacks = new StockItemEditCallBacks();
 
     StockRankAdapter mRankAdapter;
 
@@ -43,6 +44,7 @@ public class StockRankActivity extends FragmentActivity {
     public String mTitle;
     public List<StockRankFilterModel> mRankFilerList = new ArrayList<>();
     public List<StockRankResultModel> mRankList = new ArrayList<>();
+    private List<String> mSaveList = new ArrayList<>();
 
 
     Handler mHander = new Handler();
@@ -61,9 +63,11 @@ public class StockRankActivity extends FragmentActivity {
     }
 
     private void bindData() {
-        mRankAdapter = new StockRankAdapter(this, callBacks);
+        mSaveList.clear();
+        mSaveList.addAll(DataSource.getSaveStockCodeList(this));
+        mRankAdapter = new StockRankAdapter(this, mCallBacks);
         mRankAdapter.setRankResultList(mRankList);
-        mRankAdapter.setSaveList(DataSource.getSaveStockCodeList(this));
+        mRankAdapter.setSaveList(mSaveList);
         mStockRankListView.setAdapter(mRankAdapter);
         //排行
         new Thread(new Runnable() {
@@ -211,7 +215,20 @@ public class StockRankActivity extends FragmentActivity {
 
 
     private void initListener() {
+        mCallBacks.mActionCallBack = new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                if (!(v.getTag() instanceof StockViewModel)) {
+                    return;
+                }
+                StockViewModel model = (StockViewModel) v.getTag();
+                //添加操作
+                mSaveList.add(model.stockCode);
+                DataSource.addStockCode(StockRankActivity.this, model.stockCode);
+                mRankAdapter.notifyDataSetChanged();
+            }
+        };
     }
 
 }

@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.listener.StockListCallBacks;
+import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.HotelViewHolder;
@@ -25,13 +25,13 @@ import java.util.Map;
  */
 public class StockRankAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private StockListCallBacks mCallBacks;
+    private StockItemEditCallBacks mCallBacks;
     private int mColum = 5;//行数
     private List<StockRankResultModel> mStockList = new ArrayList<>();
     private List<String> mSaveList = new ArrayList<>();
     private Map<Integer, Integer> mWidthMap = new HashMap<>();
 
-    public StockRankAdapter(Context context, StockListCallBacks callBacks) {
+    public StockRankAdapter(Context context, StockItemEditCallBacks callBacks) {
         mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mCallBacks = callBacks;
@@ -88,6 +88,7 @@ public class StockRankAdapter extends BaseAdapter {
         final LinearLayout stockInfoView = HotelViewHolder.requestView(convertView, R.id.stock_rank_view);
         final TextView stockName = HotelViewHolder.requestView(convertView, R.id.stock_rank_stockname);
         final TextView stockCode = HotelViewHolder.requestView(convertView, R.id.stock_rank_stockcode);
+        final LinearLayout stockActionView = HotelViewHolder.requestView(convertView, R.id.stock_rank_action_view);
         final StockTextView stockAction = HotelViewHolder.requestView(convertView, R.id.stock_rank_action);
         final TextView attr1 = HotelViewHolder.requestView(convertView, R.id.stock_rank_attr1);
         final TextView attr2 = HotelViewHolder.requestView(convertView, R.id.stock_rank_attr2);
@@ -107,10 +108,11 @@ public class StockRankAdapter extends BaseAdapter {
             stockAction.setCompoundDrawable(null);
         } else {
             stockAction.setText("");
-            int pixelFromDip = DeviceUtil.getPixelFromDip(convertView.getContext(), 15);
+            int pixelFromDip = DeviceUtil.getPixelFromDip(convertView.getContext(), 20);
             stockAction.setCompoundDrawable(convertView.getResources().getDrawable(R.drawable.stock_history_item_add), 0, pixelFromDip, pixelFromDip);
+            stockAction.setOnClickListener(mCallBacks.mActionCallBack);
         }
-        setChildWidth(stockAction, mWidthMap.get(1));
+        setChildWidth(stockActionView, mWidthMap.get(1));
 
         attr1.setVisibility(View.GONE);
         attr2.setVisibility(View.GONE);
