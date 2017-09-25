@@ -7,12 +7,13 @@
 
     <TextView
         android:id="@+id/stock_rank_position"
-        android:layout_width="16dp"
-        android:layout_height="wrap_content" />
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
     <LinearLayout
         android:id="@+id/stock_rank_view"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -43,22 +44,27 @@
     <com.xt.lxl.stock.widget.view.StockTextView
         android:id="@+id/stock_rank_action"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/stock_rank_attr1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
 
 
     <TextView
         android:id="@+id/stock_rank_attr2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/stock_rank_attr3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
 
 </LinearLayout>

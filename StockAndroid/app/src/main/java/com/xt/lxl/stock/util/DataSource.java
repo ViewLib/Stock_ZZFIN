@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.xt.lxl.stock.config.StockConfig;
-import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.model.model.StockRankFilterModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
-import com.xt.lxl.stock.model.model.StockSearchModel;
-import com.xt.lxl.stock.model.model.StockViewModel;
-import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
+import com.xt.lxl.stock.model.model.StockSyncModel;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
-import com.xt.lxl.stock.page.activity.StockSearchActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -126,14 +122,14 @@ public class DataSource {
      *
      * @return
      */
-    public static List<StockViewModel> getSearchAllData() {
-        List<StockViewModel> list = new ArrayList<>();
-        list.add(new StockViewModel("300170", "汉得信息"));
-        list.add(new StockViewModel("300171", "东富龙"));
-        list.add(new StockViewModel("300172", "中电环保"));
-        list.add(new StockViewModel("300173", "智慧松德"));
-        list.add(new StockViewModel("300174", "原理股份"));
-        list.add(new StockViewModel("600174", "桂东电力"));
+    public static List<StockSyncModel> getSearchAllData() {
+        List<StockSyncModel> list = new ArrayList<>();
+        list.add(new StockSyncModel("300170", "汉得信息"));
+        list.add(new StockSyncModel("300171", "东富龙"));
+        list.add(new StockSyncModel("300172", "中电环保"));
+        list.add(new StockSyncModel("300173", "智慧松德"));
+        list.add(new StockSyncModel("300174", "原理股份"));
+        list.add(new StockSyncModel("600174", "桂东电力"));
         return list;
     }
 

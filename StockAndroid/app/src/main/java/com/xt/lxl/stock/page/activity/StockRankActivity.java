@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.xt.lxl.stock.widget.view.StockTextView;
 import com.xt.lxl.stock.widget.view.StockTitleView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -143,9 +146,69 @@ public class StockRankActivity extends FragmentActivity {
         HotelViewHolder.showText(attr2, stockRankResultModel.attr2);
         HotelViewHolder.showText(attr3, stockRankResultModel.attr3);
 
+        mStockFilterHeaderContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+//                float mLayerWidth = (float) mStockFilterHeaderContainer.getWidth();
+//                float mTextWidth = (float) mStockFilterHeaderContainer.getWidth();
+                int nameWidth = 0;
+                int addWidth = 0;
+                int attr1Width = 0;
+                int attr2Width = 0;
+                int attr3Width = 0;
+                for (int i = 0; i < mStockFilterHeaderContainer.getChildCount(); i++) {
+                    View childAt = mStockFilterHeaderContainer.getChildAt(i);
+                    if (i == 0) {
+                        nameWidth = childAt.getWidth();
+                    } else if (i == 1) {
+                        addWidth = childAt.getWidth();
+                    } else if (i == 2) {
+                        attr1Width = childAt.getWidth();
+                    } else if (i == 3) {
+                        attr2Width = childAt.getWidth();
+                    } else if (i == 4) {
+                        attr3Width = childAt.getWidth();
+                    }
+                }
 
-        mRankAdapter.notifyDataSetChanged();
+                if (!checkValue(nameWidth, addWidth, attr1Width, attr2Width, attr3Width)) {
+                    return;
+                }
+                mWidthMap.put(0, nameWidth);
+                mWidthMap.put(1, addWidth);
+                mWidthMap.put(2, attr1Width);
+                mWidthMap.put(3, attr2Width);
+                mWidthMap.put(4, attr3Width);
+
+                mRankAdapter.setChildWidthValue(mWidthMap);
+                //设置各行各列的宽度
+                mRankAdapter.notifyDataSetChanged();
+            }
+        });
     }
+
+    HashMap<Integer, Integer> mWidthMap = new HashMap<>();
+
+    private boolean checkValue(int nameWidth, int addWidth, int attr1Width, int attr2Width, int attr3Width) {
+        boolean isChange = false;
+        if (mWidthMap.get(0) == null || nameWidth != mWidthMap.get(0)) {
+            isChange = true;
+        }
+        if (mWidthMap.get(1) == null || addWidth != mWidthMap.get(1)) {
+            isChange = true;
+        }
+        if (mWidthMap.get(2) == null || attr1Width != mWidthMap.get(2)) {
+            isChange = true;
+        }
+        if (mWidthMap.get(3) == null || attr2Width != mWidthMap.get(3)) {
+            isChange = true;
+        }
+        if (mWidthMap.get(4) == null || attr3Width != mWidthMap.get(4)) {
+            isChange = true;
+        }
+        return isChange;
+    }
+
 
     private void initListener() {
 

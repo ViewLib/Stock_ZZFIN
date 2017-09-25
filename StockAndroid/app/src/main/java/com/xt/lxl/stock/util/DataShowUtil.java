@@ -3,6 +3,7 @@ package com.xt.lxl.stock.util;
 import android.content.Context;
 
 import com.xt.lxl.stock.model.model.StockIndexChangeModel;
+import com.xt.lxl.stock.model.model.StockSyncModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.widget.helper.HotelLabelDrawable;
 
@@ -201,5 +202,15 @@ public class DataShowUtil {
         return stockViewModel;
     }
 
+
+    public static List<StockViewModel> stockList2stockSyncList(List<StockSyncModel> syncModelList) {
+        List<StockViewModel> stockViewModelList = new ArrayList<>();
+        for (StockSyncModel syncModel : syncModelList) {
+            StockViewModel viewModel = new StockViewModel();
+            viewModel.stockCode = syncModel.stockCode;
+            viewModel.stockName = syncModel.stockName;
+        }
+        return stockViewModelList;
+    }
 
 }

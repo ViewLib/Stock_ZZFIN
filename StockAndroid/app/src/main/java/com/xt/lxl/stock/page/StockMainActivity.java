@@ -11,20 +11,13 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 
-import com.alibaba.fastjson.JSON;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
-import com.xt.lxl.stock.model.request.StockUserRegisterRequest;
 import com.xt.lxl.stock.page.fragment.StockMainFoundFragment;
 import com.xt.lxl.stock.page.fragment.StockMainListFragment;
 import com.xt.lxl.stock.page.fragment.StockMainUserFragment;
 import com.xt.lxl.stock.sender.StockSender;
-import com.xt.lxl.stock.util.DeviceUtil;
-import com.xt.lxl.stock.util.StockShowUtil;
 import com.xt.lxl.stock.util.StockUser;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by xiangleiliu on 2017/9/1.
@@ -74,10 +67,15 @@ public class StockMainActivity extends FragmentActivity implements View.OnClickL
     }
 
     private void initCheck() {
+        syncUserInfo();
+    }
+
+    private void syncUserInfo() {
         final StockUser stockUser = StockUser.getStockUser(this);
         if (stockUser.isExit()) {
             return;
         }
+        //更新用户资料
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -87,6 +85,7 @@ public class StockMainActivity extends FragmentActivity implements View.OnClickL
             }
         }).start();
     }
+
 
     @Override
     protected void onDestroy() {

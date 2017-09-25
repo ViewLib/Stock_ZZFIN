@@ -7,7 +7,7 @@
     android:minHeight="30dp"
     android:orientation="horizontal"
     android:paddingBottom="5dp"
-    android:paddingLeft="25dp"
+    android:paddingLeft="35dp"
     android:paddingRight="5dp"
     android:paddingTop="5dp">
 
@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:minWidth="51dp"
         android:text="名称" />
 
     <TextView
