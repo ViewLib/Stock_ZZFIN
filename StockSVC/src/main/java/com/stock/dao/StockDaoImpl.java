@@ -42,7 +42,7 @@ public class StockDaoImpl implements StockDao {
         try {
             preStmt = conn.prepareStatement(sql);
             preStmt.setInt(1, showType);
-          //  preStmt.setInt(2, limit);
+            //  preStmt.setInt(2, limit);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
                 int searchId = rs.getInt("search_id");
@@ -110,7 +110,7 @@ public class StockDaoImpl implements StockDao {
         List<StockRankResultModel> searchModelList = new ArrayList<>();
         String sql = "select * from stock_rank where search_relation = ?";
         PreparedStatement preStmt = null;
-        ResultSet rs=null;
+        ResultSet rs = null;
         try {
             preStmt = conn.prepareStatement(sql);
             preStmt.setInt(1, search_relation);
@@ -120,38 +120,41 @@ public class StockDaoImpl implements StockDao {
                 String rank_sql = rs.getString("rank_sql");
                 Connection con = null;
                 StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
-              try {
-                  con = stockLinkDao.getConnection();
-                  preStmt = con.prepareStatement(rank_sql);
-                  ResultSet rsLink = preStmt.executeQuery();
-                  while (rsLink.next()) {
-                      StockRankResultModel resultModel = new StockRankResultModel();
-                      resultModel.stockCode = rsLink.getString("stockCode");
-                      System.out.println("stockCode"+ resultModel.stockCode);
-                      resultModel.stockName = rsLink.getString("stockName");
-                      System.out.println("stockCode"+ resultModel.stockName);
-                      resultModel.attr1 = rsLink.getString("attr1");
-                      resultModel.attr2 = rsLink.getString("attr2");
-                      resultModel.attr3 = rsLink.getString("attr3");
-                      //System.out.println("1111。"+ resultModel.stockCode);
-                      searchModelList.add(resultModel);
-                  }
-              }catch (Exception e)  {
-                  e.printStackTrace();
-              }
-              finally {
-                  //stockLinkDao.close(rs,preStmt,con);
-
-              }
+                PreparedStatement preStmt2 = null;
+                try {
+                    con = stockLinkDao.getConnection();
+                    preStmt2 = con.prepareStatement(rank_sql);
+                    ResultSet rslist = preStmt2.executeQuery();
+                    while (rslist.next()) {
+                        StockRankResultModel resultModel = new StockRankResultModel();
+                        ResultSetMetaData metaData = rslist.getMetaData();
+                        resultModel.stockCode = rslist.getString(metaData.getColumnName(1));
+                        resultModel.stockName = rslist.getString(metaData.getColumnName(2));
+                        if (metaData.getColumnCount() >= 3) {
+                            resultModel.attr1 = rslist.getString(metaData.getColumnName(3));
+                        }
+                        if (metaData.getColumnCount() >= 4) {
+                            resultModel.attr2 = rslist.getString(metaData.getColumnName(4));
+                        }
+                        if (metaData.getColumnCount() >= 5) {
+                            resultModel.attr3 = rslist.getString(metaData.getColumnName(5));
+                        }
+                        searchModelList.add(resultModel);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    stockLinkDao.close(rs, preStmt2, con);
+                }
             }
             return searchModelList;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-           // closeSql(preStmt, null);
+            closeSql(preStmt, null);
         }
 
-        return  searchModelList;
+        return searchModelList;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {

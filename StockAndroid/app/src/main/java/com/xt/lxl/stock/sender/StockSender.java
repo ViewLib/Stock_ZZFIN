@@ -6,10 +6,12 @@ import com.alibaba.fastjson.JSON;
 import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
+import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.model.reponse.StockRankListResponse;
 import com.xt.lxl.stock.model.reponse.StockSyncResponse;
 import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
 import com.xt.lxl.stock.model.request.StockHotSearchRequest;
+import com.xt.lxl.stock.model.request.StockRankDetailResquest;
 import com.xt.lxl.stock.model.request.StockRankListResquest;
 import com.xt.lxl.stock.model.request.StockSyncReqeust;
 import com.xt.lxl.stock.model.request.StockUserRegisterRequest;
@@ -122,6 +124,21 @@ public class StockSender {
             hotSearchResponse.resultMessage = "序列化失败";
         }
         return hotSearchResponse;
+    }
+
+    public StockRankDetailResponse requestRankDetailResponse() {
+        StockRankDetailResquest detailResquest = new StockRankDetailResquest();
+        String requestJsonStr = JSON.toJSONString(detailResquest);
+        String s = requestGet(mBaseAPIUrl + "stock_rankdetail?", requestJsonStr, "utf-8");
+        StockRankDetailResponse detailResponse;
+        try {
+            detailResponse = JSON.parseObject(s, StockRankDetailResponse.class);
+        } catch (Exception e) {
+            detailResponse = new StockRankDetailResponse();
+            detailResponse.resultCode = 500;
+            detailResponse.resultMessage = "序列化失败";
+        }
+        return detailResponse;
     }
 
     public StockSyncResponse requestStockSync(int version) {

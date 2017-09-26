@@ -18,6 +18,7 @@ import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.page.list.StockRankAdapter;
+import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.HotelViewHolder;
 import com.xt.lxl.stock.widget.view.StockTextView;
@@ -77,7 +78,8 @@ public class StockRankActivity extends FragmentActivity {
                     @Override
                     public void run() {
                         //赋值逻辑
-                        StockRankDetailResponse rankDetailResponse = DataSource.getRankDetailResponse();
+//                        StockRankDetailResponse rankDetailResponse = DataSource.getRankDetailResponse();
+                        StockRankDetailResponse rankDetailResponse = StockSender.getInstance().requestRankDetailResponse();
                         mRankList.clear();
                         mRankList.addAll(rankDetailResponse.rankResultList);
                         bindRankData();
