@@ -51,7 +51,7 @@ public class StockService {
 
     public List<StockRankResultModel> getStockDetail(StockRankDetailResquest rankDetailResquest, StockRankDetailResponse rankDetailResponse) {
         List<StockRankResultModel> rankResultModelList = new ArrayList<>();
-        List<StockRankResultModel> rankResultModels = dao.selectRankDetailModelList(114);
+        List<StockRankResultModel> rankResultModels = dao.selectRankDetailModelList(rankDetailResquest.serch_relation);
         rankResultModelList.addAll(rankResultModels);
         return rankResultModelList;
     }

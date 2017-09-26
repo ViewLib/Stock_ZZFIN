@@ -14,7 +14,7 @@ import com.stock.servlet.base.BaseServlet;
 import javax.servlet.annotation.WebServlet;
 import java.util.List;
 
-@WebServlet(name = "StockRankListServlet")
+@WebServlet(name = "StockRankDetailServlet")
 public class StockRankDetailServlet extends BaseServlet {
 
     StockService stockService;
@@ -30,7 +30,12 @@ public class StockRankDetailServlet extends BaseServlet {
 
     @Override
     protected Class getActionResponseClass() {
-        return StockRankDetailResquest.class;
+        boolean flag = true;
+        Class c = null;
+        if(flag){
+            c =  StockRankDetailResponse.class;
+        }
+        return c;
     }
 
     @Override
