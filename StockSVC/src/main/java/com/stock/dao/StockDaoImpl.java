@@ -1,5 +1,7 @@
 package com.stock.dao;
 
+import com.stock.model.model.StockRankDetailModel;
+import com.stock.model.model.StockRankResultModel;
 import com.stock.model.model.StockSearchModel;
 import com.stock.model.model.StockSyncModel;
 
@@ -40,7 +42,7 @@ public class StockDaoImpl implements StockDao {
         try {
             preStmt = conn.prepareStatement(sql);
             preStmt.setInt(1, showType);
-            preStmt.setInt(2, limit);
+          //  preStmt.setInt(2, limit);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
                 int searchId = rs.getInt("search_id");
@@ -101,6 +103,51 @@ public class StockDaoImpl implements StockDao {
         }
 
         return syncModelList;
+    }
+
+    @Override
+    public List<StockRankResultModel> selectRankDetailModelList(int search_relation) {
+        List<StockRankResultModel> searchModelList = new ArrayList<>();
+        String sql = "select * from stock_rank where search_relation = ?";
+        PreparedStatement preStmt = null;
+        ResultSet rs=null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            preStmt.setInt(1, search_relation);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String rank_title = rs.getString("rank_title");
+                String rank_sql = rs.getString("rank_sql");
+                Connection con = null;
+                StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+              try {
+                  con = stockLinkDao.getConnection();
+                  preStmt = con.prepareStatement(rank_sql);
+                  ResultSet rslist = preStmt.executeQuery();
+                  while (rslist.next()) {
+                      StockRankResultModel resultModel = new StockRankResultModel();
+                      resultModel.stockCode = rslist.getString("stockCode");
+                      resultModel.stockName = rslist.getString("stockName");
+                      resultModel.attr1 = rslist.getString("attr1");
+                      resultModel.attr2 = rslist.getString("attr2");
+                      resultModel.attr3 = rslist.getString("attr3");
+                      searchModelList.add(resultModel);
+                  }
+              }catch (Exception e)  {
+                  e.printStackTrace();
+              }
+              finally {
+                  stockLinkDao.close(rs,preStmt,con);
+              }
+            }
+            return searchModelList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+
+        return  searchModelList;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {

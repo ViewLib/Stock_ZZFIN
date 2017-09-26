@@ -1,6 +1,7 @@
 package com.stock.model.request;
 
 
+import com.stock.model.ServiceRequest;
 import com.stock.model.model.StockRankResultModel;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
  * 排行详情的response
  */
 
-public class StockRankDetailResquest {
+public class StockRankDetailResquest  extends ServiceRequest{
     public int serviceCode = 2003;//服务号
 
     public String mTitle = "";//界面标题，比如 本日融资融券的前十家公司
