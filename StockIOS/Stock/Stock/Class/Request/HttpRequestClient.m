@@ -8,6 +8,7 @@
 
 #import "HttpRequestClient.h"
 #import "AFHTTPSessionManager.h"
+#import "JSONKit.h"
 
 @implementation HttpRequestClient
 
@@ -52,6 +53,13 @@
 -(void)getRankListStocksRequest:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_ranklist",SERVICE];
     [self httpGet:urlStr paramDict:nil completion:request];
+}
+
+#pragma mark - 获取排行
+-(void)getRankDetail:(NSDictionary *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_rankdetail",SERVICE];
+    NSDictionary *dic = @{@"data": [value JSONString]};
+    [self httpPost:urlStr paramDict:dic completion:request];
 }
 
 #pragma mark - 提交get请求

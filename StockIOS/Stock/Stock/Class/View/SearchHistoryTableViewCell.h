@@ -13,6 +13,7 @@ typedef void(^addOptionalBlock)(NSInteger row);
 @interface SearchHistoryTableViewCell : UITableViewCell
 
 @property (nonatomic, copy) addOptionalBlock    addOptionalBlock;
+@property (nonatomic, assign)   NSInteger   row;
 
 /**
  更新cell

@@ -65,7 +65,16 @@
                         <state key="normal" image="icon_add">
                             <color key="titleColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
+                        <connections>
+                            <action selector="clickAddBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UkG-kw-TxN"/>
+                        </connections>
                     </button>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已添加" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W5J-fL-z7K">
+                        <rect key="frame" x="79" y="0.0" width="59" height="49.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8M7-8d-Uh0">
                         <rect key="frame" x="138" y="0.0" width="158.5" height="49.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -81,7 +90,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="190-BV-zY7" firstAttribute="leading" secondItem="1RB-fR-oJr" secondAttribute="trailing" id="4Uw-jh-Pua"/>
+                    <constraint firstItem="W5J-fL-z7K" firstAttribute="bottom" secondItem="190-BV-zY7" secondAttribute="bottom" id="5aR-kA-BdU"/>
+                    <constraint firstItem="W5J-fL-z7K" firstAttribute="leading" secondItem="190-BV-zY7" secondAttribute="leading" id="8Kx-Me-VHO"/>
                     <constraint firstItem="1RB-fR-oJr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8NZ-Xs-EX0"/>
+                    <constraint firstItem="W5J-fL-z7K" firstAttribute="trailing" secondItem="190-BV-zY7" secondAttribute="trailing" id="9U4-Mw-FS5"/>
                     <constraint firstItem="HZN-Gy-Nj9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="A7o-eQ-tPc"/>
                     <constraint firstAttribute="trailing" secondItem="HZN-Gy-Nj9" secondAttribute="trailing" id="Ft9-NC-mzb"/>
                     <constraint firstAttribute="bottom" secondItem="8M7-8d-Uh0" secondAttribute="bottom" id="Igh-zL-iul"/>
@@ -91,6 +103,7 @@
                     <constraint firstItem="1RB-fR-oJr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SCP-SP-GPS"/>
                     <constraint firstAttribute="bottom" secondItem="190-BV-zY7" secondAttribute="bottom" id="TGK-iE-SIa"/>
                     <constraint firstItem="8M7-8d-Uh0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="TpY-6d-r5g"/>
+                    <constraint firstItem="W5J-fL-z7K" firstAttribute="top" secondItem="190-BV-zY7" secondAttribute="top" id="U8e-5V-21I"/>
                     <constraint firstItem="HZN-Gy-Nj9" firstAttribute="width" secondItem="1RB-fR-oJr" secondAttribute="width" id="YIj-MG-AuI"/>
                     <constraint firstAttribute="bottom" secondItem="1RB-fR-oJr" secondAttribute="bottom" id="fMT-ui-SwP"/>
                     <constraint firstAttribute="bottom" secondItem="1RB-fR-oJr" secondAttribute="bottom" id="jqR-4Y-xpI"/>
@@ -101,6 +114,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="addBtn" destination="190-BV-zY7" id="R6m-su-UOg"/>
+                <outlet property="addValue" destination="W5J-fL-z7K" id="Kax-zq-Evj"/>
                 <outlet property="number" destination="Nfj-4e-M6j" id="sjZ-cX-YfL"/>
                 <outlet property="stockCode" destination="cm2-k9-Usn" id="IgF-1D-YxH"/>
                 <outlet property="stockName" destination="dmQ-83-UMw" id="4a4-JN-y3G"/>

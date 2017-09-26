@@ -26,6 +26,8 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *valueTable;
 
+@property (nonatomic, strong)   NSArray     *tableValue;
+
 @end
 
 @implementation RankViewController
@@ -40,6 +42,19 @@
     for (UIButton *btn in @[_filterOne,_filterTwo,_filterThr,_filterFor]) {
         [btn ImgRightTextLeft];
     }
+    
+    [self getData];
+}
+
+- (void)getData {
+    NSDictionary *dic = @{@"title":self.valueDic[@"rankModel"][@"title"],@"serch_relation":self.valueDic[@"rankModel"][@"searchRelation"]};
+    WS(self)
+    [[HttpRequestClient sharedClient] getRankDetail:dic request:^(NSString *resultMsg, id dataDict, id error) {
+        if ([dataDict[@"resultCode"] floatValue] == 200) {
+            selfWeak.tableValue = dataDict[@"rankResultList"];
+            [selfWeak.valueTable reloadData];
+        }
+    }];
 }
 
 #pragma mark - UITableViewDelegateAndDateSource
@@ -58,14 +73,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.tableValue.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
+    NSDictionary *dic = self.tableValue[indexPath.row];
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"RankTableViewCell" owner:nil options:nil] firstObject];
-        
+        cell.row = indexPath.row;
+        [cell updateCell:dic];
     }
     return cell;
 }

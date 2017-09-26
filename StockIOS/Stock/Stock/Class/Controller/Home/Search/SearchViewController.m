@@ -108,7 +108,7 @@
         cell= (SearchHistoryTableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"SearchHistoryTableViewCell" owner:nil options:nil] firstObject];
         [cell updateCell:dic];
         cell.addOptionalBlock = ^(NSInteger row) {
-            [self insertCoreData:dic];
+            [self insertCoreData:dic[@"code"]];
         };
     }
     return cell;
@@ -152,8 +152,8 @@
 /**
  搜索结果获取网络数据并写入coreData
 */
-- (void)insertCoreData:(NSDictionary *)dic {
-    [[HttpRequestClient sharedClient] getStockInformation:dic[@"code"] request:^(NSString *resultMsg, id dataDict, id error) {
+- (void)insertCoreData:(NSString *)code {
+    [[HttpRequestClient sharedClient] getStockInformation:code request:^(NSString *resultMsg, id dataDict, id error) {
         if (dataDict) {
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
             NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
@@ -168,8 +168,6 @@
             } else {
                 [self showHint:@"服务器访问失败，请重试"];
             }
-            
-//            [self dismissViewControllerAnimated:NO completion:nil];
         }
     }];
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "__60-[HttpRequestClient httpBossWith:type:paramDict:completion:]_block_invoke.96:HttpRequestClient.m">
+      </ContextState>
+      <ContextState
+         contextName = "__29-[RankViewController getData]_block_invoke:RankViewController.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
