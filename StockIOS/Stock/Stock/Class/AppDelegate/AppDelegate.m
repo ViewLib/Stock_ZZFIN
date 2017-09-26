@@ -42,6 +42,7 @@
         [self getStocks];
         [self configBugly];
         [self getHotStock];
+        [self getTop10];
     });
     
     //获取设备UUID
@@ -54,6 +55,14 @@
     [[HttpRequestClient sharedClient] getHotStocksRequest:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict[@"resultCode"] floatValue] == 200) {
             [[Config shareInstance] setHotStocks:dataDict[@"hotSearchList"]];
+        }
+    }];
+}
+
+- (void)getTop10 {
+    [[HttpRequestClient sharedClient] getRankListStocksRequest:^(NSString *resultMsg, id dataDict, id error) {
+        if ([dataDict[@"resultCode"] floatValue] == 200) {
+            [[Config shareInstance] setTop10List:dataDict[@"rankSearchList"]];
         }
     }];
 }

@@ -46,10 +46,10 @@
         _viewTwo.hidden = YES;
     }
     NSDictionary *dic = [dics firstObject];
-    _oneValue.text = dic[@"stockViewModel"][@"stockCode"];
+    _oneValue.text = dic[@"rankModel"][@"title"];
     
     NSDictionary *dic2 = [dics lastObject];
-    _towValue.text = dic2[@"stockViewModel"][@"stockCode"];
+    _towValue.text = dic2[@"rankModel"][@"title"];
 }
 
 - (IBAction)clickOneBtn:(UIButton *)sender {

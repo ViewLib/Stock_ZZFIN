@@ -30,6 +30,9 @@
 //热门推荐的高度
 @property (nonatomic ,assign)   float         defaultHotHigh;
 
+//top10列表
+@property (nonatomic ,strong)   NSArray       *top10List;
+
 +(Config *) shareInstance;
 
 
