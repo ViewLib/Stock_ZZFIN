@@ -11,11 +11,15 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.model.StockSearchModel;
+import com.xt.lxl.stock.model.model.StockSyncModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
+import com.xt.lxl.stock.model.reponse.StockSyncResponse;
 import com.xt.lxl.stock.page.list.StoctHistoryAdapter;
 import com.xt.lxl.stock.page.list.StoctResultAdapter;
 import com.xt.lxl.stock.sender.StockSender;
+import com.xt.lxl.stock.service.SqliteService;
+import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.MatchUtil;
 import com.xt.lxl.stock.util.StringUtil;
@@ -65,6 +69,7 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         bindAdapter();
         bindHotSearch();
         bindHistoryData();
+        syncStockList();
     }
 
     private void bindAdapter() {
@@ -173,7 +178,9 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
 
     private void initData() {
         mSearchAllDataList.clear();
-        mSearchAllDataList.addAll(DataSource.getSearchAllData());
+        final SqliteService service = new SqliteService(StockSearchActivity.this);
+        List<StockSyncModel> searchAllData = service.selectAllStockSyncModelList();
+        mSearchAllDataList.addAll(DataShowUtil.stockList2stockSyncList(searchAllData));
         //List转成map形式
         for (StockViewModel model : mSearchAllDataList) {
             mSearchAllDataMap.put(model.stockCode, model);
@@ -257,6 +264,30 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         }).start();
     }
 
+    private void syncStockList() {
+        final SqliteService service = new SqliteService(StockSearchActivity.this);
+        updateSearchAllData(service);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int version = service.selectCurrentVersion();
+                StockSyncResponse stockSyncResponse = StockSender.getInstance().requestStockSync(version);
+                if (stockSyncResponse.syncModelList.size() == 0) {
+                    return;
+                }
+                service.addStockModel(stockSyncResponse.syncModelList);
+                service.updateCurrentVersion(version);
+                updateSearchAllData(service);
+            }
+        }).start();
+    }
+
+    private void updateSearchAllData(SqliteService service) {
+        List<StockSyncModel> updateList = service.selectAllStockSyncModelList();
+        List<StockViewModel> updateList2 = DataShowUtil.stockList2stockSyncList(updateList);
+        mSearchAllDataList.clear();
+        mSearchAllDataList.addAll(updateList2);
+    }
 
     @Override
     protected void onDestroy() {
@@ -267,6 +298,8 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.back_btn) {
+            finish();
+        } else if (id == R.id.stock_found_cancel) {
             finish();
         }
     }

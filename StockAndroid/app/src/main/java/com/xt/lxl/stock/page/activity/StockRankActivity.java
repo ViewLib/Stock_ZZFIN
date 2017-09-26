@@ -4,14 +4,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.listener.StockListCallBacks;
+import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.model.StockRankFilterModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.page.list.StockRankAdapter;
@@ -21,6 +24,7 @@ import com.xt.lxl.stock.widget.view.StockTextView;
 import com.xt.lxl.stock.widget.view.StockTitleView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,7 +36,7 @@ public class StockRankActivity extends FragmentActivity {
     LinearLayout mStockRankFilterContainer;
     LinearLayout mStockFilterHeaderContainer;
     ListView mStockRankListView;
-    StockListCallBacks callBacks = new StockListCallBacks();
+    StockItemEditCallBacks mCallBacks = new StockItemEditCallBacks();
 
     StockRankAdapter mRankAdapter;
 
@@ -40,6 +44,7 @@ public class StockRankActivity extends FragmentActivity {
     public String mTitle;
     public List<StockRankFilterModel> mRankFilerList = new ArrayList<>();
     public List<StockRankResultModel> mRankList = new ArrayList<>();
+    private List<String> mSaveList = new ArrayList<>();
 
 
     Handler mHander = new Handler();
@@ -58,9 +63,11 @@ public class StockRankActivity extends FragmentActivity {
     }
 
     private void bindData() {
-        mRankAdapter = new StockRankAdapter(this, callBacks);
+        mSaveList.clear();
+        mSaveList.addAll(DataSource.getSaveStockCodeList(this));
+        mRankAdapter = new StockRankAdapter(this, mCallBacks);
         mRankAdapter.setRankResultList(mRankList);
-        mRankAdapter.setSaveList(DataSource.getSaveStockCodeList(this));
+        mRankAdapter.setSaveList(mSaveList);
         mStockRankListView.setAdapter(mRankAdapter);
         //排行
         new Thread(new Runnable() {
@@ -143,12 +150,85 @@ public class StockRankActivity extends FragmentActivity {
         HotelViewHolder.showText(attr2, stockRankResultModel.attr2);
         HotelViewHolder.showText(attr3, stockRankResultModel.attr3);
 
+        mStockFilterHeaderContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+//                float mLayerWidth = (float) mStockFilterHeaderContainer.getWidth();
+//                float mTextWidth = (float) mStockFilterHeaderContainer.getWidth();
+                int nameWidth = 0;
+                int addWidth = 0;
+                int attr1Width = 0;
+                int attr2Width = 0;
+                int attr3Width = 0;
+                for (int i = 0; i < mStockFilterHeaderContainer.getChildCount(); i++) {
+                    View childAt = mStockFilterHeaderContainer.getChildAt(i);
+                    if (i == 0) {
+                        nameWidth = childAt.getWidth();
+                    } else if (i == 1) {
+                        addWidth = childAt.getWidth();
+                    } else if (i == 2) {
+                        attr1Width = childAt.getWidth();
+                    } else if (i == 3) {
+                        attr2Width = childAt.getWidth();
+                    } else if (i == 4) {
+                        attr3Width = childAt.getWidth();
+                    }
+                }
 
-        mRankAdapter.notifyDataSetChanged();
+                if (!checkValue(nameWidth, addWidth, attr1Width, attr2Width, attr3Width)) {
+                    return;
+                }
+                mWidthMap.put(0, nameWidth);
+                mWidthMap.put(1, addWidth);
+                mWidthMap.put(2, attr1Width);
+                mWidthMap.put(3, attr2Width);
+                mWidthMap.put(4, attr3Width);
+
+                mRankAdapter.setChildWidthValue(mWidthMap);
+                //设置各行各列的宽度
+                mRankAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
-    private void initListener() {
+    HashMap<Integer, Integer> mWidthMap = new HashMap<>();
 
+    private boolean checkValue(int nameWidth, int addWidth, int attr1Width, int attr2Width, int attr3Width) {
+        boolean isChange = false;
+        if (mWidthMap.get(0) == null || nameWidth != mWidthMap.get(0)) {
+            isChange = true;
+        }
+        if (mWidthMap.get(1) == null || addWidth != mWidthMap.get(1)) {
+            isChange = true;
+        }
+        if (mWidthMap.get(2) == null || attr1Width != mWidthMap.get(2)) {
+            isChange = true;
+        }
+        if (mWidthMap.get(3) == null || attr2Width != mWidthMap.get(3)) {
+            isChange = true;
+        }
+        if (mWidthMap.get(4) == null || attr3Width != mWidthMap.get(4)) {
+            isChange = true;
+        }
+        return isChange;
+    }
+
+
+    private void initListener() {
+        mCallBacks.mActionCallBack = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (!(v.getTag() instanceof StockViewModel)) {
+                    return;
+                }
+                StockViewModel model = (StockViewModel) v.getTag();
+                //添加操作
+                mSaveList.add(model.stockCode);
+                DataSource.addStockCode(StockRankActivity.this, model.stockCode);
+                mRankAdapter.notifyDataSetChanged();
+            }
+        };
     }
 
 }

@@ -1,0 +1,28 @@
+//
+//  Stock.pch
+//  Stock
+//
+//  Created by 王凯 on 2017/8/24.
+//  Copyright © 2017年 stock. All rights reserved.
+//
+
+#ifndef Stock_pch
+#define Stock_pch
+
+#import "Utils.h"
+#import "Config.h"
+#import "DataManager.h"
+#import "AppDelegate.h"
+#import "AFNetworking.h"
+#import "GlobalConfig.h"
+#import "NSObject+WKHud.h"
+#import "UIButton+WKType.h"
+#import "HttpRequestClient.h"
+#import "UIViewController+HUD.h"
+#import "UIViewController+WKVC.h"
+#import "UIViewController+DismissKeyboard.h"
+
+#include "BuglyHotfixConfuse_pch.h"
+
+
+#endif /* Stock_pch */

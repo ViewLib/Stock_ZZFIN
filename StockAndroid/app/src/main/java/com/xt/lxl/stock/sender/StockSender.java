@@ -7,9 +7,11 @@ import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
 import com.xt.lxl.stock.model.reponse.StockRankListResponse;
+import com.xt.lxl.stock.model.reponse.StockSyncResponse;
 import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
 import com.xt.lxl.stock.model.request.StockHotSearchRequest;
 import com.xt.lxl.stock.model.request.StockRankListResquest;
+import com.xt.lxl.stock.model.request.StockSyncReqeust;
 import com.xt.lxl.stock.model.request.StockUserRegisterRequest;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.IOHelper;
@@ -22,7 +24,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by xiangleiliu on 2017/8/6.
@@ -122,6 +123,24 @@ public class StockSender {
         }
         return hotSearchResponse;
     }
+
+    public StockSyncResponse requestStockSync(int version) {
+        StockSyncReqeust reqeust = new StockSyncReqeust();
+        reqeust.version = version;
+        String requestJsonStr = JSON.toJSONString(reqeust);
+        String s = requestGet(mBaseAPIUrl + "stock_hotsearch?", requestJsonStr, "utf-8");
+        StockSyncResponse stockSyncResponse;
+        try {
+            stockSyncResponse = JSON.parseObject(s, StockSyncResponse.class);
+        } catch (Exception e) {
+            stockSyncResponse = new StockSyncResponse();
+            stockSyncResponse.resultCode = 500;
+            stockSyncResponse.resultMessage = "序列化失败";
+        }
+        return stockSyncResponse;
+
+    }
+
 
     private static String requestGet(String baseUrl, String requestJsonStr, String code) {
         HashMap<String, String> paramsMap = new HashMap<>();

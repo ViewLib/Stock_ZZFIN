@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.model.model.StockViewModel;
 
 /**
  * Created by xiangleiliu on 2017/8/24.
@@ -15,6 +16,8 @@ public class StockDetailActivity extends FragmentActivity {
     public static final String STOCK_DETAIL = "STOCK_DETAIL";
 
     TextView mTv;
+
+    StockViewModel mStockViewModel = new StockViewModel();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class StockDetailActivity extends FragmentActivity {
 
 
     private void initData() {
+        mStockViewModel = (StockViewModel) getIntent().getExtras().getSerializable("StockDetailActivity.STOCK_DETAIL");
 
     }
 
@@ -36,7 +40,7 @@ public class StockDetailActivity extends FragmentActivity {
     }
 
     private void bindData() {
-        mTv.setText("股票详情界面-一张图看懂万达");
+        mTv.setText("股票详情界面-一张图看懂万达-" + mStockViewModel.stockCode);
     }
 
     private void initListener() {
