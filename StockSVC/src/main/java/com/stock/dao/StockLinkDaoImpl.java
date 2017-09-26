@@ -111,7 +111,8 @@ public class StockLinkDaoImpl implements StockLinkDao{
                     resultModel.stockName=rslist.getString("stockName");
                     resultModel.attr1=rslist.getString("attr1");
                     resultModel.attr2=rslist.getString("attr2");
-                    resultModel.attr3=rslist.getString("attr3");
+                    //resultModel.attr3=rslist.getString("attr3");
+                    resultModel.attr3="123";
                     searchModelList.add(resultModel);
                 }
             }

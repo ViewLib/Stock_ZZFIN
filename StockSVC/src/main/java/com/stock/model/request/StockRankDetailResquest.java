@@ -16,6 +16,7 @@ public class StockRankDetailResquest  extends ServiceRequest{
     public int serviceCode = 2003;//服务号
 
     public String mTitle = "";//界面标题，比如 本日融资融券的前十家公司
+    public int serch_relation;
     public List<StockRankResultModel> mRankResultList = new ArrayList<>();//界面筛选项列表
 
 }

@@ -16,7 +16,7 @@ public class StockDaoImpl implements StockDao {
     private StockDaoImpl() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/stock_zzfin?useUnicode=true&characterEncoding=utf-8";
+            String url = "jdbc:mysql://115.159.31.128:3306/stock_zzfin?useUnicode=true&characterEncoding=utf-8";
             String user = "lxl";
             String password = "lxl301lxl";
             conn = DriverManager.getConnection(url, user, password);
@@ -123,28 +123,32 @@ public class StockDaoImpl implements StockDao {
               try {
                   con = stockLinkDao.getConnection();
                   preStmt = con.prepareStatement(rank_sql);
-                  ResultSet rslist = preStmt.executeQuery();
-                  while (rslist.next()) {
+                  ResultSet rsLink = preStmt.executeQuery();
+                  while (rsLink.next()) {
                       StockRankResultModel resultModel = new StockRankResultModel();
-                      resultModel.stockCode = rslist.getString("stockCode");
-                      resultModel.stockName = rslist.getString("stockName");
-                      resultModel.attr1 = rslist.getString("attr1");
-                      resultModel.attr2 = rslist.getString("attr2");
-                      resultModel.attr3 = rslist.getString("attr3");
+                      resultModel.stockCode = rsLink.getString("stockCode");
+                      System.out.println("stockCode"+ resultModel.stockCode);
+                      resultModel.stockName = rsLink.getString("stockName");
+                      System.out.println("stockCode"+ resultModel.stockName);
+                      resultModel.attr1 = rsLink.getString("attr1");
+                      resultModel.attr2 = rsLink.getString("attr2");
+                      resultModel.attr3 = rsLink.getString("attr3");
+                      //System.out.println("1111。"+ resultModel.stockCode);
                       searchModelList.add(resultModel);
                   }
               }catch (Exception e)  {
                   e.printStackTrace();
               }
               finally {
-                  stockLinkDao.close(rs,preStmt,con);
+                  //stockLinkDao.close(rs,preStmt,con);
+
               }
             }
             return searchModelList;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            closeSql(preStmt, null);
+           // closeSql(preStmt, null);
         }
 
         return  searchModelList;
@@ -166,4 +170,5 @@ public class StockDaoImpl implements StockDao {
             }
         }
     }
+
 }
