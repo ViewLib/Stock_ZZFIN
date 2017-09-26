@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
+import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.model.model.StockRankFilterModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
@@ -32,6 +33,7 @@ import java.util.List;
  * Created by xiangleiliu on 2017/8/24.
  */
 public class StockRankActivity extends FragmentActivity {
+    public static final String STOCK_FOUND_RANK_MODEL = "STOCK_FOUND_RANK_MODEL";
 
     StockTitleView mTitleTv;
     LinearLayout mStockRankFilterContainer;
@@ -42,7 +44,7 @@ public class StockRankActivity extends FragmentActivity {
     StockRankAdapter mRankAdapter;
 
     //数据
-    public String mTitle;
+    public StockFoundRankModel mRankModel;
     public List<StockRankFilterModel> mRankFilerList = new ArrayList<>();
     public List<StockRankResultModel> mRankList = new ArrayList<>();
     private List<String> mSaveList = new ArrayList<>();
@@ -61,6 +63,7 @@ public class StockRankActivity extends FragmentActivity {
     }
 
     private void initData() {
+        mRankModel = (StockFoundRankModel) getIntent().getExtras().getSerializable(STOCK_FOUND_RANK_MODEL);
     }
 
     private void bindData() {
@@ -74,12 +77,13 @@ public class StockRankActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                final StockRankDetailResponse rankDetailResponse = StockSender.getInstance().requestRankDetailResponse(mRankModel.title, mRankModel.searchRelation);
                 mHander.post(new Runnable() {
                     @Override
                     public void run() {
-                        //赋值逻辑
-//                        StockRankDetailResponse rankDetailResponse = DataSource.getRankDetailResponse();
-                        StockRankDetailResponse rankDetailResponse = StockSender.getInstance().requestRankDetailResponse();
+                        if (rankDetailResponse.resultCode != 200) {
+                            return;
+                        }
                         mRankList.clear();
                         mRankList.addAll(rankDetailResponse.rankResultList);
                         bindRankData();
@@ -144,6 +148,10 @@ public class StockRankActivity extends FragmentActivity {
         TextView attr1 = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_attr1);
         TextView attr2 = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_attr2);
         TextView attr3 = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_attr3);
+
+        if (mRankList.size() == 0) {
+            return;
+        }
         //header
         StockRankResultModel stockRankResultModel = mRankList.get(0);
         HotelViewHolder.showText(name, stockRankResultModel.stockName);

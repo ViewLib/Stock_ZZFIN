@@ -126,8 +126,10 @@ public class StockSender {
         return hotSearchResponse;
     }
 
-    public StockRankDetailResponse requestRankDetailResponse() {
+    public StockRankDetailResponse requestRankDetailResponse(String title, int search_reletion) {
         StockRankDetailResquest detailResquest = new StockRankDetailResquest();
+        detailResquest.title = title;
+        detailResquest.serch_relation = search_reletion;
         String requestJsonStr = JSON.toJSONString(detailResquest);
         String s = requestGet(mBaseAPIUrl + "stock_rankdetail?", requestJsonStr, "utf-8");
         StockRankDetailResponse detailResponse;

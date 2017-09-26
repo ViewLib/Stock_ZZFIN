@@ -20,7 +20,6 @@ import com.xt.lxl.stock.model.model.StockSearchModel;
 import com.xt.lxl.stock.model.reponse.StockRankListResponse;
 import com.xt.lxl.stock.page.activity.StockRankActivity;
 import com.xt.lxl.stock.sender.StockSender;
-import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.DeviceUtil;
 
 import java.util.ArrayList;
@@ -114,6 +113,7 @@ public class StockMainFoundFragment extends Fragment {
      */
     private void gotoStockRankPage(StockFoundRankModel rankModel) {
         Intent intent = new Intent(getActivity(), StockRankActivity.class);
+        intent.putExtra(StockRankActivity.STOCK_FOUND_RANK_MODEL, rankModel);
         startActivity(intent);
     }
 

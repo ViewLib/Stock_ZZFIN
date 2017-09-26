@@ -1,10 +1,12 @@
 package com.xt.lxl.stock.model.model;
 
+import java.io.Serializable;
+
 /**
  * Created by xiangleiliu on 2017/9/10.
  * 排行model，top10的排行
  */
-public class StockFoundRankModel {
+public class StockFoundRankModel implements Serializable{
     public static final int SHOW_TYPE_DEFAULT = 0;
     public static final int SHOW_TYPE_BULE = 1;
     public static final int SHOW_TYPE_YELLOW = 2;

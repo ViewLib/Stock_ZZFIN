@@ -4,6 +4,7 @@ import com.stock.model.model.StockRankDetailModel;
 import com.stock.model.model.StockRankResultModel;
 import com.stock.model.model.StockSearchModel;
 import com.stock.model.model.StockSyncModel;
+import com.stock.util.StringUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -36,13 +37,12 @@ public class StockDaoImpl implements StockDao {
     @Override
     public List<StockSearchModel> selectSerchModelRankList(int showType, int limit) {
         List<StockSearchModel> searchModelList = new ArrayList<>();
-//        select search_id,search_weight from stock_search_rank where search_type = 1 order by search_weight desc limit 3
         String sql = "select * from stock_search_rank where show_type = ? order by search_weight desc limit ?";
         PreparedStatement preStmt = null;
         try {
             preStmt = conn.prepareStatement(sql);
             preStmt.setInt(1, showType);
-            //  preStmt.setInt(2, limit);
+            preStmt.setInt(2, limit);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
                 int searchId = rs.getInt("search_id");
@@ -125,18 +125,42 @@ public class StockDaoImpl implements StockDao {
                     con = stockLinkDao.getConnection();
                     preStmt2 = con.prepareStatement(rank_sql);
                     ResultSet rslist = preStmt2.executeQuery();
+                    StockRankResultModel resultModelHeader = null;
                     while (rslist.next()) {
-                        StockRankResultModel resultModel = new StockRankResultModel();
                         ResultSetMetaData metaData = rslist.getMetaData();
-                        resultModel.stockCode = rslist.getString(metaData.getColumnName(1));
-                        resultModel.stockName = rslist.getString(metaData.getColumnName(2));
+                        String stockName = metaData.getColumnName(1);
+                        String stockCode = metaData.getColumnName(2);
+                        String attr1 = "";
+                        String attr2 = "";
+                        String attr3 = "";
                         if (metaData.getColumnCount() >= 3) {
-                            resultModel.attr1 = rslist.getString(metaData.getColumnName(3));
+                            attr1 = metaData.getColumnName(3);
                         }
                         if (metaData.getColumnCount() >= 4) {
-                            resultModel.attr2 = rslist.getString(metaData.getColumnName(4));
+                            attr2 = metaData.getColumnName(4);
                         }
                         if (metaData.getColumnCount() >= 5) {
+                            attr3 = metaData.getColumnName(5);
+                        }
+                        if (resultModelHeader == null) {
+                            resultModelHeader = new StockRankResultModel();
+                            resultModelHeader.stockName = stockName;
+                            resultModelHeader.stockCode = stockCode;
+                            resultModelHeader.attr1 = attr1;
+                            resultModelHeader.attr2 = attr2;
+                            resultModelHeader.attr3 = attr3;
+                            searchModelList.add(resultModelHeader);
+                        }
+                        StockRankResultModel resultModel = new StockRankResultModel();
+                        resultModel.stockCode = rslist.getString(stockCode);
+                        resultModel.stockName = rslist.getString(stockName);
+                        if (!StringUtil.emptyOrNull(attr1)) {
+                            resultModel.attr1 = rslist.getString(metaData.getColumnName(3));
+                        }
+                        if (!StringUtil.emptyOrNull(attr2)) {
+                            resultModel.attr2 = rslist.getString(metaData.getColumnName(4));
+                        }
+                        if (!StringUtil.emptyOrNull(attr3)) {
                             resultModel.attr3 = rslist.getString(metaData.getColumnName(5));
                         }
                         searchModelList.add(resultModel);

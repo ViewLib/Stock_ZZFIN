@@ -40,6 +40,12 @@ public class Config {
      */
     public String Search_RecommendList = "http://localhost:8080/zzfin/api/stock_ranklist";
 
+
+    /**
+     * 排行详情
+     */
+    public String Search_Rank_Detail = "http://115.159.31.128:8090/zzfin/api/stock_rankdetail?data=%7b%22title%22%3a+%22%E6%B6%A8%E8%B7%8C%E5%B9%85%E5%A4%A7%E4%BA%8E7%25%E7%9A%84%E8%82%A1%E7%A5%A8%22%2c%22serch_relation%22%3a+114%7d";
+
     /**
      * stock_sync
      */
