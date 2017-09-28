@@ -10,8 +10,12 @@
 
 typedef void(^searchViewCancelBlock)(void);
 
+typedef void(^clickSearchViewCancelBlock)(id VC);
+
 @interface SearchViewController : UIViewController<UISearchResultsUpdating,UISearchBarDelegate,UISearchControllerDelegate>
 
 @property (nonatomic, copy) searchViewCancelBlock searchViewCancelBlock;
+
+@property (nonatomic, copy) clickSearchViewCancelBlock clickSearchViewCancelBlock;
 
 @end

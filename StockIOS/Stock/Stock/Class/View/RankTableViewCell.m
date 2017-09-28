@@ -23,8 +23,8 @@
  */
 - (void)updateCell:(NSDictionary *)dic {
     self.number.text = [NSString stringWithFormat:@"%02ld",self.row+1];
-    self.stockName.text = dic[@"stockCode"];
-    self.stockCode.text = [dic[@"stockName"] substringToIndex:6];
+    self.stockName.text = dic[@"stockName"];
+    self.stockCode.text = [dic[@"stockCode"] substringToIndex:6];
     self.value1.text = dic[@"attr1"];
     self.value2.text = dic[@"attr2"];
     

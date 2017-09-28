@@ -9,6 +9,7 @@
 #import "RankTableTopView.h"
 #import "RankTableViewCell.h"
 #import "RankViewController.h"
+#import "StockValueViewController.h"
 
 @interface RankViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -47,9 +48,11 @@
 }
 
 - (void)getData {
-    NSDictionary *dic = @{@"title":self.valueDic[@"rankModel"][@"title"],@"serch_relation":self.valueDic[@"rankModel"][@"searchRelation"]};
+    [self showHudInView:self.view hint:@"请稍后，正在获取数据"];
+    NSDictionary *dic = @{@"title":self.valueDic[@"rankModel"][@"title"],@"search_relation":self.valueDic[@"rankModel"][@"searchRelation"]};
     WS(self)
     [[HttpRequestClient sharedClient] getRankDetail:dic request:^(NSString *resultMsg, id dataDict, id error) {
+        [selfWeak hideHud];
         if ([dataDict[@"resultCode"] floatValue] == 200) {
             selfWeak.tableValue = dataDict[@"rankResultList"];
             [selfWeak.valueTable reloadData];
@@ -88,7 +91,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSDictionary *dic = self.tableValue[indexPath.row];
+    StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
+    viewController.stock = @{@"title": dic[@"stockName"],@"code":dic[@"stockCode"]};
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 

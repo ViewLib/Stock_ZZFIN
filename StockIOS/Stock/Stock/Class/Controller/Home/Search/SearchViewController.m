@@ -122,31 +122,27 @@
     }
     [[DataManager shareDataMangaer] insertHistoryStock:dic];
     
-    
+//    if (self.clickSearchViewCancelBlock) {
+//        self.clickSearchViewCancelBlock(dic);
+//    }
     StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
-//    [viewController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    viewController.stock = dic;
 
     CATransition *animation = [CATransition animation];
-    
+
     animation.duration = .5;
-    
+
     animation.timingFunction = UIViewAnimationCurveEaseInOut;
-    
+
     animation.type = kCATransitionPush;
-    
+
     animation.subtype = kCATransitionFromRight;
-    
+
     [self.view.window.layer addAnimation:animation forKey:nil];
-    
+
     [self presentViewController:viewController animated:NO completion:^{
         [self dismissViewControllerAnimated:NO completion:nil];
     }];
-    
-//    [self.view endEditing:YES];
-//    _hot.hidden = NO;
-//    _hotHigh.constant = [Config shareInstance].defaultHotHigh;
-//    _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
-//    [_searchTable reloadData];
 }
 
 /**
@@ -184,7 +180,6 @@
 
 #pragma mark - UISearchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    
     return YES;
 }
 

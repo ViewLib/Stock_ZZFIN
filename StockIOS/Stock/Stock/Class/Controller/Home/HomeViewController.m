@@ -8,7 +8,9 @@
 
 #import "HomeViewController.h"
 #import "HomeTableViewCell.h"
-#import "SearchViewController.h";
+#import "SearchViewController.h"
+#import "StockValueViewController.h"
+
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchControllerDelegate,UISearchResultsUpdating>
 
@@ -41,15 +43,20 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     [self createSearchBar];
-        
 }
 
 - (void)createSearchBar {
     
     SearchViewController *search = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Search"];
+    WS(self)
     search.searchViewCancelBlock = ^{
-        [self getTableData];
+        [selfWeak getTableData];
     };
+    
+    search.clickSearchViewCancelBlock = ^(id VC) {
+        [selfWeak pushViewController:VC];
+    };
+    
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:search];
     self.searchController.definesPresentationContext = YES;
     self.searchController.searchResultsUpdater = search;
@@ -65,6 +72,17 @@
     self.searchController.searchBar.delegate = search;
     _topHigh.constant = self.searchController.searchBar.bounds.size.height;
     [_topView addSubview:self.searchController.searchBar];
+}
+
+#pragma mark - pushViewController
+- (void)pushViewController:(id)VC {
+    [self jumpToStockView:VC];
+}
+
+- (void)jumpToStockView:(NSDictionary *)dic {
+    StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
+    viewController.stock = dic;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - getOptionalStocks
@@ -103,6 +121,12 @@
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    StockEntity *entity = _stocks[indexPath.row];
+    [self jumpToStockView:@{@"title": entity.name,@"code":entity.code}];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

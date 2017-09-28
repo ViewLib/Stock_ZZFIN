@@ -10,4 +10,6 @@
 
 @interface StockValueViewController : UIViewController
 
+@property (nonatomic, strong)   NSDictionary *stock;
+
 @end
