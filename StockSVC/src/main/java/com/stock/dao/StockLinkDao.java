@@ -1,6 +1,5 @@
 package com.stock.dao;
 
-import com.stock.model.model.StockRankDetailModel;
 
 import java.util.List;
 import com.stock.model.model.StockRankResultModel;

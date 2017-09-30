@@ -1,6 +1,5 @@
 package com.stock.dao;
 
-import com.stock.model.model.StockRankDetailModel;
 import com.stock.model.model.StockRankResultModel;
 import com.stock.model.model.StockSearchModel;
 import com.stock.model.model.StockSyncModel;
