@@ -147,6 +147,15 @@
         <url-pattern>/api/stock_ranklist</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>GetPermissionServlet</servlet-name>
+        <servlet-class>com.stock.servlet.GetPermissionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetPermissionServlet</servlet-name>
+        <url-pattern>/api/getpermission</url-pattern>
+    </servlet-mapping>
     <!-- 首页 -->
     <welcome-file-list>
         <welcome-file>rest/index</welcome-file>
