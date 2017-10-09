@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/stock_detail_tv1"
-        android:layout_width="100dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content" />
 
     <TextView

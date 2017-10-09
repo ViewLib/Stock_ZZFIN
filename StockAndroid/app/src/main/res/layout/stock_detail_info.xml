@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -15,6 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:text="35.26"
             android:textAppearance="@style/text_22_fe2a32" />
 
 
@@ -24,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/stock_detail_price_tv"
             android:layout_toRightOf="@id/stock_detail_price_tv"
+            android:text="+5.26"
             android:textAppearance="@style/text_14_fe2a32" />
 
         <TextView
@@ -32,17 +35,21 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/stock_detail_change_pricevalue_tv"
+            android:text="+0.08%"
             android:textAppearance="@style/text_14_fe2a32" />
 
 
-        <TextView
+        <com.xt.lxl.stock.widget.view.StockTextView
             android:id="@+id/stock_detail_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:drawableTop="@drawable/stock_history_item_add"
-            android:text="添加" />
+            android:text="添加"
+            app:hotel_text_drawable_direction="hotel_top"
+            app:hotel_text_drawable_src="@drawable/stock_history_item_add"
+            app:hotel_text_drawable_width="15dp"
+            app:hotel_text_drawable_height="15dp" />
 
     </RelativeLayout>
 
@@ -59,7 +66,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_price_top"
@@ -75,7 +83,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_upanddown"
@@ -92,7 +101,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_turnover"

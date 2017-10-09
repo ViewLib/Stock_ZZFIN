@@ -35,7 +35,7 @@ public class StockDetailActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.stock_detail_info);
+        setContentView(R.layout.stock_detail_layout);
         initData();
         initView();
         bindData();
@@ -44,7 +44,7 @@ public class StockDetailActivity extends FragmentActivity {
 
 
     private void initData() {
-        mStockViewModel = (StockViewModel) getIntent().getExtras().getSerializable("StockDetailActivity.STOCK_DETAIL");
+        mStockViewModel = (StockViewModel) getIntent().getExtras().getSerializable(StockDetailActivity.STOCK_DETAIL);
     }
 
     private void initView() {
