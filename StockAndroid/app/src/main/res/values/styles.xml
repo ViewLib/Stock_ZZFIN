@@ -208,4 +208,14 @@
         <item name="android:textColor">#090909</item>
     </style>
 
+    <style name="text_14_fe2a32">
+        <item name="android:textSize">14dip</item>
+        <item name="android:textColor">#FE2A32</item>
+    </style>
+
+    <style name="text_22_fe2a32">
+        <item name="android:textSize">22dip</item>
+        <item name="android:textColor">#FE2A32</item>
+    </style>
+
 </resources>
