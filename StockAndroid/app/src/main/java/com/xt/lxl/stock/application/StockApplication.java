@@ -1,5 +1,6 @@
 package com.xt.lxl.stock.application;
 
+import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.mob.MobApplication;
 import com.tencent.bugly.Bugly;
 
@@ -17,6 +18,8 @@ public class StockApplication extends MobApplication {
         super.onCreate();
         Bugly.init(getApplicationContext(), "62ccdd2222", false);
         instance = this;
+
+        FeedbackAPI.init(this, "24648797", "dd775b09d37ce0badfbd18db75576e31");
     }
 
     public static StockApplication getInstance() {
