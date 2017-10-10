@@ -3,6 +3,7 @@ package com.xt.lxl.stock.widget.view;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,7 +20,7 @@ public class StockDetailShowText extends LinearLayout {
 
     public StockDetailShowText(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        inflate(context, R.layout.stock_detail_info_tv_view, this);
+        LayoutInflater.from(context).inflate(R.layout.stock_detail_info_tv_view, this);
         initView();
     }
 

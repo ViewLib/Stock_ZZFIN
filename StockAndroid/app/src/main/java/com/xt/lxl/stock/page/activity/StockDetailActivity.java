@@ -65,7 +65,7 @@ public class StockDetailActivity extends FragmentActivity {
         int length = mStockViewModel.stockName.length();
         builder.append(mStockViewModel.stockCode);
         builder.setSpan(new RelativeSizeSpan(14), length, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        titleView.setTitle(builder);
+//        titleView.setTitle(builder);
 
         priceTop.setTextValue("今日最高", "52");
         priceBottom.setTextValue("今日最低", "50");

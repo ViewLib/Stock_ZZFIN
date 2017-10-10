@@ -196,6 +196,10 @@
         <item name="android:textColor">#4289ff</item>
     </style>
 
+    <style name="text_13_186cb7">
+        <item name="android:textSize">13dip</item>
+        <item name="android:textColor">#186cb7</item>
+    </style>
 
     <style name="hotel_text_15_186DB7_b">
         <item name="android:textStyle">bold</item>
