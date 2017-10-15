@@ -17,7 +17,7 @@
         android:id="@+id/stock_detail_info"
         layout="@layout/stock_detail_info" />
 
-    <com.xt.lxl.stock.widget.view.StockKLineView
+    <com.xt.lxl.stock.widget.view.StockDetailChartView
         android:id="@+id/stock_kline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

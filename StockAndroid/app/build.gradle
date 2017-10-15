@@ -36,6 +36,7 @@ dependencies {
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.alibaba:fastjson:1.2.38'
     compile 'com.yanzhenjie:permission:1.1.0'
+    compile project(':MPChartLib')
 
     compile 'com.aliyun.ams:alicloud-android-feedback:3.1.0@aar'
     compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
