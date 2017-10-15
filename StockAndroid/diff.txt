@@ -1,0 +1,26 @@
+diff --git a/app/build.gradle b/app/build.gradle
+index 93d2992..7c82c10 100644
+--- a/app/build.gradle
++++ b/app/build.gradle
+@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
+ apply plugin: 'com.neenbedankt.android-apt'
+ android {
+     compileSdkVersion 23
+-    buildToolsVersion "23.0.3"
++    buildToolsVersion "25.0.3"
+ 
+     defaultConfig {
+         applicationId "com.example.yanjiang.stockchart"
+diff --git a/build.gradle b/build.gradle
+index eb31de8..032d605 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -5,7 +5,7 @@ buildscript {
+         jcenter()
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:2.1.0'
++        classpath 'com.android.tools.build:gradle:2.0.0'
+         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+         classpath 'com.github.dcendents:android-maven-plugin:1.2'
+         // NOTE: Do not place your application dependencies here; they belong
