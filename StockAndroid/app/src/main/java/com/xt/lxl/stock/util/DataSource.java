@@ -4,14 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.xt.lxl.stock.config.StockConfig;
+import com.xt.lxl.stock.model.model.StockMinuteData;
 import com.xt.lxl.stock.model.model.StockRankFilterModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockSyncModel;
+import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -20,7 +23,27 @@ import java.util.List;
 public class DataSource {
 
 
+    public static StockGetMinuteDataResponse getMinuteDataResponses() {
+        StockGetMinuteDataResponse response = new StockGetMinuteDataResponse();
 
+        response.stockCode = "300170";
+        response.stockName = "汉得信息";
+
+
+        Calendar instance = Calendar.getInstance();
+        instance.set(Calendar.YEAR, 2017);
+        instance.set(Calendar.DAY_OF_MONTH, 15);
+        instance.set(Calendar.HOUR_OF_DAY, 8);
+        instance.set(Calendar.MINUTE, 29);
+
+        List<StockMinuteData> minuteDataList = response.minuteDataList;
+        for (int i = 0; i < 100; i++) {
+            int v = (int) (Math.random() * 10 - 5);
+            StockMinuteData stockMinuteData = new StockMinuteData(instance.getTimeInMillis(), 1290 + v * 10, 10);
+            minuteDataList.add(stockMinuteData);
+        }
+        return response;
+    }
 
 
     public static List<String> getSaveStockCodeList(Context context) {

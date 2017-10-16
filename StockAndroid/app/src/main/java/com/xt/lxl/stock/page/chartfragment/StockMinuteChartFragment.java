@@ -25,18 +25,15 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.config.ConstantTest;
-import com.xt.lxl.stock.widget.stockchart.bean.DataParse;
-import com.xt.lxl.stock.widget.stockchart.bean.MinutesBean;
+import com.xt.lxl.stock.model.model.StockMinuteData;
+import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
+import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyYAxis;
 import com.xt.lxl.stock.widget.stockchart.view.MyBottomMarkerView;
 import com.xt.lxl.stock.widget.stockchart.view.MyLeftMarkerView;
 import com.xt.lxl.stock.widget.stockchart.view.MyLineChart;
 import com.xt.lxl.stock.widget.stockchart.view.MyRightMarkerView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -49,7 +46,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 
     //    MyBarChart barChart;
     MyLineChart lineChart;
-    private LineDataSet d1, d2;
+    private LineDataSet d1, d2;//均价，成交价
     MyXAxis xAxisLine;
     MyYAxis axisRightLine;
     MyYAxis axisLeftLine;
@@ -58,9 +55,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 //    MyYAxis axisLeftBar;
 //    MyYAxis axisRightBar;
     SparseArray<String> stringSparseArray;
-    private DataParse mData;
-    Integer sum = 0;
-    List<Integer> listA, listB;
+    private MinuteViewModel minuteViewModel = new MinuteViewModel();
 
 
     @Override
@@ -80,7 +75,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         lineChart = (MyLineChart) view.findViewById(R.id.line_chart);
         initChart();
         stringSparseArray = setXLabels();
-        getOffLineData();
+        sendServiceGetMinuteDataResponse();
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
@@ -154,23 +149,6 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         axisRightLine.setAxisLineColor(getResources().getColor(R.color.minute_grayLine));
         axisRightLine.setTextColor(getResources().getColor(R.color.minute_zhoutv));
 
-        //bar x y轴
-//        xAxisBar = barChart.getXAxis();
-//        xAxisBar.setDrawLabels(false);
-//        xAxisBar.setDrawGridLines(true);
-//        xAxisBar.setDrawAxisLine(false);
-        // xAxisBar.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxisBar.setGridColor(getResources().getColor(R.color.minute_grayLine));
-//        axisLeftBar = barChart.getAxisLeft();
-//        axisLeftBar.setAxisMinValue(0);
-//        axisLeftBar.setDrawGridLines(false);
-//        axisLeftBar.setDrawAxisLine(false);
-//        axisLeftBar.setTextColor(getResources().getColor(R.color.minute_zhoutv));
-
-//        axisRightBar = barChart.getAxisRight();
-//        axisRightBar.setDrawLabels(false);
-//        axisRightBar.setDrawGridLines(false);
-//        axisRightBar.setDrawAxisLine(false);
         //y轴样式
         this.axisLeftLine.setValueFormatter(new YAxisValueFormatter() {
             @Override
@@ -192,52 +170,24 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         return xLabels;
     }
 
-    private void getOffLineData() {
-           /*方便测试，加入假数据*/
-        mData = new DataParse();
-        JSONObject object = null;
-        try {
-            object = new JSONObject(ConstantTest.MINUTESURL);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        mData.parseMinutes(object);
-        setData(mData);
+    private void sendServiceGetMinuteDataResponse() {
+        StockGetMinuteDataResponse minuteDataResponses = DataSource.getMinuteDataResponses();
+        minuteViewModel.init(minuteDataResponses.minuteDataList);
+        refreshMinute();
     }
 
-    private void setData(DataParse mData) {
-        setMarkerView(mData);
+    private void refreshMinute() {
+        setMarkerView(minuteViewModel.minuteList);
         setShowLabels(stringSparseArray);
-        Log.e("###", mData.getDatas().size() + "ee");
-        if (mData.getDatas().size() == 0) {
+        if (minuteViewModel.minuteList.size() == 0) {
             lineChart.setNoDataText("暂无数据");
             return;
         }
         //设置y左右两轴最大最小值
-        axisLeftLine.setAxisMinValue(mData.getMin());
-        axisLeftLine.setAxisMaxValue(mData.getMax());
-        axisRightLine.setAxisMinValue(mData.getPercentMin());
-        axisRightLine.setAxisMaxValue(mData.getPercentMax());
-
-
-//        axisLeftBar.setAxisMaxValue(mData.getVolmax());
-        /*单位*/
-//        String unit = MyUtils.getVolUnit(mData.getVolmax());
-//        int u = 1;
-//        if ("万手".equals(unit)) {
-//            u = 4;
-//        } else if ("亿手".equals(unit)) {
-//            u = 8;
-//        }
-//        /*次方*/
-//        axisLeftBar.setValueFormatter(new VolFormatter((int) Math.pow(10, u)));
-//        axisLeftBar.setShowMaxAndUnit(unit);
-//        axisLeftBar.setDrawLabels(true);
-//        //axisLeftBar.setAxisMinValue(0);//即使最小是不是0，也无碍
-//        axisLeftBar.setShowOnlyMinMax(true);
-//        axisRightBar.setAxisMaxValue(mData.getVolmax());
-        //   axisRightBar.setAxisMinValue(mData.getVolmin);//即使最小是不是0，也无碍
-        //axisRightBar.setShowOnlyMinMax(true);
+        axisLeftLine.setAxisMinValue(minuteViewModel.minPrice);
+        axisLeftLine.setAxisMaxValue(minuteViewModel.maxPrice);
+        axisRightLine.setAxisMinValue((float) minuteViewModel.maxFallChange);
+        axisRightLine.setAxisMaxValue((float) minuteViewModel.maxRiseChange);
 
         //基准线
         LimitLine ll = new LimitLine(0);
@@ -254,14 +204,13 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         ArrayList<String> xVals = new ArrayList<>();
         Log.e("##", Integer.toString(xVals.size()));
-        for (int i = 0, j = 0; i < mData.getDatas().size(); i++, j++) {
+        for (int i = 0, j = 0; i < minuteViewModel.minuteList.size(); i++, j++) {
            /* //避免数据重复，skip也能正常显示
             if (mData.getDatas().get(i).time.equals("13:30")) {
                 continue;
             }*/
-            MinutesBean t = mData.getDatas().get(j);
-
-            if (t == null) {
+            StockMinuteData stockMinuteData = minuteViewModel.minuteList.get(j);
+            if (stockMinuteData == null || stockMinuteData.state == 0) {
                 lineCJEntries.add(new Entry(Float.NaN, i));
                 lineJJEntries.add(new Entry(Float.NaN, i));
                 barEntries.add(new BarEntry(Float.NaN, i));
@@ -271,9 +220,9 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
                     stringSparseArray.get(i).contains("/")) {
                 i++;
             }
-            lineCJEntries.add(new Entry(mData.getDatas().get(i).cjprice, i));
-            lineJJEntries.add(new Entry(mData.getDatas().get(i).avprice, i));
-            barEntries.add(new BarEntry(mData.getDatas().get(i).cjnum, i));
+            lineCJEntries.add(new Entry(stockMinuteData.price, i));//成交价格
+            lineJJEntries.add(new Entry(stockMinuteData.pjprice, i));//平均价格
+            barEntries.add(new BarEntry(stockMinuteData.volume, i));//成交数量
             // dateList.add(mData.getDatas().get(i).time);
         }
         d1 = new LineDataSet(lineCJEntries, "成交价");
@@ -318,11 +267,11 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 //        barChart.invalidate();
     }
 
-    private void setMarkerView(DataParse mData) {
+    private void setMarkerView(List<StockMinuteData> minuteDateList) {
         MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(getContext(), R.layout.mymarkerview);
         MyRightMarkerView rightMarkerView = new MyRightMarkerView(getContext(), R.layout.mymarkerview);
         MyBottomMarkerView bottomMarkerView = new MyBottomMarkerView(getContext(), R.layout.mymarkerview);
-        lineChart.setMarker(leftMarkerView, rightMarkerView, bottomMarkerView, mData);
+        lineChart.setMarker(leftMarkerView, rightMarkerView, bottomMarkerView, minuteDateList);
 //        barChart.setMarker(leftMarkerView, rightMarkerView, bottomMarkerView, mData);
     }
 
@@ -377,4 +326,24 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     public void onPause() {
         super.onPause();
     }
+
+    class MinuteViewModel {
+        public int maxPrice;//最高价格
+        public int minPrice;//最低价格
+        public double maxRiseChange;//最高涨幅
+        public double maxFallChange;//最大跌幅
+        public List<StockMinuteData> minuteList = new ArrayList<>();//最大跌幅
+
+        public void init(List<StockMinuteData> list) {
+
+
+        }
+
+        public void addModel() {
+
+
+        }
+
+    }
+
 }

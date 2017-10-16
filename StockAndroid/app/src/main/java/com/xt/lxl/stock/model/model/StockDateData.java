@@ -10,6 +10,8 @@ public class StockDateData {
     public int price;//当前股票价格，单位：分
     public int volume;//当前股票成交量,单位：手
 
+    //以下数据客户端计算
+
     public StockDateData() {
 
     }
