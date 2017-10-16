@@ -172,7 +172,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 
     private void sendServiceGetMinuteDataResponse() {
         StockGetMinuteDataResponse minuteDataResponses = DataSource.getMinuteDataResponses();
-        minuteViewModel.init(minuteDataResponses.minuteDataList);
+        minuteViewModel.initAllModel(minuteDataResponses.minuteDataList);
         refreshMinute();
     }
 
@@ -332,18 +332,58 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         public int minPrice;//最低价格
         public double maxRiseChange;//最高涨幅
         public double maxFallChange;//最大跌幅
+        public int priceSum;//价格总价
+        public int basePrice;//昨日价格
         public List<StockMinuteData> minuteList = new ArrayList<>();//最大跌幅
 
-        public void init(List<StockMinuteData> list) {
+        public void initAllModel(List<StockMinuteData> list) {
+            if (list.size() == 0) {
+                return;
+            }
+            basePrice = list.get(0).basePrice;
             for (int i = 0; i < list.size(); i++) {
                 StockMinuteData stockMinuteData = list.get(i);
+                //最高价格
+                addModel(stockMinuteData);
             }
-
+            //计算最大涨幅和最大跌幅
+            double i = (maxPrice - basePrice) / basePrice;
+            if (i > 0) {
+                maxRiseChange = i;
+                maxFallChange = -i;
+            } else {
+                maxRiseChange = -i;
+                maxFallChange = i;
+            }
         }
 
-        public void addModel() {
+        public void initOneModel(StockMinuteData stockMinuteData) {
+            addModel(stockMinuteData);
+            //计算最大涨幅和最大跌幅
+            double i = (maxPrice - basePrice) / basePrice;
+            if (i > 0) {
+                maxRiseChange = i;
+                maxFallChange = -i;
+            } else {
+                maxRiseChange = -i;
+                maxFallChange = i;
+            }
+        }
 
 
+        private void addModel(StockMinuteData stockMinuteData) {
+            minuteList.add(stockMinuteData);
+            if (stockMinuteData.price > maxPrice) {
+                maxPrice = stockMinuteData.price;
+            }
+            //最低价格
+            if (stockMinuteData.price < minPrice) {
+                minPrice = stockMinuteData.price;
+            }
+            priceSum += stockMinuteData.price;
+            stockMinuteData.pjprice = priceSum / minuteList.size();//计算平均价格
+            stockMinuteData.priceSpread = stockMinuteData.basePrice - stockMinuteData.price;
+            stockMinuteData.spreadPer = stockMinuteData.priceSpread / stockMinuteData.basePrice;
         }
 
     }

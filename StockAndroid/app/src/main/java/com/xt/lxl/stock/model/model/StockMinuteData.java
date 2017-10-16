@@ -12,7 +12,9 @@ public class StockMinuteData {
 
     //以下数据客户端计算
     public int priceSpread;//相对于昨日的价格差 单位：分
-    public int diffPer;//相对于昨日的价格差比例
+    public int spreadPer;//相对于昨日的价格差比例
+
+    //以下数据客户端赋值
     public int pjprice;//当日成交平均价格
 
     public StockMinuteData() {
