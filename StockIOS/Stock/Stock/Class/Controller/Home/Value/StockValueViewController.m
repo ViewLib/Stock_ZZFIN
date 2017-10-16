@@ -9,6 +9,9 @@
 #import "StockValueViewController.h"
 
 @interface StockValueViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *stockName;
+@property (weak, nonatomic) IBOutlet UILabel *stockCode;
+
 
 @end
 
