@@ -25,7 +25,7 @@ import java.util.List;
  * @see RadioGroup
  * @since 2013.12.16
  */
-public class CtripTabGroupButton extends LinearLayout {
+public class StockTabGroupButton extends LinearLayout {
 
     protected RadioGroup mRadioGroup;
     protected List<RadioButton> radioButtonList = new ArrayList<>();
@@ -39,17 +39,17 @@ public class CtripTabGroupButton extends LinearLayout {
     protected OnTabItemSelectedListener mOnTabItemSelectedListener;
     private View mBottomLine;
 
-    public CtripTabGroupButton(Context context) {
+    public StockTabGroupButton(Context context) {
         this(context, null);
     }
 
-    public CtripTabGroupButton(Context context, AttributeSet attrs) {
+    public StockTabGroupButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         setUpViews(context, attrs);
     }
 
     protected void setUpViews(Context context, AttributeSet attrs) {
-        inflate(getContext(), R.layout.common_tab_group_buttton, this);
+        inflate(getContext(), R.layout.hotel_common_tab_group_buttton, this);
         mRadioGroup = (RadioGroup) findViewById(R.id.radio_group_switch);
         mTabAnimView = (LinearLayout) findViewById(R.id.tab_anim_view);
         mBottomLine = findViewById(R.id.bottom_line);
@@ -61,7 +61,7 @@ public class CtripTabGroupButton extends LinearLayout {
         if (mTabAnimView.getVisibility() == View.VISIBLE) {
             int childCount = mRadioGroup.getChildCount();
             for (int i = 0; i < childCount; i++) {
-                View inflate = View.inflate(getContext(), R.layout.common_tab_group_button_anim_item, null);
+                View inflate = View.inflate(getContext(), R.layout.hotel_common_tab_group_button_anim_item, null);
                 mTabAnimView.addView(inflate, getLinearLayoutLayoutParams());
             }
         }
@@ -102,7 +102,7 @@ public class CtripTabGroupButton extends LinearLayout {
         mTabSize = itemArray.size();
         for (int i = 0; i < itemArray.size(); i++) {
             String str = itemArray.get(i);
-            RadioButton radioButton = (RadioButton) View.inflate(getContext(), R.layout.common_tab_group_button_item, null);
+            RadioButton radioButton = (RadioButton) View.inflate(getContext(), R.layout.hotel_common_tab_group_button_item, null);
             radioButton.setText(str);
             radioButton.setId(i);
             radioButton.setGravity(Gravity.CENTER);

@@ -366,6 +366,15 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     public void setShowLabels(SparseArray<String> labels) {
         xAxisLine.setXLabels(labels);
 //        xAxisBar.setXLabels(labels);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }

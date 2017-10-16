@@ -19,43 +19,9 @@ import java.util.List;
  */
 public class DataSource {
 
-//    public static void initStockList(List<StockViewModel> mStockList) {
-//        StockViewModel viewModel1 = new StockViewModel();
-//        StockViewModel viewModel2 = new StockViewModel();
-//        mStockList.add(viewModel1);
-//        mStockList.add(viewModel2);
-//
-//        viewModel1.stockName = "汉得信息";
-//        viewModel1.stockPirce = "10.26";
-//        viewModel1.stockCode = "300170";
-//        viewModel1.stockChangeD = -0.0182;
-//
-//        viewModel2.stockName = "朗新科技";
-//        viewModel2.stockPirce = "10.55";
-//        viewModel2.stockCode = "300682";
-//        viewModel2.stockChangeD = 0.1001;
-//
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//        mStockList.add((StockViewModel) viewModel1.clone());
-//    }
+
+
+
 
     public static List<String> getSaveStockCodeList(Context context) {
         SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
