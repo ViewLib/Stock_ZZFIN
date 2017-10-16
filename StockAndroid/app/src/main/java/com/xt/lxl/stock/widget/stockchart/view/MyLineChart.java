@@ -8,11 +8,14 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.xt.lxl.stock.widget.stockchart.bean.DataParse;
+import com.xt.lxl.stock.model.model.StockMinuteData;
+import com.xt.lxl.stock.util.DateUtil;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxisRenderer;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyYAxis;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyYAxisRenderer;
+
+import java.util.List;
 
 /**
  * 作者：ajiang
@@ -23,7 +26,7 @@ public class MyLineChart extends LineChart {
     private MyLeftMarkerView myMarkerViewLeft;
     private MyRightMarkerView myMarkerViewRight;
     private MyBottomMarkerView mMyBottomMarkerView;
-    private DataParse minuteHelper;
+    private List<StockMinuteData> minuteDateList;
 
     public MyLineChart(Context context) {
         super(context);
@@ -68,11 +71,11 @@ public class MyLineChart extends LineChart {
         return (MyYAxis) super.getAxisRight();
     }
 
-    public void setMarker(MyLeftMarkerView markerLeft, MyRightMarkerView markerRight,MyBottomMarkerView markerBottom, DataParse minuteHelper) {
+    public void setMarker(MyLeftMarkerView markerLeft, MyRightMarkerView markerRight, MyBottomMarkerView markerBottom, List<StockMinuteData> minuteDateList) {
         this.myMarkerViewLeft = markerLeft;
         this.myMarkerViewRight = markerRight;
-        this.mMyBottomMarkerView=markerBottom;
-        this.minuteHelper = minuteHelper;
+        this.mMyBottomMarkerView = markerBottom;
+        this.minuteDateList = minuteDateList;
     }
 
     public void setHighlightValue(Highlight h) {
@@ -107,9 +110,10 @@ public class MyLineChart extends LineChart {
                 if (!mViewPortHandler.isInBounds(pos[0], pos[1]))
                     continue;
 
-                float yValForXIndex1 = minuteHelper.getDatas().get(mIndicesToHighlight[i].getXIndex()).cjprice;
-                float yValForXIndex2 = minuteHelper.getDatas().get(mIndicesToHighlight[i].getXIndex()).per;
-                String time = minuteHelper.getDatas().get(mIndicesToHighlight[i].getXIndex()).time;
+                StockMinuteData stockMinuteData = minuteDateList.get(mIndicesToHighlight[i].getXIndex());
+                float yValForXIndex1 = stockMinuteData.price / 100;
+                float yValForXIndex2 = stockMinuteData.diffPer;
+                String time = DateUtil.calendar2Time(stockMinuteData.time, DateUtil.SIMPLEFORMATTYPESTRING13);
                 myMarkerViewLeft.setData(yValForXIndex1);
                 myMarkerViewRight.setData(yValForXIndex2);
                 mMyBottomMarkerView.setData(time);
@@ -132,7 +136,7 @@ public class MyLineChart extends LineChart {
                 mMyBottomMarkerView.layout(0, 0, mMyBottomMarkerView.getMeasuredWidth(),
                         mMyBottomMarkerView.getMeasuredHeight());
 
-                mMyBottomMarkerView.draw(canvas, pos[0]-mMyBottomMarkerView.getWidth()/2, mViewPortHandler.contentBottom());
+                mMyBottomMarkerView.draw(canvas, pos[0] - mMyBottomMarkerView.getWidth() / 2, mViewPortHandler.contentBottom());
                 myMarkerViewLeft.draw(canvas, mViewPortHandler.contentLeft() - myMarkerViewLeft.getWidth(), pos[1] - myMarkerViewLeft.getHeight() / 2);
                 myMarkerViewRight.draw(canvas, mViewPortHandler.contentRight(), pos[1] - myMarkerViewRight.getHeight() / 2);
             }

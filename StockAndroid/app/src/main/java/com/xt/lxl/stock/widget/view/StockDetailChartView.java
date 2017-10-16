@@ -24,7 +24,7 @@ import java.util.List;
 
 public class StockDetailChartView extends LinearLayout {
 
-    CtripTabGroupButton tabGroupButton;//
+    StockTabGroupButton tabGroupButton;//
     FrameLayout fragmentContainer;
     FragmentActivity activity;
 
@@ -56,7 +56,7 @@ public class StockDetailChartView extends LinearLayout {
         viewList.add(weekFragment);
         viewList.add(monthFragment);
 
-        tabGroupButton.setOnTabItemSelectedListener(new CtripTabGroupButton.OnTabItemSelectedListener() {
+        tabGroupButton.setOnTabItemSelectedListener(new StockTabGroupButton.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {
                 StockBaseChartFragment stockBaseChartFragment = viewList.get(whichButton);
@@ -74,7 +74,7 @@ public class StockDetailChartView extends LinearLayout {
     }
 
     private void initView() {
-        tabGroupButton = (CtripTabGroupButton) findViewById(R.id.tab_group);
+        tabGroupButton = (StockTabGroupButton) findViewById(R.id.tab_group);
         fragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
     }
 }
