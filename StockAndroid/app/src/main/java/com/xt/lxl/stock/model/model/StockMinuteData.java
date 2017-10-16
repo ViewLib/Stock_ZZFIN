@@ -11,7 +11,7 @@ public class StockMinuteData {
     public int basePrice;//昨日价格 单位：分
 
     //以下数据客户端计算
-    public int diffValue;//相对于昨日的价格差 单位：分
+    public int priceSpread;//相对于昨日的价格差 单位：分
     public int diffPer;//相对于昨日的价格差比例
     public int pjprice;//当日成交平均价格
 

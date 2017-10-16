@@ -29,7 +29,6 @@ public class DataSource {
         response.stockCode = "300170";
         response.stockName = "汉得信息";
 
-
         Calendar instance = Calendar.getInstance();
         instance.set(Calendar.YEAR, 2017);
         instance.set(Calendar.DAY_OF_MONTH, 15);
@@ -39,7 +38,7 @@ public class DataSource {
         List<StockMinuteData> minuteDataList = response.minuteDataList;
         for (int i = 0; i < 100; i++) {
             int v = (int) (Math.random() * 10 - 5);
-            StockMinuteData stockMinuteData = new StockMinuteData(instance.getTimeInMillis(), 1290 + v * 10, 10);
+            StockMinuteData stockMinuteData = new StockMinuteData(instance.getTimeInMillis(), 1290 + v * 10, 10, 1290);
             minuteDataList.add(stockMinuteData);
         }
         return response;

@@ -335,7 +335,9 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         public List<StockMinuteData> minuteList = new ArrayList<>();//最大跌幅
 
         public void init(List<StockMinuteData> list) {
-
+            for (int i = 0; i < list.size(); i++) {
+                StockMinuteData stockMinuteData = list.get(i);
+            }
 
         }
 
