@@ -1,21 +1,101 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="FinancialInformationTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="300" id="KGk-i7-Jjw" customClass="FinancialInformationTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="299.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="财务信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZh-3i-LCm">
+                        <rect key="frame" x="27" y="10" width="57.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eud-F2-80n">
+                        <rect key="frame" x="0.0" y="36" width="375" height="1"/>
+                        <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="veg-Fg-9L9"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Finance" translatesAutoresizingMaskIntoConstraints="NO" id="LEY-MX-GME">
+                        <rect key="frame" x="12" y="12" width="12" height="12"/>
+                    </imageView>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="sht-0T-3Te">
+                        <rect key="frame" x="0.0" y="37" width="375" height="33"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="8Oz-P4-oVs"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3t2-9f-e3Y">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMC-jb-S3V">
+                        <rect key="frame" x="0.0" y="70" width="375" height="1"/>
+                        <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="bNS-g2-I4q"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Il8-Tj-dsw">
+                        <rect key="frame" x="0.0" y="71" width="375" height="219.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nfs-n4-voS">
+                        <rect key="frame" x="0.0" y="290.5" width="375" height="9"/>
+                        <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="9" id="PWT-CC-dkY"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="LEY-MX-GME" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="13o-WC-Dce"/>
+                    <constraint firstItem="ZMC-jb-S3V" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="3eq-XW-iFj"/>
+                    <constraint firstItem="sht-0T-3Te" firstAttribute="top" secondItem="Eud-F2-80n" secondAttribute="bottom" id="5bj-pr-Nme"/>
+                    <constraint firstItem="sht-0T-3Te" firstAttribute="top" secondItem="Eud-F2-80n" secondAttribute="bottom" id="688-9S-kLc"/>
+                    <constraint firstItem="Il8-Tj-dsw" firstAttribute="top" secondItem="ZMC-jb-S3V" secondAttribute="bottom" id="DgW-cA-4Ji"/>
+                    <constraint firstItem="Il8-Tj-dsw" firstAttribute="top" secondItem="ZMC-jb-S3V" secondAttribute="bottom" id="EfB-pY-Fms"/>
+                    <constraint firstAttribute="trailing" secondItem="nfs-n4-voS" secondAttribute="trailing" id="Fi2-VT-wW4"/>
+                    <constraint firstAttribute="trailing" secondItem="Eud-F2-80n" secondAttribute="trailing" id="MXi-yL-kPe"/>
+                    <constraint firstItem="LEY-MX-GME" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="NCQ-gk-ays"/>
+                    <constraint firstItem="ZMC-jb-S3V" firstAttribute="top" secondItem="sht-0T-3Te" secondAttribute="bottom" id="QEB-ya-EY1"/>
+                    <constraint firstItem="OZh-3i-LCm" firstAttribute="leading" secondItem="LEY-MX-GME" secondAttribute="trailing" constant="3" id="Ttz-X4-5jr"/>
+                    <constraint firstItem="sht-0T-3Te" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="VhX-zV-qxs"/>
+                    <constraint firstItem="nfs-n4-voS" firstAttribute="top" secondItem="Il8-Tj-dsw" secondAttribute="bottom" id="Wpw-n6-U6s"/>
+                    <constraint firstItem="ZMC-jb-S3V" firstAttribute="top" secondItem="sht-0T-3Te" secondAttribute="bottom" id="cTV-2j-Y1o"/>
+                    <constraint firstItem="Eud-F2-80n" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fgg-iy-PGU"/>
+                    <constraint firstItem="Eud-F2-80n" firstAttribute="top" secondItem="LEY-MX-GME" secondAttribute="bottom" constant="12" id="fwP-rD-vM7"/>
+                    <constraint firstItem="Il8-Tj-dsw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gU9-qK-jn9"/>
+                    <constraint firstItem="OZh-3i-LCm" firstAttribute="centerY" secondItem="LEY-MX-GME" secondAttribute="centerY" id="gZM-Wq-7iQ"/>
+                    <constraint firstItem="Eud-F2-80n" firstAttribute="top" secondItem="LEY-MX-GME" secondAttribute="bottom" constant="12" id="mBd-Ny-JqU"/>
+                    <constraint firstAttribute="trailing" secondItem="ZMC-jb-S3V" secondAttribute="trailing" id="o3j-B5-IbH"/>
+                    <constraint firstAttribute="bottom" secondItem="nfs-n4-voS" secondAttribute="bottom" id="oV3-73-Byy"/>
+                    <constraint firstAttribute="trailing" secondItem="sht-0T-3Te" secondAttribute="trailing" id="pcq-pe-wKP"/>
+                    <constraint firstAttribute="trailing" secondItem="Il8-Tj-dsw" secondAttribute="trailing" id="wah-TJ-sjC"/>
+                    <constraint firstItem="nfs-n4-voS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zUd-pV-uIC"/>
+                </constraints>
             </tableViewCellContentView>
-            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_Finance" width="12" height="12"/>
+    </resources>
 </document>

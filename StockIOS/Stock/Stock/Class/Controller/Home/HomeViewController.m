@@ -79,9 +79,9 @@
     [self jumpToStockView:VC];
 }
 
-- (void)jumpToStockView:(NSDictionary *)dic {
+- (void)jumpToStockView:(StockEntity *)stock {
     StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
-    viewController.stock = dic;
+    viewController.stock = stock;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -124,7 +124,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     StockEntity *entity = _stocks[indexPath.row];
-    [self jumpToStockView:@{@"title": entity.name,@"code":entity.code}];
+    [self jumpToStockView:entity];
 }
 
 

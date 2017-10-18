@@ -22,6 +22,8 @@
     return _sharedClient;
 }
 
+
+
 #pragma mark - 注册
 - (void)registerWithPhone:(NSString *)phone request:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/register",SERVICE];
@@ -114,6 +116,21 @@
         errorString = @"error";
     }
     return errorString;
+}
+
+
+/*****************************下面是模拟数据获取方法***************************/
+
++ (void)Get:(NSString*) url params:(id)params success:(void (^)(NSDictionary *response))success fail:(void(^)(NSDictionary *info))fail {
+    if ([url isEqualToString:@"minute"]) {
+        success([NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"minuteData" ofType:@"plist"]]);
+    }
+    if ([url isEqualToString:@"day"]) {
+        success([NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"dayData" ofType:@"plist"]]);
+    }
+    if ([url isEqualToString:@"five"]) {
+        success([NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fiveData" ofType:@"plist"]]);
+    }
 }
 
 @end

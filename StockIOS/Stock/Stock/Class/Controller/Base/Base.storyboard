@@ -763,7 +763,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="002739" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPy-LV-OKW">
-                                        <rect key="frame" x="165" y="49.5" width="44.5" height="11.5"/>
+                                        <rect key="frame" x="165" y="44" width="44.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -772,7 +772,7 @@
                                 <color key="backgroundColor" red="0.094117647060000004" green="0.42745098040000001" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="rzE-iP-ANU" firstAttribute="top" secondItem="q4E-Qm-2Tz" secondAttribute="top" constant="20" id="0WM-dw-olA"/>
-                                    <constraint firstItem="gPy-LV-OKW" firstAttribute="top" secondItem="rzE-iP-ANU" secondAttribute="bottom" constant="5" id="3T2-6f-lsG"/>
+                                    <constraint firstItem="gPy-LV-OKW" firstAttribute="top" secondItem="rzE-iP-ANU" secondAttribute="bottom" id="3T2-6f-lsG"/>
                                     <constraint firstAttribute="trailing" secondItem="rzE-iP-ANU" secondAttribute="trailing" id="Is6-tT-iUg"/>
                                     <constraint firstItem="gPy-LV-OKW" firstAttribute="centerX" secondItem="rzE-iP-ANU" secondAttribute="centerX" id="NNO-es-YkK"/>
                                     <constraint firstAttribute="bottom" secondItem="gPy-LV-OKW" secondAttribute="bottom" constant="3" id="QRO-Ru-lbH"/>
@@ -783,9 +783,13 @@
                                     <constraint firstItem="MoF-Ze-6Ak" firstAttribute="top" secondItem="q4E-Qm-2Tz" secondAttribute="top" constant="20" id="yd7-Sm-RpG"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zd5-r1-U4X">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zd5-r1-U4X">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="cQS-hA-ZC3" id="SDm-Vm-ZK6"/>
+                                    <outlet property="delegate" destination="cQS-hA-ZC3" id="smf-fD-Z1m"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -803,6 +807,7 @@
                     <connections>
                         <outlet property="stockCode" destination="gPy-LV-OKW" id="hSm-kZ-jHW"/>
                         <outlet property="stockName" destination="rzE-iP-ANU" id="OKJ-bO-PYR"/>
+                        <outlet property="valueTable" destination="Zd5-r1-U4X" id="cyj-dl-CNj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6gV-7C-VVY" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -17,15 +17,18 @@ PODS:
   - BuglyHotfix (2.0.0):
     - BuglyHotfix/Core (= 2.0.0)
   - BuglyHotfix/Core (2.0.0)
+  - Masonry (1.0.2)
 
 DEPENDENCIES:
   - AFNetworking
   - BuglyHotfix
+  - Masonry
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BuglyHotfix: c56f21af72dda3acdc0b611d351b0bbb86fb2464
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
 
-PODFILE CHECKSUM: 8ede23b0a4e7bd614c75961d8109c54b54c7254c
+PODFILE CHECKSUM: 4d621bd1aa16ea9bc47483e533a80e36d7cf5a66
 
 COCOAPODS: 1.3.1

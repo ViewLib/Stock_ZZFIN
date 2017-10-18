@@ -35,6 +35,12 @@
 
 #define isLogin                 [Config shareInstance].islogin
 
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+#define SCREEN_MAX_LENGTH MAX(kScreenWidth,kScreenHeight)
+#define IS_IPHONE_X (IS_IPHONE && SCREEN_MAX_LENGTH == 812.0)
+
 #define SERVICE                 @"http://115.159.31.128:8090"
 
 #endif /* Globalconfig_h */

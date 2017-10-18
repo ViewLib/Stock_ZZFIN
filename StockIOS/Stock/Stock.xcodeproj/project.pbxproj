@@ -59,6 +59,33 @@
 		0465E5F71F65771B006F7F9C /* loginEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465E5F61F65771B006F7F9C /* loginEntity.m */; };
 		049699081F6830A600CF9185 /* SearchHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049699061F6830A600CF9185 /* SearchHistoryTableViewCell.m */; };
 		049699091F6830A600CF9185 /* SearchHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049699071F6830A600CF9185 /* SearchHistoryTableViewCell.xib */; };
+		04B6BAD91F977D1800870F15 /* UIColor+YYStockTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BA981F977D1800870F15 /* UIColor+YYStockTheme.m */; };
+		04B6BADA1F977D1800870F15 /* YYStockVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BA9B1F977D1800870F15 /* YYStockVariable.m */; };
+		04B6BADB1F977D1800870F15 /* YYTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BA9F1F977D1800870F15 /* YYTopBarView.m */; };
+		04B6BADC1F977D1800870F15 /* YYLinePositionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAA81F977D1800870F15 /* YYLinePositionModel.m */; };
+		04B6BADD1F977D1800870F15 /* YYVolumePositionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAAB1F977D1800870F15 /* YYVolumePositionModel.m */; };
+		04B6BADE1F977D1800870F15 /* YYKline.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAB11F977D1800870F15 /* YYKline.m */; };
+		04B6BADF1F977D1800870F15 /* MAline.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAB41F977D1800870F15 /* MAline.m */; };
+		04B6BAE01F977D1800870F15 /* YYKlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAB61F977D1800870F15 /* YYKlineView.m */; };
+		04B6BAE11F977D1800870F15 /* YYKlineMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAB91F977D1800870F15 /* YYKlineMaskView.m */; };
+		04B6BAE21F977D1800870F15 /* YYKlineVolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BABC1F977D1800870F15 /* YYKlineVolumeView.m */; };
+		04B6BAE31F977D1800870F15 /* YYStockViewMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BABF1F977D1800870F15 /* YYStockViewMaskView.m */; };
+		04B6BAE41F977D1800870F15 /* YYStockScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAC21F977D1800870F15 /* YYStockScrollView.m */; };
+		04B6BAE51F977D1800870F15 /* YYFiveRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAC61F977D1800870F15 /* YYFiveRecordTableViewCell.m */; };
+		04B6BAE61F977D1800870F15 /* YYFiveRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B6BAC71F977D1800870F15 /* YYFiveRecordTableViewCell.xib */; };
+		04B6BAE71F977D1800870F15 /* YYFiveRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAC91F977D1800870F15 /* YYFiveRecordView.m */; };
+		04B6BAE81F977D1800870F15 /* YYTimeLineMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BACC1F977D1800870F15 /* YYTimeLineMaskView.m */; };
+		04B6BAE91F977D1800870F15 /* YYTimeLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BACF1F977D1800870F15 /* YYTimeLineView.m */; };
+		04B6BAEA1F977D1800870F15 /* YYTimeLineVolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAD21F977D1800870F15 /* YYTimeLineVolumeView.m */; };
+		04B6BAEB1F977D1800870F15 /* YYStockView_Kline.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAD41F977D1800870F15 /* YYStockView_Kline.m */; };
+		04B6BAEC1F977D1800870F15 /* YYStockView_TimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAD61F977D1800870F15 /* YYStockView_TimeLine.m */; };
+		04B6BAED1F977D1800870F15 /* YYStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAD81F977D1800870F15 /* YYStock.m */; };
+		04B6BAF51F9781AF00870F15 /* YYLineDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAEF1F9781AF00870F15 /* YYLineDataModel.m */; };
+		04B6BAF61F9781AF00870F15 /* YYFiveRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAF11F9781AF00870F15 /* YYFiveRecordModel.m */; };
+		04B6BAF71F9781AF00870F15 /* YYTimeLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6BAF41F9781AF00870F15 /* YYTimeLineModel.m */; };
+		04B6BAFC1F97846800870F15 /* fiveData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B6BAF91F97846700870F15 /* fiveData.plist */; };
+		04B6BAFD1F97846800870F15 /* minuteData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B6BAFA1F97846800870F15 /* minuteData.plist */; };
+		04B6BAFE1F97846800870F15 /* dayData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B6BAFB1F97846800870F15 /* dayData.plist */; };
 		04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2131F598E3700C09D86 /* MyViewController.m */; };
 		04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2161F598E4600C09D86 /* HomeViewController.m */; };
 		04C2E21A1F598E5600C09D86 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2191F598E5600C09D86 /* FindViewController.m */; };
@@ -286,6 +313,60 @@
 		049699051F6830A600CF9185 /* SearchHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryTableViewCell.h; sourceTree = "<group>"; };
 		049699061F6830A600CF9185 /* SearchHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryTableViewCell.m; sourceTree = "<group>"; };
 		049699071F6830A600CF9185 /* SearchHistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		04B6BA951F977D1800870F15 /* YYStockConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStockConstant.h; sourceTree = "<group>"; };
+		04B6BA971F977D1800870F15 /* UIColor+YYStockTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YYStockTheme.h"; sourceTree = "<group>"; };
+		04B6BA981F977D1800870F15 /* UIColor+YYStockTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+YYStockTheme.m"; sourceTree = "<group>"; };
+		04B6BA9A1F977D1800870F15 /* YYStockVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStockVariable.h; sourceTree = "<group>"; };
+		04B6BA9B1F977D1800870F15 /* YYStockVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStockVariable.m; sourceTree = "<group>"; };
+		04B6BA9E1F977D1800870F15 /* YYTopBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTopBarView.h; sourceTree = "<group>"; };
+		04B6BA9F1F977D1800870F15 /* YYTopBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTopBarView.m; sourceTree = "<group>"; };
+		04B6BAA31F977D1800870F15 /* YYStockDataProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStockDataProtocol.h; sourceTree = "<group>"; };
+		04B6BAA41F977D1800870F15 /* YYStockFiveRecordProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStockFiveRecordProtocol.h; sourceTree = "<group>"; };
+		04B6BAA51F977D1800870F15 /* YYStockTimeLineProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStockTimeLineProtocol.h; sourceTree = "<group>"; };
+		04B6BAA71F977D1800870F15 /* YYLinePositionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYLinePositionModel.h; sourceTree = "<group>"; };
+		04B6BAA81F977D1800870F15 /* YYLinePositionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYLinePositionModel.m; sourceTree = "<group>"; };
+		04B6BAAA1F977D1800870F15 /* YYVolumePositionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYVolumePositionModel.h; sourceTree = "<group>"; };
+		04B6BAAB1F977D1800870F15 /* YYVolumePositionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYVolumePositionModel.m; sourceTree = "<group>"; };
+		04B6BAB01F977D1800870F15 /* YYKline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYKline.h; sourceTree = "<group>"; };
+		04B6BAB11F977D1800870F15 /* YYKline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYKline.m; sourceTree = "<group>"; };
+		04B6BAB31F977D1800870F15 /* MAline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAline.h; sourceTree = "<group>"; };
+		04B6BAB41F977D1800870F15 /* MAline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAline.m; sourceTree = "<group>"; };
+		04B6BAB51F977D1800870F15 /* YYKlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYKlineView.h; sourceTree = "<group>"; };
+		04B6BAB61F977D1800870F15 /* YYKlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYKlineView.m; sourceTree = "<group>"; };
+		04B6BAB81F977D1800870F15 /* YYKlineMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYKlineMaskView.h; sourceTree = "<group>"; };
+		04B6BAB91F977D1800870F15 /* YYKlineMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYKlineMaskView.m; sourceTree = "<group>"; };
+		04B6BABB1F977D1800870F15 /* YYKlineVolumeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYKlineVolumeView.h; sourceTree = "<group>"; };
+		04B6BABC1F977D1800870F15 /* YYKlineVolumeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYKlineVolumeView.m; sourceTree = "<group>"; };
+		04B6BABE1F977D1800870F15 /* YYStockViewMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStockViewMaskView.h; sourceTree = "<group>"; };
+		04B6BABF1F977D1800870F15 /* YYStockViewMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStockViewMaskView.m; sourceTree = "<group>"; };
+		04B6BAC11F977D1800870F15 /* YYStockScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStockScrollView.h; sourceTree = "<group>"; };
+		04B6BAC21F977D1800870F15 /* YYStockScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStockScrollView.m; sourceTree = "<group>"; };
+		04B6BAC51F977D1800870F15 /* YYFiveRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFiveRecordTableViewCell.h; sourceTree = "<group>"; };
+		04B6BAC61F977D1800870F15 /* YYFiveRecordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFiveRecordTableViewCell.m; sourceTree = "<group>"; };
+		04B6BAC71F977D1800870F15 /* YYFiveRecordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YYFiveRecordTableViewCell.xib; sourceTree = "<group>"; };
+		04B6BAC81F977D1800870F15 /* YYFiveRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFiveRecordView.h; sourceTree = "<group>"; };
+		04B6BAC91F977D1800870F15 /* YYFiveRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFiveRecordView.m; sourceTree = "<group>"; };
+		04B6BACB1F977D1800870F15 /* YYTimeLineMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTimeLineMaskView.h; sourceTree = "<group>"; };
+		04B6BACC1F977D1800870F15 /* YYTimeLineMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTimeLineMaskView.m; sourceTree = "<group>"; };
+		04B6BACE1F977D1800870F15 /* YYTimeLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTimeLineView.h; sourceTree = "<group>"; };
+		04B6BACF1F977D1800870F15 /* YYTimeLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTimeLineView.m; sourceTree = "<group>"; };
+		04B6BAD11F977D1800870F15 /* YYTimeLineVolumeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTimeLineVolumeView.h; sourceTree = "<group>"; };
+		04B6BAD21F977D1800870F15 /* YYTimeLineVolumeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTimeLineVolumeView.m; sourceTree = "<group>"; };
+		04B6BAD31F977D1800870F15 /* YYStockView_Kline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStockView_Kline.h; sourceTree = "<group>"; };
+		04B6BAD41F977D1800870F15 /* YYStockView_Kline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStockView_Kline.m; sourceTree = "<group>"; };
+		04B6BAD51F977D1800870F15 /* YYStockView_TimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStockView_TimeLine.h; sourceTree = "<group>"; };
+		04B6BAD61F977D1800870F15 /* YYStockView_TimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStockView_TimeLine.m; sourceTree = "<group>"; };
+		04B6BAD71F977D1800870F15 /* YYStock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStock.h; sourceTree = "<group>"; };
+		04B6BAD81F977D1800870F15 /* YYStock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStock.m; sourceTree = "<group>"; };
+		04B6BAEF1F9781AF00870F15 /* YYLineDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYLineDataModel.m; sourceTree = "<group>"; };
+		04B6BAF01F9781AF00870F15 /* YYLineDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYLineDataModel.h; sourceTree = "<group>"; };
+		04B6BAF11F9781AF00870F15 /* YYFiveRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFiveRecordModel.m; sourceTree = "<group>"; };
+		04B6BAF21F9781AF00870F15 /* YYTimeLineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTimeLineModel.h; sourceTree = "<group>"; };
+		04B6BAF31F9781AF00870F15 /* YYFiveRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFiveRecordModel.h; sourceTree = "<group>"; };
+		04B6BAF41F9781AF00870F15 /* YYTimeLineModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTimeLineModel.m; sourceTree = "<group>"; };
+		04B6BAF91F97846700870F15 /* fiveData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fiveData.plist; sourceTree = "<group>"; };
+		04B6BAFA1F97846800870F15 /* minuteData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = minuteData.plist; sourceTree = "<group>"; };
+		04B6BAFB1F97846800870F15 /* dayData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dayData.plist; sourceTree = "<group>"; };
 		04C2E2121F598E3700C09D86 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		04C2E2131F598E3700C09D86 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		04C2E2151F598E4600C09D86 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -597,14 +678,14 @@
 		041187AE1F94F39300DE4BC9 /* stockValue */ = {
 			isa = PBXGroup;
 			children = (
-				041187DA1F94FA9600DE4BC9 /* BrokersRating */,
-				041187CF1F94FA5900DE4BC9 /* HorizontalComparison */,
-				041187CE1F94FA4000DE4BC9 /* FinancialInformation */,
-				041187C81F94F9B100DE4BC9 /* ComputerIntroduction */,
-				041187C21F94F96100DE4BC9 /* StockMajorNews */,
-				041187BC1F94F8DC00DE4BC9 /* StockMajorEvents */,
 				041187B41F94F75F00DE4BC9 /* StockTop */,
 				041187B61F94F77A00DE4BC9 /* StockChart */,
+				041187C21F94F96100DE4BC9 /* StockMajorNews */,
+				041187BC1F94F8DC00DE4BC9 /* StockMajorEvents */,
+				041187C81F94F9B100DE4BC9 /* ComputerIntroduction */,
+				041187CE1F94FA4000DE4BC9 /* FinancialInformation */,
+				041187CF1F94FA5900DE4BC9 /* HorizontalComparison */,
+				041187DA1F94FA9600DE4BC9 /* BrokersRating */,
 			);
 			path = stockValue;
 			sourceTree = "<group>";
@@ -815,6 +896,9 @@
 		0465E5E21F61903E006F7F9C /* DefaultData */ = {
 			isa = PBXGroup;
 			children = (
+				04B6BAFB1F97846800870F15 /* dayData.plist */,
+				04B6BAF91F97846700870F15 /* fiveData.plist */,
+				04B6BAFA1F97846800870F15 /* minuteData.plist */,
 				0465E5E31F619064006F7F9C /* DefaultStock.geojson */,
 			);
 			path = DefaultData;
@@ -842,6 +926,7 @@
 		0465E5F41F65761D006F7F9C /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				04B6BAEE1F97818F00870F15 /* stockData */,
 				0465E5F51F65771B006F7F9C /* loginEntity.h */,
 				0465E5F61F65771B006F7F9C /* loginEntity.m */,
 			);
@@ -856,6 +941,271 @@
 				049699071F6830A600CF9185 /* SearchHistoryTableViewCell.xib */,
 			);
 			name = SearchHistoryTableCell;
+			sourceTree = "<group>";
+		};
+		04B6BA921F977D1800870F15 /* YYStock */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BA931F977D1800870F15 /* Config[主题+定义] */,
+				04B6BA9C1F977D1800870F15 /* Packages */,
+				04B6BAA01F977D1800870F15 /* Stock */,
+			);
+			path = YYStock;
+			sourceTree = "<group>";
+		};
+		04B6BA931F977D1800870F15 /* Config[主题+定义] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BA941F977D1800870F15 /* Constant[常量定义] */,
+				04B6BA961F977D1800870F15 /* Theme[主题] */,
+				04B6BA991F977D1800870F15 /* Variable[变量] */,
+			);
+			path = "Config[主题+定义]";
+			sourceTree = "<group>";
+		};
+		04B6BA941F977D1800870F15 /* Constant[常量定义] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BA951F977D1800870F15 /* YYStockConstant.h */,
+			);
+			path = "Constant[常量定义]";
+			sourceTree = "<group>";
+		};
+		04B6BA961F977D1800870F15 /* Theme[主题] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BA971F977D1800870F15 /* UIColor+YYStockTheme.h */,
+				04B6BA981F977D1800870F15 /* UIColor+YYStockTheme.m */,
+			);
+			path = "Theme[主题]";
+			sourceTree = "<group>";
+		};
+		04B6BA991F977D1800870F15 /* Variable[变量] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BA9A1F977D1800870F15 /* YYStockVariable.h */,
+				04B6BA9B1F977D1800870F15 /* YYStockVariable.m */,
+			);
+			path = "Variable[变量]";
+			sourceTree = "<group>";
+		};
+		04B6BA9C1F977D1800870F15 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BA9D1F977D1800870F15 /* YYTopBar */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		04B6BA9D1F977D1800870F15 /* YYTopBar */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BA9E1F977D1800870F15 /* YYTopBarView.h */,
+				04B6BA9F1F977D1800870F15 /* YYTopBarView.m */,
+			);
+			path = YYTopBar;
+			sourceTree = "<group>";
+		};
+		04B6BAA01F977D1800870F15 /* Stock */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAA11F977D1800870F15 /* StockModel */,
+				04B6BAAC1F977D1800870F15 /* StockView */,
+				04B6BAD71F977D1800870F15 /* YYStock.h */,
+				04B6BAD81F977D1800870F15 /* YYStock.m */,
+			);
+			path = Stock;
+			sourceTree = "<group>";
+		};
+		04B6BAA11F977D1800870F15 /* StockModel */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAA21F977D1800870F15 /* StockDataProtocol */,
+				04B6BAA61F977D1800870F15 /* StockLinePositionModel */,
+				04B6BAA91F977D1800870F15 /* StockVolumePositionModel */,
+			);
+			path = StockModel;
+			sourceTree = "<group>";
+		};
+		04B6BAA21F977D1800870F15 /* StockDataProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAA31F977D1800870F15 /* YYStockDataProtocol.h */,
+				04B6BAA41F977D1800870F15 /* YYStockFiveRecordProtocol.h */,
+				04B6BAA51F977D1800870F15 /* YYStockTimeLineProtocol.h */,
+			);
+			path = StockDataProtocol;
+			sourceTree = "<group>";
+		};
+		04B6BAA61F977D1800870F15 /* StockLinePositionModel */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAA71F977D1800870F15 /* YYLinePositionModel.h */,
+				04B6BAA81F977D1800870F15 /* YYLinePositionModel.m */,
+			);
+			path = StockLinePositionModel;
+			sourceTree = "<group>";
+		};
+		04B6BAA91F977D1800870F15 /* StockVolumePositionModel */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAAA1F977D1800870F15 /* YYVolumePositionModel.h */,
+				04B6BAAB1F977D1800870F15 /* YYVolumePositionModel.m */,
+			);
+			path = StockVolumePositionModel;
+			sourceTree = "<group>";
+		};
+		04B6BAAC1F977D1800870F15 /* StockView */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAAD1F977D1800870F15 /* LineView[K线图] */,
+				04B6BABD1F977D1800870F15 /* MaskView[TopBar遮罩] */,
+				04B6BAC01F977D1800870F15 /* StockScrollview[画背景线] */,
+				04B6BAC31F977D1800870F15 /* TimeLine[分时图] */,
+				04B6BAD31F977D1800870F15 /* YYStockView_Kline.h */,
+				04B6BAD41F977D1800870F15 /* YYStockView_Kline.m */,
+				04B6BAD51F977D1800870F15 /* YYStockView_TimeLine.h */,
+				04B6BAD61F977D1800870F15 /* YYStockView_TimeLine.m */,
+			);
+			path = StockView;
+			sourceTree = "<group>";
+		};
+		04B6BAAD1F977D1800870F15 /* LineView[K线图] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAAE1F977D1800870F15 /* KlineView[K线上部分] */,
+				04B6BAB71F977D1800870F15 /* MaskView[遮罩] */,
+				04B6BABA1F977D1800870F15 /* VolumeView[成交量] */,
+			);
+			path = "LineView[K线图]";
+			sourceTree = "<group>";
+		};
+		04B6BAAE1F977D1800870F15 /* KlineView[K线上部分] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAAF1F977D1800870F15 /* Kline */,
+				04B6BAB21F977D1800870F15 /* MAline */,
+				04B6BAB51F977D1800870F15 /* YYKlineView.h */,
+				04B6BAB61F977D1800870F15 /* YYKlineView.m */,
+			);
+			path = "KlineView[K线上部分]";
+			sourceTree = "<group>";
+		};
+		04B6BAAF1F977D1800870F15 /* Kline */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAB01F977D1800870F15 /* YYKline.h */,
+				04B6BAB11F977D1800870F15 /* YYKline.m */,
+			);
+			path = Kline;
+			sourceTree = "<group>";
+		};
+		04B6BAB21F977D1800870F15 /* MAline */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAB31F977D1800870F15 /* MAline.h */,
+				04B6BAB41F977D1800870F15 /* MAline.m */,
+			);
+			path = MAline;
+			sourceTree = "<group>";
+		};
+		04B6BAB71F977D1800870F15 /* MaskView[遮罩] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAB81F977D1800870F15 /* YYKlineMaskView.h */,
+				04B6BAB91F977D1800870F15 /* YYKlineMaskView.m */,
+			);
+			path = "MaskView[遮罩]";
+			sourceTree = "<group>";
+		};
+		04B6BABA1F977D1800870F15 /* VolumeView[成交量] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BABB1F977D1800870F15 /* YYKlineVolumeView.h */,
+				04B6BABC1F977D1800870F15 /* YYKlineVolumeView.m */,
+			);
+			path = "VolumeView[成交量]";
+			sourceTree = "<group>";
+		};
+		04B6BABD1F977D1800870F15 /* MaskView[TopBar遮罩] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BABE1F977D1800870F15 /* YYStockViewMaskView.h */,
+				04B6BABF1F977D1800870F15 /* YYStockViewMaskView.m */,
+			);
+			path = "MaskView[TopBar遮罩]";
+			sourceTree = "<group>";
+		};
+		04B6BAC01F977D1800870F15 /* StockScrollview[画背景线] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAC11F977D1800870F15 /* YYStockScrollView.h */,
+				04B6BAC21F977D1800870F15 /* YYStockScrollView.m */,
+			);
+			path = "StockScrollview[画背景线]";
+			sourceTree = "<group>";
+		};
+		04B6BAC31F977D1800870F15 /* TimeLine[分时图] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAC41F977D1800870F15 /* FiveRecordView[五档] */,
+				04B6BACA1F977D1800870F15 /* MaskView[遮罩] */,
+				04B6BACD1F977D1800870F15 /* TimeLineView[分时图] */,
+				04B6BAD01F977D1800870F15 /* VolumeView[成交量] */,
+			);
+			path = "TimeLine[分时图]";
+			sourceTree = "<group>";
+		};
+		04B6BAC41F977D1800870F15 /* FiveRecordView[五档] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAC51F977D1800870F15 /* YYFiveRecordTableViewCell.h */,
+				04B6BAC61F977D1800870F15 /* YYFiveRecordTableViewCell.m */,
+				04B6BAC71F977D1800870F15 /* YYFiveRecordTableViewCell.xib */,
+				04B6BAC81F977D1800870F15 /* YYFiveRecordView.h */,
+				04B6BAC91F977D1800870F15 /* YYFiveRecordView.m */,
+			);
+			path = "FiveRecordView[五档]";
+			sourceTree = "<group>";
+		};
+		04B6BACA1F977D1800870F15 /* MaskView[遮罩] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BACB1F977D1800870F15 /* YYTimeLineMaskView.h */,
+				04B6BACC1F977D1800870F15 /* YYTimeLineMaskView.m */,
+			);
+			path = "MaskView[遮罩]";
+			sourceTree = "<group>";
+		};
+		04B6BACD1F977D1800870F15 /* TimeLineView[分时图] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BACE1F977D1800870F15 /* YYTimeLineView.h */,
+				04B6BACF1F977D1800870F15 /* YYTimeLineView.m */,
+			);
+			path = "TimeLineView[分时图]";
+			sourceTree = "<group>";
+		};
+		04B6BAD01F977D1800870F15 /* VolumeView[成交量] */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAD11F977D1800870F15 /* YYTimeLineVolumeView.h */,
+				04B6BAD21F977D1800870F15 /* YYTimeLineVolumeView.m */,
+			);
+			path = "VolumeView[成交量]";
+			sourceTree = "<group>";
+		};
+		04B6BAEE1F97818F00870F15 /* stockData */ = {
+			isa = PBXGroup;
+			children = (
+				04B6BAF31F9781AF00870F15 /* YYFiveRecordModel.h */,
+				04B6BAF11F9781AF00870F15 /* YYFiveRecordModel.m */,
+				04B6BAF01F9781AF00870F15 /* YYLineDataModel.h */,
+				04B6BAEF1F9781AF00870F15 /* YYLineDataModel.m */,
+				04B6BAF21F9781AF00870F15 /* YYTimeLineModel.h */,
+				04B6BAF41F9781AF00870F15 /* YYTimeLineModel.m */,
+			);
+			path = stockData;
 			sourceTree = "<group>";
 		};
 		04C2E20F1F598DE500C09D86 /* Find */ = {
@@ -1048,6 +1398,7 @@
 		847076301F4EE66F00974772 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				04B6BA921F977D1800870F15 /* YYStock */,
 				0448BFEE1F7A80B5009DC7D6 /* JSON */,
 				0465E5DC1F6183E1006F7F9C /* JSPatch */,
 				045ED1721F5BB59D00F7DE20 /* SMS */,
@@ -1489,6 +1840,8 @@
 				041187DF1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib in Resources */,
 				041187CD1F94F9EE00DE4BC9 /* ComputerIntroductionTableViewCell.xib in Resources */,
 				8470777F1F4EF73600974772 /* IQKeyboardManager.bundle in Resources */,
+				04B6BAFC1F97846800870F15 /* fiveData.plist in Resources */,
+				04B6BAFD1F97846800870F15 /* minuteData.plist in Resources */,
 				041187D41F94FA7100DE4BC9 /* HorizontalComparisonTableViewCell.xib in Resources */,
 				04C2E22C1F599D0800C09D86 /* HomeTableViewCell.xib in Resources */,
 				0465E5E11F6183E1006F7F9C /* JSPatch.js in Resources */,
@@ -1500,10 +1853,12 @@
 				041187D91F94FA8500DE4BC9 /* FinancialInformationTableViewCell.xib in Resources */,
 				0448BFE61F793E09009DC7D6 /* RankTableTopView.xib in Resources */,
 				0465E5E41F619064006F7F9C /* DefaultStock.geojson in Resources */,
+				04B6BAFE1F97846800870F15 /* dayData.plist in Resources */,
 				041187BB1F94F7BF00DE4BC9 /* StockChartTableViewCell.xib in Resources */,
 				0448BFEC1F7942FD009DC7D6 /* RankTableViewCell.xib in Resources */,
 				0465E5EA1F643D73006F7F9C /* FindTableViewCell.xib in Resources */,
 				049699091F6830A600CF9185 /* SearchHistoryTableViewCell.xib in Resources */,
+				04B6BAE61F977D1800870F15 /* YYFiveRecordTableViewCell.xib in Resources */,
 				847076231F4EE36100974772 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1519,10 +1874,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Stock/Pods-Stock-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1595,10 +1952,12 @@
 				847077C31F4EF73600974772 /* RACSubscriptingAssignmentTrampoline.m in Sources */,
 				847077B81F4EF73600974772 /* RACScopedDisposable.m in Sources */,
 				0465E5F71F65771B006F7F9C /* loginEntity.m in Sources */,
+				04B6BADD1F977D1800870F15 /* YYVolumePositionModel.m in Sources */,
 				8470778A1F4EF73600974772 /* NSEnumerator+RACSequenceAdditions.m in Sources */,
 				847077C51F4EF73600974772 /* RACTargetQueueScheduler.m in Sources */,
 				8470778B1F4EF73600974772 /* NSFileHandle+RACSupport.m in Sources */,
 				0465E5F11F64560E006F7F9C /* UIButton+WKType.m in Sources */,
+				04B6BAD91F977D1800870F15 /* UIColor+YYStockTheme.m in Sources */,
 				0465E5581F603EB9006F7F9C /* SearchViewController.m in Sources */,
 				8470779E1F4EF73600974772 /* RACBlockTrampoline.m in Sources */,
 				847077851F4EF73600974772 /* RACEXTRuntimeExtensions.m in Sources */,
@@ -1631,6 +1990,8 @@
 				847077AC1F4EF73600974772 /* RACGroupedSignal.m in Sources */,
 				847077CA1F4EF73600974772 /* RACUnit.m in Sources */,
 				847077DB1F4EF73600974772 /* UITableViewCell+RACSignalSupport.m in Sources */,
+				04B6BAEC1F977D1800870F15 /* YYStockView_TimeLine.m in Sources */,
+				04B6BAF51F9781AF00870F15 /* YYLineDataModel.m in Sources */,
 				8470777D1F4EF73600974772 /* IQToolbar.m in Sources */,
 				8470776B1F4EF73600974772 /* UIColor+ColorChange.m in Sources */,
 				8470776A1F4EF73600974772 /* NSString+Valid.m in Sources */,
@@ -1640,6 +2001,7 @@
 				847077701F4EF73600974772 /* UIViewController+HUD.m in Sources */,
 				0448C0031F7A80B5009DC7D6 /* NSString+SBJSON.m in Sources */,
 				04C2E2201F59942800C09D86 /* MBProgressHUD+Add.m in Sources */,
+				04B6BADF1F977D1800870F15 /* MAline.m in Sources */,
 				8470779B1F4EF73600974772 /* NSUserDefaults+RACSupport.m in Sources */,
 				0448C0061F7A80B5009DC7D6 /* SBJsonParser.m in Sources */,
 				847077C91F4EF73600974772 /* RACUnarySequence.m in Sources */,
@@ -1654,6 +2016,8 @@
 				0448BFEB1F7942FD009DC7D6 /* RankTableViewCell.m in Sources */,
 				0448C0001F7A80B5009DC7D6 /* JSONKit.m in Sources */,
 				847077881F4EF73600974772 /* NSData+RACSupport.m in Sources */,
+				04B6BAE51F977D1800870F15 /* YYFiveRecordTableViewCell.m in Sources */,
+				04B6BADB1F977D1800870F15 /* YYTopBarView.m in Sources */,
 				041187D81F94FA8500DE4BC9 /* FinancialInformationTableViewCell.m in Sources */,
 				847077951F4EF73600974772 /* NSOrderedSet+RACSequenceAdditions.m in Sources */,
 				847077D51F4EF73600974772 /* UIImagePickerController+RACSignalSupport.m in Sources */,
@@ -1670,25 +2034,33 @@
 				847077A21F4EF73600974772 /* RACCompoundDisposableProvider.d in Sources */,
 				041187CC1F94F9EE00DE4BC9 /* ComputerIntroductionTableViewCell.m in Sources */,
 				847077911F4EF73600974772 /* NSObject+RACKVOWrapper.m in Sources */,
+				04B6BAEB1F977D1800870F15 /* YYStockView_Kline.m in Sources */,
+				04B6BAE21F977D1800870F15 /* YYKlineVolumeView.m in Sources */,
 				847077C61F4EF73600974772 /* RACTestScheduler.m in Sources */,
 				847077AD1F4EF73600974772 /* RACImmediateScheduler.m in Sources */,
 				847077B41F4EF73600974772 /* RACQueueScheduler.m in Sources */,
+				04B6BADC1F977D1800870F15 /* YYLinePositionModel.m in Sources */,
+				04B6BADA1F977D1800870F15 /* YYStockVariable.m in Sources */,
 				847076261F4EE36100974772 /* main.m in Sources */,
 				847077C11F4EF73600974772 /* RACSubject.m in Sources */,
 				847077931F4EF73600974772 /* NSObject+RACPropertySubscribing.m in Sources */,
 				847077751F4EF73600974772 /* IQUIViewController+Additions.m in Sources */,
 				847077C01F4EF73600974772 /* RACStringSequence.m in Sources */,
 				847077BD1F4EF73600974772 /* RACSignalProvider.d in Sources */,
+				04B6BAE41F977D1800870F15 /* YYStockScrollView.m in Sources */,
 				847077921F4EF73600974772 /* NSObject+RACLifting.m in Sources */,
 				8470777A1F4EF73600974772 /* IQBarButtonItem.m in Sources */,
 				847077A41F4EF73600974772 /* RACDisposable.m in Sources */,
+				04B6BAE31F977D1800870F15 /* YYStockViewMaskView.m in Sources */,
 				0448C0021F7A80B5009DC7D6 /* NSObject+SBJSON.m in Sources */,
+				04B6BAE11F977D1800870F15 /* YYKlineMaskView.m in Sources */,
 				847077A51F4EF73600974772 /* RACDynamicSequence.m in Sources */,
 				847077941F4EF73600974772 /* NSObject+RACSelectorSignal.m in Sources */,
 				847077C81F4EF73600974772 /* RACTupleSequence.m in Sources */,
 				8470778E1F4EF73600974772 /* NSNotificationCenter+RACSupport.m in Sources */,
 				847077AA1F4EF73600974772 /* RACErrorSignal.m in Sources */,
 				847077BA1F4EF73600974772 /* RACSerialDisposable.m in Sources */,
+				04B6BAE81F977D1800870F15 /* YYTimeLineMaskView.m in Sources */,
 				847077901F4EF73600974772 /* NSObject+RACDescription.m in Sources */,
 				045ED16B1F5BA7B800F7DE20 /* NSObject+WKHud.m in Sources */,
 				847077B31F4EF73600974772 /* RACPassthroughSubscriber.m in Sources */,
@@ -1702,6 +2074,7 @@
 				847077981F4EF73600974772 /* NSString+RACSequenceAdditions.m in Sources */,
 				04C2E2211F59942800C09D86 /* MBProgressHUD.m in Sources */,
 				847077B71F4EF73600974772 /* RACScheduler.m in Sources */,
+				04B6BAEA1F977D1800870F15 /* YYTimeLineVolumeView.m in Sources */,
 				847077821F4EF73600974772 /* MJRefreshConst.m in Sources */,
 				8470777E1F4EF73600974772 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				0437025D1F756E810070A807 /* StockValueViewController.m in Sources */,
@@ -1711,14 +2084,20 @@
 				847077CE1F4EF73600974772 /* UIBarButtonItem+RACCommandSupport.m in Sources */,
 				847077891F4EF73600974772 /* NSDictionary+RACSequenceAdditions.m in Sources */,
 				041187C61F94F99800DE4BC9 /* StockMajorNewsTableViewCell.m in Sources */,
+				04B6BAF61F9781AF00870F15 /* YYFiveRecordModel.m in Sources */,
+				04B6BAED1F977D1800870F15 /* YYStock.m in Sources */,
+				04B6BAE71F977D1800870F15 /* YYFiveRecordView.m in Sources */,
 				045ED1711F5BADA800F7DE20 /* Config.m in Sources */,
 				847077D01F4EF73600974772 /* UICollectionReusableView+RACSignalSupport.m in Sources */,
 				847077A01F4EF73600974772 /* RACCommand.m in Sources */,
 				04C2E2611F59C1BB00C09D86 /* StockEntity.m in Sources */,
 				847077DE1F4EF73600974772 /* UITextView+RACSignalSupport.m in Sources */,
+				04B6BAF71F9781AF00870F15 /* YYTimeLineModel.m in Sources */,
 				847077B21F4EF73600974772 /* RACMulticastConnection.m in Sources */,
 				847077C71F4EF73600974772 /* RACTuple.m in Sources */,
+				04B6BAE01F977D1800870F15 /* YYKlineView.m in Sources */,
 				04C2E2351F59A25300C09D86 /* DataManager.m in Sources */,
+				04B6BAE91F977D1800870F15 /* YYTimeLineView.m in Sources */,
 				847077961F4EF73600974772 /* NSSet+RACSequenceAdditions.m in Sources */,
 				0465E5541F603A94006F7F9C /* SettingViewController.m in Sources */,
 				04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */,
@@ -1731,6 +2110,7 @@
 				847077D91F4EF73600974772 /* UIStepper+RACSignalSupport.m in Sources */,
 				847077BE1F4EF73600974772 /* RACSignalSequence.m in Sources */,
 				847077A81F4EF73600974772 /* RACEmptySequence.m in Sources */,
+				04B6BADE1F977D1800870F15 /* YYKline.m in Sources */,
 				847077B11F4EF73600974772 /* RACKVOTrampoline.m in Sources */,
 				8470779C1F4EF73600974772 /* RACArraySequence.m in Sources */,
 				847077A11F4EF73600974772 /* RACCompoundDisposable.m in Sources */,

@@ -57,7 +57,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6Z-81-37U">
                                 <rect key="frame" x="12" y="62" width="121" height="38"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="52周最高" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gh1-UG-pKw">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当日最高" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gh1-UG-pKw">
                                         <rect key="frame" x="0.0" y="11.5" width="60.5" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -83,7 +83,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqU-29-nD0">
                                 <rect key="frame" x="12" y="100" width="121" height="38"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="52周最低" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boN-No-h0B">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当日最低" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boN-No-h0B">
                                         <rect key="frame" x="0.0" y="12" width="60.5" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -275,6 +275,18 @@
                     <constraint firstItem="tCD-A5-ks7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="UAT-uP-DMq"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="Change" destination="gIp-gK-twr" id="ahM-xW-ZWd"/>
+                <outlet property="Chg" destination="q17-ze-wAS" id="WLB-d8-b4F"/>
+                <outlet property="ChgOfYear" destination="eYw-Pl-LdW" id="NwH-rU-luF"/>
+                <outlet property="highest" destination="P6M-Ox-f51" id="cmT-Pn-3hb"/>
+                <outlet property="isSelect" destination="iQo-Wd-9BY" id="kD6-66-liA"/>
+                <outlet property="lowest" destination="00B-S9-XJf" id="G4p-5p-a6T"/>
+                <outlet property="marketValue" destination="nkx-fN-JRa" id="7mM-PO-dyz"/>
+                <outlet property="stockLast" destination="ENY-7f-hSH" id="30m-LJ-Af4"/>
+                <outlet property="turnover" destination="y29-JA-rcn" id="LhQ-GK-hlL"/>
+                <outlet property="turnoverRate" destination="gfW-h7-15C" id="bdP-mI-CFi"/>
+            </connections>
             <point key="canvasLocation" x="76.5" y="112"/>
         </tableViewCell>
     </objects>

@@ -44,7 +44,7 @@
         [btn ImgRightTextLeft];
     }
     
-    [self getData];
+//    [self getData];
 }
 
 - (void)getData {

@@ -34,4 +34,15 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 #pragma mark - 获取排行
 -(void)getRankDetail:(NSDictionary *)value request:(request)request;
 
+/*****************************下面是模拟数据获取方法***************************/
+
+/**
+ Get请求调用
+ @param url     url
+ @param params  请求参数
+ @param success 成功回调
+ @param fail    失败回调
+ */
++ (void)Get:(NSString*) url params:(id)params success:(void (^)(NSDictionary *response))success fail:(void(^)(NSDictionary *info))fail;
+
 @end

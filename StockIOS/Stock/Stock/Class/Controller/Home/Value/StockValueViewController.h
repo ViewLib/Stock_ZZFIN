@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StockEntity.h"
 
 @interface StockValueViewController : UIViewController
 
-@property (nonatomic, strong)   NSDictionary *stock;
+@property (nonatomic, strong)   StockEntity  *stock;
 
 @end

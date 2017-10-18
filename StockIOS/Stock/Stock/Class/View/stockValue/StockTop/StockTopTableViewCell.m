@@ -12,7 +12,25 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    [_isSelect ImgTopTextButtom];
+}
+
+- (void)updateCell:(StockEntity *)dic {
+    if ([dic.upsdowns hasPrefix:@"-"]) {
+        _stockLast.textColor = DOWN_COLOR;
+        _Change.textColor = DOWN_COLOR;
+        _Chg.textColor = DOWN_COLOR;
+    }
+    _stockLast.text = dic.currentprice;
+    _Change.text = dic.upsdowns;
+    _Chg.text = dic.pricefluctuation;
+    _highest.text = dic.highest;
+    _lowest.text = dic.lowest;
+//    _ChgOfYear.text = dic;
+    _turnoverRate.text = dic.turnoverrate;
+    _turnover.text = dic.transactions;
+    _marketValue.text = dic.totalmarketcapitalization;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

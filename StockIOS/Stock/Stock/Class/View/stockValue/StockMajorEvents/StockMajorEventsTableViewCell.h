@@ -17,4 +17,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *stockYear;
 @property (weak, nonatomic) IBOutlet UIButton *stockMax;
 
+/**
+ 更新cell
+ @param dic 更新的内容
+ */
+- (void)updateCell:(NSDictionary *)dic;
+
 @end
