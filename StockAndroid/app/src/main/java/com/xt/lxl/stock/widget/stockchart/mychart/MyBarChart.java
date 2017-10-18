@@ -8,10 +8,14 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.xt.lxl.stock.model.model.StockMinuteData;
+import com.xt.lxl.stock.util.DateUtil;
 import com.xt.lxl.stock.widget.stockchart.bean.DataParse;
 import com.xt.lxl.stock.widget.stockchart.view.MyBottomMarkerView;
 import com.xt.lxl.stock.widget.stockchart.view.MyLeftMarkerView;
 import com.xt.lxl.stock.widget.stockchart.view.MyRightMarkerView;
+
+import java.util.List;
 
 /**
  * 作者：ajiang
@@ -22,7 +26,7 @@ public class MyBarChart extends BarChart {
     private MyLeftMarkerView myMarkerViewLeft;
     private MyRightMarkerView myMarkerViewRight;
     private MyBottomMarkerView mMyBottomMarkerView;
-    private DataParse minuteHelper;
+    List<StockMinuteData> minuteList;
 
     public MyBarChart(Context context) {
         super(context);
@@ -36,11 +40,11 @@ public class MyBarChart extends BarChart {
         super(context, attrs, defStyle);
     }
 
-    public void setMarker(MyLeftMarkerView markerLeft, MyRightMarkerView markerRight, MyBottomMarkerView markerBottom, DataParse minuteHelper) {
+    public void setMarker(MyLeftMarkerView markerLeft, MyRightMarkerView markerRight, MyBottomMarkerView markerBottom, List<StockMinuteData> minuteList) {
         this.myMarkerViewLeft = markerLeft;
         this.myMarkerViewRight = markerRight;
         this.mMyBottomMarkerView = markerBottom;
-        this.minuteHelper = minuteHelper;
+        this.minuteList = minuteList;
     }
 
     @Override
@@ -106,7 +110,7 @@ public class MyBarChart extends BarChart {
                 if (!mViewPortHandler.isInBounds(pos[0], pos[1]))
                     continue;
 
-                String time = minuteHelper.getDatas().get(mIndicesToHighlight[i].getXIndex()).time;
+                String time = DateUtil.calendar2Time(minuteList.get(mIndicesToHighlight[i].getXIndex()).time, DateUtil.SIMPLEFORMATTYPESTRING13);
                 mMyBottomMarkerView.setData(time);
                 mMyBottomMarkerView.refreshContent(e, mIndicesToHighlight[i]);
                 /*修复bug*/
@@ -118,7 +122,7 @@ public class MyBarChart extends BarChart {
                         mMyBottomMarkerView.getMeasuredHeight());
 
 
-                mMyBottomMarkerView.draw(canvas, pos[0]-mMyBottomMarkerView.getWidth()/2, mViewPortHandler.contentBottom());
+                mMyBottomMarkerView.draw(canvas, pos[0] - mMyBottomMarkerView.getWidth() / 2, mViewPortHandler.contentBottom());
             }
         }
     }

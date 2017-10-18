@@ -7,3 +7,4 @@ StockAndroid/StockAndroid.iml
 StockAndroid/app/app.iml
 StockAndroid/.gitignore
 StockAndroid/local.properties
+StockAndroid/MPChartLib/MPChartLib.iml

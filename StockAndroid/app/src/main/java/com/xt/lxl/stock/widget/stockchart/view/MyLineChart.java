@@ -112,7 +112,7 @@ public class MyLineChart extends LineChart {
 
                 StockMinuteData stockMinuteData = minuteDateList.get(mIndicesToHighlight[i].getXIndex());
                 float yValForXIndex1 = stockMinuteData.price / 100;
-                float yValForXIndex2 = stockMinuteData.diffPer;
+                float yValForXIndex2 = stockMinuteData.spreadPer;
                 String time = DateUtil.calendar2Time(stockMinuteData.time, DateUtil.SIMPLEFORMATTYPESTRING13);
                 myMarkerViewLeft.setData(yValForXIndex1);
                 myMarkerViewRight.setData(yValForXIndex2);
