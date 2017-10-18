@@ -13,11 +13,10 @@ import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.LogUtil;
-import com.xt.lxl.stock.util.StockShowUtil;
 import com.xt.lxl.stock.util.StockUser;
+import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.StringUtil;
 import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.PermissionListener;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RationaleListener;
@@ -85,7 +84,7 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
                 try {
                     JSONObject json = new JSONObject(message);
                     String detail = json.getString("detail");
-                    StockShowUtil.showToastOnMainThread(StockVerificationActivity.this, detail);
+                    StockUtil.showToastOnMainThread(StockVerificationActivity.this, detail);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -179,11 +178,11 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
     private void submitVerificationCode() {
         String code = mVerificationCodeEdit.getText().toString();
         if (StringUtil.emptyOrNull(code)) {
-            StockShowUtil.showToastOnMainThread(this, "请输入验证码");
+            StockUtil.showToastOnMainThread(this, "请输入验证码");
             return;
         }
         if (code.length() != 4) {
-            StockShowUtil.showToastOnMainThread(this, "请输入正确的验证码");
+            StockUtil.showToastOnMainThread(this, "请输入正确的验证码");
             return;
         }
         mStockSendcodeHint.setText("验证中，请稍后.");

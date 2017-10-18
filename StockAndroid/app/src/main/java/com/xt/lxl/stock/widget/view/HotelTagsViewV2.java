@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.xt.lxl.stock.util.DeviceUtil;
-import com.xt.lxl.stock.util.StockShowUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

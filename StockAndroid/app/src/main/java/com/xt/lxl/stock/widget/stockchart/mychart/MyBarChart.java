@@ -10,7 +10,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.xt.lxl.stock.model.model.StockMinuteData;
 import com.xt.lxl.stock.util.DateUtil;
-import com.xt.lxl.stock.widget.stockchart.bean.DataParse;
 import com.xt.lxl.stock.widget.stockchart.view.MyBottomMarkerView;
 import com.xt.lxl.stock.widget.stockchart.view.MyLeftMarkerView;
 import com.xt.lxl.stock.widget.stockchart.view.MyRightMarkerView;

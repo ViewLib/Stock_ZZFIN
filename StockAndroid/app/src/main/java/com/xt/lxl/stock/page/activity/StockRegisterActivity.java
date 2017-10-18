@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.page.fragment.StockMainUserFragment;
-import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.StringUtil;
 
 /**
@@ -105,19 +105,19 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
                 mSpecialZoneReg.setText("非大陆用户注册");
             }
         } else if (id == R.id.stock_register_tv_CompanyReg) {
-            StockShowUtil.showToastOnMainThread(this, "暂不支持该种方式注册");
+            StockUtil.showToastOnMainThread(this, "暂不支持该种方式注册");
         }
     }
 
     private boolean checkInputPhone(String phone, String country) {
         if (StringUtil.emptyOrNull(phone)) {
-            StockShowUtil.showToastOnMainThread(this, "请输入手机号");
+            StockUtil.showToastOnMainThread(this, "请输入手机号");
             return false;
         }
         if (StringUtil.emptyOrNull(country) || country.equals("86")) {
             //大陆手机号
             if (phone.length() != 11) {
-                StockShowUtil.showToastOnMainThread(this, "请输入正确的手机号码");
+                StockUtil.showToastOnMainThread(this, "请输入正确的手机号码");
                 return false;
             }
         }

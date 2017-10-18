@@ -17,13 +17,13 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.model.StockViewModel;
-import com.xt.lxl.stock.page.activity.StockSearchActivity;
 import com.xt.lxl.stock.page.activity.StockDetailActivity;
+import com.xt.lxl.stock.page.activity.StockSearchActivity;
 import com.xt.lxl.stock.page.list.StockListAdapter;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.DataSource;
-import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.util.StockUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +123,7 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
         } else if (id == R.id.stock_self_optional) {
 
         } else if (id == R.id.stock_self_quotation) {
-            StockShowUtil.showToastOnMainThread(getActivity(), "暂不支持该动能");
+            StockUtil.showToastOnMainThread(getActivity(), "暂不支持该动能");
         } else if (id == R.id.back_btn) {
 //            finish();
             Activity activity = getActivity();

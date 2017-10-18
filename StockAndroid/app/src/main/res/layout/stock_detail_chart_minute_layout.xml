@@ -6,7 +6,7 @@
     >
 
     <com.xt.lxl.stock.widget.stockchart.view.MyLineChart
-        android:id="@+id/line_chart"
+        android:id="@+id/kline_minute_chart"
         android:layout_width="match_parent"
         android:layout_height="150dp" />
 

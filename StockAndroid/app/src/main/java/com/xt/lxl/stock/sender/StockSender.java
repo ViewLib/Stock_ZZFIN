@@ -17,7 +17,7 @@ import com.xt.lxl.stock.model.request.StockSyncReqeust;
 import com.xt.lxl.stock.model.request.StockUserRegisterRequest;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.IOHelper;
-import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.StringUtil;
 
 import java.net.HttpURLConnection;
@@ -206,7 +206,7 @@ public class StockSender {
                 return result;
             } else {
                 String errorInfo = IOHelper.fromIputStreamToString(urlConn.getInputStream(), code);
-                StockShowUtil.showToastOnMainThread(StockApplication.getInstance(), errorInfo);
+                StockUtil.showToastOnMainThread(StockApplication.getInstance(), errorInfo);
                 Log.e("TEST", "Get方式请求失败");
             }
             // 关闭连接

@@ -28,6 +28,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockMinuteData;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.util.DataSource;
+import com.xt.lxl.stock.widget.stockchart.bean.MinuteViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyYAxis;
 import com.xt.lxl.stock.widget.stockchart.view.MyBottomMarkerView;
@@ -72,7 +73,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        lineChart = (MyLineChart) view.findViewById(R.id.line_chart);
+        lineChart = (MyLineChart) view.findViewById(R.id.kline_minute_chart);
         initChart();
         stringSparseArray = setXLabels();
         sendServiceGetMinuteDataResponse();
@@ -325,70 +326,6 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     @Override
     public void onPause() {
         super.onPause();
-    }
-
-    class MinuteViewModel {
-        public float maxPrice;//最高价格
-        public float minPrice;//最低价格
-        public float maxRiseChange;//最高涨幅
-        public float maxFallChange;//最大跌幅
-        public float priceSum;//价格总价
-        public float basePrice;//昨日价格
-        public List<StockMinuteData> minuteList = new ArrayList<>();//最大跌幅
-
-        public void initAllModel(List<StockMinuteData> list) {
-            if (list.size() == 0) {
-                return;
-            }
-            basePrice = list.get(0).basePrice / 100f;
-            minPrice = basePrice;
-            maxPrice = basePrice;
-            for (int i = 0; i < list.size(); i++) {
-                StockMinuteData stockMinuteData = list.get(i);
-                //最高价格
-                addModel(stockMinuteData);
-            }
-            //计算最大涨幅和最大跌幅
-            float i = ((maxPrice - basePrice)) / basePrice;
-            if (i > 0) {
-                maxRiseChange = i;
-                maxFallChange = -i;
-            } else {
-                maxRiseChange = -i;
-                maxFallChange = i;
-            }
-        }
-
-        public void initOneModel(StockMinuteData stockMinuteData) {
-            addModel(stockMinuteData);
-            //计算最大涨幅和最大跌幅
-            float i = ((maxPrice - basePrice)) / basePrice;
-            if (i > 0) {
-                maxRiseChange = i;
-                maxFallChange = -i;
-            } else {
-                maxRiseChange = -i;
-                maxFallChange = i;
-            }
-        }
-
-
-        private void addModel(StockMinuteData stockMinuteData) {
-            minuteList.add(stockMinuteData);
-            float priceF = stockMinuteData.price / 100f;
-            if (priceF > maxPrice) {
-                maxPrice = priceF;
-            }
-            //最低价格
-            if (priceF < minPrice) {
-                minPrice = priceF;
-            }
-            priceSum += stockMinuteData.price;
-            stockMinuteData.pjprice = priceSum / minuteList.size();//计算平均价格
-            stockMinuteData.priceSpread = stockMinuteData.basePrice - stockMinuteData.price;
-            stockMinuteData.spreadPer = stockMinuteData.priceSpread / stockMinuteData.basePrice;
-        }
-
     }
 
 }

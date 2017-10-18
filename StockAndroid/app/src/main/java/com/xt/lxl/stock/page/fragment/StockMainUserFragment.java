@@ -17,8 +17,8 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.page.activity.StockRegisterActivity;
 import com.xt.lxl.stock.util.FormatUtil;
 import com.xt.lxl.stock.util.HotelViewHolder;
-import com.xt.lxl.stock.util.StockShowUtil;
 import com.xt.lxl.stock.util.StockUser;
+import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.StringUtil;
 import com.xt.lxl.stock.widget.dialog.HotelCustomDialog;
 import com.xt.lxl.stock.widget.view.StockBannerView;
@@ -105,7 +105,7 @@ public class StockMainUserFragment extends Fragment implements View.OnClickListe
                     stockUser.clearUser(getContext());
                     stockUser.setExit(true);
                     bindDate(stockUser);
-                    StockShowUtil.showToastOnMainThread(getContext(), "退出成功");
+                    StockUtil.showToastOnMainThread(getContext(), "退出成功");
                 }
 
                 @Override
