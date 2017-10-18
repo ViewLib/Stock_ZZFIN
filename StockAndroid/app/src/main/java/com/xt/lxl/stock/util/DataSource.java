@@ -2,6 +2,7 @@ package com.xt.lxl.stock.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.model.model.StockMinuteData;
@@ -37,9 +38,11 @@ public class DataSource {
 
         List<StockMinuteData> minuteDataList = response.minuteDataList;
         for (int i = 0; i < 100; i++) {
-            int v = (int) (Math.random() * 10 - 5);
-            StockMinuteData stockMinuteData = new StockMinuteData(instance.getTimeInMillis(), 1290 + v * 10, 10, 1290);
+            int v = (int) (Math.random() * 10 - 5) * 10 + 1290;
+            Log.i("lxltest", "v:" + v);
+            StockMinuteData stockMinuteData = new StockMinuteData(instance.getTimeInMillis(), v, 10, 1290);
             minuteDataList.add(stockMinuteData);
+            instance.add(Calendar.MINUTE, 1);
         }
         return response;
     }

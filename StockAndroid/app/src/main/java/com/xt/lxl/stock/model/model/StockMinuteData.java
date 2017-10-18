@@ -15,7 +15,7 @@ public class StockMinuteData {
     public int spreadPer;//相对于昨日的价格差比例
 
     //以下数据客户端赋值
-    public int pjprice;//当日成交平均价格
+    public float pjprice;//当日成交平均价格
 
     public StockMinuteData() {
 
@@ -26,6 +26,7 @@ public class StockMinuteData {
         this.price = price;
         this.volume = voume;
         this.basePrice = baseyprice;
+        this.state = 1;
     }
 
 }

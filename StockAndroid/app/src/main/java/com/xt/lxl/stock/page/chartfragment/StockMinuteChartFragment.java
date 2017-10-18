@@ -186,8 +186,8 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         //设置y左右两轴最大最小值
         axisLeftLine.setAxisMinValue(minuteViewModel.minPrice);
         axisLeftLine.setAxisMaxValue(minuteViewModel.maxPrice);
-        axisRightLine.setAxisMinValue((float) minuteViewModel.maxFallChange);
-        axisRightLine.setAxisMaxValue((float) minuteViewModel.maxRiseChange);
+        axisRightLine.setAxisMinValue(minuteViewModel.maxFallChange);
+        axisRightLine.setAxisMaxValue(minuteViewModel.maxRiseChange);
 
         //基准线
         LimitLine ll = new LimitLine(0);
@@ -220,8 +220,8 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
                     stringSparseArray.get(i).contains("/")) {
                 i++;
             }
-            lineCJEntries.add(new Entry(stockMinuteData.price, i));//成交价格
-            lineJJEntries.add(new Entry(stockMinuteData.pjprice, i));//平均价格
+            lineCJEntries.add(new Entry(((float) stockMinuteData.price) / 100f, i));//成交价格
+            lineJJEntries.add(new Entry(stockMinuteData.pjprice / 100f, i));//平均价格
             barEntries.add(new BarEntry(stockMinuteData.volume, i));//成交数量
             // dateList.add(mData.getDatas().get(i).time);
         }
@@ -328,26 +328,28 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     }
 
     class MinuteViewModel {
-        public int maxPrice;//最高价格
-        public int minPrice;//最低价格
-        public double maxRiseChange;//最高涨幅
-        public double maxFallChange;//最大跌幅
-        public int priceSum;//价格总价
-        public int basePrice;//昨日价格
+        public float maxPrice;//最高价格
+        public float minPrice;//最低价格
+        public float maxRiseChange;//最高涨幅
+        public float maxFallChange;//最大跌幅
+        public float priceSum;//价格总价
+        public float basePrice;//昨日价格
         public List<StockMinuteData> minuteList = new ArrayList<>();//最大跌幅
 
         public void initAllModel(List<StockMinuteData> list) {
             if (list.size() == 0) {
                 return;
             }
-            basePrice = list.get(0).basePrice;
+            basePrice = list.get(0).basePrice / 100f;
+            minPrice = basePrice;
+            maxPrice = basePrice;
             for (int i = 0; i < list.size(); i++) {
                 StockMinuteData stockMinuteData = list.get(i);
                 //最高价格
                 addModel(stockMinuteData);
             }
             //计算最大涨幅和最大跌幅
-            double i = (maxPrice - basePrice) / basePrice;
+            float i = ((maxPrice - basePrice)) / basePrice;
             if (i > 0) {
                 maxRiseChange = i;
                 maxFallChange = -i;
@@ -360,7 +362,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         public void initOneModel(StockMinuteData stockMinuteData) {
             addModel(stockMinuteData);
             //计算最大涨幅和最大跌幅
-            double i = (maxPrice - basePrice) / basePrice;
+            float i = ((maxPrice - basePrice)) / basePrice;
             if (i > 0) {
                 maxRiseChange = i;
                 maxFallChange = -i;
@@ -373,12 +375,13 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 
         private void addModel(StockMinuteData stockMinuteData) {
             minuteList.add(stockMinuteData);
-            if (stockMinuteData.price > maxPrice) {
-                maxPrice = stockMinuteData.price;
+            float priceF = stockMinuteData.price / 100f;
+            if (priceF > maxPrice) {
+                maxPrice = priceF;
             }
             //最低价格
-            if (stockMinuteData.price < minPrice) {
-                minPrice = stockMinuteData.price;
+            if (priceF < minPrice) {
+                minPrice = priceF;
             }
             priceSum += stockMinuteData.price;
             stockMinuteData.pjprice = priceSum / minuteList.size();//计算平均价格
