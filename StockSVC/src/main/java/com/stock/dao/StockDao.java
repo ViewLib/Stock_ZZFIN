@@ -1,5 +1,7 @@
 package com.stock.dao;
 
+
+import com.stock.model.model.StockRankFilterModel;
 import com.stock.model.model.StockRankResultModel;
 import com.stock.model.model.StockSearchModel;
 import com.stock.model.model.StockSyncModel;
@@ -11,9 +13,11 @@ public interface StockDao {
      * 查询排行列表
      * @return
      */
-    public List<StockSearchModel> selectSerchModelRankList(int showType,int limit);
+    public List<StockSearchModel> selectSerchModelRankList(int showType, int limit);
 
     List<StockSyncModel> selectSyncModelList(int version);
 
     public List<StockRankResultModel> selectRankDetailModelList(int version);
+
+    public List<StockRankFilterModel> selectStockFilterList(int filter_type);
 }

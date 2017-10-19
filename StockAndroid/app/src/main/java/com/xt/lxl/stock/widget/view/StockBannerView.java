@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.util.DeviceUtil;
-import com.xt.lxl.stock.util.StockShowUtil;
 
 /**
  * Created by xiangleiliu on 2017/8/24.

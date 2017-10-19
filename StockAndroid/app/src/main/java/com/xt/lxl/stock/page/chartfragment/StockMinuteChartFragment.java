@@ -2,6 +2,7 @@ package com.xt.lxl.stock.page.chartfragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,9 +26,12 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.model.model.StockMinuteData;
+import com.xt.lxl.stock.model.model.StockMinuteDataModel;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
+import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
+import com.xt.lxl.stock.widget.stockchart.bean.MinuteViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyYAxis;
 import com.xt.lxl.stock.widget.stockchart.view.MyBottomMarkerView;
@@ -57,6 +61,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     SparseArray<String> stringSparseArray;
     private MinuteViewModel minuteViewModel = new MinuteViewModel();
 
+    Handler mHandler = new Handler();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,10 +77,9 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        lineChart = (MyLineChart) view.findViewById(R.id.line_chart);
+        lineChart = (MyLineChart) view.findViewById(R.id.kline_minute_chart);
         initChart();
         stringSparseArray = setXLabels();
-        sendServiceGetMinuteDataResponse();
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
@@ -87,6 +91,11 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 //                barChart.highlightValue(null);
             }
         });
+    }
+
+    @Override
+    public void refreshAllData(StockViewModel stockViewModel) {
+        sendServiceGetMinuteDataResponse(stockViewModel.stockCode);
     }
 
     private void initChart() {
@@ -170,10 +179,21 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         return xLabels;
     }
 
-    private void sendServiceGetMinuteDataResponse() {
-        StockGetMinuteDataResponse minuteDataResponses = DataSource.getMinuteDataResponses();
-        minuteViewModel.initAllModel(minuteDataResponses.minuteDataList);
-        refreshMinute();
+    private void sendServiceGetMinuteDataResponse(final String stockCode) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+//                StockGetMinuteDataResponse minuteDataResponse = StockSender.getInstance().requestMinuteData(stockCode);
+                StockGetMinuteDataResponse minuteDataResponse = DataSource.getMinuteDataResponses();
+                minuteViewModel.initAllModel(minuteDataResponse.minuteDataList);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshMinute();
+                    }
+                });
+            }
+        }).start();
     }
 
     private void refreshMinute() {
@@ -186,8 +206,8 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         //设置y左右两轴最大最小值
         axisLeftLine.setAxisMinValue(minuteViewModel.minPrice);
         axisLeftLine.setAxisMaxValue(minuteViewModel.maxPrice);
-        axisRightLine.setAxisMinValue((float) minuteViewModel.maxFallChange);
-        axisRightLine.setAxisMaxValue((float) minuteViewModel.maxRiseChange);
+        axisRightLine.setAxisMinValue(minuteViewModel.maxFallChange);
+        axisRightLine.setAxisMaxValue(minuteViewModel.maxRiseChange);
 
         //基准线
         LimitLine ll = new LimitLine(0);
@@ -209,7 +229,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
             if (mData.getDatas().get(i).time.equals("13:30")) {
                 continue;
             }*/
-            StockMinuteData stockMinuteData = minuteViewModel.minuteList.get(j);
+            StockMinuteDataModel stockMinuteData = minuteViewModel.minuteList.get(j);
             if (stockMinuteData == null || stockMinuteData.state == 0) {
                 lineCJEntries.add(new Entry(Float.NaN, i));
                 lineJJEntries.add(new Entry(Float.NaN, i));
@@ -220,8 +240,8 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
                     stringSparseArray.get(i).contains("/")) {
                 i++;
             }
-            lineCJEntries.add(new Entry(stockMinuteData.price, i));//成交价格
-            lineJJEntries.add(new Entry(stockMinuteData.pjprice, i));//平均价格
+            lineCJEntries.add(new Entry(((float) stockMinuteData.price) / 100f, i));//成交价格
+            lineJJEntries.add(new Entry(stockMinuteData.pjprice / 100f, i));//平均价格
             barEntries.add(new BarEntry(stockMinuteData.volume, i));//成交数量
             // dateList.add(mData.getDatas().get(i).time);
         }
@@ -267,7 +287,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 //        barChart.invalidate();
     }
 
-    private void setMarkerView(List<StockMinuteData> minuteDateList) {
+    private void setMarkerView(List<StockMinuteDataModel> minuteDateList) {
         MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(getContext(), R.layout.mymarkerview);
         MyRightMarkerView rightMarkerView = new MyRightMarkerView(getContext(), R.layout.mymarkerview);
         MyBottomMarkerView bottomMarkerView = new MyBottomMarkerView(getContext(), R.layout.mymarkerview);
@@ -325,67 +345,6 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     @Override
     public void onPause() {
         super.onPause();
-    }
-
-    class MinuteViewModel {
-        public int maxPrice;//最高价格
-        public int minPrice;//最低价格
-        public double maxRiseChange;//最高涨幅
-        public double maxFallChange;//最大跌幅
-        public int priceSum;//价格总价
-        public int basePrice;//昨日价格
-        public List<StockMinuteData> minuteList = new ArrayList<>();//最大跌幅
-
-        public void initAllModel(List<StockMinuteData> list) {
-            if (list.size() == 0) {
-                return;
-            }
-            basePrice = list.get(0).basePrice;
-            for (int i = 0; i < list.size(); i++) {
-                StockMinuteData stockMinuteData = list.get(i);
-                //最高价格
-                addModel(stockMinuteData);
-            }
-            //计算最大涨幅和最大跌幅
-            double i = (maxPrice - basePrice) / basePrice;
-            if (i > 0) {
-                maxRiseChange = i;
-                maxFallChange = -i;
-            } else {
-                maxRiseChange = -i;
-                maxFallChange = i;
-            }
-        }
-
-        public void initOneModel(StockMinuteData stockMinuteData) {
-            addModel(stockMinuteData);
-            //计算最大涨幅和最大跌幅
-            double i = (maxPrice - basePrice) / basePrice;
-            if (i > 0) {
-                maxRiseChange = i;
-                maxFallChange = -i;
-            } else {
-                maxRiseChange = -i;
-                maxFallChange = i;
-            }
-        }
-
-
-        private void addModel(StockMinuteData stockMinuteData) {
-            minuteList.add(stockMinuteData);
-            if (stockMinuteData.price > maxPrice) {
-                maxPrice = stockMinuteData.price;
-            }
-            //最低价格
-            if (stockMinuteData.price < minPrice) {
-                minPrice = stockMinuteData.price;
-            }
-            priceSum += stockMinuteData.price;
-            stockMinuteData.pjprice = priceSum / minuteList.size();//计算平均价格
-            stockMinuteData.priceSpread = stockMinuteData.basePrice - stockMinuteData.price;
-            stockMinuteData.spreadPer = stockMinuteData.priceSpread / stockMinuteData.basePrice;
-        }
-
     }
 
 }

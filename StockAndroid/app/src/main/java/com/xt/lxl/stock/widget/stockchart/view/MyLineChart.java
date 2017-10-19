@@ -8,7 +8,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.xt.lxl.stock.model.model.StockMinuteData;
+import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 import com.xt.lxl.stock.util.DateUtil;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxisRenderer;
@@ -26,7 +26,7 @@ public class MyLineChart extends LineChart {
     private MyLeftMarkerView myMarkerViewLeft;
     private MyRightMarkerView myMarkerViewRight;
     private MyBottomMarkerView mMyBottomMarkerView;
-    private List<StockMinuteData> minuteDateList;
+    private List<StockMinuteDataModel> minuteDateList;
 
     public MyLineChart(Context context) {
         super(context);
@@ -71,7 +71,7 @@ public class MyLineChart extends LineChart {
         return (MyYAxis) super.getAxisRight();
     }
 
-    public void setMarker(MyLeftMarkerView markerLeft, MyRightMarkerView markerRight, MyBottomMarkerView markerBottom, List<StockMinuteData> minuteDateList) {
+    public void setMarker(MyLeftMarkerView markerLeft, MyRightMarkerView markerRight, MyBottomMarkerView markerBottom, List<StockMinuteDataModel> minuteDateList) {
         this.myMarkerViewLeft = markerLeft;
         this.myMarkerViewRight = markerRight;
         this.mMyBottomMarkerView = markerBottom;
@@ -110,7 +110,7 @@ public class MyLineChart extends LineChart {
                 if (!mViewPortHandler.isInBounds(pos[0], pos[1]))
                     continue;
 
-                StockMinuteData stockMinuteData = minuteDateList.get(mIndicesToHighlight[i].getXIndex());
+                StockMinuteDataModel stockMinuteData = minuteDateList.get(mIndicesToHighlight[i].getXIndex());
                 float yValForXIndex1 = stockMinuteData.price / 100;
                 float yValForXIndex2 = stockMinuteData.spreadPer;
                 String time = DateUtil.calendar2Time(stockMinuteData.time, DateUtil.SIMPLEFORMATTYPESTRING13);

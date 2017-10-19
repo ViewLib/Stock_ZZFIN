@@ -18,7 +18,7 @@ public class VolFormatter implements YAxisValueFormatter {
             mFormat = new DecimalFormat("#0.00");
         }
         this.unit = unit;
-        this.u=MyUtils.getVolUnit(unit);
+        this.u= StockUtil.getVolUnit(unit);
     }
 
 

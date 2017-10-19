@@ -10,10 +10,10 @@ import android.widget.Toast;
 
 import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.model.model.StockIndexChangeModel;
-import com.xt.lxl.stock.page.activity.StockSearchActivity;
 import com.xt.lxl.stock.page.StockMainActivity;
 import com.xt.lxl.stock.page.activity.StockRegisterActivity;
-import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.page.activity.StockSearchActivity;
+import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.widget.helper.HotelLabelDrawable;
 import com.xt.lxl.stock.widget.view.StockChangeText;
 
@@ -66,9 +66,9 @@ public class TestActivity extends FragmentActivity implements View.OnClickListen
         Intent intent = new Intent();
         int id = v.getId();
         if (id == R.id.xt_go_user_center) {
-            StockShowUtil.showToastOnMainThread(TestActivity.this, "暂不支持该动能");
+            StockUtil.showToastOnMainThread(TestActivity.this, "暂不支持该动能");
         } else if (id == R.id.xt_go_stock_detail) {
-            StockShowUtil.showToastOnMainThread(TestActivity.this, "暂不支持该动能");
+            StockUtil.showToastOnMainThread(TestActivity.this, "暂不支持该动能");
         } else if (id == R.id.xt_go_stock_edit) {
             intent.setClass(this, StockSearchActivity.class);
         } else if (id == R.id.xt_clear_save) {

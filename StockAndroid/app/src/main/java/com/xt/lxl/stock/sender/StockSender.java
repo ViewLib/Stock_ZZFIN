@@ -5,11 +5,15 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
+import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.model.reponse.StockRankListResponse;
 import com.xt.lxl.stock.model.reponse.StockSyncResponse;
 import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
+import com.xt.lxl.stock.model.request.StockGetDateDataRequest;
+import com.xt.lxl.stock.model.request.StockGetMinuteDataRequest;
 import com.xt.lxl.stock.model.request.StockHotSearchRequest;
 import com.xt.lxl.stock.model.request.StockRankDetailResquest;
 import com.xt.lxl.stock.model.request.StockRankListResquest;
@@ -17,7 +21,7 @@ import com.xt.lxl.stock.model.request.StockSyncReqeust;
 import com.xt.lxl.stock.model.request.StockUserRegisterRequest;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.IOHelper;
-import com.xt.lxl.stock.util.StockShowUtil;
+import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.StringUtil;
 
 import java.net.HttpURLConnection;
@@ -157,7 +161,39 @@ public class StockSender {
             stockSyncResponse.resultMessage = "序列化失败";
         }
         return stockSyncResponse;
+    }
 
+    public StockGetMinuteDataResponse requestMinuteData(String stockCode) {
+        StockGetMinuteDataRequest reqeust = new StockGetMinuteDataRequest();
+        reqeust.stockCode = stockCode;
+        String requestJsonStr = JSON.toJSONString(reqeust);
+        String s = requestGet(mBaseAPIUrl + "stock_minute?", requestJsonStr, "utf-8");
+        StockGetMinuteDataResponse getMinuteDataResponse;
+        try {
+            getMinuteDataResponse = JSON.parseObject(s, StockGetMinuteDataResponse.class);
+        } catch (Exception e) {
+            getMinuteDataResponse = new StockGetMinuteDataResponse();
+            getMinuteDataResponse.resultCode = 500;
+            getMinuteDataResponse.resultMessage = "序列化失败";
+        }
+        return getMinuteDataResponse;
+    }
+
+    public StockGetDateDataResponse requestDateData(String stockCode, int getType) {
+        StockGetDateDataRequest reqeust = new StockGetDateDataRequest();
+        reqeust.stockCode = stockCode;
+        reqeust.getType = getType;
+        String requestJsonStr = JSON.toJSONString(reqeust);
+        String s = requestGet(mBaseAPIUrl + "stock_minute?", requestJsonStr, "utf-8");
+        StockGetDateDataResponse getDateDataResponse;
+        try {
+            getDateDataResponse = JSON.parseObject(s, StockGetDateDataResponse.class);
+        } catch (Exception e) {
+            getDateDataResponse = new StockGetDateDataResponse();
+            getDateDataResponse.resultCode = 500;
+            getDateDataResponse.resultMessage = "序列化失败";
+        }
+        return getDateDataResponse;
     }
 
 
@@ -206,7 +242,7 @@ public class StockSender {
                 return result;
             } else {
                 String errorInfo = IOHelper.fromIputStreamToString(urlConn.getInputStream(), code);
-                StockShowUtil.showToastOnMainThread(StockApplication.getInstance(), errorInfo);
+                StockUtil.showToastOnMainThread(StockApplication.getInstance(), errorInfo);
                 Log.e("TEST", "Get方式请求失败");
             }
             // 关闭连接

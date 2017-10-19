@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/stock_main_white_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <TextView
+    <com.xt.lxl.stock.widget.view.StockTextView
         android:id="@+id/stock_important_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="重大事件：一分钟了解一家公司最近所有事情" />
+        android:text="重大事件：一分钟了解一家公司最近所有事情"
+        app:hotel_text_drawable_direction="hotel_left"
+        app:hotel_text_drawable_height="10dp"
+        app:hotel_text_drawable_src="@drawable/stock_icon_Important"
+        app:hotel_text_drawable_width="10dp" />
+
+    <LinearLayout
+        android:id="@+id/stock_important_event_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/stock_detail_important_event_item" />
+
+        <include layout="@layout/stock_detail_important_event_item" />
+
+        <include layout="@layout/stock_detail_important_event_item" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/stock_detail_event_lookmore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="查看更多" />
 
 </LinearLayout>

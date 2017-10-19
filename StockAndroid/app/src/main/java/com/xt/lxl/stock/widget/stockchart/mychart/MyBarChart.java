@@ -8,9 +8,8 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.xt.lxl.stock.model.model.StockMinuteData;
+import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 import com.xt.lxl.stock.util.DateUtil;
-import com.xt.lxl.stock.widget.stockchart.bean.DataParse;
 import com.xt.lxl.stock.widget.stockchart.view.MyBottomMarkerView;
 import com.xt.lxl.stock.widget.stockchart.view.MyLeftMarkerView;
 import com.xt.lxl.stock.widget.stockchart.view.MyRightMarkerView;
@@ -26,7 +25,7 @@ public class MyBarChart extends BarChart {
     private MyLeftMarkerView myMarkerViewLeft;
     private MyRightMarkerView myMarkerViewRight;
     private MyBottomMarkerView mMyBottomMarkerView;
-    List<StockMinuteData> minuteList;
+    List<StockMinuteDataModel> minuteList;
 
     public MyBarChart(Context context) {
         super(context);
@@ -40,7 +39,7 @@ public class MyBarChart extends BarChart {
         super(context, attrs, defStyle);
     }
 
-    public void setMarker(MyLeftMarkerView markerLeft, MyRightMarkerView markerRight, MyBottomMarkerView markerBottom, List<StockMinuteData> minuteList) {
+    public void setMarker(MyLeftMarkerView markerLeft, MyRightMarkerView markerRight, MyBottomMarkerView markerBottom, List<StockMinuteDataModel> minuteList) {
         this.myMarkerViewLeft = markerLeft;
         this.myMarkerViewRight = markerRight;
         this.mMyBottomMarkerView = markerBottom;
