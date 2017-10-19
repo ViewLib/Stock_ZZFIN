@@ -36,7 +36,9 @@ import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockDateData;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
+import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.VolFormatter;
@@ -60,6 +62,10 @@ public class StockDayChartFragment extends StockBaseChartFragment {
     private BarLineChartTouchListener mChartTouchListener;
     private CoupleChartGestureListener coupleChartGestureListener;
     float sum = 0;
+
+    StockViewModel stockViewModel;
+
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -91,11 +97,18 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         super.onViewCreated(view, savedInstanceState);
         combinedchart = (CombinedChart) view.findViewById(R.id.kline_day_chart);
         barChart = (BarChart) view.findViewById(R.id.kline_day_bar);
+        initData();
         initChart();
         sendServiceGetDayDataResponse();
     }
 
+    private void initData() {
+        stockViewModel = (StockViewModel) getArguments().getSerializable(StockViewModel_TAG)
+
+    }
+
     private void sendServiceGetDayDataResponse() {
+        StockSender.getInstance().requestMinuteData(stockViewModel.stockCode);
         StockGetDateDataResponse dataResponses = DataSource.getDataResponses(StockGetDateDataResponse.TYPE_DAY);
         DayViewModel dayViewModel = calculationData(dataResponses);
         //刷新界面
