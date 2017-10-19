@@ -48,7 +48,6 @@ public class StockDetailDataServlet extends BaseServlet {
 
     @Override
     protected void servletAction(ServiceRequest serviceRequest, ServiceResponse serviceResponse) throws Exception {
-
         StockDetailDataRequest  stockDetailDataRequest = (StockDetailDataRequest) serviceRequest;
         StockDetailDataResponse   stockDetailDataResponse= (StockDetailDataResponse) serviceResponse;
         List<StockDetailDataModel> stockDetailDataModels = stockService.stockDetailDataModels(stockDetailDataRequest, stockDetailDataResponse);

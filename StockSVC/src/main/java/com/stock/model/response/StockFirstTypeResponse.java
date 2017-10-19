@@ -2,7 +2,6 @@ package com.stock.model.response;
 
 import com.stock.model.ServiceResponse;
 import com.stock.model.model.StockFirstTypeModel;
-import com.stock.model.model.StockRankFilterModel;
 
 import java.util.ArrayList;
 import java.util.List;

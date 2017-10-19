@@ -1,5 +1,6 @@
 package com.stock.dao;
 
+import com.stock.model.model.StockRankFilterModel;
 import com.stock.model.model.StockRankResultModel;
 import com.stock.model.model.StockSearchModel;
 import com.stock.model.model.StockSyncModel;
@@ -178,6 +179,11 @@ public class StockDaoImpl implements StockDao {
         }
 
         return searchModelList;
+    }
+
+    @Override
+    public List<StockRankFilterModel> selectStockFilterList(int filter_type) {
+        return null;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {
