@@ -4,4 +4,5 @@ target 'Stock' do
 pod 'AFNetworking'
 pod 'BuglyHotfix'
 pod 'Masonry'
+pod 'UICountingLabel','~> 1.2.0'
 end

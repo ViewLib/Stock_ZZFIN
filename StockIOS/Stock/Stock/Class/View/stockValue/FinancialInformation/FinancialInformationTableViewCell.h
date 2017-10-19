@@ -7,9 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PNChart.h"
 
-@interface FinancialInformationTableViewCell : UITableViewCell
+@interface FinancialInformationTableViewCell : UITableViewCell<PNChartDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *srBtn;
+@property (weak, nonatomic) IBOutlet UIButton *mlBtn;
+@property (weak, nonatomic) IBOutlet UIButton *jlBtn;
+@property (weak, nonatomic) IBOutlet UIButton *xjBtn;
+@property (weak, nonatomic) IBOutlet UIButton *fhBtn;
+@property (weak, nonatomic) IBOutlet UIView *BarChartView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *BarChartViewHigh;
+
+@property (nonatomic) PNBarChart * barChart;
 /**
  更新cell
  @param dic 更新的内容

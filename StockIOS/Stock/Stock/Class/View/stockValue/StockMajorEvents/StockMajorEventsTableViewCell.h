@@ -7,15 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PNLineChart.h"
+#import "PNLineChartData.h"
+#import "PNLineChartDataItem.h"
 
-@interface StockMajorEventsTableViewCell : UITableViewCell
+@interface StockMajorEventsTableViewCell : UITableViewCell<PNChartDelegate>
 
-@property (weak, nonatomic) IBOutlet UIButton *stockTime;
-@property (weak, nonatomic) IBOutlet UIButton *stockDay;
-@property (weak, nonatomic) IBOutlet UIButton *stockWeek;
-@property (weak, nonatomic) IBOutlet UIButton *stockMonth;
-@property (weak, nonatomic) IBOutlet UIButton *stockYear;
-@property (weak, nonatomic) IBOutlet UIButton *stockMax;
+@property (weak, nonatomic) IBOutlet UIButton *czBtn;
+@property (weak, nonatomic) IBOutlet UIButton *dzBtn;
+@property (weak, nonatomic) IBOutlet UIButton *dazBtn;
+@property (weak, nonatomic) IBOutlet UIButton *fhBtn;
+@property (weak, nonatomic) IBOutlet UIButton *tzBtn;
+
+@property (weak, nonatomic) IBOutlet UIView *lineView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *LineViewHigh;
+
+@property (nonatomic) PNLineChart * lineChart;
 
 /**
  更新cell

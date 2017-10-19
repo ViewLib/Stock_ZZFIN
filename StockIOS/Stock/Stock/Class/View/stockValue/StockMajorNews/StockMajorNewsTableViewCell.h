@@ -10,6 +10,10 @@
 
 @interface StockMajorNewsTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIView *valueView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *valueViewHigh;
+@property (weak, nonatomic) IBOutlet UIButton *lookMoreBtn;
+
 /**
  更新cell
  @param dic 更新的内容

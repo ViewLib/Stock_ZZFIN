@@ -91,16 +91,19 @@
                             <constraint firstAttribute="height" constant="1" id="D6Y-g6-4WA"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h25-dD-N9S">
+                        <rect key="frame" x="0.0" y="70" width="375" height="237.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="237.5" id="9vu-Gm-J8J"/>
+                        </constraints>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OU-16-jjN">
-                        <rect key="frame" x="0.0" y="307.5" width="375" height="9"/>
+                        <rect key="frame" x="0.0" y="307" width="375" height="9"/>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="9" id="51o-61-SeA"/>
                         </constraints>
-                    </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h25-dD-N9S">
-                        <rect key="frame" x="0.0" y="70" width="375" height="237.5"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
                 <constraints>
@@ -143,6 +146,15 @@
                     <constraint firstItem="ARz-47-ODM" firstAttribute="leading" secondItem="RzJ-6e-buN" secondAttribute="trailing" id="z1d-cV-1u4"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="LineViewHigh" destination="9vu-Gm-J8J" id="RKx-ie-ugZ"/>
+                <outlet property="czBtn" destination="Gts-WC-YBW" id="DBP-dk-DSx"/>
+                <outlet property="dazBtn" destination="2K6-pX-HvO" id="ucY-Yp-kEu"/>
+                <outlet property="dzBtn" destination="pHV-Wa-9h6" id="YU9-82-MpO"/>
+                <outlet property="fhBtn" destination="RzJ-6e-buN" id="NJM-tG-ERE"/>
+                <outlet property="lineView" destination="h25-dD-N9S" id="ev1-sC-Xcm"/>
+                <outlet property="tzBtn" destination="ARz-47-ODM" id="jKO-Re-NcA"/>
+            </connections>
             <point key="canvasLocation" x="34.5" y="53.5"/>
         </tableViewCell>
     </objects>

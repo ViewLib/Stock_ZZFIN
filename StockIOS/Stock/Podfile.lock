@@ -18,17 +18,20 @@ PODS:
     - BuglyHotfix/Core (= 2.0.0)
   - BuglyHotfix/Core (2.0.0)
   - Masonry (1.0.2)
+  - UICountingLabel (1.2.0)
 
 DEPENDENCIES:
   - AFNetworking
   - BuglyHotfix
   - Masonry
+  - UICountingLabel (~> 1.2.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BuglyHotfix: c56f21af72dda3acdc0b611d351b0bbb86fb2464
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
-PODFILE CHECKSUM: 4d621bd1aa16ea9bc47483e533a80e36d7cf5a66
+PODFILE CHECKSUM: 3309954a46420e82f12a8eb9a18b13598095cfbf
 
 COCOAPODS: 1.3.1
