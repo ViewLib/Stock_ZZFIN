@@ -61,7 +61,6 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     SparseArray<String> stringSparseArray;
     private MinuteViewModel minuteViewModel = new MinuteViewModel();
 
-    StockViewModel stockViewModel;
     Handler mHandler = new Handler();
 
     @Override
@@ -78,11 +77,9 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initData();
         lineChart = (MyLineChart) view.findViewById(R.id.kline_minute_chart);
         initChart();
         stringSparseArray = setXLabels();
-        sendServiceGetMinuteDataResponse();
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
@@ -96,8 +93,9 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         });
     }
 
-    private void initData() {
-        stockViewModel = (StockViewModel) getArguments().getSerializable(StockViewModel_TAG);
+    @Override
+    public void refreshAllData(StockViewModel stockViewModel) {
+        sendServiceGetMinuteDataResponse(stockViewModel.stockCode);
     }
 
     private void initChart() {
@@ -181,11 +179,12 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         return xLabels;
     }
 
-    private void sendServiceGetMinuteDataResponse() {
+    private void sendServiceGetMinuteDataResponse(final String stockCode) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockGetMinuteDataResponse minuteDataResponse = StockSender.getInstance().requestMinuteData(stockViewModel.stockCode);
+//                StockGetMinuteDataResponse minuteDataResponse = StockSender.getInstance().requestMinuteData(stockCode);
+                StockGetMinuteDataResponse minuteDataResponse = DataSource.getMinuteDataResponses();
                 minuteViewModel.initAllModel(minuteDataResponse.minuteDataList);
                 mHandler.post(new Runnable() {
                     @Override

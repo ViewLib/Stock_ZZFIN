@@ -6,11 +6,13 @@ import android.support.v4.app.FragmentActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
+import android.text.style.TextAppearanceSpan;
 import android.view.View;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.widget.view.StockDetailChartView;
 import com.xt.lxl.stock.widget.view.StockDetailShowText;
 import com.xt.lxl.stock.widget.view.StockTitleView;
 
@@ -29,6 +31,7 @@ public class StockDetailActivity extends FragmentActivity {
     StockDetailShowText rate;
     StockDetailShowText turnover;
     StockDetailShowText marketvalue;
+    StockDetailChartView detailChartView;
 
     StockViewModel mStockViewModel = new StockViewModel();
 
@@ -42,7 +45,6 @@ public class StockDetailActivity extends FragmentActivity {
         initListener();
     }
 
-
     private void initData() {
         mStockViewModel = (StockViewModel) getIntent().getExtras().getSerializable(StockDetailActivity.STOCK_DETAIL);
     }
@@ -55,17 +57,17 @@ public class StockDetailActivity extends FragmentActivity {
         rate = (StockDetailShowText) findViewById(R.id.stock_detail_rate);
         turnover = (StockDetailShowText) findViewById(R.id.stock_detail_turnover);
         marketvalue = (StockDetailShowText) findViewById(R.id.stock_detail_marketvalue);
-
+        detailChartView = (StockDetailChartView) findViewById(R.id.stock_kline);
     }
 
     private void bindData() {
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(mStockViewModel.stockName);
-        builder.setSpan(new RelativeSizeSpan(16), 0, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        builder.append(mStockViewModel.stockName + "\n");
+        builder.setSpan(new TextAppearanceSpan(this, R.style.text_15_ffffff), 0, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         int length = mStockViewModel.stockName.length();
         builder.append(mStockViewModel.stockCode);
-        builder.setSpan(new RelativeSizeSpan(14), length, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-//        titleView.setTitle(builder);
+        builder.setSpan(new TextAppearanceSpan(this, R.style.text_12_ffffff), length, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        titleView.setTitle(builder);
 
         priceTop.setTextValue("今日最高", "52");
         priceBottom.setTextValue("今日最低", "50");
@@ -73,6 +75,8 @@ public class StockDetailActivity extends FragmentActivity {
         rate.setTextValue("换手率", "10%");
         turnover.setTextValue("成交量", "5.2亿");
         marketvalue.setTextValue("市值", "52亿");
+
+        detailChartView.setStockViewModel(mStockViewModel);
     }
 
     private void initListener() {

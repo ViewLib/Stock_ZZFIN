@@ -1,6 +1,7 @@
 package com.xt.lxl.stock.widget.view;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.page.chartfragment.StockBaseChartFragment;
 import com.xt.lxl.stock.page.chartfragment.StockDayChartFragment;
 import com.xt.lxl.stock.page.chartfragment.StockMinuteChartFragment;
@@ -29,6 +31,7 @@ public class StockDetailChartView extends LinearLayout {
     StockTabGroupButton tabGroupButton;//
     FrameLayout fragmentContainer;
     FragmentActivity activity;
+    StockViewModel mStockViewModel;
 
     List<StockBaseChartFragment> viewList = new ArrayList<>();
 
@@ -37,7 +40,6 @@ public class StockDetailChartView extends LinearLayout {
         activity = (FragmentActivity) context;
         inflate(context, R.layout.stock_detail_chart_layout, this);
         initView();
-        bindData();
     }
 
     private void bindData() {
@@ -57,6 +59,11 @@ public class StockDetailChartView extends LinearLayout {
         viewList.add(dayFragment);
         viewList.add(weekFragment);
         viewList.add(monthFragment);
+        for (StockBaseChartFragment base : viewList) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(StockBaseChartFragment.StockViewModel_TAG, mStockViewModel);
+            base.setArguments(bundle);
+        }
 
         tabGroupButton.setOnTabItemSelectedListener(new StockTabGroupButton.OnTabItemSelectedListener() {
             @Override
@@ -71,6 +78,7 @@ public class StockDetailChartView extends LinearLayout {
                     }
                 }
                 StockBaseChartFragment stockBaseChartFragment = viewList.get(whichButton);
+                stockBaseChartFragment.refreshAllData(mStockViewModel);
                 if (from == stockBaseChartFragment) {
                     return;
                 }
@@ -94,10 +102,16 @@ public class StockDetailChartView extends LinearLayout {
         FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, stockBaseChartFragment);
         fragmentTransaction.commit();
+        stockBaseChartFragment.refreshAllData(mStockViewModel);
     }
 
     private void initView() {
         tabGroupButton = (StockTabGroupButton) findViewById(R.id.tab_group);
         fragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
+    }
+
+    public void setStockViewModel(StockViewModel stockViewModel) {
+        this.mStockViewModel = stockViewModel;
+        bindData();
     }
 }

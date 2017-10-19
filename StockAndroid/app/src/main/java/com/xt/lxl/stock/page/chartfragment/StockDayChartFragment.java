@@ -65,8 +65,6 @@ public class StockDayChartFragment extends StockBaseChartFragment {
     float sum = 0;
     Handler mHandler = new Handler();
 
-    StockViewModel stockViewModel;
-
 
     private Handler handler = new Handler() {
         @Override
@@ -99,17 +97,28 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         super.onViewCreated(view, savedInstanceState);
         combinedchart = (CombinedChart) view.findViewById(R.id.kline_day_chart);
         barChart = (BarChart) view.findViewById(R.id.kline_day_bar);
-        initData();
         initChart();
+    }
+
+    @Override
+    public void refreshAllData(StockViewModel stockViewModel) {
         sendServiceGetDayDataService();
     }
 
-    private void initData() {
-        stockViewModel = (StockViewModel) getArguments().getSerializable(StockViewModel_TAG);
-    }
-
     private void sendServiceGetDayDataService() {
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                StockGetDateDataResponse dataResponses = DataSource.getDataResponses(StockGetDateDataResponse.TYPE_DAY);
+                final DayViewModel dayViewModel = calculationData(dataResponses);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        bindDate(dayViewModel);
+                    }
+                });
+            }
+        }).start();
     }
 
     private void bindDate(DayViewModel dayViewModel) {
