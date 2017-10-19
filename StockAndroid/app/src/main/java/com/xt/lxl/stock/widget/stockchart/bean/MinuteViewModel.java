@@ -1,6 +1,6 @@
 package com.xt.lxl.stock.widget.stockchart.bean;
 
-import com.xt.lxl.stock.model.model.StockMinuteData;
+import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,9 @@ public class MinuteViewModel {
     public float maxFallChange;//最大跌幅
     public float priceSum;//价格总价
     public float basePrice;//昨日价格
-    public List<StockMinuteData> minuteList = new ArrayList<>();//最大跌幅
+    public List<StockMinuteDataModel> minuteList = new ArrayList<>();//最大跌幅
 
-    public void initAllModel(List<StockMinuteData> list) {
+    public void initAllModel(List<StockMinuteDataModel> list) {
         if (list.size() == 0) {
             return;
         }
@@ -26,7 +26,7 @@ public class MinuteViewModel {
         minPrice = basePrice;
         maxPrice = basePrice;
         for (int i = 0; i < list.size(); i++) {
-            StockMinuteData stockMinuteData = list.get(i);
+            StockMinuteDataModel stockMinuteData = list.get(i);
             //最高价格
             addModel(stockMinuteData);
         }
@@ -41,7 +41,7 @@ public class MinuteViewModel {
         }
     }
 
-    public void initOneModel(StockMinuteData stockMinuteData) {
+    public void initOneModel(StockMinuteDataModel stockMinuteData) {
         addModel(stockMinuteData);
         //计算最大涨幅和最大跌幅
         float i = ((maxPrice - basePrice)) / basePrice;
@@ -55,7 +55,7 @@ public class MinuteViewModel {
     }
 
 
-    private void addModel(StockMinuteData stockMinuteData) {
+    private void addModel(StockMinuteDataModel stockMinuteData) {
         minuteList.add(stockMinuteData);
         float priceF = stockMinuteData.price / 100f;
         if (priceF > maxPrice) {

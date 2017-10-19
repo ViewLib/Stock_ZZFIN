@@ -25,7 +25,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.model.model.StockMinuteData;
+import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.widget.stockchart.bean.MinuteViewModel;
@@ -210,7 +210,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
             if (mData.getDatas().get(i).time.equals("13:30")) {
                 continue;
             }*/
-            StockMinuteData stockMinuteData = minuteViewModel.minuteList.get(j);
+            StockMinuteDataModel stockMinuteData = minuteViewModel.minuteList.get(j);
             if (stockMinuteData == null || stockMinuteData.state == 0) {
                 lineCJEntries.add(new Entry(Float.NaN, i));
                 lineJJEntries.add(new Entry(Float.NaN, i));
@@ -268,7 +268,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 //        barChart.invalidate();
     }
 
-    private void setMarkerView(List<StockMinuteData> minuteDateList) {
+    private void setMarkerView(List<StockMinuteDataModel> minuteDateList) {
         MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(getContext(), R.layout.mymarkerview);
         MyRightMarkerView rightMarkerView = new MyRightMarkerView(getContext(), R.layout.mymarkerview);
         MyBottomMarkerView bottomMarkerView = new MyBottomMarkerView(getContext(), R.layout.mymarkerview);

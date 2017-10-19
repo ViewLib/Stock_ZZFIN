@@ -3,7 +3,7 @@ package com.xt.lxl.stock.model.model;
 /**
  * Created by xiangleiliu on 2017/10/16.
  */
-public class StockMinuteData {
+public class StockMinuteDataModel {
     public long time;//当前时间long型 单位：毫秒
     public int price;//当前股票价格，单位：分
     public int volume;//当前股票成交量,单位：手
@@ -17,11 +17,11 @@ public class StockMinuteData {
     //以下数据客户端赋值
     public float pjprice;//当日成交平均价格
 
-    public StockMinuteData() {
+    public StockMinuteDataModel() {
 
     }
 
-    public StockMinuteData(long currentTime, int price, int voume, int baseyprice) {
+    public StockMinuteDataModel(long currentTime, int price, int voume, int baseyprice) {
         this.time = currentTime;
         this.price = price;
         this.volume = voume;

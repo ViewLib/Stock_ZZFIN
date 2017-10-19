@@ -1,6 +1,6 @@
 package com.xt.lxl.stock.widget.stockchart.bean;
 
-import com.xt.lxl.stock.model.model.StockDateData;
+import com.xt.lxl.stock.model.model.StockDateDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,6 @@ public class DayViewModel {
 
 
     public int maxVolum;//最大换手量
-    public List<StockDateData> dateDataList = new ArrayList<>();//分时数据
+    public List<StockDateDataModel> dateDataList = new ArrayList<>();//分时数据
 
 }

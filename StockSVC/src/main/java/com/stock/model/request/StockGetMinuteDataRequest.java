@@ -1,6 +1,7 @@
-package com.xt.lxl.stock.model.request;
+package com.stock.model.request;
 
-import com.xt.lxl.stock.model.ServiceRequest;
+
+import com.stock.model.ServiceRequest;
 
 /**
  * Created by xiangleiliu on 2017/10/16.

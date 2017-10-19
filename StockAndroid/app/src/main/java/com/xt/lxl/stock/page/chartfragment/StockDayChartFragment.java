@@ -35,7 +35,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.model.model.StockDateData;
+import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
 import com.xt.lxl.stock.sender.StockSender;
@@ -116,7 +116,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
     }
 
     private void bindDate(DayViewModel dayViewModel) {
-        List<StockDateData> dateDataList = dayViewModel.dateDataList;
+        List<StockDateDataModel> dateDataList = dayViewModel.dateDataList;
         int size = dateDataList.size();   //点的个数
         // axisLeftBar.setAxisMaxValue(mData.getVolmax());
         String unit = StockUtil.getVolUnit(dayViewModel.maxVolum);
@@ -134,7 +134,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         ArrayList<Entry> line10Entries = new ArrayList<>();//10日均线
         ArrayList<Entry> line30Entries = new ArrayList<>();//30日均线
         for (int i = 0, j = 0; i < dateDataList.size(); i++, j++) {
-            StockDateData stockDateData = dateDataList.get(i);
+            StockDateDataModel stockDateData = dateDataList.get(i);
             xVals.add(stockDateData.dateStr);
             barEntries.add(new BarEntry(stockDateData.volume, i));
             candleEntries.add(new CandleEntry(i, stockDateData.maxPrice / 100f, stockDateData.minPrice / 100f, stockDateData.openPrice / 100f, stockDateData.closePrice / 100f));
@@ -222,7 +222,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         dayViewModel.dateDataList = dataResponses.dateDataList;
         dayViewModel.maxVolum = dayViewModel.dateDataList.get(0).volume;
         for (int i = 0; i < dayViewModel.dateDataList.size(); i++) {
-            StockDateData stockDateData = dayViewModel.dateDataList.get(i);
+            StockDateDataModel stockDateData = dayViewModel.dateDataList.get(i);
             dayViewModel.maxVolum = stockDateData.volume > dayViewModel.maxVolum ? stockDateData.volume : dayViewModel.maxVolum;
         }
         return dayViewModel;
@@ -284,7 +284,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         return lineDataSetMa;
     }
 
-    private float getSum(List<StockDateData> dateDataList, Integer a, Integer b) {
+    private float getSum(List<StockDateDataModel> dateDataList, Integer a, Integer b) {
         for (int i = a; i <= b; i++) {
             sum += dateDataList.get(i).closePrice / 100;
         }

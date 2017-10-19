@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.xt.lxl.stock.config.StockConfig;
-import com.xt.lxl.stock.model.model.StockDateData;
-import com.xt.lxl.stock.model.model.StockMinuteData;
+import com.xt.lxl.stock.model.model.StockDateDataModel;
+import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 import com.xt.lxl.stock.model.model.StockRankFilterModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockSyncModel;
@@ -35,11 +35,11 @@ public class DataSource {
         instance.set(Calendar.DAY_OF_MONTH, 15);
         instance.set(Calendar.HOUR_OF_DAY, 8);
         instance.set(Calendar.MINUTE, 29);
-        List<StockMinuteData> minuteDataList = response.minuteDataList;
+        List<StockMinuteDataModel> minuteDataList = response.minuteDataList;
         for (int i = 0; i < 100; i++) {
             int v = (int) (Math.random() * 10 - 5) * 10 + 1290;
             Log.i("lxltest", "v:" + v);
-            StockMinuteData stockMinuteData = new StockMinuteData(instance.getTimeInMillis(), v, 10, 1290);
+            StockMinuteDataModel stockMinuteData = new StockMinuteDataModel(instance.getTimeInMillis(), v, 10, 1290);
             minuteDataList.add(stockMinuteData);
             instance.add(Calendar.MINUTE, 1);
         }
@@ -55,7 +55,7 @@ public class DataSource {
         instance.set(Calendar.YEAR, 2017);
         instance.set(Calendar.MONTH, 0);
         instance.set(Calendar.DAY_OF_MONTH, 0);
-        List<StockDateData> dateDataList = response.dateDataList;
+        List<StockDateDataModel> dateDataList = response.dateDataList;
         for (int i = 0; i < 100; i++) {
             int basePrice = (int) (Math.random() * 10 - 5) * 10 + 1290;
             int maxprice = basePrice + 30;
@@ -64,7 +64,7 @@ public class DataSource {
             int closePrice = basePrice + (int) (Math.random() * 10 - 5) * 5;
 
             String dateStr = DateUtil.calendar2Time(instance, DateUtil.SIMPLEFORMATTYPESTRING7);
-            StockDateData stockDateData = new StockDateData(dateStr, maxprice, minPrice, openPrice, closePrice, (int) (100000 * Math.random()));
+            StockDateDataModel stockDateData = new StockDateDataModel(dateStr, maxprice, minPrice, openPrice, closePrice, (int) (100000 * Math.random()));
             dateDataList.add(stockDateData);
             instance.add(Calendar.DAY_OF_MONTH, 1);
         }

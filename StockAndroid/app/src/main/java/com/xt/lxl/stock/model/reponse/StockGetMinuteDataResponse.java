@@ -1,7 +1,7 @@
 package com.xt.lxl.stock.model.reponse;
 
 import com.xt.lxl.stock.model.ServiceResponse;
-import com.xt.lxl.stock.model.model.StockMinuteData;
+import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,6 @@ public class StockGetMinuteDataResponse extends ServiceResponse {
 
     public String stockCode = "";//股票代码
     public String stockName = "";//股票名称
-    public List<StockMinuteData> minuteDataList = new ArrayList<>();//分时数据
+    public List<StockMinuteDataModel> minuteDataList = new ArrayList<>();//分时数据
 
 }

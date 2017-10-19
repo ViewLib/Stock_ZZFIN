@@ -1,7 +1,7 @@
 package com.xt.lxl.stock.model.reponse;
 
 import com.xt.lxl.stock.model.ServiceResponse;
-import com.xt.lxl.stock.model.model.StockDateData;
+import com.xt.lxl.stock.model.model.StockDateDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,6 @@ public class StockGetDateDataResponse extends ServiceResponse {
     public String stockCode = "";//股票代码
     public String stockName = "";//股票名称
     public int kLinetype = TYPE_DAY;//坐标系类型
-    public List<StockDateData> dateDataList = new ArrayList<>();//分时数据
+    public List<StockDateDataModel> dateDataList = new ArrayList<>();//分时数据
 
 }

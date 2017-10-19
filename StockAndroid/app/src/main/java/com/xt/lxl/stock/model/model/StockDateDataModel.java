@@ -4,7 +4,7 @@ package com.xt.lxl.stock.model.model;
  * Created by xiangleiliu on 2017/10/16.
  * 包含日，周，月 的数据
  */
-public class StockDateData {
+public class StockDateDataModel {
 
     //以下数据服务端下发
     public String dateStr;//当前时间string类型
@@ -16,11 +16,11 @@ public class StockDateData {
 
     //以下数据客户端计算
 
-    public StockDateData() {
+    public StockDateDataModel() {
 
     }
 
-    public StockDateData(String dateStr, int maxPrice, int minPrice, int openPrice, int closePrice, int volume) {
+    public StockDateDataModel(String dateStr, int maxPrice, int minPrice, int openPrice, int closePrice, int volume) {
         this.dateStr = dateStr;
         this.maxPrice = maxPrice;
         this.minPrice = minPrice;
