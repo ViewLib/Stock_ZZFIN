@@ -2,6 +2,7 @@ package com.xt.lxl.stock.page.chartfragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,7 +27,9 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
+import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
+import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.widget.stockchart.bean.MinuteViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
@@ -58,6 +61,8 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     SparseArray<String> stringSparseArray;
     private MinuteViewModel minuteViewModel = new MinuteViewModel();
 
+    StockViewModel stockViewModel;
+    Handler mHandler = new Handler();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +78,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initData();
         lineChart = (MyLineChart) view.findViewById(R.id.kline_minute_chart);
         initChart();
         stringSparseArray = setXLabels();
@@ -88,6 +94,10 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 //                barChart.highlightValue(null);
             }
         });
+    }
+
+    private void initData() {
+        stockViewModel = (StockViewModel) getArguments().getSerializable(StockViewModel_TAG);
     }
 
     private void initChart() {
@@ -172,9 +182,19 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     }
 
     private void sendServiceGetMinuteDataResponse() {
-        StockGetMinuteDataResponse minuteDataResponses = DataSource.getMinuteDataResponses();
-        minuteViewModel.initAllModel(minuteDataResponses.minuteDataList);
-        refreshMinute();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                StockGetMinuteDataResponse minuteDataResponse = StockSender.getInstance().requestMinuteData(stockViewModel.stockCode);
+                minuteViewModel.initAllModel(minuteDataResponse.minuteDataList);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshMinute();
+                    }
+                });
+            }
+        }).start();
     }
 
     private void refreshMinute() {

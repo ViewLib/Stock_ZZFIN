@@ -38,6 +38,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
+import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.StockUtil;
@@ -62,6 +63,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
     private BarLineChartTouchListener mChartTouchListener;
     private CoupleChartGestureListener coupleChartGestureListener;
     float sum = 0;
+    Handler mHandler = new Handler();
 
     StockViewModel stockViewModel;
 
@@ -99,20 +101,15 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         barChart = (BarChart) view.findViewById(R.id.kline_day_bar);
         initData();
         initChart();
-        sendServiceGetDayDataResponse();
+        sendServiceGetDayDataService();
     }
 
     private void initData() {
-        stockViewModel = (StockViewModel) getArguments().getSerializable(StockViewModel_TAG)
-
+        stockViewModel = (StockViewModel) getArguments().getSerializable(StockViewModel_TAG);
     }
 
-    private void sendServiceGetDayDataResponse() {
-        StockSender.getInstance().requestMinuteData(stockViewModel.stockCode);
-        StockGetDateDataResponse dataResponses = DataSource.getDataResponses(StockGetDateDataResponse.TYPE_DAY);
-        DayViewModel dayViewModel = calculationData(dataResponses);
-        //刷新界面
-        bindDate(dayViewModel);
+    private void sendServiceGetDayDataService() {
+
     }
 
     private void bindDate(DayViewModel dayViewModel) {
