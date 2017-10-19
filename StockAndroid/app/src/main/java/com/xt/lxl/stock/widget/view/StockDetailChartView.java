@@ -1,7 +1,9 @@
 package com.xt.lxl.stock.widget.view;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
@@ -59,9 +61,30 @@ public class StockDetailChartView extends LinearLayout {
         tabGroupButton.setOnTabItemSelectedListener(new StockTabGroupButton.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {
+                FragmentManager supportFragmentManager = activity.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                Fragment from = null;
+                List<Fragment> fragments = supportFragmentManager.getFragments();
+                for (Fragment fragment : fragments) {
+                    if (!fragment.isHidden()) {
+                        from = fragment;
+                    }
+                }
                 StockBaseChartFragment stockBaseChartFragment = viewList.get(whichButton);
-                FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, stockBaseChartFragment);
+                if (from == stockBaseChartFragment) {
+                    return;
+                }
+                if (!stockBaseChartFragment.isAdded()) {
+                    if (from != null) {
+                        fragmentTransaction.hide(from);
+                    }
+                    fragmentTransaction.add(R.id.fragment_container, stockBaseChartFragment);
+                } else {
+                    if (from != null) {
+                        fragmentTransaction.hide(from);
+                    }
+                    fragmentTransaction.show(stockBaseChartFragment);
+                }
                 fragmentTransaction.commit();
             }
         });
