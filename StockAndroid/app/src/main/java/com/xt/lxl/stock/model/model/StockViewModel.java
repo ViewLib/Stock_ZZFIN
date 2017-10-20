@@ -32,10 +32,15 @@ public class StockViewModel implements Cloneable, Serializable {
     public String stockPirce = "";
     public String stockCode = "";//股票代码
     public String stockType = STOCK_TYPE_CHINA;//股票类型 美股orA股
-    public String stockChange = "";//涨跌幅 string类型
+    public String stockChangeValue = "";//涨跌幅 绝对值 string类型
+    public String stockChange = "";//涨跌幅% string类型
     public String ratio = "";//市盈率
     public String turnover = "";//换手率
     public String valueAll = "";//总市值
+    public String maxPrice = "";//今日最高价
+    public String minPrice = "";//今日最低价
+    public String amplitude = "";//振幅
+    public String volume = "";//成交量 手
     public boolean isSuspension = false;//是否停牌
 
     /**

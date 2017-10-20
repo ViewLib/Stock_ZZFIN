@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Created by xiangleiliu on 2017/10/16.
- * 分时数据
+ * 分时数据 日、周、月
  */
 public class StockGetDateDataResponse extends ServiceResponse {
 

@@ -14,7 +14,7 @@
         android:text="重大事件：一分钟了解一家公司最近所有事情"
         app:hotel_text_drawable_direction="hotel_left"
         app:hotel_text_drawable_height="10dp"
-        app:hotel_text_drawable_src="@drawable/stock_icon_Important"
+        app:hotel_text_drawable_src="@drawable/stock_icon_important"
         app:hotel_text_drawable_width="10dp" />
 
     <LinearLayout

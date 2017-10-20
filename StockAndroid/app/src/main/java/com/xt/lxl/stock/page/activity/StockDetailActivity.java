@@ -1,20 +1,25 @@
 package com.xt.lxl.stock.page.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.style.RelativeSizeSpan;
 import android.text.style.TextAppearanceSpan;
 import android.view.View;
-import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.config.StockConfig;
+import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockViewModel;
-import com.xt.lxl.stock.widget.view.StockDetailChartView;
-import com.xt.lxl.stock.widget.view.StockDetailShowText;
+import com.xt.lxl.stock.page.module.StockDetailChartModule;
+import com.xt.lxl.stock.page.module.StockDetailImportEventModule;
+import com.xt.lxl.stock.page.module.StockDetailInfoModule;
+import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.widget.view.StockTitleView;
+
+import java.util.List;
 
 /**
  * 股票详情页
@@ -23,17 +28,16 @@ import com.xt.lxl.stock.widget.view.StockTitleView;
 public class StockDetailActivity extends FragmentActivity {
 
     public static final String STOCK_DETAIL = "STOCK_DETAIL";
+    Handler mHandler = new Handler();
 
     StockTitleView titleView;
-    StockDetailShowText priceTop;
-    StockDetailShowText priceBottom;
-    StockDetailShowText upAndDown;
-    StockDetailShowText rate;
-    StockDetailShowText turnover;
-    StockDetailShowText marketvalue;
-    StockDetailChartView detailChartView;
+    StockDetailInfoModule infoModule;
+    StockDetailChartModule chartModule;
+    StockDetailImportEventModule importEventModule;
 
+    StockDetailListener listener = new StockDetailListener();
     StockViewModel mStockViewModel = new StockViewModel();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,13 +55,15 @@ public class StockDetailActivity extends FragmentActivity {
 
     private void initView() {
         titleView = (StockTitleView) findViewById(R.id.stock_title_view);
-        priceTop = (StockDetailShowText) findViewById(R.id.stock_detail_price_top);
-        priceBottom = (StockDetailShowText) findViewById(R.id.stock_detail_price_bottom);
-        upAndDown = (StockDetailShowText) findViewById(R.id.stock_detail_upanddown);
-        rate = (StockDetailShowText) findViewById(R.id.stock_detail_rate);
-        turnover = (StockDetailShowText) findViewById(R.id.stock_detail_turnover);
-        marketvalue = (StockDetailShowText) findViewById(R.id.stock_detail_marketvalue);
-        detailChartView = (StockDetailChartView) findViewById(R.id.stock_kline);
+
+        infoModule = new StockDetailInfoModule(mStockViewModel);
+        infoModule.setModuleView(findViewById(R.id.stock_detail_info));
+
+        chartModule = new StockDetailChartModule(mStockViewModel);
+        chartModule.setModuleView(findViewById(R.id.stock_kline));
+
+        importEventModule = new StockDetailImportEventModule(mStockViewModel);
+        importEventModule.setModuleView(findViewById(R.id.stock_detail_event));
     }
 
     private void bindData() {
@@ -68,19 +74,56 @@ public class StockDetailActivity extends FragmentActivity {
         builder.append(mStockViewModel.stockCode);
         builder.setSpan(new TextAppearanceSpan(this, R.style.text_12_ffffff), length, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         titleView.setTitle(builder);
+        sendStockDataService();
+    }
 
-        priceTop.setTextValue("今日最高", "52");
-        priceBottom.setTextValue("今日最低", "50");
-        upAndDown.setTextValue("今日振幅", "6%");
-        rate.setTextValue("换手率", "10%");
-        turnover.setTextValue("成交量", "5.2亿");
-        marketvalue.setTextValue("市值", "52亿");
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            sendStockDataService();
+        }
+    };
 
-        detailChartView.setStockViewModel(mStockViewModel);
+    public void sendStockDataService() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<StockViewModel> stockViewModelList = StockSender.getInstance().requestStockModelByCode(mStockViewModel.stockCode);
+                if (stockViewModelList.size() == 0) {
+                    return;
+                }
+                final StockViewModel stockViewModel = stockViewModelList.get(0);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshData(stockViewModel);
+                        mHandler.postDelayed(runnable, StockConfig.INTERVAL_TIME);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    public void refreshData(StockViewModel stockViewModel) {
+        infoModule.bindData(stockViewModel);
+        chartModule.bindData(stockViewModel);
+        importEventModule.bindData(stockViewModel);
     }
 
     private void initListener() {
+        listener.addClickListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        };
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacks(runnable);
+    }
 }

@@ -26,4 +26,6 @@ public class StockConfig {
     //release
     public static String URL_REGISTER = isTest ? URL_REGISTER_TEST : "";
 
+    public static int INTERVAL_TIME = 10000;
+
 }

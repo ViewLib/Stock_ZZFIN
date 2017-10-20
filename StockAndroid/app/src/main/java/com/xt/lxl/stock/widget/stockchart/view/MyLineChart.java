@@ -9,7 +9,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
-import com.xt.lxl.stock.util.DateUtil;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxisRenderer;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyYAxis;
@@ -113,7 +112,7 @@ public class MyLineChart extends LineChart {
                 StockMinuteDataModel stockMinuteData = minuteDateList.get(mIndicesToHighlight[i].getXIndex());
                 float yValForXIndex1 = stockMinuteData.price / 100;
                 float yValForXIndex2 = stockMinuteData.spreadPer;
-                String time = DateUtil.calendar2Time(stockMinuteData.time, DateUtil.SIMPLEFORMATTYPESTRING13);
+                String time = stockMinuteData.time;
                 myMarkerViewLeft.setData(yValForXIndex1);
                 myMarkerViewRight.setData(yValForXIndex2);
                 mMyBottomMarkerView.setData(time);
