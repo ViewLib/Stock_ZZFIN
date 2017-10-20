@@ -1,10 +1,6 @@
 package com.stock.dao;
 
-
-import com.stock.model.model.StockRankFilterModel;
-import com.stock.model.model.StockRankResultModel;
-import com.stock.model.model.StockSearchModel;
-import com.stock.model.model.StockSyncModel;
+import com.stock.model.model.*;
 
 import java.util.List;
 
@@ -19,5 +15,9 @@ public interface StockDao {
 
     public List<StockRankResultModel> selectRankDetailModelList(int version);
 
-    public List<StockRankFilterModel> selectStockFilterList(int filter_type);
+    public List<StockRankFilterModel> selectStockFilterList(int first_type);
+
+    public List<StockFirstTypeModel> selectStockFirstTypList(int version);
+
+    public List<StockDetailDataModel> selectStocDetailkDataList(String stoclCode, String sqlCode);
 }

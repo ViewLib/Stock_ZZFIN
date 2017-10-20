@@ -1,9 +1,6 @@
 package com.stock.dao;
 
-import com.stock.model.model.StockRankFilterModel;
-import com.stock.model.model.StockRankResultModel;
-import com.stock.model.model.StockSearchModel;
-import com.stock.model.model.StockSyncModel;
+import com.stock.model.model.*;
 import com.stock.util.StringUtil;
 
 import java.sql.*;
@@ -180,10 +177,141 @@ public class StockDaoImpl implements StockDao {
 
         return searchModelList;
     }
-
     @Override
-    public List<StockRankFilterModel> selectStockFilterList(int filter_type) {
-        return null;
+    public List<StockRankFilterModel> selectStockFilterList(int first_type){
+        List<StockRankFilterModel> stockRankFilterModelList=new ArrayList<>();
+        String sql = "select * from stock_type where status=1 and first_type=?";
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            preStmt.setInt(1, first_type);
+            //System.out.println("已顺利连接到数据库:"+sql);
+           // System.out.println("已顺利连接到数据库:"+first_type);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                Integer fiter_type = rs.getInt("filter_type");
+                String filter_title = rs.getString("filter_title");
+                StockRankFilterModel stockRankFilterModel = new StockRankFilterModel();
+                stockRankFilterModel.filter_title = filter_title;
+                stockRankFilterModel.filter_type = fiter_type;
+                //System.out.println("已顺利连接到数据库:"+filter_title);
+                String subsql="select  * from stock_filter_type where status=1 and filter_type="+fiter_type;
+                List<StockFilterViewModel> viewModelList=new ArrayList<>();
+                  try{
+                      preStmt = conn.prepareStatement(subsql);
+                      ResultSet rslist = preStmt.executeQuery();
+
+                      while(rslist.next()){
+                          StockFilterViewModel temp=new StockFilterViewModel();
+                          temp.filter_title=rslist.getString("filter_title");
+                          temp.filter_datail_type=rslist.getInt("filter_datail_type");
+                          temp.filter_name=rslist.getString("filter_name");
+                          temp.filter_type=rslist.getInt("filter_type");
+                          viewModelList.add(temp);
+                        //  System.out.println("viewModelList:"+viewModelList.size());
+                      }
+                      stockRankFilterModel.stockFilterViewModel=viewModelList;
+                  } catch (Exception e) {
+                      e.printStackTrace();
+                  } finally {
+                     // closeSql(preStmt, null);
+                  }
+                stockRankFilterModelList.add(stockRankFilterModel);
+                //System.out.println("stockRankFilterModel:"+stockRankFilterModel.toString());
+            }
+            return stockRankFilterModelList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return stockRankFilterModelList;
+    }
+    //获取filter大类
+    public List<StockFirstTypeModel> selectStockFirstTypList(int version){
+        List<StockFirstTypeModel> stockFirstTypeModels=new ArrayList<>();
+        String sql="select * from stock_first_type where status=1";
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                StockFirstTypeModel stockFirstTypeModel=new StockFirstTypeModel();
+                stockFirstTypeModel.first_title=rs.getString("first_title");
+                stockFirstTypeModel.first_type=rs.getInt("first_type");
+                stockFirstTypeModels.add(stockFirstTypeModel);
+            }
+            return stockFirstTypeModels;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        closeSql(preStmt, null);
+       }
+        return stockFirstTypeModels;
+    }
+    @Override
+    public List<StockDetailDataModel> selectStocDetailkDataList(String stockCode,String sqlCode){
+        List<StockDetailDataModel> stockDetailDataModels=new  ArrayList<>();
+        String sql = "select * from stock_sqlsetup where sql_type=1 and sql_code="+"'"+sqlCode+"'";
+        //System.out.println("StockDetailDataModel:"+sql);
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        try{
+            preStmt = conn.prepareStatement(sql);
+            rs=preStmt.executeQuery();
+            while (rs.next()){
+                String sql_title = rs.getString("sql_title");
+                String sql_list = rs.getString("sql_list");
+                Connection con = null;
+                StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+                PreparedStatement preStmt2 = null;
+                con = stockLinkDao.getConnection();
+                try{
+                    //preStmt = conn.prepareStatement(sql_list);
+                    //preStmt.setString(1, stockCode);
+                    //rs=preStmt.executeQuery();
+                    preStmt2 = con.prepareStatement(sql_list);
+                    preStmt2.setString(1, stockCode);
+                    ResultSet rslist = preStmt2.executeQuery();
+                   while (rslist.next()){
+                      // ResultSetMetaData metaData = rslist.getMetaData();
+                       StockDetailDataModel stockDetailDataModel=new StockDetailDataModel();
+                       //stockDetailDataModel.stockCode=rslist.getString(metaData.getColumnName(0));
+                       stockDetailDataModel.stockCode=rslist.getString("ts_code");
+                      // System.out.println("0:"+stockDetailDataModel.stockCode);
+                      // stockDetailDataModel.tradeDate=rslist.getDate(metaData.getColumnName(1));
+                       stockDetailDataModel.tradeDate=rslist.getString("trade_date");
+                      // System.out.println("1:"+stockDetailDataModel.tradeDate);
+                      // stockDetailDataModel.preClose=rslist.getDouble(metaData.getColumnName(2));
+                       stockDetailDataModel.preClose=rslist.getDouble("pre_close");
+                     //  System.out.println("2:"+stockDetailDataModel.preClose);
+                      // stockDetailDataModel.Close=rslist.getDouble(metaData.getColumnName(3));
+                       stockDetailDataModel.Close=rslist.getDouble("close");
+                      // System.out.println("3:"+stockDetailDataModel.Close);
+                       //stockDetailDataModel.Open=rslist.getDouble(metaData.getColumnName(4));
+                       stockDetailDataModel.Open=rslist.getDouble("open");
+                       //stockDetailDataModel.High=rslist.getDouble(metaData.getColumnName(5));
+                       stockDetailDataModel.High=rslist.getDouble("high");
+                      // stockDetailDataModel.Low=rslist.getDouble(metaData.getColumnName(6));
+                       stockDetailDataModel.Low=rslist.getDouble("low");
+                       //stockDetailDataModel.Change=rslist.getDouble(metaData.getColumnName(7));
+                       stockDetailDataModel.Change=rslist.getDouble("change");
+                      // stockDetailDataModel.pctChange=rslist.getDouble(metaData.getColumnName(8));
+                       stockDetailDataModel.pctChange=rslist.getDouble("pct_change");
+                      // stockDetailDataModel.Volumn=rslist.getInt(metaData.getColumnName(9));
+                       stockDetailDataModel.Volume=rslist.getInt("volume");
+                      // stockDetailDataModel.Amount=rslist.getDouble(metaData.getColumnName(10));
+                       stockDetailDataModel.Amount=rslist.getDouble("amount");
+                       stockDetailDataModels.add(stockDetailDataModel);
+                   }
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return stockDetailDataModels;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {
