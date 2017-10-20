@@ -8,7 +8,7 @@
     android:padding="10dp">
 
     <com.xt.lxl.stock.widget.view.StockTextView
-        android:id="@+id/stock_important_event"
+        android:id="@+id/stock_important_event_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="重大事件：一分钟了解一家公司最近所有事情"
