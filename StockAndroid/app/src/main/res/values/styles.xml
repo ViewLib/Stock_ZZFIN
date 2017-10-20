@@ -211,6 +211,11 @@
         <item name="android:textColor">#4289ff</item>
     </style>
 
+    <style name="hotel_text_12_186DB7">
+        <item name="android:textSize">12dip</item>
+        <item name="android:textColor">#4289ff</item>
+    </style>
+
     <style name="hotel_text_14_186DB7">
         <item name="android:textSize">14dip</item>
         <item name="android:textColor">#4289ff</item>
