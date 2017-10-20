@@ -5,12 +5,15 @@ import com.stock.dao.StockDaoImpl;
 import com.stock.model.model.*;
 import com.stock.model.request.*;
 import com.stock.model.response.*;
+import com.stock.util.StringUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StockService {
 
@@ -62,11 +65,12 @@ public class StockService {
     }
 
     public List<StockRankFilterModel> stockRankFilterModels(StockRankDetailFilterlRequest stockRankDetailFilterlRequest, StockRankDetailFilterlResponse stockRankDetailFilterlResponse) {
-       // List<StockRankFilterModel> stockRankFilterModelList = new ArrayList<>();
+        // List<StockRankFilterModel> stockRankFilterModelList = new ArrayList<>();
         List<StockRankFilterModel> stockRankFilterModels = dao.selectStockFilterList(stockRankDetailFilterlRequest.first_type);
-      //  stockRankFilterModelList.addAll(stockRankFilterModels);
+        //  stockRankFilterModelList.addAll(stockRankFilterModels);
         return stockRankFilterModels;
     }
+
     //返回筛选大类
     public List<StockFirstTypeModel> stockFirstTypeModels(StockFirstTypeRequest stockFirstTypeRequest, StockFirstTypeResponse stockFirstTypeResponse) {
         List<StockFirstTypeModel> stockFirstTypeModels = dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
@@ -75,19 +79,21 @@ public class StockService {
 
     //返回K线数据
     public List<StockDetailDataModel> stockDetailDataModels(StockDetailDataRequest stockDetailDataRequest, StockDetailDataResponse stockDetailDataResponse) {
-        List<StockDetailDataModel> stockDetailDataModels =dao.selectStocDetailkDataList(stockDetailDataRequest.stockCode,stockDetailDataRequest.sqlCode);
+        List<StockDetailDataModel> stockDetailDataModels = dao.selectStocDetailkDataList(stockDetailDataRequest.stockCode, stockDetailDataRequest.sqlCode);
         return stockDetailDataModels;
     }
+
     public static String jsoupFetch(String url) throws Exception {
         return Jsoup.parse(new URL(url), 2 * 1000).html();
     }
-    public void getMinuteDate(String urlhtml,List<StockMinuteDataModel> stockMinuteDataModels){
+
+    public void getMinuteDate(String urlhtml, Map<String, StockMinuteDataModel> stockMinuteDataModelMap) {
 
         Document doc = Jsoup.parse(urlhtml);
         org.jsoup.nodes.Element table = doc.getElementById("datatbl");
         org.jsoup.select.Elements trs = table.select("tr");
-        Integer count=0;
-        String dateTime="0";
+        Integer count = 0;
+        String dateTime = "0";
         for (int i = 1; i < trs.size(); ++i) {
             // 获取一个tr
             StockMinuteDataModel stockMinuteDataModel = new StockMinuteDataModel();
@@ -101,10 +107,10 @@ public class StockService {
 //            System.out.print(stockMinuteDataModel.dateTime.substring(0, 5));
 
             if (!dateTime.equals(ths.get(0).text().substring(0, 5).toString())) {
-                dateTime=stockMinuteDataModel.time.substring(0, 5).toString();
+                dateTime = stockMinuteDataModel.time.substring(0, 5).toString();
                 //dateTime=stockMinuteDataModel.time.toString();
                 // System.out.println("555:"+stockMinuteDataModel.time.substring(0, 5).toString());
-                stockMinuteDataModel.time =ths.get(0).text().toString();
+                stockMinuteDataModel.time = ths.get(0).text().toString();
 
                 //stockMinuteDataModel. = ths.get(1).text().toString();
                 //  System.out.print(stockMinuteDataModel.time);
@@ -115,7 +121,7 @@ public class StockService {
                 org.jsoup.select.Elements tds = tr.select("td");
                 stockMinuteDataModel.price = Float.parseFloat(tds.get(0).text().toString());
 
-                 System.out.print(stockMinuteDataModel.price);
+                System.out.print(stockMinuteDataModel.price);
 
                 // stockMinuteDataModel.pricePercent = tds.get(1).text().toString();
 
@@ -136,34 +142,40 @@ public class StockService {
 //                count=count+1;
 //                System.out.print(td.text()+' ');
 //            }
-               // System.out.println("");
-                stockMinuteDataModels.add(stockMinuteDataModel);
+                // System.out.println("");
+                String time = stockMinuteDataModel.time;
+                if (StringUtil.emptyOrNull(time) || time.length() != 8) {
+                    continue;
+                }
+                time = time.substring(0, 5);
+                stockMinuteDataModelMap.put(time, stockMinuteDataModel);
             }
 
         }
     }
-   public  List<StockMinuteDataModel> stockMinuteDataModels(StockMinuteDataRequest stockMinuteDataRequest,StockMinuteDataResponse stockMinuteDataResponse){
-          List<StockMinuteDataModel> stockMinuteDataModels=new ArrayList<>();
-       String stockCode=stockMinuteDataRequest.stockCode;
-       String urlhtml;
+
+    public Map<String, StockMinuteDataModel> stockMinuteDataModels(StockMinuteDataRequest stockMinuteDataRequest, StockMinuteDataResponse stockMinuteDataResponse) {
+        Map<String, StockMinuteDataModel> stockMinuteDataModelMap = new HashMap<>();
+        String stockCode = stockMinuteDataRequest.stockCode;
+        String urlhtml;
 //      for (int i=1;i<66;i++) {
 //          urlhtml = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol="+stockCode+"&page="+i;
 //          System.out.println(urlhtml);
 //          stockService.getMinuteDate(urlhtml,stockMinuteDataModels);
 //      }
-       for(int i=1;i<14;i++) {
+        for (int i = 1; i < 14; i++) {
 
-           String url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol=sh603997&page="+i;
+            String url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol=sh603997&page=" + i;
 
-         try {
-             urlhtml = stockService.jsoupFetch(url);
-             System.out.println(url);
-             stockService.getMinuteDate(urlhtml, stockMinuteDataModels);
-         }catch (Exception e){
+            try {
+                urlhtml = stockService.jsoupFetch(url);
+                System.out.println(url);
+                stockService.getMinuteDate(urlhtml, stockMinuteDataModelMap);
+            } catch (Exception e) {
 
-         }
-       }
+            }
+        }
 
-       return stockMinuteDataModels;
-   }
+        return stockMinuteDataModelMap;
+    }
 }
