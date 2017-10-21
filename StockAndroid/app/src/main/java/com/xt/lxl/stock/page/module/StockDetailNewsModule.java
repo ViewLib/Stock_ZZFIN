@@ -2,11 +2,14 @@ package com.xt.lxl.stock.page.module;
 
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.widget.view.StockTabGroupButton;
 import com.xt.lxl.stock.widget.view.StockTextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/19 0019.
@@ -15,9 +18,9 @@ import com.xt.lxl.stock.widget.view.StockTextView;
 
 public class StockDetailNewsModule extends StockDetailBaseModule {
 
-    private StockTextView mEventTitle;
-    private TextView mLookMore;//查看更多
-    private LinearLayout mEventContainer;//问题列表
+    private StockTextView mTitle;
+    private StockTabGroupButton mTab;//查看更多
+    private LinearLayout mContainer;//问题列表
 
 
     public StockDetailNewsModule(StockViewModel stockViewModel) {
@@ -26,13 +29,20 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
 
     @Override
     public void setModuleView(View view) {
-        mEventTitle = (StockTextView) view.findViewById(R.id.stock_important_event_title);
-        mEventContainer = (LinearLayout) view.findViewById(R.id.stock_important_event_list);
-        mLookMore = (TextView) view.findViewById(R.id.stock_detail_event_lookmore);
+        mTitle = (StockTextView) view.findViewById(R.id.stock_news_title);
+        mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_tab);
+        mContainer = (LinearLayout) view.findViewById(R.id.stock_news_container);
     }
 
     @Override
     public void bindData(StockViewModel stockViewModel) {
-
+        List<String> list = new ArrayList<>();
+        list.add("重组");
+        list.add("定增");
+        list.add("大宗");
+        list.add("分红");
+        list.add("投资");
+        mTab.setTabItemArrayText(list);
+        mTab.initView();
     }
 }

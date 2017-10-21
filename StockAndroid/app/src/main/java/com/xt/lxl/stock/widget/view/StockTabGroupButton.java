@@ -100,6 +100,7 @@ public class StockTabGroupButton extends LinearLayout {
      */
     public void setTabItemArrayText(List<String> itemArray) {
         mTabSize = itemArray.size();
+        mRadioGroup.removeAllViews();
         for (int i = 0; i < itemArray.size(); i++) {
             String str = itemArray.get(i);
             RadioButton radioButton = (RadioButton) View.inflate(getContext(), R.layout.hotel_common_tab_group_button_item, null);

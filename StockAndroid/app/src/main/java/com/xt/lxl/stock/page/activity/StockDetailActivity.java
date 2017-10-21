@@ -14,8 +14,13 @@ import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.page.module.StockDetailChartModule;
+import com.xt.lxl.stock.page.module.StockDetailCompareModule;
+import com.xt.lxl.stock.page.module.StockDetailDescModule;
+import com.xt.lxl.stock.page.module.StockDetailFinanceModule;
+import com.xt.lxl.stock.page.module.StockDetailGradeModule;
 import com.xt.lxl.stock.page.module.StockDetailImportEventModule;
 import com.xt.lxl.stock.page.module.StockDetailInfoModule;
+import com.xt.lxl.stock.page.module.StockDetailNewsModule;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.widget.view.StockTitleView;
 
@@ -34,6 +39,11 @@ public class StockDetailActivity extends FragmentActivity {
     StockDetailInfoModule infoModule;
     StockDetailChartModule chartModule;
     StockDetailImportEventModule importEventModule;
+    StockDetailNewsModule newsModule;
+    StockDetailDescModule descModule;
+    StockDetailFinanceModule financeModule;
+    StockDetailCompareModule compareModule;
+    StockDetailGradeModule gradeModule;
 
     StockDetailListener listener = new StockDetailListener();
     StockViewModel mStockViewModel = new StockViewModel();
@@ -64,6 +74,23 @@ public class StockDetailActivity extends FragmentActivity {
 
         importEventModule = new StockDetailImportEventModule(mStockViewModel);
         importEventModule.setModuleView(findViewById(R.id.stock_detail_event));
+
+        newsModule = new StockDetailNewsModule(mStockViewModel);
+        newsModule.setModuleView(findViewById(R.id.stock_detail_news));
+
+
+        descModule = new StockDetailDescModule(mStockViewModel);
+        descModule.setModuleView(findViewById(R.id.stock_detail_desc));
+
+
+        financeModule = new StockDetailFinanceModule(mStockViewModel);
+        financeModule.setModuleView(findViewById(R.id.stock_detail_finance));
+
+        compareModule = new StockDetailCompareModule(mStockViewModel);
+        compareModule.setModuleView(findViewById(R.id.stock_detail_compare));
+
+        gradeModule = new StockDetailGradeModule(mStockViewModel);
+        gradeModule.setModuleView(findViewById(R.id.stock_detail_grade));
     }
 
     private void bindData() {
@@ -108,6 +135,14 @@ public class StockDetailActivity extends FragmentActivity {
         infoModule.bindData(stockViewModel);
         chartModule.bindData(stockViewModel);
         importEventModule.bindData(stockViewModel);
+        importEventModule.bindData(stockViewModel);
+        importEventModule.bindData(stockViewModel);
+        newsModule.bindData(stockViewModel);
+        descModule.bindData(stockViewModel);
+        financeModule.bindData(stockViewModel);
+        compareModule.bindData(stockViewModel);
+        gradeModule.bindData(stockViewModel);
+
     }
 
     private void initListener() {
