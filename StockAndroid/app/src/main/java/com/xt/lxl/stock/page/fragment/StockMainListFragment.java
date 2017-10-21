@@ -19,7 +19,7 @@ import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.page.activity.StockDetailActivity;
 import com.xt.lxl.stock.page.activity.StockSearchActivity;
-import com.xt.lxl.stock.page.list.StockListAdapter;
+import com.xt.lxl.stock.page.adapter.StockListAdapter;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.DataSource;
@@ -110,9 +110,11 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         StockViewModel stockViewModel = (StockViewModel) parent.getItemAtPosition(position);
-        Intent intent = new Intent(getActivity(), StockDetailActivity.class);
-        intent.putExtra(StockDetailActivity.STOCK_DETAIL, stockViewModel);
-        startActivity(intent);
+        if (stockViewModel.showType == StockViewModel.STOCK_SHOW_TYPE_NORMAL) {
+            Intent intent = new Intent(getActivity(), StockDetailActivity.class);
+            intent.putExtra(StockDetailActivity.STOCK_DETAIL, stockViewModel);
+            startActivity(intent);
+        }
     }
 
     @Override

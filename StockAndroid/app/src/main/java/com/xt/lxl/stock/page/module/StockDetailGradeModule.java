@@ -33,15 +33,16 @@ public class StockDetailGradeModule extends StockDetailBaseModule {
         mTitle = (StockTextView) view.findViewById(R.id.stock_detail_grade_title);
         mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_grade_tab);
         mContainer = (LinearLayout) view.findViewById(R.id.stock_detail_grade_container);
-    }
-
-    @Override
-    public void bindData(StockViewModel stockViewModel) {
         List<String> list = new ArrayList<>();
         list.add("评级变化");
         list.add("平均价格");
         list.add("券商评论");
         mTab.setTabItemArrayText(list);
         mTab.initView();
+    }
+
+    @Override
+    public void bindData(StockViewModel stockViewModel) {
+
     }
 }

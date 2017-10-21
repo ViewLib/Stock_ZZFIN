@@ -32,10 +32,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
         mTitle = (StockTextView) view.findViewById(R.id.stock_news_title);
         mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_tab);
         mContainer = (LinearLayout) view.findViewById(R.id.stock_news_container);
-    }
 
-    @Override
-    public void bindData(StockViewModel stockViewModel) {
         List<String> list = new ArrayList<>();
         list.add("重组");
         list.add("定增");
@@ -44,5 +41,10 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
         list.add("投资");
         mTab.setTabItemArrayText(list);
         mTab.initView();
+    }
+
+    @Override
+    public void bindData(StockViewModel stockViewModel) {
+
     }
 }

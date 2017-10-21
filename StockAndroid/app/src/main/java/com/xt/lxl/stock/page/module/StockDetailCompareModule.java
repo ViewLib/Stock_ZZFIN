@@ -33,10 +33,6 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         mTitle = (StockTextView) view.findViewById(R.id.stock_detail_compare_title);
         mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_compare_tab);
         mContainer = (LinearLayout) view.findViewById(R.id.stock_detail_compare_container);
-    }
-
-    @Override
-    public void bindData(StockViewModel stockViewModel) {
         List<String> list = new ArrayList<>();
         list.add("市盈率");
         list.add("融资融券");
@@ -45,5 +41,10 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         list.add("分红比例");
         mTab.setTabItemArrayText(list);
         mTab.initView();
+    }
+
+    @Override
+    public void bindData(StockViewModel stockViewModel) {
+
     }
 }

@@ -33,10 +33,6 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
         mTitle = (StockTextView) view.findViewById(R.id.stock_detail_finance_title);
         mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_finance_tab);
         mContainer = (LinearLayout) view.findViewById(R.id.stock_detail_finance_container);
-    }
-
-    @Override
-    public void bindData(StockViewModel stockViewModel) {
         List<String> list = new ArrayList<>();
         list.add("收入");
         list.add("毛利");
@@ -46,6 +42,11 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
 
         mTab.setTabItemArrayText(list);
         mTab.initView();
+    }
+
+    @Override
+    public void bindData(StockViewModel stockViewModel) {
+
     }
 
 }

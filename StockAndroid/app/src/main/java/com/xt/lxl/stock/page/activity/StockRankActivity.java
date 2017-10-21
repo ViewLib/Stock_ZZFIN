@@ -18,7 +18,7 @@ import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
-import com.xt.lxl.stock.page.list.StockRankAdapter;
+import com.xt.lxl.stock.page.adapter.StockRankAdapter;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.HotelViewHolder;

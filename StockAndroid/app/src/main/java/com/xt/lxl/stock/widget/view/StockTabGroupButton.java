@@ -57,6 +57,7 @@ public class StockTabGroupButton extends LinearLayout {
 
     public void initView() {
         mWidth = DeviceUtil.getScreenWidth(getContext());
+        mTabAnimView.removeAllViews();
         //添加animView
         if (mTabAnimView.getVisibility() == View.VISIBLE) {
             int childCount = mRadioGroup.getChildCount();
