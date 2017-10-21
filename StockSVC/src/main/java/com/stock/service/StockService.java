@@ -5,15 +5,15 @@ import com.stock.dao.StockDaoImpl;
 import com.stock.model.model.*;
 import com.stock.model.request.*;
 import com.stock.model.response.*;
+import com.stock.util.DateUtil;
+import com.stock.util.GetDayStocklData;
 import com.stock.util.StringUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class StockService {
 
@@ -78,14 +78,15 @@ public class StockService {
     }
 
     //返回K线数据
-    public List<StockDetailDataModel> stockDetailDataModels(StockDetailDataRequest stockDetailDataRequest, StockDetailDataResponse stockDetailDataResponse) {
-        List<StockDetailDataModel> stockDetailDataModels = dao.selectStocDetailkDataList(stockDetailDataRequest.stockCode, stockDetailDataRequest.sqlCode);
+    public List<StockDateDataModel> stockDetailDataModels(StockDetailDataRequest stockDetailDataRequest, StockDetailDataResponse stockDetailDataResponse) {
+        List<StockDateDataModel> stockDetailDataModels = dao.selectStocDetailkDataList(stockDetailDataRequest.stockCode, stockDetailDataRequest.sqlCode);
         return stockDetailDataModels;
     }
 
     public static String jsoupFetch(String url) throws Exception {
         return Jsoup.parse(new URL(url), 2 * 1000).html();
     }
+
 
     public void getMinuteDate(String urlhtml, Map<String, StockMinuteDataModel> stockMinuteDataModelMap) {
 
@@ -94,55 +95,22 @@ public class StockService {
         org.jsoup.select.Elements trs = table.select("tr");
         Integer count = 0;
         String dateTime = "0";
+
         for (int i = 1; i < trs.size(); ++i) {
             // 获取一个tr
             StockMinuteDataModel stockMinuteDataModel = new StockMinuteDataModel();
             org.jsoup.nodes.Element tr = trs.get(i);
-            //获取th节点  成交时间-买卖性质
+            //获取th节点  成交时间-买卖性质  &&Integer.parseInt(tds.get(3).text().toString())>0
             org.jsoup.select.Elements ths = tr.select("th");
             stockMinuteDataModel.time = ths.get(0).text().toString();
-
-//            System.out.print(stockMinuteDataModel.dateTime);
-//            System.out.print(' ');
-//            System.out.print(stockMinuteDataModel.dateTime.substring(0, 5));
-
             if (!dateTime.equals(ths.get(0).text().substring(0, 5).toString())) {
                 dateTime = stockMinuteDataModel.time.substring(0, 5).toString();
-                //dateTime=stockMinuteDataModel.time.toString();
-                // System.out.println("555:"+stockMinuteDataModel.time.substring(0, 5).toString());
                 stockMinuteDataModel.time = ths.get(0).text().toString();
-
-                //stockMinuteDataModel. = ths.get(1).text().toString();
-                //  System.out.print(stockMinuteDataModel.time);
-                System.out.print(' ');
-                //  System.out.print(stockMinuteDataModel.time.substring(0, 5));
-                //  System.out.print(stockMinuteDataModel.Property);
-
                 org.jsoup.select.Elements tds = tr.select("td");
                 stockMinuteDataModel.price = Float.parseFloat(tds.get(0).text().toString());
 
-                System.out.print(stockMinuteDataModel.price);
-
-                // stockMinuteDataModel.pricePercent = tds.get(1).text().toString();
-
-                // System.out.print(stockMinuteDataModel.pricePercent);
-
-                // stockMinuteDataModel.priceDiff = tds.get(2).text().toString();
-
-                //System.out.print(stockMinuteDataModel.priceDiff);
+                //System.out.print(stockMinuteDataModel.price);
                 stockMinuteDataModel.volume = Integer.parseInt(tds.get(3).text().toString());
-
-                // System.out.print(stockMinuteDataModel.excAmount);
-
-                // stockMinuteDataModel.excMoney = tds.get(4).text().toString();
-
-                //  System.out.print(stockMinuteDataModel.excMoney);
-//            for (int j = 0; j < tds.size(); ++j) {
-//                org.jsoup.nodes.Element td = tds.get(j);
-//                count=count+1;
-//                System.out.print(td.text()+' ');
-//            }
-                // System.out.println("");
                 String time = stockMinuteDataModel.time;
                 if (StringUtil.emptyOrNull(time) || time.length() != 8) {
                     continue;
@@ -150,7 +118,6 @@ public class StockService {
                 time = time.substring(0, 5);
                 stockMinuteDataModelMap.put(time, stockMinuteDataModel);
             }
-
         }
     }
 
@@ -158,18 +125,38 @@ public class StockService {
         Map<String, StockMinuteDataModel> stockMinuteDataModelMap = new HashMap<>();
         String stockCode = stockMinuteDataRequest.stockCode;
         String urlhtml;
-//      for (int i=1;i<66;i++) {
-//          urlhtml = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol="+stockCode+"&page="+i;
-//          System.out.println(urlhtml);
-//          stockService.getMinuteDate(urlhtml,stockMinuteDataModels);
-//      }
-        for (int i = 1; i < 14; i++) {
 
-            String url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol=sh603997&page=" + i;
 
+        String url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol="+stockCode;
+        String  currentDate= DateUtil.getCurrentDate();
+        Integer flag=dao.getHoliday(currentDate);
+        Integer mount=0;
+        Calendar c = Calendar.getInstance();
+        String nextDate=currentDate;
+        try {
+             nextDate=GetDayStocklData.getCalDate(currentDate);
+        }
+        catch (Exception e){
+
+         }
+        System.out.println(flag);
+        if(flag>0){
+
+           try{
+               nextDate=GetDayStocklData.getCalDate(currentDate);
+               Calendar calendarByDateStr = DateUtil.getCalendarByDateStr(nextDate);
+               String s = DateUtil.calendar2Time(calendarByDateStr, DateUtil.SIMPLEFORMATTYPESTRING7);
+               url="http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php?symbol=sz300170&date="+s;
+           }
+              catch (Exception e){
+           }
+            flag=dao.getHoliday(nextDate);
+        }
+        for (int i = 1; i < 66; i++) {
+              //url = url+"&page="+i;
             try {
-                urlhtml = stockService.jsoupFetch(url);
-                System.out.println(url);
+                urlhtml = stockService.jsoupFetch(url+"&page="+i);
+               // System.out.println(url+"page="+i);
                 stockService.getMinuteDate(urlhtml, stockMinuteDataModelMap);
             } catch (Exception e) {
 

@@ -250,8 +250,8 @@ public class StockDaoImpl implements StockDao {
         return stockFirstTypeModels;
     }
     @Override
-    public List<StockDetailDataModel> selectStocDetailkDataList(String stockCode,String sqlCode){
-        List<StockDetailDataModel> stockDetailDataModels=new  ArrayList<>();
+    public List<StockDateDataModel> selectStocDetailkDataList(String stockCode,String sqlCode){
+        List<StockDateDataModel> stockDetailDataModels=new  ArrayList<>();
         String sql = "select * from stock_sqlsetup where sql_type=1 and sql_code="+"'"+sqlCode+"'";
         //System.out.println("StockDetailDataModel:"+sql);
         PreparedStatement preStmt = null;
@@ -275,33 +275,33 @@ public class StockDaoImpl implements StockDao {
                     ResultSet rslist = preStmt2.executeQuery();
                    while (rslist.next()){
                       // ResultSetMetaData metaData = rslist.getMetaData();
-                       StockDetailDataModel stockDetailDataModel=new StockDetailDataModel();
+                       StockDateDataModel stockDetailDataModel=new StockDateDataModel();
                        //stockDetailDataModel.stockCode=rslist.getString(metaData.getColumnName(0));
-                       stockDetailDataModel.stockCode=rslist.getString("ts_code");
+                      // stockDetailDataModel.stockCode=rslist.getString("ts_code");
                       // System.out.println("0:"+stockDetailDataModel.stockCode);
                       // stockDetailDataModel.tradeDate=rslist.getDate(metaData.getColumnName(1));
-                       stockDetailDataModel.tradeDate=rslist.getString("trade_date");
+                       stockDetailDataModel.dateStr=rslist.getString("trade_date");
                       // System.out.println("1:"+stockDetailDataModel.tradeDate);
                       // stockDetailDataModel.preClose=rslist.getDouble(metaData.getColumnName(2));
-                       stockDetailDataModel.preClose=rslist.getDouble("pre_close");
+                       //stockDetailDataModel.closePrice=rslist.getInt("pre_close")*100;
                      //  System.out.println("2:"+stockDetailDataModel.preClose);
                       // stockDetailDataModel.Close=rslist.getDouble(metaData.getColumnName(3));
-                       stockDetailDataModel.Close=rslist.getDouble("close");
+                       //stockDetailDataModel.=rslist.getDouble("close");
                       // System.out.println("3:"+stockDetailDataModel.Close);
                        //stockDetailDataModel.Open=rslist.getDouble(metaData.getColumnName(4));
-                       stockDetailDataModel.Open=rslist.getDouble("open");
+                       stockDetailDataModel.openPrice=rslist.getInt("open")*100;
                        //stockDetailDataModel.High=rslist.getDouble(metaData.getColumnName(5));
-                       stockDetailDataModel.High=rslist.getDouble("high");
+                       stockDetailDataModel.maxPrice=rslist.getInt("high")*100;
                       // stockDetailDataModel.Low=rslist.getDouble(metaData.getColumnName(6));
-                       stockDetailDataModel.Low=rslist.getDouble("low");
+                       stockDetailDataModel.minPrice=rslist.getInt("low")*100;
                        //stockDetailDataModel.Change=rslist.getDouble(metaData.getColumnName(7));
-                       stockDetailDataModel.Change=rslist.getDouble("change");
+                       stockDetailDataModel.closePrice=rslist.getInt("close")*100;
                       // stockDetailDataModel.pctChange=rslist.getDouble(metaData.getColumnName(8));
-                       stockDetailDataModel.pctChange=rslist.getDouble("pct_change");
+                     //  stockDetailDataModel.pctChange=rslist.getDouble("pct_change");
                       // stockDetailDataModel.Volumn=rslist.getInt(metaData.getColumnName(9));
-                       stockDetailDataModel.Volume=rslist.getInt("volume");
+                       stockDetailDataModel.volume=rslist.getInt("volume");
                       // stockDetailDataModel.Amount=rslist.getDouble(metaData.getColumnName(10));
-                       stockDetailDataModel.Amount=rslist.getDouble("amount");
+                      // stockDetailDataModel.Amount=rslist.getDouble("amount");
                        stockDetailDataModels.add(stockDetailDataModel);
                    }
                 }catch (SQLException e) {
@@ -312,6 +312,24 @@ public class StockDaoImpl implements StockDao {
             e.printStackTrace();
         }
         return stockDetailDataModels;
+    }
+
+    public int getHoliday(String p_date){
+        String sql = "select * from stock_date_holiday where holiday_date="+p_date;
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                return 1;
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return 0;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {

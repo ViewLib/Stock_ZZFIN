@@ -2,20 +2,32 @@ package com.stock.util;
 
 
 
+import com.stock.dao.StockDao;
+import com.stock.dao.StockDaoImpl;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.stock.model.model.StockMinuteDataModel;
+import com.stock.util.DateUtil;
 
 /**
  * Created by hp on 2017/10/9.
  */
 public class GetDayStocklData {
+    StockDao dao;
+    private GetDayStocklData() {
+        dao = StockDaoImpl.getDao();
+    }
+
     public static String jsoupFetch(String url) throws Exception {
         return Jsoup.parse(new URL(url), 2 * 1000).html();
     }
@@ -157,6 +169,21 @@ public class GetDayStocklData {
             }
         }
         }
+
+    public static String  getCalDate(String mstr) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String str = mstr;
+        Date dt = sdf.parse(str);
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(dt);
+       // rightNow.add(Calendar.YEAR, -1);// 日期减1年
+        //rightNow.add(Calendar.MONTH, 3);// 日期加3个月
+        rightNow.add(Calendar.DAY_OF_YEAR, -1);// 日期加10天
+        System.out.println("---");
+        System.out.println(sdf.format(rightNow.getTime()));
+        return sdf.format(rightNow.getTime());
+    }
+
     public static void main(String path[]) throws Exception {
             String str = "<tr class=\"medium\"><th>09:40:18</th><td>12.62</td><td>+1.53%</td><td>+0.03</td><td>237</td><td>299,094</td><th><h5>买盘</h5></th></tr><tr ><th>09:40:06</th><td>12.59</td><td>+1.29%</td><td>-0.01</td><td>20</td><td>25,180</td><th><h5>买盘</h5></th></tr>";
 // 这是正则表达式
@@ -167,17 +194,31 @@ public class GetDayStocklData {
         List<StockMinuteDataModel> stockMinuteDataModels =new ArrayList<>();
         GetDayStocklData k=new GetDayStocklData();
 
-       for(int i=1;i<14;i++) {
-
-           String url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol=sh603997&page="+i;
-           System.out.println(url);
-           String urlhtml = k.jsoupFetch(url);
-             k.getMinuteDate(urlhtml, stockMinuteDataModels);
-       }
-
+//       for(int i=1;i<14;i++) {
+//
+//           String url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol=sh603997&page="+i;
+//           System.out.println(url);
+//           String urlhtml = k.jsoupFetch(url);
+//             k.getMinuteDate(urlhtml, stockMinuteDataModels);
+//       }
+        String  currentDate= DateUtil.getCurrentDate();
+        System.out.println(currentDate);
+        Integer flag=k.dao.getHoliday(currentDate);
+        Integer mount=0;
+        Calendar c = Calendar.getInstance();
+        String nextDate=getCalDate(currentDate);
+         System.out.println(getCalDate(currentDate));
+        System.out.println(flag);
+        if(flag>0){
+            mount+=1;
+            nextDate=getCalDate(currentDate);
+            Calendar calendarByDateStr = DateUtil.getCalendarByDateStr(nextDate);
+            String s = DateUtil.calendar2Time(calendarByDateStr, DateUtil.SIMPLEFORMATTYPESTRING7);
+            SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd");
+            System.out.println("aa"+s);
+            flag=k.dao.getHoliday(nextDate);
+            System.out.println(flag);
         }
-
-
-
+        }
 }
 

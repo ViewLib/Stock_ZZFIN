@@ -2,6 +2,7 @@ package com.stock.servlet;
 
 import com.stock.model.ServiceRequest;
 import com.stock.model.ServiceResponse;
+import com.stock.model.model.StockDateDataModel;
 import com.stock.model.model.StockDetailDataModel;
 import com.stock.model.model.StockFirstTypeModel;
 import com.stock.model.request.StockDetailDataRequest;
@@ -50,7 +51,7 @@ public class StockDetailDataServlet extends BaseServlet {
     protected void servletAction(ServiceRequest serviceRequest, ServiceResponse serviceResponse) throws Exception {
         StockDetailDataRequest  stockDetailDataRequest = (StockDetailDataRequest) serviceRequest;
         StockDetailDataResponse   stockDetailDataResponse= (StockDetailDataResponse) serviceResponse;
-        List<StockDetailDataModel> stockDetailDataModels = stockService.stockDetailDataModels(stockDetailDataRequest, stockDetailDataResponse);
+        List<StockDateDataModel> stockDetailDataModels = stockService.stockDetailDataModels(stockDetailDataRequest, stockDetailDataResponse);
         stockDetailDataResponse.stockDetailDataModels = stockDetailDataModels;
 
     }

@@ -19,5 +19,7 @@ public interface StockDao {
 
     public List<StockFirstTypeModel> selectStockFirstTypList(int version);
 
-    public List<StockDetailDataModel> selectStocDetailkDataList(String stoclCode, String sqlCode);
+    public List<StockDateDataModel> selectStocDetailkDataList(String stoclCode, String sqlCode);
+
+    public int getHoliday(String p_date);
 }
