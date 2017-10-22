@@ -14,9 +14,16 @@ import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.page.module.StockDetailChartModule;
+import com.xt.lxl.stock.page.module.StockDetailCompareModule;
+import com.xt.lxl.stock.page.module.StockDetailDescModule;
+import com.xt.lxl.stock.page.module.StockDetailFinanceModule;
+import com.xt.lxl.stock.page.module.StockDetailGradeModule;
 import com.xt.lxl.stock.page.module.StockDetailImportEventModule;
 import com.xt.lxl.stock.page.module.StockDetailInfoModule;
+import com.xt.lxl.stock.page.module.StockDetailNewsModule;
 import com.xt.lxl.stock.sender.StockSender;
+import com.xt.lxl.stock.util.DataSource;
+import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockTitleView;
 
 import java.util.List;
@@ -34,10 +41,15 @@ public class StockDetailActivity extends FragmentActivity {
     StockDetailInfoModule infoModule;
     StockDetailChartModule chartModule;
     StockDetailImportEventModule importEventModule;
+    StockDetailNewsModule newsModule;
+    StockDetailDescModule descModule;
+    StockDetailFinanceModule financeModule;
+    StockDetailCompareModule compareModule;
+    StockDetailGradeModule gradeModule;
 
     StockDetailListener listener = new StockDetailListener();
     StockViewModel mStockViewModel = new StockViewModel();
-
+    StockDetailCacheBean cacheBean = new StockDetailCacheBean();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,19 +63,38 @@ public class StockDetailActivity extends FragmentActivity {
 
     private void initData() {
         mStockViewModel = (StockViewModel) getIntent().getExtras().getSerializable(StockDetailActivity.STOCK_DETAIL);
+        List<String> saveStockCodeList = DataSource.getSaveStockCodeList(this);
+        cacheBean.isAdd = saveStockCodeList.contains(mStockViewModel.stockCode);
     }
 
     private void initView() {
         titleView = (StockTitleView) findViewById(R.id.stock_title_view);
 
         infoModule = new StockDetailInfoModule(mStockViewModel);
-        infoModule.setModuleView(findViewById(R.id.stock_detail_info));
+        infoModule.setModuleView(findViewById(R.id.stock_detail_home_info));
 
         chartModule = new StockDetailChartModule(mStockViewModel);
         chartModule.setModuleView(findViewById(R.id.stock_kline));
 
         importEventModule = new StockDetailImportEventModule(mStockViewModel);
-        importEventModule.setModuleView(findViewById(R.id.stock_detail_event));
+        importEventModule.setModuleView(findViewById(R.id.stock_detail_home_event));
+
+        newsModule = new StockDetailNewsModule(mStockViewModel);
+        newsModule.setModuleView(findViewById(R.id.stock_detail_home_news));
+
+
+        descModule = new StockDetailDescModule(mStockViewModel);
+        descModule.setModuleView(findViewById(R.id.stock_detail_home_desc));
+
+
+        financeModule = new StockDetailFinanceModule(mStockViewModel);
+        financeModule.setModuleView(findViewById(R.id.stock_detail_home_finance));
+
+        compareModule = new StockDetailCompareModule(mStockViewModel);
+        compareModule.setModuleView(findViewById(R.id.stock_detail_home_compare));
+
+        gradeModule = new StockDetailGradeModule(mStockViewModel);
+        gradeModule.setModuleView(findViewById(R.id.stock_detail_home_grade));
     }
 
     private void bindData() {
@@ -108,6 +139,14 @@ public class StockDetailActivity extends FragmentActivity {
         infoModule.bindData(stockViewModel);
         chartModule.bindData(stockViewModel);
         importEventModule.bindData(stockViewModel);
+        importEventModule.bindData(stockViewModel);
+        importEventModule.bindData(stockViewModel);
+        newsModule.bindData(stockViewModel);
+        descModule.bindData(stockViewModel);
+        financeModule.bindData(stockViewModel);
+        compareModule.bindData(stockViewModel);
+        gradeModule.bindData(stockViewModel);
+
     }
 
     private void initListener() {
@@ -115,10 +154,12 @@ public class StockDetailActivity extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-
+                //添加操作
+                cacheBean.isAdd = false;
+                DataSource.addStockCode(StockDetailActivity.this, mStockViewModel.stockCode);
+                infoModule.bindData(mStockViewModel);
             }
         };
-
     }
 
     @Override

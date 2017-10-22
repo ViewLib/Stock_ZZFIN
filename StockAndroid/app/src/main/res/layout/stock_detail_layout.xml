@@ -18,41 +18,58 @@
             app:stock_title_text_msg="股票详情" />
 
         <include
-            android:id="@+id/stock_detail_info"
-            layout="@layout/stock_detail_info" />
+            android:id="@+id/stock_detail_home_info"
+            layout="@layout/stock_detail_home_info" />
 
         <com.xt.lxl.stock.widget.view.StockDetailChartView
             android:id="@+id/stock_kline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp" />
 
         <include
-            android:id="@+id/stock_detail_event"
-            layout="@layout/stock_detail_event" />
+            android:id="@+id/stock_detail_home_event"
+            layout="@layout/stock_detail_home_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
 
         <include
-            android:id="@+id/stock_detail_news"
-            layout="@layout/stock_detail_news" />
+            android:id="@+id/stock_detail_home_news"
+            layout="@layout/stock_detail_home_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
         <include
-            android:id="@+id/stock_detail_desc"
-            layout="@layout/stock_detail_desc" />
+            android:id="@+id/stock_detail_home_desc"
+            layout="@layout/stock_detail_home_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
 
         <include
-            android:id="@+id/stock_detail_finance"
-            layout="@layout/stock_detail_finance" />
+            android:id="@+id/stock_detail_home_finance"
+            layout="@layout/stock_detail_home_finance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
         <include
-            android:id="@+id/stock_detail_compare"
-            layout="@layout/stock_detail_compare" />
+            android:id="@+id/stock_detail_home_compare"
+            layout="@layout/stock_detail_home_compare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
         <include
-            android:id="@+id/stock_detail_grade"
-            layout="@layout/stock_detail_grade" />
+            android:id="@+id/stock_detail_home_grade"
+            layout="@layout/stock_detail_home_grade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 </ScrollView>

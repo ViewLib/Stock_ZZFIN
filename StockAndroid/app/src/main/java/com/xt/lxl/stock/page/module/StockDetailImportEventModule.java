@@ -28,6 +28,8 @@ public class StockDetailImportEventModule extends StockDetailBaseModule {
         mEventTitle = (StockTextView) view.findViewById(R.id.stock_important_event_title);
         mEventContainer = (LinearLayout) view.findViewById(R.id.stock_important_event_list);
         mLookMore = (TextView) view.findViewById(R.id.stock_detail_event_lookmore);
+
+
     }
 
     @Override

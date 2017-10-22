@@ -41,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="3dp"
         android:text="查看更多"
         app:hotel_text_drawable_direction="hotel_right"
         app:hotel_text_drawable_height="9dp"
