@@ -1,5 +1,7 @@
 package com.xt.lxl.stock.widget.stockchart.bean;
 
+import android.util.Log;
+
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 
 import java.util.ArrayList;
@@ -27,7 +29,12 @@ public class MinuteViewModel {
         maxPrice = basePrice;
         for (int i = 0; i < list.size(); i++) {
             StockMinuteDataModel stockMinuteData = list.get(i);
+            stockMinuteData.state = 1;//lxltest
             //最高价格
+            if (stockMinuteData.basePrice == 0) {
+                Log.i("lxltest", "lxl");
+                continue;
+            }
             addModel(stockMinuteData);
         }
         //计算最大涨幅和最大跌幅
