@@ -7,8 +7,8 @@ public class StockMinuteDataModel {
     public String time;//当前时间long型 单位：毫秒
     public Float price;//当前股票价格，单位：分
     public int volume;//当前股票成交量,单位：手
-    public int state;//状态 0无数据 1正常 -1停牌
-    public int basePrice;//昨日价格 单位：分
+    public int state=1;//状态 0无数据 1正常 -1停牌
+    public Float basePrice;//昨日价格 单位：分
 
     //以下数据客户端计算
     public int priceSpread;//相对于昨日的价格差 单位：分
@@ -21,7 +21,7 @@ public class StockMinuteDataModel {
 
     }
 
-    public StockMinuteDataModel(String currentTime, Float price, int voume, int baseyprice) {
+    public StockMinuteDataModel(String currentTime, Float price, int voume, Float baseyprice) {
         this.time = currentTime;
         this.price = price;
         this.volume = voume;

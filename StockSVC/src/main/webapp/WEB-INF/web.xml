@@ -185,6 +185,14 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>StockCompanyInforServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockCompanyInforServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockCompanyInforServlet</servlet-name>
+        <url-pattern>/api/stock_info</url-pattern>
+    </servlet-mapping>
 
 
     <!-- 首页 -->

@@ -113,6 +113,14 @@ public class GetDayStocklData {
     public void getMinuteDate(String urlhtml,List<StockMinuteDataModel> stockMinuteDataModels){
 
         Document doc = Jsoup.parse(urlhtml);
+       // org.jsoup.nodes.Element table_price = doc.getElementById("table");
+        //System.out.print(doc);
+
+        org.jsoup.select.Elements table_price = doc.select("table").select("h6").select("span");
+
+        table_price.html();
+        System.out.print(  table_price.get(0).text());
+
         org.jsoup.nodes.Element table = doc.getElementById("datatbl");
         org.jsoup.select.Elements trs = table.select("tr");
         Integer count=0;
@@ -191,8 +199,14 @@ public class GetDayStocklData {
             Pattern pt = Pattern.compile(p);
             Matcher m = pt.matcher(str);
             Integer count=0;
+        String prefix="sz300170".substring(0,2);
+        System.out.println(prefix);
         List<StockMinuteDataModel> stockMinuteDataModels =new ArrayList<>();
         GetDayStocklData k=new GetDayStocklData();
+        String url="http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php?symbol=sz300170&date=2017-10-20";
+        String urlhtml = k.jsoupFetch(url);
+        k.getMinuteDate(urlhtml, stockMinuteDataModels);
+
 
 //       for(int i=1;i<14;i++) {
 //
@@ -201,24 +215,24 @@ public class GetDayStocklData {
 //           String urlhtml = k.jsoupFetch(url);
 //             k.getMinuteDate(urlhtml, stockMinuteDataModels);
 //       }
-        String  currentDate= DateUtil.getCurrentDate();
-        System.out.println(currentDate);
-        Integer flag=k.dao.getHoliday(currentDate);
-        Integer mount=0;
-        Calendar c = Calendar.getInstance();
-        String nextDate=getCalDate(currentDate);
-         System.out.println(getCalDate(currentDate));
-        System.out.println(flag);
-        if(flag>0){
-            mount+=1;
-            nextDate=getCalDate(currentDate);
-            Calendar calendarByDateStr = DateUtil.getCalendarByDateStr(nextDate);
-            String s = DateUtil.calendar2Time(calendarByDateStr, DateUtil.SIMPLEFORMATTYPESTRING7);
-            SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd");
-            System.out.println("aa"+s);
-            flag=k.dao.getHoliday(nextDate);
-            System.out.println(flag);
-        }
+//        String  currentDate= DateUtil.getCurrentDate();
+//        System.out.println(currentDate);
+//        Integer flag=k.dao.getHoliday(currentDate);
+//        Integer mount=0;
+//        Calendar c = Calendar.getInstance();
+//        String nextDate=getCalDate(currentDate);
+//         System.out.println(getCalDate(currentDate));
+//        System.out.println(flag);
+//        if(flag>0){
+//            mount+=1;
+//            nextDate=getCalDate(currentDate);
+//            Calendar calendarByDateStr = DateUtil.getCalendarByDateStr(nextDate);
+//            String s = DateUtil.calendar2Time(calendarByDateStr, DateUtil.SIMPLEFORMATTYPESTRING7);
+//            SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd");
+//            System.out.println("aa"+s);
+//            flag=k.dao.getHoliday(nextDate);
+//            System.out.println(flag);
+//        }
         }
 }
 

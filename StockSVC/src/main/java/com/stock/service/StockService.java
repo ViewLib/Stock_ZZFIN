@@ -11,6 +11,7 @@ import com.stock.util.StringUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.EOFException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -76,16 +77,24 @@ public class StockService {
         List<StockFirstTypeModel> stockFirstTypeModels = dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
         return stockFirstTypeModels;
     }
+    public static  String transCode(String stockCode)throws Exception {
+        if(stockCode.length()==8) {
+            return stockCode.substring(2, 8) + "." + stockCode.substring(0, 2);
 
+        }
+        throw new Exception("Error!") ;
+    }
     //返回K线数据
-    public List<StockDateDataModel> stockDetailDataModels(StockDetailDataRequest stockDetailDataRequest, StockDetailDataResponse stockDetailDataResponse) {
-        List<StockDateDataModel> stockDetailDataModels = dao.selectStocDetailkDataList(stockDetailDataRequest.stockCode, stockDetailDataRequest.sqlCode);
+    public List<StockDateDataModel> stockDetailDataModels(StockGetDateDataRequest stockDetailDataRequest, StockGetDateDataResponse stockDetailDataResponse) throws Exception {
+
+        List<StockDateDataModel> stockDetailDataModels = dao.selectStocDetailkDataList(transCode(stockDetailDataRequest.stockCode), stockDetailDataRequest.stockKData);
         return stockDetailDataModels;
     }
 
     public static String jsoupFetch(String url) throws Exception {
         return Jsoup.parse(new URL(url), 2 * 1000).html();
     }
+
 
 
     public void getMinuteDate(String urlhtml, Map<String, StockMinuteDataModel> stockMinuteDataModelMap) {
@@ -104,10 +113,12 @@ public class StockService {
             org.jsoup.select.Elements ths = tr.select("th");
             stockMinuteDataModel.time = ths.get(0).text().toString();
             if (!dateTime.equals(ths.get(0).text().substring(0, 5).toString())) {
+                org.jsoup.select.Elements table_price = doc.select("table").select("h6").select("span");
+                stockMinuteDataModel.basePrice=Float.parseFloat(table_price.get(0).text().toString())*100;
                 dateTime = stockMinuteDataModel.time.substring(0, 5).toString();
                 stockMinuteDataModel.time = ths.get(0).text().toString();
                 org.jsoup.select.Elements tds = tr.select("td");
-                stockMinuteDataModel.price = Float.parseFloat(tds.get(0).text().toString());
+                stockMinuteDataModel.price = Float.parseFloat(tds.get(0).text().toString())*100;
 
                 //System.out.print(stockMinuteDataModel.price);
                 stockMinuteDataModel.volume = Integer.parseInt(tds.get(3).text().toString());
@@ -146,7 +157,7 @@ public class StockService {
                nextDate=GetDayStocklData.getCalDate(currentDate);
                Calendar calendarByDateStr = DateUtil.getCalendarByDateStr(nextDate);
                String s = DateUtil.calendar2Time(calendarByDateStr, DateUtil.SIMPLEFORMATTYPESTRING7);
-               url="http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php?symbol=sz300170&date="+s;
+               url="http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php?symbol="+stockCode+"&date="+s;
            }
               catch (Exception e){
            }
