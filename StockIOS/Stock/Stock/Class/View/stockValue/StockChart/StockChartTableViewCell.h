@@ -14,6 +14,8 @@
 #import "YYStockVariable.h"
 #import "YYStock.h"
 
+//分时图，k线图
+
 @interface StockChartTableViewCell : UITableViewCell
 
 /**

@@ -34,19 +34,35 @@
                             <constraint firstAttribute="height" constant="1" id="i0O-wm-VSb"/>
                         </constraints>
                     </view>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fHJ-MG-dbu">
-                        <rect key="frame" x="0.0" y="37" width="375" height="33"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iSt-sA-0Y5">
+                        <rect key="frame" x="0.0" y="37" width="375" height="34"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fHJ-MG-dbu">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="uF4-RS-a5S"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3wk-xm-rHh">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <connections>
+                                    <outlet property="dataSource" destination="KGk-i7-Jjw" id="LsY-UO-tGD"/>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="gwe-69-WcC"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="33" id="uF4-RS-a5S"/>
+                            <constraint firstAttribute="trailing" secondItem="fHJ-MG-dbu" secondAttribute="trailing" id="CCH-ql-fUp"/>
+                            <constraint firstAttribute="bottom" secondItem="fHJ-MG-dbu" secondAttribute="bottom" constant="1" id="KzR-hU-vcR"/>
+                            <constraint firstItem="fHJ-MG-dbu" firstAttribute="leading" secondItem="iSt-sA-0Y5" secondAttribute="leading" id="n7p-1H-nPw"/>
+                            <constraint firstItem="fHJ-MG-dbu" firstAttribute="top" secondItem="iSt-sA-0Y5" secondAttribute="top" id="ygd-pb-Puz"/>
                         </constraints>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3wk-xm-rHh">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                    </collectionView>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Gd-r9-EWs">
                         <rect key="frame" x="0.0" y="70" width="375" height="1"/>
                         <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -57,6 +73,9 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EfH-NM-dvm">
                         <rect key="frame" x="0.0" y="71" width="375" height="237"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="237" id="mz0-l0-y20"/>
+                        </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sT6-Nw-rij">
                         <rect key="frame" x="0.0" y="308" width="375" height="9"/>
@@ -67,38 +86,38 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="EfH-NM-dvm" firstAttribute="top" secondItem="iSt-sA-0Y5" secondAttribute="bottom" id="0SG-di-s1y"/>
                     <constraint firstItem="ija-AF-yAB" firstAttribute="top" secondItem="4eg-H7-9d5" secondAttribute="bottom" constant="12" id="0Wu-m6-KtZ"/>
                     <constraint firstItem="sT6-Nw-rij" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="2Wk-Co-g5H"/>
                     <constraint firstItem="tOc-oW-LXi" firstAttribute="centerY" secondItem="4eg-H7-9d5" secondAttribute="centerY" id="2fL-nv-tgU"/>
-                    <constraint firstItem="fHJ-MG-dbu" firstAttribute="top" secondItem="ija-AF-yAB" secondAttribute="bottom" id="3KM-ef-02b"/>
                     <constraint firstItem="4eg-H7-9d5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="3fH-vn-tqf"/>
                     <constraint firstItem="4eg-H7-9d5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="9KG-ek-g6Y"/>
                     <constraint firstItem="EfH-NM-dvm" firstAttribute="top" secondItem="5Gd-r9-EWs" secondAttribute="bottom" id="B0Y-Tp-X2d"/>
-                    <constraint firstItem="5Gd-r9-EWs" firstAttribute="top" secondItem="fHJ-MG-dbu" secondAttribute="bottom" id="HH2-3W-eFL"/>
-                    <constraint firstItem="5Gd-r9-EWs" firstAttribute="top" secondItem="fHJ-MG-dbu" secondAttribute="bottom" id="INy-lb-laJ"/>
-                    <constraint firstItem="5Gd-r9-EWs" firstAttribute="top" secondItem="fHJ-MG-dbu" secondAttribute="bottom" id="J5q-RH-9aH"/>
-                    <constraint firstItem="5Gd-r9-EWs" firstAttribute="top" secondItem="fHJ-MG-dbu" secondAttribute="bottom" id="JJw-xa-W2f"/>
                     <constraint firstAttribute="trailing" secondItem="EfH-NM-dvm" secondAttribute="trailing" id="Pnv-ZK-LDf"/>
                     <constraint firstItem="ija-AF-yAB" firstAttribute="top" secondItem="4eg-H7-9d5" secondAttribute="bottom" constant="12" id="Qaa-iv-sVQ"/>
-                    <constraint firstItem="fHJ-MG-dbu" firstAttribute="top" secondItem="ija-AF-yAB" secondAttribute="bottom" id="Rhm-9s-Ehp"/>
-                    <constraint firstItem="fHJ-MG-dbu" firstAttribute="top" secondItem="ija-AF-yAB" secondAttribute="bottom" id="W8o-rB-J6D"/>
                     <constraint firstItem="ija-AF-yAB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="XJh-4o-ywH"/>
                     <constraint firstItem="EfH-NM-dvm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Xck-n3-eAG"/>
-                    <constraint firstItem="fHJ-MG-dbu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ylz-Rb-Fvb"/>
                     <constraint firstAttribute="bottom" secondItem="sT6-Nw-rij" secondAttribute="bottom" id="aqe-it-Xeq"/>
                     <constraint firstItem="5Gd-r9-EWs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bvK-fl-Gg9"/>
                     <constraint firstItem="EfH-NM-dvm" firstAttribute="top" secondItem="5Gd-r9-EWs" secondAttribute="bottom" id="eSK-VP-cOb"/>
-                    <constraint firstItem="fHJ-MG-dbu" firstAttribute="top" secondItem="ija-AF-yAB" secondAttribute="bottom" id="fth-5x-ny7"/>
-                    <constraint firstAttribute="trailing" secondItem="fHJ-MG-dbu" secondAttribute="trailing" id="gsh-bS-LXa"/>
                     <constraint firstAttribute="trailing" secondItem="5Gd-r9-EWs" secondAttribute="trailing" id="ieA-Rw-hAo"/>
+                    <constraint firstItem="iSt-sA-0Y5" firstAttribute="top" secondItem="ija-AF-yAB" secondAttribute="bottom" id="ieJ-lB-5LY"/>
                     <constraint firstAttribute="trailing" secondItem="ija-AF-yAB" secondAttribute="trailing" id="kE6-em-MWl"/>
                     <constraint firstItem="ija-AF-yAB" firstAttribute="top" secondItem="4eg-H7-9d5" secondAttribute="bottom" constant="12" id="mde-CR-duJ"/>
+                    <constraint firstItem="iSt-sA-0Y5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="nFy-4N-zoN"/>
                     <constraint firstAttribute="trailing" secondItem="sT6-Nw-rij" secondAttribute="trailing" id="pCt-WQ-4WP"/>
                     <constraint firstItem="tOc-oW-LXi" firstAttribute="leading" secondItem="4eg-H7-9d5" secondAttribute="trailing" constant="3" id="rJE-mE-AqS"/>
                     <constraint firstItem="EfH-NM-dvm" firstAttribute="top" secondItem="5Gd-r9-EWs" secondAttribute="bottom" id="sLa-f8-3Dx"/>
                     <constraint firstItem="sT6-Nw-rij" firstAttribute="top" secondItem="EfH-NM-dvm" secondAttribute="bottom" id="tth-zz-gpH"/>
+                    <constraint firstAttribute="trailing" secondItem="iSt-sA-0Y5" secondAttribute="trailing" id="wmm-Bw-bI1"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="BarChartHigh" destination="mz0-l0-y20" id="YPe-Ao-Ngl"/>
+                <outlet property="BarChartView" destination="EfH-NM-dvm" id="dkl-9S-l6x"/>
+                <outlet property="MenuCollection" destination="fHJ-MG-dbu" id="B4c-ss-88E"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="80"/>
         </tableViewCell>
     </objects>
     <resources>

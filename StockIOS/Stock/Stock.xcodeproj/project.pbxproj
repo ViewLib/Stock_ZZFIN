@@ -104,6 +104,11 @@
 		04BC26F91F98E52E008285B2 /* PNScatterChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC26E71F98E52E008285B2 /* PNScatterChart.m */; };
 		04BC26FA1F98E52E008285B2 /* PNScatterChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC26E91F98E52E008285B2 /* PNScatterChartData.m */; };
 		04BC26FB1F98E52E008285B2 /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC26EB1F98E52E008285B2 /* PNScatterChartDataItem.m */; };
+		04BC270C1F9C9AE9008285B2 /* ValueCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC270B1F9C9AE9008285B2 /* ValueCollection.m */; };
+		04BC27101F9C9EA7008285B2 /* GSJJCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC270E1F9C9EA7008285B2 /* GSJJCollectionViewCell.m */; };
+		04BC27111F9C9EA7008285B2 /* GSJJCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BC270F1F9C9EA7008285B2 /* GSJJCollectionViewCell.xib */; };
+		04BC27151F9C9F06008285B2 /* PJBHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC27131F9C9F06008285B2 /* PJBHCollectionViewCell.m */; };
+		04BC27161F9C9F06008285B2 /* PJBHCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BC27141F9C9F06008285B2 /* PJBHCollectionViewCell.xib */; };
 		04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2131F598E3700C09D86 /* MyViewController.m */; };
 		04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2161F598E4600C09D86 /* HomeViewController.m */; };
 		04C2E21A1F598E5600C09D86 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2191F598E5600C09D86 /* FindViewController.m */; };
@@ -422,6 +427,14 @@
 		04BC26E91F98E52E008285B2 /* PNScatterChartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartData.m; sourceTree = "<group>"; };
 		04BC26EA1F98E52E008285B2 /* PNScatterChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChartDataItem.h; sourceTree = "<group>"; };
 		04BC26EB1F98E52E008285B2 /* PNScatterChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartDataItem.m; sourceTree = "<group>"; };
+		04BC270A1F9C9AE9008285B2 /* ValueCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValueCollection.h; sourceTree = "<group>"; };
+		04BC270B1F9C9AE9008285B2 /* ValueCollection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ValueCollection.m; sourceTree = "<group>"; };
+		04BC270D1F9C9EA7008285B2 /* GSJJCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSJJCollectionViewCell.h; sourceTree = "<group>"; };
+		04BC270E1F9C9EA7008285B2 /* GSJJCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSJJCollectionViewCell.m; sourceTree = "<group>"; };
+		04BC270F1F9C9EA7008285B2 /* GSJJCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GSJJCollectionViewCell.xib; sourceTree = "<group>"; };
+		04BC27121F9C9F06008285B2 /* PJBHCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PJBHCollectionViewCell.h; sourceTree = "<group>"; };
+		04BC27131F9C9F06008285B2 /* PJBHCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PJBHCollectionViewCell.m; sourceTree = "<group>"; };
+		04BC27141F9C9F06008285B2 /* PJBHCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PJBHCollectionViewCell.xib; sourceTree = "<group>"; };
 		04C2E2121F598E3700C09D86 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		04C2E2131F598E3700C09D86 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		04C2E2151F598E4600C09D86 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -733,6 +746,7 @@
 		041187AE1F94F39300DE4BC9 /* stockValue */ = {
 			isa = PBXGroup;
 			children = (
+				04BC27091F9C9843008285B2 /* valueCollection */,
 				04BC26C31F98DA55008285B2 /* QAView */,
 				041187B41F94F75F00DE4BC9 /* StockTop */,
 				041187B61F94F77A00DE4BC9 /* StockChart */,
@@ -1313,6 +1327,21 @@
 				04BC26EB1F98E52E008285B2 /* PNScatterChartDataItem.m */,
 			);
 			path = PNChart;
+			sourceTree = "<group>";
+		};
+		04BC27091F9C9843008285B2 /* valueCollection */ = {
+			isa = PBXGroup;
+			children = (
+				04BC270A1F9C9AE9008285B2 /* ValueCollection.h */,
+				04BC270B1F9C9AE9008285B2 /* ValueCollection.m */,
+				04BC270D1F9C9EA7008285B2 /* GSJJCollectionViewCell.h */,
+				04BC270E1F9C9EA7008285B2 /* GSJJCollectionViewCell.m */,
+				04BC270F1F9C9EA7008285B2 /* GSJJCollectionViewCell.xib */,
+				04BC27121F9C9F06008285B2 /* PJBHCollectionViewCell.h */,
+				04BC27131F9C9F06008285B2 /* PJBHCollectionViewCell.m */,
+				04BC27141F9C9F06008285B2 /* PJBHCollectionViewCell.xib */,
+			);
+			path = valueCollection;
 			sourceTree = "<group>";
 		};
 		04C2E20F1F598DE500C09D86 /* Find */ = {
@@ -1945,6 +1974,7 @@
 			files = (
 				041187C71F94F99800DE4BC9 /* StockMajorNewsTableViewCell.xib in Resources */,
 				041187B31F94F62700DE4BC9 /* StockTopTableViewCell.xib in Resources */,
+				04BC27111F9C9EA7008285B2 /* GSJJCollectionViewCell.xib in Resources */,
 				041187DF1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib in Resources */,
 				041187CD1F94F9EE00DE4BC9 /* ComputerIntroductionTableViewCell.xib in Resources */,
 				8470777F1F4EF73600974772 /* IQKeyboardManager.bundle in Resources */,
@@ -1960,6 +1990,7 @@
 				04BC26C81F98DA8B008285B2 /* QAView.xib in Resources */,
 				847076221F4EE36100974772 /* Assets.xcassets in Resources */,
 				041187D91F94FA8500DE4BC9 /* FinancialInformationTableViewCell.xib in Resources */,
+				04BC27161F9C9F06008285B2 /* PJBHCollectionViewCell.xib in Resources */,
 				0448BFE61F793E09009DC7D6 /* RankTableTopView.xib in Resources */,
 				0465E5E41F619064006F7F9C /* DefaultStock.geojson in Resources */,
 				04B6BAFE1F97846800870F15 /* dayData.plist in Resources */,
@@ -2067,6 +2098,7 @@
 				04BC26F51F98E52E008285B2 /* PNPieChart.m in Sources */,
 				0465E5F71F65771B006F7F9C /* loginEntity.m in Sources */,
 				04B6BADD1F977D1800870F15 /* YYVolumePositionModel.m in Sources */,
+				04BC27151F9C9F06008285B2 /* PJBHCollectionViewCell.m in Sources */,
 				8470778A1F4EF73600974772 /* NSEnumerator+RACSequenceAdditions.m in Sources */,
 				847077C51F4EF73600974772 /* RACTargetQueueScheduler.m in Sources */,
 				8470778B1F4EF73600974772 /* NSFileHandle+RACSupport.m in Sources */,
@@ -2178,6 +2210,7 @@
 				0448C0021F7A80B5009DC7D6 /* NSObject+SBJSON.m in Sources */,
 				04B6BAE11F977D1800870F15 /* YYKlineMaskView.m in Sources */,
 				847077A51F4EF73600974772 /* RACDynamicSequence.m in Sources */,
+				04BC27101F9C9EA7008285B2 /* GSJJCollectionViewCell.m in Sources */,
 				847077941F4EF73600974772 /* NSObject+RACSelectorSignal.m in Sources */,
 				847077C81F4EF73600974772 /* RACTupleSequence.m in Sources */,
 				8470778E1F4EF73600974772 /* NSNotificationCenter+RACSupport.m in Sources */,
@@ -2190,6 +2223,7 @@
 				04BC26F71F98E52E008285B2 /* PNRadarChart.m in Sources */,
 				0465E5E91F643D73006F7F9C /* FindTableViewCell.m in Sources */,
 				847077CC1F4EF73600974772 /* UIActionSheet+RACSignalSupport.m in Sources */,
+				04BC270C1F9C9AE9008285B2 /* ValueCollection.m in Sources */,
 				847077CB1F4EF73600974772 /* RACValueTransformer.m in Sources */,
 				8470776D1F4EF73600974772 /* UIResponder+Router.m in Sources */,
 				847077B91F4EF73600974772 /* RACSequence.m in Sources */,

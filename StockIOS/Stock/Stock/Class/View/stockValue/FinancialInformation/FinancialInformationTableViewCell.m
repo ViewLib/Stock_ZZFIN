@@ -60,13 +60,10 @@
     self.BarChartViewHigh.constant = 250;
 }
 
-- (void)userClickedOnLineKeyPoint:(CGPoint)point lineIndex:(NSInteger)lineIndex pointIndex:(NSInteger)pointIndex {
-    NSLog(@"Click Key on line %f, %f line index is %d and point index is %d", point.x, point.y, (int) lineIndex, (int) pointIndex);
+- (void)userClickedOnBarAtIndex:(NSInteger)barIndex {
+    NSLog(@"Click Key on Bar index is %d ", (int) barIndex);
 }
 
-- (void)userClickedOnLinePoint:(CGPoint)point lineIndex:(NSInteger)lineIndex {
-    NSLog(@"Click on line %f, %f, line index is %d", point.x, point.y, (int) lineIndex);
-}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

@@ -7,8 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PNChart.h"
 
-@interface HorizontalComparisonTableViewCell : UITableViewCell
+//横向比较
+@interface HorizontalComparisonTableViewCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource,PNChartDelegate>
+
+@property (weak, nonatomic) IBOutlet UICollectionView *MenuCollection;
+
+@property (weak, nonatomic) IBOutlet UIView *BarChartView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *BarChartHigh;
+
+@property (nonatomic) PNBarChart * barChart;
+
+@property (strong, nonatomic) NSArray   *titleAry;
 
 /**
  更新cell

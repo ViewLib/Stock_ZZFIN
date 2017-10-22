@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PJBHCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jxw-QO-Yiz">
+                        <rect key="frame" x="12" y="0.0" width="50" height="50"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNm-Bo-KVf">
+                        <rect key="frame" x="62" y="0.0" width="100" height="50"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lf-W5-Dqn">
+                        <rect key="frame" x="162" y="0.0" width="50" height="50"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwV-A3-FdA">
+                        <rect key="frame" x="212" y="0.0" width="100" height="50"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6X5-M5-3VB">
+                        <rect key="frame" x="312" y="0.0" width="50" height="50"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="pwV-A3-FdA" firstAttribute="width" secondItem="Jxw-QO-Yiz" secondAttribute="width" constant="50" id="13G-WV-fw8"/>
+                <constraint firstAttribute="bottom" secondItem="QNm-Bo-KVf" secondAttribute="bottom" id="1kQ-Nx-ZWC"/>
+                <constraint firstAttribute="bottom" secondItem="0lf-W5-Dqn" secondAttribute="bottom" id="5EY-zb-rQr"/>
+                <constraint firstAttribute="trailing" secondItem="6X5-M5-3VB" secondAttribute="trailing" constant="12" id="6IK-8l-br7"/>
+                <constraint firstItem="QNm-Bo-KVf" firstAttribute="leading" secondItem="Jxw-QO-Yiz" secondAttribute="trailing" id="8jv-HJ-5DN"/>
+                <constraint firstAttribute="bottom" secondItem="Jxw-QO-Yiz" secondAttribute="bottom" id="Db5-aM-JLT"/>
+                <constraint firstItem="QNm-Bo-KVf" firstAttribute="width" secondItem="Jxw-QO-Yiz" secondAttribute="width" constant="50" id="E0a-pF-M65"/>
+                <constraint firstItem="0lf-W5-Dqn" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="I9t-oD-2yF"/>
+                <constraint firstAttribute="bottom" secondItem="pwV-A3-FdA" secondAttribute="bottom" id="Qcp-dA-YBD"/>
+                <constraint firstItem="QNm-Bo-KVf" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Y2p-Qi-kHW"/>
+                <constraint firstItem="0lf-W5-Dqn" firstAttribute="width" secondItem="Jxw-QO-Yiz" secondAttribute="width" id="Zgh-vd-FfY"/>
+                <constraint firstAttribute="bottom" secondItem="6X5-M5-3VB" secondAttribute="bottom" id="ca7-Nt-cZt"/>
+                <constraint firstItem="Jxw-QO-Yiz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="fOP-pN-6Od"/>
+                <constraint firstItem="6X5-M5-3VB" firstAttribute="leading" secondItem="pwV-A3-FdA" secondAttribute="trailing" id="g5p-9S-Ppl"/>
+                <constraint firstItem="pwV-A3-FdA" firstAttribute="leading" secondItem="0lf-W5-Dqn" secondAttribute="trailing" id="hlJ-q7-d5G"/>
+                <constraint firstItem="Jxw-QO-Yiz" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jnM-rc-lXy"/>
+                <constraint firstItem="6X5-M5-3VB" firstAttribute="width" secondItem="Jxw-QO-Yiz" secondAttribute="width" id="teb-R9-uCI"/>
+                <constraint firstItem="0lf-W5-Dqn" firstAttribute="leading" secondItem="QNm-Bo-KVf" secondAttribute="trailing" id="tjX-3t-Rsv"/>
+                <constraint firstItem="pwV-A3-FdA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="yAU-KP-kes"/>
+                <constraint firstItem="6X5-M5-3VB" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zaR-g3-juR"/>
+            </constraints>
+            <size key="customSize" width="374" height="50"/>
+            <connections>
+                <outlet property="value1" destination="Jxw-QO-Yiz" id="gue-zt-ZMb"/>
+                <outlet property="value2" destination="QNm-Bo-KVf" id="QFO-9H-huH"/>
+                <outlet property="value3" destination="0lf-W5-Dqn" id="Zh3-Jb-rPY"/>
+                <outlet property="value4" destination="pwV-A3-FdA" id="iMz-Ut-aFy"/>
+                <outlet property="value5" destination="6X5-M5-3VB" id="eGl-kH-Cho"/>
+            </connections>
+            <point key="canvasLocation" x="130" y="141"/>
+        </collectionViewCell>
+    </objects>
+</document>

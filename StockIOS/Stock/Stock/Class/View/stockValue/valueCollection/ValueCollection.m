@@ -1,0 +1,111 @@
+//
+//  ValueCollection.m
+//  Stock
+//
+//  Created by mac on 2017/10/22.
+//  Copyright © 2017年 stock. All rights reserved.
+//
+
+#import "ValueCollection.h"
+#import "GSJJCollectionViewCell.h"
+#import "PJBHCollectionViewCell.h"
+
+@implementation ValueCollection
+
+//初始化ValueCollection
+- (id)initWithType:(NSString *)valueType Value:(NSArray *)values {
+    if (self = [super init]) {
+        self.valueAry = values;
+        self.valType = valueType;
+        [self valueView];
+        if ([valueType isEqual:@"GSJJ"]) {
+            [self.valueView registerClass:[GSJJCollectionViewCell class] forCellWithReuseIdentifier:@"GSJJCollectionViewCell"];
+        } else if ([valueType isEqual:@"PJBH"]) {
+            [self.valueView registerClass:[PJBHCollectionViewCell class] forCellWithReuseIdentifier:@"PJBHCollectionViewCell"];
+        }
+    }
+    return self;
+}
+
+- (UICollectionView *)valueView {
+    if (!_valueView) {
+        UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        layout.minimumLineSpacing = 5.0;
+        float valueHigh = 0;
+        if ([self.valType isEqual:@"GSJJ"]) {
+            valueHigh = 230;
+        } else if ([self.valType isEqual:@"PJBH"]) {
+            valueHigh = 200;
+        }
+        _valueView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, K_FRAME_BASE_WIDTH, valueHigh) collectionViewLayout:layout];
+        _valueView.backgroundColor = [UIColor clearColor];
+        _valueView.delegate = self;
+        _valueView.dataSource = self;
+        _valueView.scrollsToTop = NO;
+        _valueView.showsVerticalScrollIndicator = NO;
+        _valueView.showsHorizontalScrollIndicator = NO;
+        [self addSubview:_valueView];
+    }
+    return _valueView;
+}
+
+#pragma mark CollectionViewDelegateAndDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.valueAry.count;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGSize frame;
+    if ([self.valType isEqual:@"GSJJ"]) {
+        frame = CGSizeMake(K_FRAME_BASE_WIDTH-24, 23);
+    } else if ([self.valType isEqual:@"PJBH"]) {
+        frame = CGSizeMake(K_FRAME_BASE_WIDTH, 23);
+    } else {
+        frame = CGSizeMake(0, 0);
+    }
+    return frame;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.valType isEqual:@"GSJJ"]) {
+        GSJJCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GSJJCollectionViewCell" forIndexPath:indexPath];
+        NSDictionary *dic = self.valueAry[indexPath.item];
+        cell.name.text = dic[@"title"];
+        cell.value.text = dic[@"value"];
+        return cell;
+    } else if ([self.valType isEqual:@"PJBH"]) {
+        PJBHCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PJBHCollectionViewCell" forIndexPath:indexPath];
+        if (indexPath.item == 0) {
+            cell.backgroundColor = [Utils colorFromHexRGB:@"DEEBF6"];
+            cell.value1.text = @"标题1";
+            cell.value2.text = @"标题2";
+            cell.value3.text = @"标题3";
+            cell.value4.text = @"标题4";
+            cell.value5.text = @"标题5";
+        } else if (indexPath.item%2==1) {
+            cell.backgroundColor = [UIColor whiteColor];
+        } else {
+            cell.backgroundColor = [Utils colorFromHexRGB:@"EDF3F8"];
+        }
+        return cell;
+    } else {
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"meunCall" forIndexPath:indexPath];
+        return cell;
+    }
+}
+
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
+
+@end

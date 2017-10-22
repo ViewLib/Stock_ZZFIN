@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ComputerIntroductionTableViewCell : UITableViewCell
+//公司简介
+@interface ComputerIntroductionTableViewCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UICollectionView *MenuCollection;
+@property (weak, nonatomic) IBOutlet UIView *ValueView;
+
+@property (strong, nonatomic) NSArray   *titleAry;
 /**
  更新cell
  @param dic 更新的内容

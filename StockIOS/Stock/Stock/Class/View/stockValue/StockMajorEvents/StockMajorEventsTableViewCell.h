@@ -11,6 +11,7 @@
 #import "PNLineChartData.h"
 #import "PNLineChartDataItem.h"
 
+//重大消息
 @interface StockMajorEventsTableViewCell : UITableViewCell<PNChartDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *czBtn;
