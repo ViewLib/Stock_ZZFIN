@@ -9,7 +9,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
-import com.xt.lxl.stock.util.DateUtil;
 import com.xt.lxl.stock.widget.stockchart.view.MyBottomMarkerView;
 import com.xt.lxl.stock.widget.stockchart.view.MyLeftMarkerView;
 import com.xt.lxl.stock.widget.stockchart.view.MyRightMarkerView;
@@ -109,7 +108,7 @@ public class MyBarChart extends BarChart {
                 if (!mViewPortHandler.isInBounds(pos[0], pos[1]))
                     continue;
 
-                String time = DateUtil.calendar2Time(minuteList.get(mIndicesToHighlight[i].getXIndex()).time, DateUtil.SIMPLEFORMATTYPESTRING13);
+                String time = minuteList.get(mIndicesToHighlight[i].getXIndex()).time;
                 mMyBottomMarkerView.setData(time);
                 mMyBottomMarkerView.refreshContent(e, mIndicesToHighlight[i]);
                 /*修复bug*/

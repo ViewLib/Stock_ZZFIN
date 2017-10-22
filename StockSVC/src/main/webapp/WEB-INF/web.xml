@@ -156,6 +156,37 @@
         <servlet-name>GetPermissionServlet</servlet-name>
         <url-pattern>/api/getpermission</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StockFirstTypeServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockFirstTypeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockFirstTypeServlet</servlet-name>
+        <url-pattern>/api/stock_firsttype</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StockDetailDataServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockDetailDataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockDetailDataServlet</servlet-name>
+        <url-pattern>/api/stock_data</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StockMinuteDataServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockMinuteDataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockMinuteDataServlet</servlet-name>
+        <url-pattern>/api/stock_minute</url-pattern>
+    </servlet-mapping>
+
+
+
+
     <!-- 首页 -->
     <welcome-file-list>
         <welcome-file>rest/index</welcome-file>

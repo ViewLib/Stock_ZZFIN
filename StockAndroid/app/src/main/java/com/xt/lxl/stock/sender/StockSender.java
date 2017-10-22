@@ -179,12 +179,12 @@ public class StockSender {
         return getMinuteDataResponse;
     }
 
-    public StockGetDateDataResponse requestDateData(String stockCode, int getType) {
+    public StockGetDateDataResponse requestDateData(String stockCode, String getType) {
         StockGetDateDataRequest reqeust = new StockGetDateDataRequest();
         reqeust.stockCode = stockCode;
-        reqeust.getType = getType;
+        reqeust.stockKData = getType;
         String requestJsonStr = JSON.toJSONString(reqeust);
-        String s = requestGet(mBaseAPIUrl + "stock_minute?", requestJsonStr, "utf-8");
+        String s = requestGet(mBaseAPIUrl + "stock_data?", requestJsonStr, "utf-8");
         StockGetDateDataResponse getDateDataResponse;
         try {
             getDateDataResponse = JSON.parseObject(s, StockGetDateDataResponse.class);
@@ -220,9 +220,9 @@ public class StockSender {
             // 打开一个HttpURLConnection连接
             HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
             // 设置连接主机超时时间
-            urlConn.setConnectTimeout(5 * 1000);
+            urlConn.setConnectTimeout(10 * 1000);
             //设置从主机读取数据超时
-            urlConn.setReadTimeout(5 * 1000);
+            urlConn.setReadTimeout(10 * 1000);
             // 设置是否使用缓存  默认是true
             urlConn.setUseCaches(true);
             // 设置为Post请求

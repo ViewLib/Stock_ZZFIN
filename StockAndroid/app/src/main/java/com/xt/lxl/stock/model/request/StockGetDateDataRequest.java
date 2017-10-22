@@ -12,6 +12,6 @@ public class StockGetDateDataRequest extends ServiceRequest {
 
     public String stockCode = "";//股票代码
 
-    public int getType = 0;//类型，0为日，1为周，2为月
+    public String stockKData = "";//day日先  week周 month月
 
 }

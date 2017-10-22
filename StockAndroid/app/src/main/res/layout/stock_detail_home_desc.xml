@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
+
+
+    <com.xt.lxl.stock.widget.view.StockTextView
+        android:id="@+id/stock_detail_desc_title"
+        style="@style/text_14_000000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="公司介绍"
+        app:hotel_text_drawable_direction="hotel_left"
+        app:hotel_text_drawable_height="12dp"
+        app:hotel_text_drawable_padding="3dp"
+        app:hotel_text_drawable_src="@drawable/stock_detail_desc_icon"
+        app:hotel_text_drawable_width="12dp" />
+
+    <com.xt.lxl.stock.widget.view.StockTabGroupButton
+        android:id="@+id/stock_detail_desc_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/stock_detail_desc_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="100dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="公司介绍" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

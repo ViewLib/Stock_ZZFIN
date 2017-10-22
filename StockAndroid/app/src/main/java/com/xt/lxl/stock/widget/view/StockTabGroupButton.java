@@ -57,6 +57,7 @@ public class StockTabGroupButton extends LinearLayout {
 
     public void initView() {
         mWidth = DeviceUtil.getScreenWidth(getContext());
+        mTabAnimView.removeAllViews();
         //添加animView
         if (mTabAnimView.getVisibility() == View.VISIBLE) {
             int childCount = mRadioGroup.getChildCount();
@@ -100,6 +101,7 @@ public class StockTabGroupButton extends LinearLayout {
      */
     public void setTabItemArrayText(List<String> itemArray) {
         mTabSize = itemArray.size();
+        mRadioGroup.removeAllViews();
         for (int i = 0; i < itemArray.size(); i++) {
             String str = itemArray.get(i);
             RadioButton radioButton = (RadioButton) View.inflate(getContext(), R.layout.hotel_common_tab_group_button_item, null);

@@ -6,7 +6,7 @@ package com.stock.model.model;
 
 public class StockRankResultModel {
     public int position;
-    public int serch_relation;
+    public int search_relation;
     public String stockName = "";
     public String stockCode = "";
     public String attr1 = "";

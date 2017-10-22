@@ -114,4 +114,5 @@ public class StockDetailChartView extends LinearLayout {
         this.mStockViewModel = stockViewModel;
         bindData();
     }
+
 }

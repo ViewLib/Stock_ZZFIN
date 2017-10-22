@@ -64,11 +64,9 @@ public class GetDayStocklData {
 
   public void tabl(String urlhtml,List<StockMinuteDataModel> stockMinuteDataModels){
       Document doc = Jsoup.parse(urlhtml);
-     // System.out.println(doc);
       org.jsoup.nodes.Element table = doc.getElementById("datatbl");
       org.jsoup.select.Elements trs = table.select("tr");
       Integer count=0;
-     // System.out.println(trs);
       for (int i = 0; i < trs.size(); ++i) {
           // 获取一个tr
           StockMinuteDataModel stockMinuteDataModel =new StockMinuteDataModel();
@@ -84,8 +82,8 @@ public class GetDayStocklData {
 //              count=count+1;
 //
 //          }
-          stockMinuteDataModel.dateTime=ths.get(0).text().toString();
-          stockMinuteDataModel.Property=ths.get(1).text().toString();
+         // stockMinuteDataModel.dateTime=ths.get(0).text().toString();
+          //stockMinuteDataModel.Property=ths.get(1).text().toString();
 
 
           //System.out.println(th.text());
@@ -106,46 +104,48 @@ public class GetDayStocklData {
         org.jsoup.nodes.Element table = doc.getElementById("datatbl");
         org.jsoup.select.Elements trs = table.select("tr");
         Integer count=0;
-
+        String dateTime="0";
         for (int i = 1; i < trs.size(); ++i) {
             // 获取一个tr
             StockMinuteDataModel stockMinuteDataModel = new StockMinuteDataModel();
             org.jsoup.nodes.Element tr = trs.get(i);
             //获取th节点  成交时间-买卖性质
-            org.jsoup.select.Elements ths = tr.select("th");
-           // stockMinuteDataModel.dateTime = ths.get(0).text().toString();
+             org.jsoup.select.Elements ths = tr.select("th");
+             stockMinuteDataModel.time = ths.get(0).text().toString();
 
 //            System.out.print(stockMinuteDataModel.dateTime);
 //            System.out.print(' ');
 //            System.out.print(stockMinuteDataModel.dateTime.substring(0, 5));
-            String dateTime="0";
-            if (!dateTime.equals(ths.get(0).text().toString())) {
-                System.out.print(i);
-                dateTime=stockMinuteDataModel.dateTime.substring(0, 5).toString();
-                stockMinuteDataModel.dateTime = ths.get(0).text().toString();
-                stockMinuteDataModel.Property = ths.get(1).text().toString();
-                System.out.print(stockMinuteDataModel.dateTime);
+
+            if (!dateTime.equals(ths.get(0).text().substring(0, 5).toString())) {
+                dateTime=stockMinuteDataModel.time.substring(0, 5).toString();
+                //dateTime=stockMinuteDataModel.time.toString();
+               // System.out.println("555:"+stockMinuteDataModel.time.substring(0, 5).toString());
+                stockMinuteDataModel.time =ths.get(0).text().toString();
+
+                //stockMinuteDataModel. = ths.get(1).text().toString();
+              //  System.out.print(stockMinuteDataModel.time);
                 System.out.print(' ');
-                System.out.print(stockMinuteDataModel.dateTime.substring(0, 5));
+              //  System.out.print(stockMinuteDataModel.time.substring(0, 5));
                 //  System.out.print(stockMinuteDataModel.Property);
 
                 org.jsoup.select.Elements tds = tr.select("td");
-                stockMinuteDataModel.priceexChange = tds.get(0).text().toString();
+                stockMinuteDataModel.price = Float.parseFloat(tds.get(0).text().toString());
 
                 //  System.out.print(stockMinuteDataModel.priceexChange);
 
-                stockMinuteDataModel.pricePercent = tds.get(1).text().toString();
+               // stockMinuteDataModel.pricePercent = tds.get(1).text().toString();
 
                 // System.out.print(stockMinuteDataModel.pricePercent);
 
-                stockMinuteDataModel.priceDiff = tds.get(2).text().toString();
+               // stockMinuteDataModel.priceDiff = tds.get(2).text().toString();
 
                 //System.out.print(stockMinuteDataModel.priceDiff);
-                stockMinuteDataModel.excAmount = tds.get(3).text().toString();
+                stockMinuteDataModel.volume = Integer.parseInt(tds.get(3).text().toString());
 
                 // System.out.print(stockMinuteDataModel.excAmount);
 
-                stockMinuteDataModel.excMoney = tds.get(4).text().toString();
+               // stockMinuteDataModel.excMoney = tds.get(4).text().toString();
 
                 //  System.out.print(stockMinuteDataModel.excMoney);
 //            for (int j = 0; j < tds.size(); ++j) {

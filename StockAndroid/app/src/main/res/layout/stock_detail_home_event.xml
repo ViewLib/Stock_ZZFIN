@@ -8,20 +8,25 @@
     android:padding="10dp">
 
     <com.xt.lxl.stock.widget.view.StockTextView
-        android:id="@+id/stock_important_event"
+        android:id="@+id/stock_important_event_title"
+        style="@style/text_14_000000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="重大事件：一分钟了解一家公司最近所有事情"
         app:hotel_text_drawable_direction="hotel_left"
-        app:hotel_text_drawable_height="10dp"
-        app:hotel_text_drawable_src="@drawable/stock_icon_Important"
-        app:hotel_text_drawable_width="10dp" />
+        app:hotel_text_drawable_height="14dp"
+        app:hotel_text_drawable_padding="3dp"
+        app:hotel_text_drawable_src="@drawable/stock_icon_important"
+        app:hotel_text_drawable_width="14dp" />
 
     <LinearLayout
         android:id="@+id/stock_important_event_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="5dp"
+        android:divider="@drawable/stock_divider"
+        android:orientation="vertical"
+        android:showDividers="middle">
 
         <include layout="@layout/stock_detail_important_event_item" />
 
@@ -30,11 +35,18 @@
         <include layout="@layout/stock_detail_important_event_item" />
     </LinearLayout>
 
-    <TextView
+    <com.xt.lxl.stock.widget.view.StockTextView
         android:id="@+id/stock_detail_event_lookmore"
+        style="@style/hotel_text_12_186DB7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="查看更多" />
+        android:layout_marginTop="3dp"
+        android:text="查看更多"
+        app:hotel_text_drawable_direction="hotel_right"
+        app:hotel_text_drawable_height="9dp"
+        app:hotel_text_drawable_padding="1dp"
+        app:hotel_text_drawable_src="@drawable/stock_detail_event_lookmore"
+        app:hotel_text_drawable_width="9dp" />
 
 </LinearLayout>

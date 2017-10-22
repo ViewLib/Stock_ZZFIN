@@ -35,22 +35,22 @@ public class DataSource {
         instance.set(Calendar.DAY_OF_MONTH, 15);
         instance.set(Calendar.HOUR_OF_DAY, 8);
         instance.set(Calendar.MINUTE, 29);
-        List<StockMinuteDataModel> minuteDataList = response.minuteDataList;
+        List<StockMinuteDataModel> minuteDataList = response.stockMinuteDataModels;
         for (int i = 0; i < 100; i++) {
             int v = (int) (Math.random() * 10 - 5) * 10 + 1290;
             Log.i("lxltest", "v:" + v);
-            StockMinuteDataModel stockMinuteData = new StockMinuteDataModel(instance.getTimeInMillis(), v, 10, 1290);
+            StockMinuteDataModel stockMinuteData = new StockMinuteDataModel(DateUtil.calendar2Time(instance.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING12), v, 10, 1290);
             minuteDataList.add(stockMinuteData);
             instance.add(Calendar.MINUTE, 1);
         }
         return response;
     }
 
-    public static StockGetDateDataResponse getDataResponses(int type) {
+    public static StockGetDateDataResponse getDataResponses(String type) {
         StockGetDateDataResponse response = new StockGetDateDataResponse();
         response.stockCode = "300170";
         response.stockName = "汉得信息";
-        response.kLinetype = type;
+        response.stockKData = type;
         Calendar instance = Calendar.getInstance();
         instance.set(Calendar.YEAR, 2017);
         instance.set(Calendar.MONTH, 0);

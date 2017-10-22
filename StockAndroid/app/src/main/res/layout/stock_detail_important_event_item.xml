@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:background="@drawable/stock_detail_important_event_item_value"
+    android:padding="1dp">
 
     <TextView
         android:id="@+id/stock_detail_important_tv"
-        android:layout_width="0dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="#d6e3ff"
         android:gravity="center_vertical"
+        android:padding="10dp"
         android:text="大股东最近是否增持/减持"
         android:textAppearance="@style/text_12_000000" />
 
     <TextView
         android:id="@+id/stock_detail_important_"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_alignBottom="@id/stock_detail_important_tv"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/stock_detail_important_tv"
+        android:layout_toRightOf="@id/stock_detail_important_tv"
         android:gravity="center_vertical"
+        android:padding="10dp"
         android:text="大股东减持30万股，平均每股38元"
         android:textAppearance="@style/text_12_333333" />
 
-</LinearLayout>
+</RelativeLayout>
