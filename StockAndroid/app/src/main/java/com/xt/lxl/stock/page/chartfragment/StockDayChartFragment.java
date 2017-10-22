@@ -46,6 +46,7 @@ import com.xt.lxl.stock.util.VolFormatter;
 import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.CoupleChartGestureListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,19 +98,21 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         super.onViewCreated(view, savedInstanceState);
         combinedchart = (CombinedChart) view.findViewById(R.id.kline_day_chart);
         barChart = (BarChart) view.findViewById(R.id.kline_day_bar);
+        StockViewModel stockViewModel = (StockViewModel) getArguments().getSerializable(StockViewModel_TAG);
         initChart();
     }
 
     @Override
     public void refreshAllData(StockViewModel stockViewModel) {
-        sendServiceGetDayDataService();
+        sendServiceGetDayDataService(stockViewModel.getRequestStockCode());
     }
 
-    private void sendServiceGetDayDataService() {
+    private void sendServiceGetDayDataService(final String stockCode) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockGetDateDataResponse dataResponses = DataSource.getDataResponses(StockGetDateDataResponse.TYPE_DAY);
+//                StockGetDateDataResponse dataResponses = DataSource.getDataResponses(StockGetDateDataResponse.TYPE_DAY);
+                StockGetDateDataResponse dataResponses = StockSender.getInstance().requestDateData(stockCode, StockGetDateDataResponse.TYPE_DAY);
                 final DayViewModel dayViewModel = calculationData(dataResponses);
                 mHandler.post(new Runnable() {
                     @Override

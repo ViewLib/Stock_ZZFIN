@@ -16,6 +16,6 @@ public class StockGetMinuteDataResponse extends ServiceResponse {
 
     public String stockCode = "";//股票代码
     public String stockName = "";//股票名称
-    public List<StockMinuteDataModel> minuteDataList = new ArrayList<>();//分时数据
+    public List<StockMinuteDataModel> stockMinuteDataModels = new ArrayList<>();//分时数据
 
 }

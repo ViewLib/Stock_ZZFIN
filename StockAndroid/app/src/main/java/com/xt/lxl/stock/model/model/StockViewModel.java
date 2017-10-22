@@ -91,4 +91,13 @@ public class StockViewModel implements Cloneable, Serializable {
             stockSubType = STOCK_SUB_TYPE_SZ_LITTLE;
         }
     }
+
+    public String getRequestStockCode() {
+        if (stockCode.startsWith("6")) {
+            return "sh" + stockCode;
+        }
+        return "sz" + stockCode;
+    }
+
+
 }

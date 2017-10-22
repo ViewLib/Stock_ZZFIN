@@ -80,7 +80,7 @@ public class StockMinuteDataServlet extends BaseServlet {
             int minute = historyTime.get(Calendar.MINUTE);
 
             //如果时间为11点半到1点之间，直接跳过
-            if ((hour == 11 && minute > 30) || hour == 12) {
+            if ((hour == 11 && minute >= 30) || hour == 12) {
                 historyTime.set(Calendar.HOUR_OF_DAY, 13);
                 historyTime.set(Calendar.MINUTE, 0);
             } else if (hour >= 15) {//如果是13点以后，直接跳过
