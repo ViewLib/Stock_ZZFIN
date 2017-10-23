@@ -1,6 +1,7 @@
 package com.stock.model.response;
 
 import com.stock.model.ServiceResponse;
+import com.stock.model.model.StockRankFilterGroupModel;
 import com.stock.model.model.StockRankFilterModel;
 
 import java.util.ArrayList;
@@ -16,6 +17,6 @@ public class StockRankDetailFilterlResponse extends ServiceResponse {
     public int resultCode = 200;//返回结果值
     public String resultMessage = "";//结果描述
 
-    public List<StockRankFilterModel> rankFilterList = new ArrayList<>();//界面筛选项列表
+    public List<StockRankFilterGroupModel> rankFilterList = new ArrayList<>();//界面筛选项列表
 
 }

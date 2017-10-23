@@ -67,7 +67,7 @@ public class StockService {
 
     public List<StockRankFilterModel> stockRankFilterModels(StockRankDetailFilterlRequest stockRankDetailFilterlRequest, StockRankDetailFilterlResponse stockRankDetailFilterlResponse) {
         // List<StockRankFilterModel> stockRankFilterModelList = new ArrayList<>();
-        List<StockRankFilterModel> stockRankFilterModels = dao.selectStockFilterList(stockRankDetailFilterlRequest.first_type);
+        List<StockRankFilterModel> stockRankFilterModels = dao.selectStockFilterList(0);
         //  stockRankFilterModelList.addAll(stockRankFilterModels);
         return stockRankFilterModels;
     }
@@ -77,18 +77,24 @@ public class StockService {
         List<StockFirstTypeModel> stockFirstTypeModels = dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
         return stockFirstTypeModels;
     }
-    public static  String transCode(String stockCode)throws Exception {
-        if(stockCode.length()==8) {
+
+    public static String transCode(String stockCode) throws Exception {
+        if (stockCode.length() == 8) {
             return stockCode.substring(2, 8) + "." + stockCode.substring(0, 2);
 
         }
-        throw new Exception("Error!") ;
+        throw new Exception("Error!");
     }
+
     //返回filter
-    public List<StockRankFilterModel> getStockFilterList(StockRankDetailFilterlRequest stockRankDetailFilterlRequest,StockRankDetailFilterlResponse stockRankDetailFilterlResponse){
-        List<StockRankFilterModel> stockRankFilterModelList=dao.selectStockFilterList(stockRankDetailFilterlRequest.first_type);
-        return stockRankFilterModelList;
+    public List<StockRankFilterGroupModel> getStockFilterList(StockRankDetailFilterlRequest stockRankDetailFilterlRequest, StockRankDetailFilterlResponse stockRankDetailFilterlResponse) {
+        List<StockRankFilterModel> stockRankFilterModelList = dao.selectStockFilterList(0);
+        List<StockRankFilterGroupModel> list = new ArrayList<>();
+        //todo
+
+        return list;
     }
+
     //返回K线数据
     public List<StockDateDataModel> stockDetailDataModels(StockGetDateDataRequest stockDetailDataRequest, StockGetDateDataResponse stockDetailDataResponse) throws Exception {
 
@@ -99,7 +105,6 @@ public class StockService {
     public static String jsoupFetch(String url) throws Exception {
         return Jsoup.parse(new URL(url), 2 * 1000).html();
     }
-
 
 
     public void getMinuteDate(String urlhtml, Map<String, StockMinuteDataModel> stockMinuteDataModelMap) {
@@ -120,11 +125,11 @@ public class StockService {
             stockMinuteDataModel.time = ths.get(0).text().toString();
             if (!dateTime.equals(ths.get(0).text().substring(0, 5).toString())) {
                 org.jsoup.select.Elements table_price = doc.select("table").select("h6").select("span");
-                stockMinuteDataModel.basePrice=Float.parseFloat(table_price.get(0).text().toString())*100;
+                stockMinuteDataModel.basePrice = Float.parseFloat(table_price.get(0).text().toString()) * 100;
                 dateTime = stockMinuteDataModel.time.substring(0, 5).toString();
                 stockMinuteDataModel.time = ths.get(0).text().toString();
                 org.jsoup.select.Elements tds = tr.select("td");
-                stockMinuteDataModel.price = Float.parseFloat(tds.get(0).text().toString())*100;
+                stockMinuteDataModel.price = Float.parseFloat(tds.get(0).text().toString()) * 100;
 
                 System.out.print(stockMinuteDataModel.price);
                 stockMinuteDataModel.volume = Integer.parseInt(tds.get(3).text().toString());
@@ -144,37 +149,35 @@ public class StockService {
         String urlhtml;
 
 
-        String url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol="+stockCode;
-        String  currentDate= DateUtil.getCurrentDate();
-        Integer flag=dao.getHoliday(currentDate);
-        Integer mount=0;
+        String url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol=" + stockCode;
+        String currentDate = DateUtil.getCurrentDate();
+        Integer flag = dao.getHoliday(currentDate);
+        Integer mount = 0;
         Calendar c = Calendar.getInstance();
-        String nextDate=currentDate;
+        String nextDate = currentDate;
         try {
-             nextDate=GetDayStocklData.getCalDate(currentDate);
+            nextDate = GetDayStocklData.getCalDate(currentDate);
+        } catch (Exception e) {
+
         }
-        catch (Exception e){
-
-         }
         System.out.println(flag);
-        if(flag>0){
+        if (flag > 0) {
 
-           try{
-               nextDate=GetDayStocklData.getCalDate(currentDate);
-               Calendar calendarByDateStr = DateUtil.getCalendarByDateStr(nextDate);
-               String s = DateUtil.calendar2Time(calendarByDateStr, DateUtil.SIMPLEFORMATTYPESTRING7);
-               url="http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php?symbol="+stockCode+"&date="+s;
-           }
-              catch (Exception e){
-           }
-            flag=dao.getHoliday(nextDate);
+            try {
+                nextDate = GetDayStocklData.getCalDate(currentDate);
+                Calendar calendarByDateStr = DateUtil.getCalendarByDateStr(nextDate);
+                String s = DateUtil.calendar2Time(calendarByDateStr, DateUtil.SIMPLEFORMATTYPESTRING7);
+                url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php?symbol=" + stockCode + "&date=" + s;
+            } catch (Exception e) {
+            }
+            flag = dao.getHoliday(nextDate);
         }
         for (int i = 1; i < 66; i++) {
-              //url = url+"&page="+i;
+            //url = url+"&page="+i;
             try {
-                String urltemp=url+"&page="+i;
+                String urltemp = url + "&page=" + i;
                 urlhtml = stockService.jsoupFetch(urltemp);
-                System.out.println(url+"&page="+i);
+                System.out.println(url + "&page=" + i);
                 stockService.getMinuteDate(urlhtml, stockMinuteDataModelMap);
             } catch (Exception e) {
 
@@ -183,13 +186,15 @@ public class StockService {
 
         return stockMinuteDataModelMap;
     }
-    public StockDetailCompanyModel stockDetailCompanyModels(StockDetailCompanyInfoRequest stockDetailCompanyInfoRequest, StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse) throws Exception{
-        String stockCode=transCode(stockDetailCompanyInfoRequest.stockCode);
+
+    public StockDetailCompanyModel stockDetailCompanyModels(StockDetailCompanyInfoRequest stockDetailCompanyInfoRequest, StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse) throws Exception {
+        String stockCode = transCode(stockDetailCompanyInfoRequest.stockCode);
         StockDetailCompanyModel stockDetailCompanyModels = dao.getCompanyInfo(stockCode);//dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
         return stockDetailCompanyModels;
     }
-    public List<StockDetailStockHolder> stockHolders(StockDetailCompanyInfoRequest stockDetailCompanyInfoRequest, StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse) throws Exception{
-        String stockCode=transCode(stockDetailCompanyInfoRequest.stockCode);
+
+    public List<StockDetailStockHolder> stockHolders(StockDetailCompanyInfoRequest stockDetailCompanyInfoRequest, StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse) throws Exception {
+        String stockCode = transCode(stockDetailCompanyInfoRequest.stockCode);
         List<StockDetailStockHolder> stockDetailStockHolders = dao.getStockHolder(stockCode);//dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
         return stockDetailStockHolders;
     }

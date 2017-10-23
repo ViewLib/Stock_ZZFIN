@@ -14,6 +14,4 @@ import java.util.List;
 public class StockRankDetailFilterlRequest extends ServiceRequest {
     public int serviceCode = 2002;//服务号
 
-    public int first_type = 0;//类型
-
 }
