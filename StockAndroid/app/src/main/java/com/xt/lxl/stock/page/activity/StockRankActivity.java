@@ -151,13 +151,13 @@ public class StockRankActivity extends FragmentActivity {
             } else if (i == 3) {
                 filter = filter4;
             }
-            HotelViewHolder.showText(filter, filterModel.filteList.get(filterModel.defaultPosition));
+            HotelViewHolder.showText(filter, filterModel.filterName);
         }
 
     }
 
     private void bindRankData() {
-        mTitleTv.setTitle("本日融资融券前十家公司", R.style.text_18_ffffff);
+        mTitleTv.setTitle(mRankModel.title, R.style.text_18_ffffff);
 
         TextView name = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_name);
         TextView add = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_add);

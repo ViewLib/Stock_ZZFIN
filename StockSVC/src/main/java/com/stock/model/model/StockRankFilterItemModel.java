@@ -6,5 +6,5 @@ package com.stock.model.model;
 public class StockRankFilterItemModel extends StockBaseModel {
     public String filterName;//筛选名称
     public String filterId;//筛选Id
-    public String groupType;//分类
+    public int groupType;//分类
 }

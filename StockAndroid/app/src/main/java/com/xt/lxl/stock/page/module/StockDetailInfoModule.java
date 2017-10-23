@@ -59,7 +59,17 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
         } else {
             privceTv.setText(stockViewModel.stockPirce);
             changePriceValueTv.setText(stockViewModel.stockChangeValue);
-            changePriceRatioTv.setText(stockViewModel.stockChange + "%");
+            changePriceRatioTv.setText(stockViewModel.stockChange + "%");//需要颜色的
+            if (stockViewModel.stockChangeValue.startsWith("-")) {
+                privceTv.setTextAppearance(mContainer.getContext(), R.style.text_22_006400);
+                changePriceValueTv.setTextAppearance(mContainer.getContext(), R.style.text_14_006400);
+                changePriceRatioTv.setTextAppearance(mContainer.getContext(), R.style.text_14_006400);
+            } else {
+                privceTv.setTextAppearance(mContainer.getContext(), R.style.text_22_fe2a32);
+                changePriceValueTv.setTextAppearance(mContainer.getContext(), R.style.text_14_fe2a32);
+                changePriceRatioTv.setTextAppearance(mContainer.getContext(), R.style.text_14_fe2a32);
+            }
+
             priceTop.setTextValue("今日最高", stockViewModel.maxPrice);
             priceBottom.setTextValue("今日最低", stockViewModel.minPrice);
             upAndDown.setTextValue("今日振幅", stockViewModel.amplitude + "%");

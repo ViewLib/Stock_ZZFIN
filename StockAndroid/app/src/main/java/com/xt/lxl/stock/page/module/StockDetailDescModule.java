@@ -1,5 +1,6 @@
 package com.xt.lxl.stock.page.module;
 
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -99,29 +100,44 @@ public class StockDetailDescModule extends StockDetailBaseModule {
     //十大股东
     private void handleStockHolder(View view, List<StockDetailStockHolder> stockHolderList) {
         TableLayout stockHolderTable = (TableLayout) view.findViewById(R.id.stock_detail_desc_company_table);
-        TableRow row = new TableRow(view.getContext());
-        setRowData(row, true, "排序", "股东名称", "持股数量", "持股比例");
+        TableRow row = setRowData(true, "股东名称", "持股数量", "持股比例");
+        row.setBackgroundColor(Color.parseColor("#DEEBF6"));
+
         stockHolderTable.addView(row);
         for (int i = 0; i < stockHolderList.size(); i++) {
             StockDetailStockHolder holder = stockHolderList.get(i);
-            row = new TableRow(view.getContext());
-            setRowData(row, true, String.valueOf(i), holder.stockHolderName, holder.stockHolderAmount, holder.stockHolderRatio);
-            stockHolderTable.addView(row);
+            row = setRowData(true, holder.stockHolderNmae, holder.stockHolderAmount, holder.stockHolderRatio);
+            stockHolderTable.addView(row, new ViewGroup.LayoutParams(-2, -2));
+            if (i % 2 == 0) {
+                row.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            } else {
+                row.setBackgroundColor(Color.parseColor("#EDF3F8"));
+            }
         }
     }
 
-    private void setRowData(TableRow row, boolean isTitle, String position, String stockHolderName, String stockHolderAmount, String stockHolderRatio) {
-        TextView posionTv = new TextView(row.getContext());
-        posionTv.setText(position);
+    private TableRow setRowData(boolean isTitle, String stockHolderName, String stockHolderAmount, String stockHolderRatio) {
+        TableRow row = (TableRow) View.inflate(mContainer.getContext(), R.layout.stock_detail_desc_company_table_item, null);
 
-        TextView stockHolderNameTv = new TextView(row.getContext());
+        TextView stockHolderNameTv = (TextView) row.findViewById(R.id.stock_holder_name);
         stockHolderNameTv.setText(stockHolderName);
 
-        TextView stockHolderAmountTv = new TextView(row.getContext());
+        TextView stockHolderAmountTv = (TextView) row.findViewById(R.id.stock_holder_have);
         stockHolderAmountTv.setText(stockHolderAmount);
 
-        TextView stockHolderRatioTv = new TextView(row.getContext());
+        TextView stockHolderRatioTv = (TextView) row.findViewById(R.id.stock_holder_ratio);
         stockHolderRatioTv.setText(stockHolderRatio);
+
+        if (isTitle) {
+            stockHolderNameTv.setTextAppearance(row.getContext(), R.style.text_13_186cb7);
+            stockHolderAmountTv.setTextAppearance(row.getContext(), R.style.text_13_186cb7);
+            stockHolderRatioTv.setTextAppearance(row.getContext(), R.style.text_13_186cb7);
+        } else {
+            stockHolderNameTv.setTextAppearance(row.getContext(), R.style.text_12_484848);
+            stockHolderAmountTv.setTextAppearance(row.getContext(), R.style.text_12_484848);
+            stockHolderRatioTv.setTextAppearance(row.getContext(), R.style.text_12_484848);
+        }
+        return row;
     }
 
 

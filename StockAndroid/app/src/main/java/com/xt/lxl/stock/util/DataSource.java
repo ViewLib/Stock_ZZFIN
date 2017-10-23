@@ -8,6 +8,7 @@ import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
+import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockSyncModel;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
@@ -198,32 +199,55 @@ public class DataSource {
 
     public static StockRankDetailFilterlResponse getRankDetailFilterResponse() {
         StockRankDetailFilterlResponse response = new StockRankDetailFilterlResponse();
-        StockRankFilterGroupModel model1 = new StockRankFilterGroupModel();
-        model1.defaultPosition = 0;
-        model1.filteList.add("央企");
-        model1.filteList.add("私企");
-        model1.filteList.add("欧美");
+        StockRankFilterGroupModel model1 = new StockRankFilterGroupModel("行业");
+        model1.filteList.add(new StockRankFilterItemModel("银行业", "11", 1));
+        model1.filteList.add(new StockRankFilterItemModel("建筑业", "12", 1));
+        model1.filteList.add(new StockRankFilterItemModel("计算机", "13", 1));
+        model1.filteList.add(new StockRankFilterItemModel("金融", "14", 1));
 
-        StockRankFilterGroupModel model2 = new StockRankFilterGroupModel();
-        model2.defaultPosition = 0;
-        model2.filteList.add("银行业");
-        model2.filteList.add("建筑业");
-        model2.filteList.add("计算机");
-        model2.filteList.add("金融");
+        StockRankFilterGroupModel model2 = new StockRankFilterGroupModel("企业性质");
+        model2.filteList.add(new StockRankFilterItemModel("央企", "11", 1));
+        model2.filteList.add(new StockRankFilterItemModel("私企", "12", 1));
+        model2.filteList.add(new StockRankFilterItemModel("欧美", "13", 1));
 
-        StockRankFilterGroupModel model3 = new StockRankFilterGroupModel();
-        model3.defaultPosition = 0;
-        model3.filteList.add("全部盘");
-        model3.filteList.add("流通盘");
-        model3.filteList.add("解禁盘");
-        model3.filteList.add("市值");
 
-        StockRankFilterGroupModel model4 = new StockRankFilterGroupModel();
-        model4.defaultPosition = 0;
-        model4.filteList.add("其它筛选");
-        model4.filteList.add("高新科技");
-        model4.filteList.add("雄安新区");
-        model4.filteList.add("评级较高");
+        StockRankFilterGroupModel model3 = new StockRankFilterGroupModel("地区");
+        model1.filteList.add(new StockRankFilterItemModel("山东", "11", 1));
+        model1.filteList.add(new StockRankFilterItemModel("上海", "12", 1));
+        model1.filteList.add(new StockRankFilterItemModel("福建", "13", 1));
+        model1.filteList.add(new StockRankFilterItemModel("北京", "14", 1));
+        model1.filteList.add(new StockRankFilterItemModel("浙江", "14", 1));
+
+
+        StockRankFilterGroupModel model4 = new StockRankFilterGroupModel("其它筛选");
+        StockRankFilterGroupModel sub1 = new StockRankFilterGroupModel("流通盘");
+        sub1.filteList.add(new StockRankFilterItemModel("30亿以下", "411", 1));
+        sub1.filteList.add(new StockRankFilterItemModel("30到100亿", "412", 1));
+        sub1.filteList.add(new StockRankFilterItemModel("100到500亿", "413", 1));
+        sub1.filteList.add(new StockRankFilterItemModel("500亿以上", "414", 1));
+
+        StockRankFilterGroupModel sub2 = new StockRankFilterGroupModel("市值");
+        sub2.filteList.add(new StockRankFilterItemModel("30亿以下", "411", 1));
+        sub2.filteList.add(new StockRankFilterItemModel("30到100亿", "412", 1));
+        sub2.filteList.add(new StockRankFilterItemModel("100到500亿", "413", 1));
+        sub2.filteList.add(new StockRankFilterItemModel("500亿以上", "414", 1));
+
+        StockRankFilterGroupModel sub3 = new StockRankFilterGroupModel("市盈率");
+        sub3.filteList.add(new StockRankFilterItemModel("30亿以下", "411", 1));
+        sub3.filteList.add(new StockRankFilterItemModel("30到100亿", "412", 1));
+        sub3.filteList.add(new StockRankFilterItemModel("100到500亿", "413", 1));
+        sub3.filteList.add(new StockRankFilterItemModel("500亿以上", "414", 1));
+
+        StockRankFilterGroupModel sub4 = new StockRankFilterGroupModel("市净率");
+        sub4.filteList.add(new StockRankFilterItemModel("30亿以下", "411", 1));
+        sub4.filteList.add(new StockRankFilterItemModel("30到100亿", "412", 1));
+        sub4.filteList.add(new StockRankFilterItemModel("100到500亿", "413", 1));
+        sub4.filteList.add(new StockRankFilterItemModel("500亿以上", "414", 1));
+
+        model4.filterGroupList.add(sub1);
+        model4.filterGroupList.add(sub2);
+        model4.filterGroupList.add(sub3);
+        model4.filterGroupList.add(sub4);
 
         response.rankFilterList.add(model1);
         response.rankFilterList.add(model2);
