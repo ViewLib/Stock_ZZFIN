@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PNChart.h"
 
+//财务信息cell
 @interface FinancialInformationTableViewCell : UITableViewCell<PNChartDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *srBtn;

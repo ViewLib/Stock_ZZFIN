@@ -74,37 +74,42 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 1) {
         StockChartTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"StockChartTableViewCell" owner:nil options:nil] firstObject];
-        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell;
     } else if (indexPath.row == 2) {
         StockMajorNewsTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"StockMajorNewsTableViewCell" owner:nil options:nil] firstObject];
-        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell;
     } else if (indexPath.row == 3) {
         StockMajorEventsTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"StockMajorEventsTableViewCell" owner:nil options:nil] firstObject];
-        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell;
     } else if (indexPath.row == 4) {
         ComputerIntroductionTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"ComputerIntroductionTableViewCell" owner:nil options:nil] firstObject];
-        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell;
     } else if (indexPath.row == 5) {
         FinancialInformationTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"FinancialInformationTableViewCell" owner:nil options:nil] firstObject];
-        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell;
     } else if (indexPath.row == 6) {
         HorizontalComparisonTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"HorizontalComparisonTableViewCell" owner:nil options:nil] firstObject];
-        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell;
     } else if (indexPath.row == 7) {
         BrokersRatingTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"BrokersRatingTableViewCell" owner:nil options:nil] firstObject];
-        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell;
     } else {
         StockTopTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"StockTopTableViewCell" owner:nil options:nil] firstObject];
         [cell updateCell:_stock];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"indexPath %ld",(long)indexPath.row);
 }
 
 - (void)didReceiveMemoryWarning {

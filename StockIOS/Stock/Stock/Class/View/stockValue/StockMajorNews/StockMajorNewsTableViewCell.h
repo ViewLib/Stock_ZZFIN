@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+//重大事件
 @interface StockMajorNewsTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *valueView;

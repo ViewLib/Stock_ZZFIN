@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BrokersRatingTableViewCell : UITableViewCell
+@interface BrokersRatingTableViewCell : UITableViewCell<UICollectionViewDataSource,UICollectionViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UICollectionView *menuCollection;
+@property (weak, nonatomic) IBOutlet UIView *valueView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *valueViewHigh;
+
+@property (strong, nonatomic) NSArray   *titleAry;
 
 /**
  更新cell
