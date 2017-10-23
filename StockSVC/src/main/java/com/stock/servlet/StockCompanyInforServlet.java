@@ -53,5 +53,6 @@ public class StockCompanyInforServlet extends BaseServlet {
         stockDetailCompanyInfoResponse.companyModel = stockDetailCompanyModels;
         stockDetailCompanyInfoResponse.stockHolderList=stockDetailStockHolders;
 
+
     }
 }
