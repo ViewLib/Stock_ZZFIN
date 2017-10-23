@@ -50,4 +50,7 @@ public class Config {
      * stock_sync
      */
     public String Search_Sync = "http://localhost:8080/zzfin/api/stock_sync";
+
+
+    public String GetMinuteAPI = "http://127.0.0.1:8080/zzfin/api/stock_minute?data=%7b%22stockCode%22%3a%22sz300170%22%7d";
 }

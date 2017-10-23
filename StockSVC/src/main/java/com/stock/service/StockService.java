@@ -124,8 +124,8 @@ public class StockService {
             org.jsoup.select.Elements ths = tr.select("th");
             stockMinuteDataModel.time = ths.get(0).text().toString();
             if (!dateTime.equals(ths.get(0).text().substring(0, 5).toString())) {
-                org.jsoup.select.Elements table_price = doc.select("table").select("h6").select("span");
-                stockMinuteDataModel.basePrice = Float.parseFloat(table_price.get(0).text().toString()) * 100;
+//                org.jsoup.select.Elements table_price = doc.select("table").select("h6").select("span");
+//                stockMinuteDataModel.basePrice = Float.parseFloat(table_price.get(0).text().toString()) * 100;
                 dateTime = stockMinuteDataModel.time.substring(0, 5).toString();
                 stockMinuteDataModel.time = ths.get(0).text().toString();
                 org.jsoup.select.Elements tds = tr.select("td");
@@ -180,7 +180,7 @@ public class StockService {
                 System.out.println(url + "&page=" + i);
                 stockService.getMinuteDate(urlhtml, stockMinuteDataModelMap);
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
 

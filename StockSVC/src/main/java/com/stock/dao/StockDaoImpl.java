@@ -373,7 +373,7 @@ public class StockDaoImpl implements StockDao {
             while (rs.next()) {
                 StockDetailStockHolder stockDetailStockHolder=new StockDetailStockHolder();
                 stockDetailStockHolder.stockHolderAmount=rs.getString("hold_number");
-                stockDetailStockHolder.stockHolderNmae=rs.getString("holder_name");
+                stockDetailStockHolder.stockHolderName=rs.getString("holder_name");
                 stockDetailStockHolder.stockHolderRatio=rs.getString("hold_ratio");
                 stockDetailStockHolders.add(stockDetailStockHolder);
             }
