@@ -2,12 +2,14 @@ package com.stock.servlet;
 
 import com.stock.model.ServiceRequest;
 import com.stock.model.ServiceResponse;
-import com.stock.model.request.StockHotSearchRequest;
-import com.stock.model.response.StockHotSearchResponse;
+import com.stock.model.model.StockRankFilterGroupModel;
+import com.stock.model.request.StockRankDetailFilterlRequest;
+import com.stock.model.response.StockRankDetailFilterlResponse;
 import com.stock.service.StockService;
 import com.stock.servlet.base.BaseServlet;
 
 import javax.servlet.annotation.WebServlet;
+import java.util.List;
 
 @WebServlet(name = "StockRankListServlet")
 public class StockRankFilterServlet extends BaseServlet {
@@ -20,16 +22,20 @@ public class StockRankFilterServlet extends BaseServlet {
 
     @Override
     protected Class getActionRequestClass() {
-        return StockHotSearchRequest.class;
+        return StockRankDetailFilterlRequest.class;
     }
 
     @Override
     protected Class getActionResponseClass() {
-        return StockHotSearchResponse.class;
+        return StockRankDetailFilterlResponse.class;
     }
 
     @Override
-    protected void servletAction(ServiceRequest registerRequest, ServiceResponse registerResponse) throws Exception {
-
+    protected void servletAction(ServiceRequest serviceRequest, ServiceResponse serviceResponse) throws Exception {
+        //StockRankFilterModel
+        StockRankDetailFilterlRequest stockRankDetailFilterlRequest = (StockRankDetailFilterlRequest) serviceRequest;
+        StockRankDetailFilterlResponse stockRankDetailFilterlResponse = (StockRankDetailFilterlResponse) serviceResponse;
+        List<StockRankFilterGroupModel> stockRankFilterModels = stockService.getStockFilterList(stockRankDetailFilterlRequest, stockRankDetailFilterlResponse);
+        stockRankDetailFilterlResponse.rankFilterList = stockRankFilterModels;
     }
 }

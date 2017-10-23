@@ -13,6 +13,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
 import com.xt.lxl.stock.page.module.StockDetailChartModule;
 import com.xt.lxl.stock.page.module.StockDetailCompareModule;
 import com.xt.lxl.stock.page.module.StockDetailDescModule;
@@ -48,8 +49,7 @@ public class StockDetailActivity extends FragmentActivity {
     StockDetailGradeModule gradeModule;
 
     StockDetailListener listener = new StockDetailListener();
-    StockViewModel mStockViewModel = new StockViewModel();
-    StockDetailCacheBean cacheBean = new StockDetailCacheBean();
+    StockDetailCacheBean mCacheBean = new StockDetailCacheBean();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,50 +62,52 @@ public class StockDetailActivity extends FragmentActivity {
     }
 
     private void initData() {
-        mStockViewModel = (StockViewModel) getIntent().getExtras().getSerializable(StockDetailActivity.STOCK_DETAIL);
+        StockViewModel stockViewModel = (StockViewModel) getIntent().getExtras().getSerializable(StockDetailActivity.STOCK_DETAIL);
+        mCacheBean.mStockViewModel = stockViewModel;
         List<String> saveStockCodeList = DataSource.getSaveStockCodeList(this);
-        cacheBean.isAdd = saveStockCodeList.contains(mStockViewModel.stockCode);
+        mCacheBean.isAdd = saveStockCodeList.contains(mCacheBean.mStockViewModel.stockCode);
     }
 
     private void initView() {
         titleView = (StockTitleView) findViewById(R.id.stock_title_view);
 
-        infoModule = new StockDetailInfoModule(mStockViewModel);
+        infoModule = new StockDetailInfoModule(mCacheBean);
         infoModule.setModuleView(findViewById(R.id.stock_detail_home_info));
 
-        chartModule = new StockDetailChartModule(mStockViewModel);
+        chartModule = new StockDetailChartModule(mCacheBean);
         chartModule.setModuleView(findViewById(R.id.stock_kline));
 
-        importEventModule = new StockDetailImportEventModule(mStockViewModel);
+        importEventModule = new StockDetailImportEventModule(mCacheBean);
         importEventModule.setModuleView(findViewById(R.id.stock_detail_home_event));
 
-        newsModule = new StockDetailNewsModule(mStockViewModel);
+        newsModule = new StockDetailNewsModule(mCacheBean);
         newsModule.setModuleView(findViewById(R.id.stock_detail_home_news));
 
 
-        descModule = new StockDetailDescModule(mStockViewModel);
+        descModule = new StockDetailDescModule(mCacheBean);
         descModule.setModuleView(findViewById(R.id.stock_detail_home_desc));
 
 
-        financeModule = new StockDetailFinanceModule(mStockViewModel);
+        financeModule = new StockDetailFinanceModule(mCacheBean);
         financeModule.setModuleView(findViewById(R.id.stock_detail_home_finance));
 
-        compareModule = new StockDetailCompareModule(mStockViewModel);
+        compareModule = new StockDetailCompareModule(mCacheBean);
         compareModule.setModuleView(findViewById(R.id.stock_detail_home_compare));
 
-        gradeModule = new StockDetailGradeModule(mStockViewModel);
+        gradeModule = new StockDetailGradeModule(mCacheBean);
         gradeModule.setModuleView(findViewById(R.id.stock_detail_home_grade));
     }
 
     private void bindData() {
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(mStockViewModel.stockName + "\n");
+        builder.append(mCacheBean.mStockViewModel.stockName + "\n");
         builder.setSpan(new TextAppearanceSpan(this, R.style.text_15_ffffff), 0, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        int length = mStockViewModel.stockName.length();
-        builder.append(mStockViewModel.stockCode);
+        int length = mCacheBean.mStockViewModel.stockName.length();
+        builder.append(mCacheBean.mStockViewModel.stockCode);
         builder.setSpan(new TextAppearanceSpan(this, R.style.text_12_ffffff), length, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         titleView.setTitle(builder);
         sendStockDataService();
+        sendStockCompanyService();
     }
 
     Runnable runnable = new Runnable() {
@@ -119,7 +121,7 @@ public class StockDetailActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<StockViewModel> stockViewModelList = StockSender.getInstance().requestStockModelByCode(mStockViewModel.stockCode);
+                List<StockViewModel> stockViewModelList = StockSender.getInstance().requestStockModelByCode(mCacheBean.mStockViewModel.stockCode);
                 if (stockViewModelList.size() == 0) {
                     return;
                 }
@@ -127,7 +129,8 @@ public class StockDetailActivity extends FragmentActivity {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        refreshData(stockViewModel);
+                        infoModule.bindData();
+                        chartModule.bindData();
                         mHandler.postDelayed(runnable, StockConfig.INTERVAL_TIME);
                     }
                 });
@@ -135,18 +138,35 @@ public class StockDetailActivity extends FragmentActivity {
         }).start();
     }
 
-    public void refreshData(StockViewModel stockViewModel) {
-        infoModule.bindData(stockViewModel);
-        chartModule.bindData(stockViewModel);
-        importEventModule.bindData(stockViewModel);
-        importEventModule.bindData(stockViewModel);
-        importEventModule.bindData(stockViewModel);
-        newsModule.bindData(stockViewModel);
-        descModule.bindData(stockViewModel);
-        financeModule.bindData(stockViewModel);
-        compareModule.bindData(stockViewModel);
-        gradeModule.bindData(stockViewModel);
+    private void sendStockCompanyService() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse = StockSender.getInstance().requestStockCompanyService(mCacheBean.mStockViewModel.getRequestStockCode());
+                if (stockDetailCompanyInfoResponse.stockHolderList.size() != 0) {
+                    mCacheBean.stockHolderList = stockDetailCompanyInfoResponse.stockHolderList;
+                }
+                mCacheBean.stockDetailCompanyModel = stockDetailCompanyInfoResponse.companyModel;
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        descModule.bindData();
+                    }
+                });
+            }
+        }).start();
+    }
 
+
+    public void refreshAllData(StockDetailCacheBean cacheBean) {
+        infoModule.bindData();
+        chartModule.bindData();
+        importEventModule.bindData();
+        newsModule.bindData();
+        descModule.bindData();
+        financeModule.bindData();
+        compareModule.bindData();
+        gradeModule.bindData();
     }
 
     private void initListener() {
@@ -155,9 +175,9 @@ public class StockDetailActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 //添加操作
-                cacheBean.isAdd = false;
-                DataSource.addStockCode(StockDetailActivity.this, mStockViewModel.stockCode);
-                infoModule.bindData(mStockViewModel);
+                mCacheBean.isAdd = false;
+                DataSource.addStockCode(StockDetailActivity.this, mCacheBean.mStockViewModel.stockCode);
+                infoModule.bindData();
             }
         };
     }

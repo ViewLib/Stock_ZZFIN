@@ -5,6 +5,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
@@ -12,6 +13,7 @@ import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.model.reponse.StockRankListResponse;
 import com.xt.lxl.stock.model.reponse.StockSyncResponse;
 import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
+import com.xt.lxl.stock.model.request.StockDetailCompanyInfoRequest;
 import com.xt.lxl.stock.model.request.StockGetDateDataRequest;
 import com.xt.lxl.stock.model.request.StockGetMinuteDataRequest;
 import com.xt.lxl.stock.model.request.StockHotSearchRequest;
@@ -196,6 +198,22 @@ public class StockSender {
         return getDateDataResponse;
     }
 
+
+    public StockDetailCompanyInfoResponse requestStockCompanyService(String stockCode) {
+        StockDetailCompanyInfoRequest reqeust = new StockDetailCompanyInfoRequest();
+        reqeust.stockCode = stockCode;
+        String requestJsonStr = JSON.toJSONString(reqeust);
+        String s = requestGet(mBaseAPIUrl + "stock_info?", requestJsonStr, "utf-8");
+        StockDetailCompanyInfoResponse getDateDataResponse;
+        try {
+            getDateDataResponse = JSON.parseObject(s, StockDetailCompanyInfoResponse.class);
+        } catch (Exception e) {
+            getDateDataResponse = new StockDetailCompanyInfoResponse();
+            getDateDataResponse.resultCode = 500;
+            getDateDataResponse.resultMessage = "序列化失败";
+        }
+        return getDateDataResponse;
+    }
 
     private static String requestGet(String baseUrl, String requestJsonStr, String code) {
         HashMap<String, String> paramsMap = new HashMap<>();

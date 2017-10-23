@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by xiangleiliu on 2017/9/6.
  */
-public class StockUserModel {
+public class StockUserModel extends StockBaseModel {
 
     public int userId;//用户id
     public String moblie;//手机号

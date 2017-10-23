@@ -29,7 +29,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
-import com.xt.lxl.stock.sender.StockSender;
+import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.widget.stockchart.bean.MinuteViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyYAxis;
@@ -182,8 +182,8 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockGetMinuteDataResponse minuteDataResponse = StockSender.getInstance().requestMinuteData(stockCode);
-//                StockGetMinuteDataResponse minuteDataResponse = DataSource.getMinuteDataResponses();
+//                StockGetMinuteDataResponse minuteDataResponse = StockSender.getInstance().requestMinuteData(stockCode);
+                StockGetMinuteDataResponse minuteDataResponse = DataSource.getMinuteDataResponses();
                 minuteViewModel.initAllModel(minuteDataResponse.stockMinuteDataModels);
                 mHandler.post(new Runnable() {
                     @Override

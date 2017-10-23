@@ -3,7 +3,7 @@ package com.xt.lxl.stock.page.module;
 import android.view.View;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockDetailChartView;
 
 /**
@@ -13,18 +13,18 @@ import com.xt.lxl.stock.widget.view.StockDetailChartView;
 public class StockDetailChartModule extends StockDetailBaseModule {
     StockDetailChartView detailChartView;
 
-    public StockDetailChartModule(StockViewModel stockViewModel) {
-        super(stockViewModel);
+    public StockDetailChartModule(StockDetailCacheBean cacheBean) {
+        super(cacheBean);
     }
 
     @Override
-    public void setModuleView(View view) {
+    public void initModuleView(View view) {
         detailChartView = (StockDetailChartView) view.findViewById(R.id.stock_kline);
-        detailChartView.setStockViewModel(mStockViewModel);
+        detailChartView.setStockViewModel(mCacheBean.mStockViewModel);
     }
 
     @Override
-    public void bindData(StockViewModel stockViewModel) {
+    public void bindData() {
 
     }
 

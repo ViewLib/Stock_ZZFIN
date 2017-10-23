@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -59,7 +59,7 @@
             style="@style/hotel_text_14_186DB7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="全部盘"
+            android:text="区域"
             app:hotel_text_drawable_direction="hotel_right"
             app:hotel_text_drawable_height="7dp"
             app:hotel_text_drawable_padding="5dp"
@@ -85,6 +85,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rank_detail_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp">
@@ -100,4 +101,11 @@
 
     </RelativeLayout>
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/stock_detail_filter_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/stock_rank_filter" />
+
+
+</RelativeLayout>

@@ -1,11 +1,9 @@
 package com.xt.lxl.stock.model.model;
 
-import java.io.Serializable;
-
 /**
  * Created by xiangleiliu on 2017/8/5.
  */
-public class StockViewModel implements Cloneable, Serializable {
+public class StockViewModel extends StockBaseModel {
 
     //展示类型  头部 股票行 底部
     public static final int STOCK_SHOW_TYPE_NORMAL = 0;

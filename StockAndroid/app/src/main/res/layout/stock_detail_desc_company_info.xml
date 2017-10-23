@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.xt.lxl.stock.widget.view.StockDetailShowText
+        android:id="@+id/stock_detail_company_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:stock_detail_show_canMulti="true"
+        app:stock_title_width="70dp" />
+
+    <com.xt.lxl.stock.widget.view.StockDetailShowText
+        android:id="@+id/stock_detail_company_createdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:stock_detail_show_canMulti="true"
+        app:stock_title_width="70dp" />
+
+    <com.xt.lxl.stock.widget.view.StockDetailShowText
+        android:id="@+id/stock_detail_company_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:stock_detail_show_canMulti="true"
+        app:stock_title_width="70dp" />
+
+    <com.xt.lxl.stock.widget.view.StockDetailShowText
+        android:id="@+id/stock_detail_company_business"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:stock_detail_show_canMulti="true"
+        app:stock_title_width="70dp" />
+
+
+</LinearLayout>

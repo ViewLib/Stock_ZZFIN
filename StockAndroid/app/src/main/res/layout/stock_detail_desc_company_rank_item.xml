@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/stock_detail_desc_company_position"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/stock_detail_desc_company_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+
+    <TextView
+        android:id="@+id/stock_detail_desc_company_have"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/stock_detail_desc_company_scale"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

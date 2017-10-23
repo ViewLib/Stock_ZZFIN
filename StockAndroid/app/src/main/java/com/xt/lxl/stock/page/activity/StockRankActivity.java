@@ -3,9 +3,13 @@ package com.xt.lxl.stock.page.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,12 +17,14 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.model.StockFoundRankModel;
-import com.xt.lxl.stock.model.model.StockRankFilterModel;
+import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.page.adapter.StockRankAdapter;
+import com.xt.lxl.stock.page.fragment.StockRankFilterFragment;
+import com.xt.lxl.stock.page.fragment.StockRankFilterGroupFragment;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.HotelViewHolder;
@@ -38,6 +44,7 @@ public class StockRankActivity extends FragmentActivity {
     StockTitleView mTitleTv;
     LinearLayout mStockRankFilterContainer;
     LinearLayout mStockFilterHeaderContainer;
+    FrameLayout mStockDetailFilterFragment;
     ListView mStockRankListView;
     StockItemEditCallBacks mCallBacks = new StockItemEditCallBacks();
 
@@ -45,7 +52,7 @@ public class StockRankActivity extends FragmentActivity {
 
     //数据
     public StockFoundRankModel mRankModel;
-    public List<StockRankFilterModel> mRankFilerList = new ArrayList<>();
+    public List<StockRankFilterGroupModel> mRankFilerList = new ArrayList<>();
     public List<StockRankResultModel> mRankList = new ArrayList<>();
     private List<String> mSaveList = new ArrayList<>();
 
@@ -74,6 +81,13 @@ public class StockRankActivity extends FragmentActivity {
         mRankAdapter.setSaveList(mSaveList);
         mStockRankListView.setAdapter(mRankAdapter);
         //排行
+        sendRankdDetailService();
+        //筛选项目列表
+        sendGetFilterService();
+
+    }
+
+    private void sendRankdDetailService() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -91,8 +105,9 @@ public class StockRankActivity extends FragmentActivity {
                 });
             }
         }).start();
+    }
 
-        //筛选项目列表
+    private void sendGetFilterService() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -115,6 +130,7 @@ public class StockRankActivity extends FragmentActivity {
         mStockRankFilterContainer = (LinearLayout) findViewById(R.id.stock_rank_filter);
         mStockFilterHeaderContainer = (LinearLayout) findViewById(R.id.stock_filter_header);
         mStockRankListView = (ListView) findViewById(R.id.stock_rank_list);
+        mStockDetailFilterFragment = (FrameLayout) findViewById(R.id.stock_detail_filter_fragment);
     }
 
     private void bindFilterData() {
@@ -124,7 +140,7 @@ public class StockRankActivity extends FragmentActivity {
         StockTextView filter4 = (StockTextView) mStockRankFilterContainer.findViewById(R.id.filter4);
 
         for (int i = 0; i < mRankFilerList.size(); i++) {
-            StockRankFilterModel filterModel = mRankFilerList.get(i);
+            StockRankFilterGroupModel filterModel = mRankFilerList.get(i);
             StockTextView filter = null;
             if (i == 0) {
                 filter = filter1;
@@ -135,13 +151,13 @@ public class StockRankActivity extends FragmentActivity {
             } else if (i == 3) {
                 filter = filter4;
             }
-            HotelViewHolder.showText(filter, filterModel.filteList.get(filterModel.defaultPosition));
+            HotelViewHolder.showText(filter, filterModel.filterName);
         }
 
     }
 
     private void bindRankData() {
-        mTitleTv.setTitle("本日融资融券前十家公司", R.style.text_18_ffffff);
+        mTitleTv.setTitle(mRankModel.title, R.style.text_18_ffffff);
 
         TextView name = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_name);
         TextView add = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_add);
@@ -163,8 +179,6 @@ public class StockRankActivity extends FragmentActivity {
         mStockFilterHeaderContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-//                float mLayerWidth = (float) mStockFilterHeaderContainer.getWidth();
-//                float mTextWidth = (float) mStockFilterHeaderContainer.getWidth();
                 int nameWidth = 0;
                 int addWidth = 0;
                 int attr1Width = 0;
@@ -239,6 +253,26 @@ public class StockRankActivity extends FragmentActivity {
                 mRankAdapter.notifyDataSetChanged();
             }
         };
-    }
 
+        mCallBacks.mFilterCallBack = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = v.getId();
+                Fragment fragment = new StockRankFilterFragment();
+                if (id == R.id.filter1) {
+                    fragment = new StockRankFilterFragment();
+                } else if (id == R.id.filter2) {
+                    fragment = new StockRankFilterFragment();
+                } else if (id == R.id.filter3) {
+                    fragment = new StockRankFilterFragment();
+                } else if (id == R.id.filter4) {
+                    fragment = new StockRankFilterGroupFragment();
+                }
+                FragmentManager supportFragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.stock_detail_filter_fragment, fragment, "filter");
+                fragmentTransaction.commitAllowingStateLoss();
+            }
+        };
+    }
 }

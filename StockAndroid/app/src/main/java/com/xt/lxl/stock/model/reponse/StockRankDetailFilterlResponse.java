@@ -2,7 +2,7 @@ package com.xt.lxl.stock.model.reponse;
 
 
 import com.xt.lxl.stock.model.ServiceResponse;
-import com.xt.lxl.stock.model.model.StockRankFilterModel;
+import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,9 @@ import java.util.List;
  * 排行详情筛选项response
  */
 
-public class StockRankDetailFilterlResponse extends ServiceResponse{
-    public int serviceCode = 2002;//服务号
+public class StockRankDetailFilterlResponse extends ServiceResponse {
 
-    public List<StockRankFilterModel> rankFilterList = new ArrayList<>();//界面筛选项列表
+    public int serviceCode = 2002;//服务号
+    public List<StockRankFilterGroupModel> rankFilterList = new ArrayList<>();//界面筛选项列表
 
 }
