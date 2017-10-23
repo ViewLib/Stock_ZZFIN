@@ -2,20 +2,26 @@ package com.xt.lxl.stock.page.module;
 
 import android.view.View;
 
-import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 
 /**
  * Created by xiangleiliu on 2017/10/20.
  */
 public abstract class StockDetailBaseModule {
 
-    protected StockViewModel mStockViewModel;
+    protected View mContainer;
+    protected StockDetailCacheBean mCacheBean;
 
-    public StockDetailBaseModule(StockViewModel stockViewModel) {
-        mStockViewModel = stockViewModel;
+    public StockDetailBaseModule(StockDetailCacheBean cacheBean) {
+        mCacheBean = cacheBean;
     }
 
-    public abstract void setModuleView(View view);
+    public void setModuleView(View view) {
+        mContainer = view;
+        initModuleView(view);
+    }
 
-    public abstract void bindData(StockViewModel stockViewModel);
+    protected abstract void initModuleView(View view);
+
+    public abstract void bindData();
 }

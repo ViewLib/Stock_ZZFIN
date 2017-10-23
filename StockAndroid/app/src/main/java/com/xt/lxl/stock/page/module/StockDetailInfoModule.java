@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.util.StringUtil;
+import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockDetailShowText;
 
 /**
@@ -25,11 +26,11 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
     StockDetailShowText turnover;
     StockDetailShowText marketvalue;
 
-    public StockDetailInfoModule(StockViewModel stockViewModel) {
-        super(stockViewModel);
+    public StockDetailInfoModule(StockDetailCacheBean cacheBean) {
+        super(cacheBean);
     }
 
-    public void setModuleView(View view) {
+    public void initModuleView(View view) {
         privceTv = (TextView) view.findViewById(R.id.stock_detail_price_tv);
         changePriceValueTv = (TextView) view.findViewById(R.id.stock_detail_change_pricevalue_tv);
         changePriceRatioTv = (TextView) view.findViewById(R.id.stock_detail_change_priceratio_tv);
@@ -43,7 +44,8 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
         marketvalue = (StockDetailShowText) view.findViewById(R.id.stock_detail_marketvalue);
     }
 
-    public void bindData(StockViewModel stockViewModel) {
+    public void bindData() {
+        StockViewModel stockViewModel = mCacheBean.mStockViewModel;
         if (StringUtil.emptyOrNull(stockViewModel.stockCode)) {
             privceTv.setText("暂无价格");
             changePriceValueTv.setText("暂无数据");
