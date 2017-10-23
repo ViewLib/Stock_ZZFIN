@@ -84,6 +84,11 @@ public class StockService {
         }
         throw new Exception("Error!") ;
     }
+    //返回filter
+    public List<StockRankFilterModel> getStockFilterList(StockRankDetailFilterlRequest stockRankDetailFilterlRequest,StockRankDetailFilterlResponse stockRankDetailFilterlResponse){
+        List<StockRankFilterModel> stockRankFilterModelList=dao.selectStockFilterList(stockRankDetailFilterlRequest.first_type);
+        return stockRankFilterModelList;
+    }
     //返回K线数据
     public List<StockDateDataModel> stockDetailDataModels(StockGetDateDataRequest stockDetailDataRequest, StockGetDateDataResponse stockDetailDataResponse) throws Exception {
 
