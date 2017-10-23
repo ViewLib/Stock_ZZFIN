@@ -129,7 +129,8 @@ public class StockDetailActivity extends FragmentActivity {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        refreshAllData(mCacheBean);
+                        infoModule.bindData();
+                        chartModule.bindData();
                         mHandler.postDelayed(runnable, StockConfig.INTERVAL_TIME);
                     }
                 });

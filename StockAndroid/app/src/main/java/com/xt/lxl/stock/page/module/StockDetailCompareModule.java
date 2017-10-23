@@ -1,7 +1,7 @@
 package com.xt.lxl.stock.page.module;
 
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
@@ -13,14 +13,14 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/19 0019.
- * 公司介绍
+ * 横向比较
  */
 
 public class StockDetailCompareModule extends StockDetailBaseModule {
 
     private StockTextView mTitle;
-    private StockTabGroupButton mTab;//查看更多
-    private LinearLayout mContainer;//问题列表
+    private StockTabGroupButton mTab;//
+    private ViewPager mContainer;//横向比较内容
 
 
     public StockDetailCompareModule(StockDetailCacheBean cacheBean) {
@@ -31,7 +31,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
     public void initModuleView(View view) {
         mTitle = (StockTextView) view.findViewById(R.id.stock_detail_compare_title);
         mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_compare_tab);
-        mContainer = (LinearLayout) view.findViewById(R.id.stock_detail_compare_pager);
+        mContainer = (ViewPager) view.findViewById(R.id.stock_detail_compare_pager);
         List<String> list = new ArrayList<>();
         list.add("市盈率");
         list.add("融资融券");

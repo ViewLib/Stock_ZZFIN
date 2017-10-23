@@ -63,17 +63,25 @@ public class StockDetailDescModule extends StockDetailBaseModule {
     }
 
     private void createViewList() {
+        View infoView;
+        View rankView;
+        if (mViewList.size() != 2) {
+            mViewList.clear();
+            infoView = View.inflate(mContainer.getContext(), R.layout.stock_detail_desc_company_info, null);
+            mViewList.add(0, infoView);
+
+            rankView = View.inflate(mContainer.getContext(), R.layout.stock_detail_desc_company_rank, null);
+            mViewList.add(1, rankView);
+        } else {
+            infoView = mViewList.get(0);
+            rankView = mViewList.get(1);
+        }
+
         StockDetailCompanyModel stockDetailCompanyModel = mCacheBean.stockDetailCompanyModel;
         List<StockDetailStockHolder> stockHolderList = mCacheBean.stockHolderList;
-
-        View infoView = View.inflate(mContainer.getContext(), R.layout.stock_detail_desc_company_info, null);
-        View rankView = View.inflate(mContainer.getContext(), R.layout.stock_detail_desc_company_rank, null);
-
         handleCompanyInfo(infoView, stockDetailCompanyModel);
         handleStockHolder(rankView, stockHolderList);
 
-        mViewList.add(infoView);
-        mViewList.add(rankView);
     }
 
     //公司信息
