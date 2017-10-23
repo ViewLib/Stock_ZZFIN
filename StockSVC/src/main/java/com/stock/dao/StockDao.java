@@ -22,4 +22,8 @@ public interface StockDao {
     public List<StockDateDataModel> selectStocDetailkDataList(String stoclCode, String sqlCode);
 
     public int getHoliday(String p_date);
+
+    public StockDetailCompanyModel getCompanyInfo(String stockCode);
+
+    public List<StockDetailStockHolder> getStockHolder(String stockCode);
 }

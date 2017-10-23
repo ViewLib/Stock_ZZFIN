@@ -101,6 +101,7 @@ public class StockService {
 
         Document doc = Jsoup.parse(urlhtml);
         org.jsoup.nodes.Element table = doc.getElementById("datatbl");
+        System.out.println(doc);
         org.jsoup.select.Elements trs = table.select("tr");
         Integer count = 0;
         String dateTime = "0";
@@ -120,7 +121,7 @@ public class StockService {
                 org.jsoup.select.Elements tds = tr.select("td");
                 stockMinuteDataModel.price = Float.parseFloat(tds.get(0).text().toString())*100;
 
-                //System.out.print(stockMinuteDataModel.price);
+                System.out.print(stockMinuteDataModel.price);
                 stockMinuteDataModel.volume = Integer.parseInt(tds.get(3).text().toString());
                 String time = stockMinuteDataModel.time;
                 if (StringUtil.emptyOrNull(time) || time.length() != 8) {
@@ -166,8 +167,9 @@ public class StockService {
         for (int i = 1; i < 66; i++) {
               //url = url+"&page="+i;
             try {
-                urlhtml = stockService.jsoupFetch(url+"&page="+i);
-               // System.out.println(url+"page="+i);
+                String urltemp=url+"&page="+i;
+                urlhtml = stockService.jsoupFetch(urltemp);
+                System.out.println(url+"&page="+i);
                 stockService.getMinuteDate(urlhtml, stockMinuteDataModelMap);
             } catch (Exception e) {
 
@@ -175,5 +177,15 @@ public class StockService {
         }
 
         return stockMinuteDataModelMap;
+    }
+    public StockDetailCompanyModel stockDetailCompanyModels(StockDetailCompanyInfoRequest stockDetailCompanyInfoRequest, StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse) throws Exception{
+        String stockCode=transCode(stockDetailCompanyInfoRequest.stockCode);
+        StockDetailCompanyModel stockDetailCompanyModels = dao.getCompanyInfo(stockCode);//dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
+        return stockDetailCompanyModels;
+    }
+    public List<StockDetailStockHolder> stockHolders(StockDetailCompanyInfoRequest stockDetailCompanyInfoRequest, StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse) throws Exception{
+        String stockCode=transCode(stockDetailCompanyInfoRequest.stockCode);
+        List<StockDetailStockHolder> stockDetailStockHolders = dao.getStockHolder(stockCode);//dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
+        return stockDetailStockHolders;
     }
 }

@@ -332,6 +332,58 @@ public class StockDaoImpl implements StockDao {
         return 0;
     }
 
+    public StockDetailCompanyModel getCompanyInfo(String stockCode){
+        StockDetailCompanyModel stockDetailCompanyModel=new StockDetailCompanyModel();
+        String sql = "SELECT [PROVINCE],[CITY],[CHAIRMAN],[FOUNDDATE],[COMPANY_DESC] FROM [zzfin].[dbo].[TS_COMPANY]  where ts_code ="+"'"+stockCode+"'";
+        Connection con = null;
+        StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+        PreparedStatement preStmt = null;
+        con = stockLinkDao.getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                stockDetailCompanyModel.baseArea=rs.getString("province");
+                stockDetailCompanyModel.companyBusiness=rs.getString("company_desc");
+                stockDetailCompanyModel.companyName=rs.getString("chairman");
+                stockDetailCompanyModel.establishDate=rs.getString("founddate");
+            }
+            return stockDetailCompanyModel;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return stockDetailCompanyModel;
+    }
+    public List<StockDetailStockHolder> getStockHolder(String stockCode){
+        List<StockDetailStockHolder> stockDetailStockHolders=new ArrayList<>();
+        String sql = "SELECT TOP 10[HOLDER_NAME],[HOLD_NUMBER],[HOLD_RATIO] FROM [zzfin].[dbo].[EQ_FLOAT_HOLDER] \n" +
+                "where ts_code =? and end_date= (select max(end_date) from [zzfin].[dbo].[EQ_FLOAT_HOLDER] \n" +
+                "where ts_code =?) order by hold_number desc";
+        Connection con = null;
+        StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+        PreparedStatement preStmt = null;
+        con = stockLinkDao.getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            preStmt.setString(1, stockCode);
+            preStmt.setString(2, stockCode);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                StockDetailStockHolder stockDetailStockHolder=new StockDetailStockHolder();
+                stockDetailStockHolder.stockHolderAmount=rs.getString("hold_number");
+                stockDetailStockHolder.stockHolderNmae=rs.getString("holder_name");
+                stockDetailStockHolders.add(stockDetailStockHolder);
+            }
+            return stockDetailStockHolders;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return stockDetailStockHolders;
+    }
     private void closeSql(Statement stmt, ResultSet rs) {
         if (stmt != null) {
             try {

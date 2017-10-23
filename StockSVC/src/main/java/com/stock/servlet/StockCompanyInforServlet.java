@@ -4,10 +4,9 @@ import com.stock.model.ServiceRequest;
 import com.stock.model.ServiceResponse;
 import com.stock.model.model.StockDateDataModel;
 import com.stock.model.model.StockDetailCompanyModel;
+import com.stock.model.model.StockDetailStockHolder;
 import com.stock.model.request.StockDetailCompanyInfoRequest;
-import com.stock.model.request.StockDetailDataRequest;
 import com.stock.model.response.StockDetailCompanyInfoResponse;
-import com.stock.model.response.StockDetailDataResponse;
 import com.stock.service.StockService;
 import com.stock.servlet.base.BaseServlet;
 
@@ -49,8 +48,10 @@ public class StockCompanyInforServlet extends BaseServlet {
     protected void servletAction(ServiceRequest serviceRequest, ServiceResponse serviceResponse) throws Exception {
         StockDetailCompanyInfoRequest  stockDetailCompanyInfoRequest = (StockDetailCompanyInfoRequest) serviceRequest;
         StockDetailCompanyInfoResponse   stockDetailCompanyInfoResponse= (StockDetailCompanyInfoResponse) serviceResponse;
-        List<StockDetailCompanyModel> stockDetailCompanyModels = stockService.stockDetailDataModels(stockDetailDataRequest, stockDetailDataResponse);
+       StockDetailCompanyModel stockDetailCompanyModels = stockService.stockDetailCompanyModels(stockDetailCompanyInfoRequest, stockDetailCompanyInfoResponse);
+       List<StockDetailStockHolder> stockDetailStockHolders=stockService.stockHolders(stockDetailCompanyInfoRequest, stockDetailCompanyInfoResponse);
         stockDetailCompanyInfoResponse.companyModel = stockDetailCompanyModels;
+        stockDetailCompanyInfoResponse.stockHolderList=stockDetailStockHolders;
 
     }
 }
