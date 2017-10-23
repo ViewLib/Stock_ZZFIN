@@ -4,7 +4,7 @@ package com.xt.lxl.stock.model.model;
  * Created by xiangleiliu on 2017/8/27.
  * 指数变化model
  */
-public class StockIndexChangeModel {
+public class StockIndexChangeModel extends StockBaseModel {
 
     public static final int SHOW_LOCATION_LEFT = -1;
     public static final int SHOW_LOCATION_CENTER = 0;

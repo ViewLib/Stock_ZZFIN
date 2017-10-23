@@ -4,7 +4,7 @@ package com.xt.lxl.stock.model.model;
  * Created by xiangleiliu on 2017/10/16.
  * 包含日，周，月 的数据
  */
-public class StockDateDataModel {
+public class StockDateDataModel  extends StockBaseModel{
 
     //以下数据服务端下发
     public String dateStr;//当前时间string类型

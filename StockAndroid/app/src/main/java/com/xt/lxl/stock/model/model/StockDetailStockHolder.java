@@ -1,6 +1,6 @@
 package com.xt.lxl.stock.model.model;
 
-public class StockDetailStockHolder {
+public class StockDetailStockHolder extends StockBaseModel {
 
     public String stockHolderName = "";//股东名称
     public String stockHolderAmount = "";//股东持股量

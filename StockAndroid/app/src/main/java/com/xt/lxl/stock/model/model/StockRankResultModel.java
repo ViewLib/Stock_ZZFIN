@@ -4,7 +4,7 @@ package com.xt.lxl.stock.model.model;
  * Created by Administrator on 2017/9/19 0019.
  */
 
-public class StockRankResultModel {
+public class StockRankResultModel extends StockBaseModel {
     public int position;
     public String stockName = "";
     public String stockCode = "";

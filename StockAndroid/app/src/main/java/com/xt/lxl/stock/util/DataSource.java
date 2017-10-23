@@ -7,7 +7,7 @@ import android.util.Log;
 import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
-import com.xt.lxl.stock.model.model.StockRankFilterModel;
+import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockSyncModel;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
@@ -198,27 +198,27 @@ public class DataSource {
 
     public static StockRankDetailFilterlResponse getRankDetailFilterResponse() {
         StockRankDetailFilterlResponse response = new StockRankDetailFilterlResponse();
-        StockRankFilterModel model1 = new StockRankFilterModel();
+        StockRankFilterGroupModel model1 = new StockRankFilterGroupModel();
         model1.defaultPosition = 0;
         model1.filteList.add("央企");
         model1.filteList.add("私企");
         model1.filteList.add("欧美");
 
-        StockRankFilterModel model2 = new StockRankFilterModel();
+        StockRankFilterGroupModel model2 = new StockRankFilterGroupModel();
         model2.defaultPosition = 0;
         model2.filteList.add("银行业");
         model2.filteList.add("建筑业");
         model2.filteList.add("计算机");
         model2.filteList.add("金融");
 
-        StockRankFilterModel model3 = new StockRankFilterModel();
+        StockRankFilterGroupModel model3 = new StockRankFilterGroupModel();
         model3.defaultPosition = 0;
         model3.filteList.add("全部盘");
         model3.filteList.add("流通盘");
         model3.filteList.add("解禁盘");
         model3.filteList.add("市值");
 
-        StockRankFilterModel model4 = new StockRankFilterModel();
+        StockRankFilterGroupModel model4 = new StockRankFilterGroupModel();
         model4.defaultPosition = 0;
         model4.filteList.add("其它筛选");
         model4.filteList.add("高新科技");

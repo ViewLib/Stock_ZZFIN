@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.model.StockFoundRankModel;
-import com.xt.lxl.stock.model.model.StockRankFilterModel;
+import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
@@ -52,7 +52,7 @@ public class StockRankActivity extends FragmentActivity {
 
     //数据
     public StockFoundRankModel mRankModel;
-    public List<StockRankFilterModel> mRankFilerList = new ArrayList<>();
+    public List<StockRankFilterGroupModel> mRankFilerList = new ArrayList<>();
     public List<StockRankResultModel> mRankList = new ArrayList<>();
     private List<String> mSaveList = new ArrayList<>();
 
@@ -140,7 +140,7 @@ public class StockRankActivity extends FragmentActivity {
         StockTextView filter4 = (StockTextView) mStockRankFilterContainer.findViewById(R.id.filter4);
 
         for (int i = 0; i < mRankFilerList.size(); i++) {
-            StockRankFilterModel filterModel = mRankFilerList.get(i);
+            StockRankFilterGroupModel filterModel = mRankFilerList.get(i);
             StockTextView filter = null;
             if (i == 0) {
                 filter = filter1;
