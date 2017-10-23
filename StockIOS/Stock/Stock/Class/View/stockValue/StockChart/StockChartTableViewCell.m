@@ -15,11 +15,16 @@
     [super awakeFromNib];
     
     [self initStockView];
-    [self fetchData];
-    
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self stock_enterFullScreen:self.stock.containerView.gestureRecognizers.firstObject];
 //    });
+}
+
+- (void)setStockCode:(NSString *)stockCode {
+    if (stockCode) {
+        _stockCode = stockCode;
+    }
+    [self fetchData];
 }
 
 - (void)initStockView {
@@ -57,6 +62,21 @@
     } fail:^(NSDictionary *info) {
         
     }];
+    [[HttpRequestClient sharedClient] getKLineData:@{@"sqlCode": @"day",@"stockCode": self.stockCode} request:^(NSString *resultMsg, id dataDict, id error) {
+        if ([dataDict[@"resultCode"] intValue] == 200) {
+            
+        }
+    }];
+    
+    [[HttpRequestClient sharedClient] getLineData:@{@"stockCode": self.stockCode} request:^(NSString *resultMsg, id dataDict, id error) {
+        if ([dataDict[@"resultCode"] intValue] == 200) {
+            NSMutableArray *array = [NSMutableArray array];
+            for (NSDictionary *dic in dataDict[@"stockMinuteDataModels"]) {
+                YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:dic];
+                [array addObject: model];
+            }
+        }
+    }];
     
     [HttpRequestClient Get:@"minute" params:nil success:^(NSDictionary *response) {
         NSMutableArray *array = [NSMutableArray array];
@@ -66,7 +86,7 @@
         }];
         [self.stockDatadict setObject:array forKey:@"minutes"];
         [self.stock draw];
-        
+
     } fail:^(NSDictionary *info) {
     }];
 }

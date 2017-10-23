@@ -64,6 +64,28 @@
     [self httpPost:urlStr paramDict:dic completion:request];
 }
 
+#pragma mark - 获取分时数据
+-(void)getLineData:(NSDictionary *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_minute",SERVICE];
+    NSDictionary *dic = @{@"data": [value JSONString]};
+    [self httpPost:urlStr paramDict:dic completion:request];
+}
+
+#pragma mark - 获取日线数据
+-(void)getKLineData:(NSDictionary *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_data",SERVICE];
+    NSDictionary *dic = @{@"data": [value JSONString]};
+    [self httpPost:urlStr paramDict:dic completion:request];
+}
+
+#pragma mark - 获取公司信息数据
+-(void)getComputerInfo:(NSDictionary *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_info",SERVICE];
+    NSDictionary *dic = @{@"data": [value JSONString]};
+    [self httpPost:urlStr paramDict:dic completion:request];
+}
+
+#pragma mark ------请求公共方法-------
 #pragma mark - 提交get请求
 -(void) httpGet:(NSString *) urlstring paramDict:(NSDictionary *)paramDict completion:(request )completion {
     [self httpBossWith:urlstring type:@"get" paramDict:paramDict completion:completion];

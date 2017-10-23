@@ -45,16 +45,26 @@
 //保存历史股票
 -(BOOL)insertHistoryStock:(NSDictionary *)dic {
     NSMutableArray *array = [self queryHistoryStockEntitys].mutableCopy;
-    if (array.count == 10) {
-        HistoryStockEntity *entity = [array firstObject];
-        [self.mManagerContent deleteObject:entity];
+    BOOL isHas = false;
+    for (HistoryStockEntity *ent in array) {
+        if ([ent.code isEqual:dic[@"code"]]) {
+            isHas = YES;
+        }
     }
-    
-    HistoryStockEntity *entity = (HistoryStockEntity*)[NSEntityDescription insertNewObjectForEntityForName:@"HistoryStockEntity" inManagedObjectContext:self.mManagerContent];
-    entity.name = dic[@"title"];
-    entity.code = dic[@"code"];
-    
-    return [self.mManagerContent save:nil];
+    if (!isHas) {
+        if (array.count == 10) {
+            HistoryStockEntity *entity = [array firstObject];
+            [self.mManagerContent deleteObject:entity];
+        }
+        
+        HistoryStockEntity *entity = (HistoryStockEntity*)[NSEntityDescription insertNewObjectForEntityForName:@"HistoryStockEntity" inManagedObjectContext:self.mManagerContent];
+        entity.name = dic[@"title"];
+        entity.code = dic[@"code"];
+        
+        return [self.mManagerContent save:nil];
+    } else {
+        return NO;
+    }
 }
 
 //查询自选股票列表

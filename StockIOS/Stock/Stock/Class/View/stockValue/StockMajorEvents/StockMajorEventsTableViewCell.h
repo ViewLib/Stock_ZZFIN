@@ -25,6 +25,8 @@
 
 @property (nonatomic) PNLineChart * lineChart;
 
+@property (strong, nonatomic) NSString   *stockCode;
+
 /**
  更新cell
  @param dic 更新的内容

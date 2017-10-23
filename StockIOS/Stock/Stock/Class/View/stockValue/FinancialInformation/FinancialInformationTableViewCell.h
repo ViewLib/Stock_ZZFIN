@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *BarChartViewHigh;
 
 @property (nonatomic) PNBarChart * barChart;
+
+@property (strong, nonatomic) NSString   *stockCode;
 /**
  更新cell
  @param dic 更新的内容

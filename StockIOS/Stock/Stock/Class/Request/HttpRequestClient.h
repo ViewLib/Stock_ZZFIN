@@ -34,6 +34,20 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 #pragma mark - 获取排行
 -(void)getRankDetail:(NSDictionary *)value request:(request)request;
 
+#pragma mark - 获取分时数据
+-(void)getLineData:(NSDictionary *)value request:(request)request;
+
+#pragma mark - 获取日线数据
+-(void)getKLineData:(NSDictionary *)value request:(request)request;
+
+#pragma mark - 获取公司简介
+-(void)getComputerInfo:(NSDictionary *)value request:(request)request;
+
+#pragma mark - 获取股东信息
+-(void)getShareholder:(NSDictionary *)value request:(request)request;
+
+
+
 /*****************************下面是模拟数据获取方法***************************/
 
 /**

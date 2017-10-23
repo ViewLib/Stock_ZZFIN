@@ -7,6 +7,7 @@
 //
 
 #import "ValueCollection.h"
+#import "GDCollectionViewCell.h"
 #import "GSJJCollectionViewCell.h"
 #import "PJBHCollectionViewCell.h"
 
@@ -17,23 +18,26 @@
     if (self = [super init]) {
         self.valueAry = values;
         self.valType = valueType;
+        [self registerClass];
         [self valueView];
-        if ([valueType isEqual:@"GSJJ"]) {
-            [self.valueView registerClass:[GSJJCollectionViewCell class] forCellWithReuseIdentifier:@"GSJJCollectionViewCell"];
-        } else if ([valueType isEqual:@"PJBH"]) {
-            [self.valueView registerClass:[PJBHCollectionViewCell class] forCellWithReuseIdentifier:@"PJBHCollectionViewCell"];
-        }
     }
     return self;
+}
+
+- (void)reloadWithType:(NSString *)valueType Value:(NSArray *)values {
+    self.valueAry = values;
+    self.valType = valueType;
+    [self registerClass];
+    [self.valueView reloadData];
 }
 
 - (UICollectionView *)valueView {
     if (!_valueView) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        layout.minimumLineSpacing = 5.0;
+        layout.minimumLineSpacing = 0.0;
         float valueHigh = 0;
-        if ([self.valType isEqual:@"GSJJ"]) {
+        if ([self.valType isEqual:@"GSJJ"] || [self.valType isEqual:@"GD"]) {
             valueHigh = 230;
         } else if ([self.valType isEqual:@"PJBH"]) {
             valueHigh = 200;
@@ -61,7 +65,24 @@
 {
     CGSize frame;
     if ([self.valType isEqual:@"GSJJ"]) {
+        NSDictionary *dic = self.valueAry[indexPath.item];
+        CGFloat w = K_FRAME_BASE_WIDTH-80;
+        CGSize size = [self valueSize:dic[@"value"] ValueWidth:w FontSize:12];
         frame = CGSizeMake(K_FRAME_BASE_WIDTH-24, 23);
+        if (size.height > 23) {
+            frame = CGSizeMake(K_FRAME_BASE_WIDTH-24, size.height+10);
+        }
+    } else if ([self.valType isEqual:@"GD"]) {
+        frame = CGSizeMake(K_FRAME_BASE_WIDTH-24, 30);
+        if (indexPath.item > 0) {
+            frame = CGSizeMake(K_FRAME_BASE_WIDTH-24, 23);
+            NSDictionary *dic = self.valueAry[indexPath.item];
+            CGFloat w = (K_FRAME_BASE_WIDTH-24)*0.5;
+            CGSize size = [self valueSize:dic[@"stockHolderNmae"] ValueWidth:w FontSize:12];
+            if (size.height > 20) {
+                frame = CGSizeMake(K_FRAME_BASE_WIDTH-24, size.height+10);
+            }
+        }
     } else if ([self.valType isEqual:@"PJBH"]) {
         frame = CGSizeMake(K_FRAME_BASE_WIDTH, 23);
     } else {
@@ -77,6 +98,21 @@
         NSDictionary *dic = self.valueAry[indexPath.item];
         cell.name.text = dic[@"title"];
         cell.value.text = dic[@"value"];
+        return cell;
+    } else if ([self.valType isEqual:@"GD"]) {
+        GDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GDCollectionViewCell" forIndexPath:indexPath];
+        if (indexPath.item != 0) {
+            [cell valueType];
+            NSDictionary *dic = self.valueAry[indexPath.item];
+            cell.name.text = dic[@"stockHolderNmae"];
+            cell.num.text = [NSString stringWithFormat:@"%.0f",[dic[@"stockHolderAmount"] floatValue]];
+            cell.proportion.text = @"标题3";
+            if (indexPath.item%2==1) {
+                cell.backgroundColor = [UIColor whiteColor];
+            } else {
+                cell.backgroundColor = [Utils colorFromHexRGB:@"EDF3F8"];
+            }
+        }
         return cell;
     } else if ([self.valType isEqual:@"PJBH"]) {
         PJBHCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PJBHCollectionViewCell" forIndexPath:indexPath];
@@ -99,6 +135,23 @@
     }
 }
 
+- (void)registerClass {
+    if ([self.valType isEqual:@"GSJJ"]) {
+        //公司简介
+        [self.valueView registerClass:[GSJJCollectionViewCell class] forCellWithReuseIdentifier:@"GSJJCollectionViewCell"];
+    } else if ([self.valType isEqual:@"PJBH"]) {
+        //评级变化
+        [self.valueView registerClass:[PJBHCollectionViewCell class] forCellWithReuseIdentifier:@"PJBHCollectionViewCell"];
+    } else if ([self.valType isEqual:@"GD"]) {
+        //股东
+        [self.valueView registerClass:[GDCollectionViewCell class] forCellWithReuseIdentifier:@"GDCollectionViewCell"];
+    }
+}
+
+- (CGSize)valueSize:(NSString *)value ValueWidth:(float)w FontSize:(float)stringSize {
+    CGSize size = [value boundingRectWithSize:CGSizeMake(w, 1000) options: NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:stringSize]} context:nil].size;
+    return size;
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -7,18 +7,32 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ValueCollection.h"
 
-//公司简介
+//公司介绍
 @interface ComputerIntroductionTableViewCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *MenuCollection;
 @property (weak, nonatomic) IBOutlet UIView *ValueView;
-
+//公司简介的点击名称
 @property (strong, nonatomic) NSArray   *titleAry;
-/**
- 更新cell
- @param dic 更新的内容
- */
-- (void)updateCell:(NSDictionary *)dic;
+//当前股票代码
+@property (strong, nonatomic) NSString   *stockCode;
+//当前股票名称
+@property (strong, nonatomic) NSString   *stockName;
+//公司简介
+@property (strong, nonatomic) NSArray   *informationAry;
+//公司股东
+@property (strong, nonatomic) NSArray   *stockHolderAry;
+
+@property (strong, nonatomic) ValueCollection *gsjjView;
+
+@property (strong, nonatomic) ValueCollection *gdView;
+
+///**
+// 更新cell
+// @param dic 更新的内容
+// */
+//- (void)updateCell:(NSDictionary *)dic;
 
 @end

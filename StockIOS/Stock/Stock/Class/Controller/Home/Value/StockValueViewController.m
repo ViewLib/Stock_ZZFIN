@@ -33,9 +33,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _stockName.text = _stock.name;
-    _stockCode.text = _stock.code;
+    if (_stockCode) {
+        self.stockNameStr = _stock.name;
+        self.stockCodeStr = _stock.code;
+    }
+    _stockName.text = self.stockNameStr;
+    _stockCode.text = self.stockCodeStr;
     
     _valueTable.rowHeight = UITableViewAutomaticDimension;
     _valueTable.estimatedRowHeight = 300;
@@ -73,32 +76,61 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 1) {
-        StockChartTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"StockChartTableViewCell" owner:nil options:nil] firstObject];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        StockChartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockChartTableViewCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"StockChartTableViewCell" owner:nil options:nil] firstObject];
+            cell.stockCode = self.stockCodeStr;
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
         return cell;
     } else if (indexPath.row == 2) {
-        StockMajorNewsTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"StockMajorNewsTableViewCell" owner:nil options:nil] firstObject];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        StockMajorNewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockMajorNewsTableViewCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"StockMajorNewsTableViewCell" owner:nil options:nil] firstObject];
+            cell.stockCode = self.stockCodeStr;
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
         return cell;
     } else if (indexPath.row == 3) {
-        StockMajorEventsTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"StockMajorEventsTableViewCell" owner:nil options:nil] firstObject];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        StockMajorEventsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockMajorEventsTableViewCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"StockMajorEventsTableViewCell" owner:nil options:nil] firstObject];
+            cell.stockCode = self.stockCodeStr;
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
         return cell;
     } else if (indexPath.row == 4) {
-        ComputerIntroductionTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"ComputerIntroductionTableViewCell" owner:nil options:nil] firstObject];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        ComputerIntroductionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ComputerIntroductionTableViewCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ComputerIntroductionTableViewCell" owner:nil options:nil] firstObject];
+            cell.stockName = self.stockNameStr;
+            cell.stockCode = self.stockCodeStr;
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
         return cell;
     } else if (indexPath.row == 5) {
-        FinancialInformationTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"FinancialInformationTableViewCell" owner:nil options:nil] firstObject];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        FinancialInformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FinancialInformationTableViewCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"FinancialInformationTableViewCell" owner:nil options:nil] firstObject];
+            cell.stockCode = self.stockCodeStr;
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
         return cell;
     } else if (indexPath.row == 6) {
-        HorizontalComparisonTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"HorizontalComparisonTableViewCell" owner:nil options:nil] firstObject];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        HorizontalComparisonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HorizontalComparisonTableViewCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"HorizontalComparisonTableViewCell" owner:nil options:nil] firstObject];
+            cell.stockCode = self.stockCodeStr;
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
         return cell;
     } else if (indexPath.row == 7) {
-        BrokersRatingTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"BrokersRatingTableViewCell" owner:nil options:nil] firstObject];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        BrokersRatingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BrokersRatingTableViewCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"BrokersRatingTableViewCell" owner:nil options:nil] firstObject];
+            cell.stockCode = self.stockCodeStr;
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
         return cell;
     } else {
         StockTopTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"StockTopTableViewCell" owner:nil options:nil] firstObject];

@@ -18,6 +18,8 @@
 
 @interface StockChartTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) NSString   *stockCode;
+
 /**
  K线数据源
  */

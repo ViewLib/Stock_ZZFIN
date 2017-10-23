@@ -109,25 +109,28 @@
         [cell updateCell:dic];
         cell.addOptionalBlock = ^(NSInteger row) {
             [self insertCoreData:dic[@"code"]];
+            [[DataManager shareDataMangaer] insertHistoryStock:@{@"title":dic[@"title"],@"code":dic[@"code"]}];
         };
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dic = _tableDate[indexPath.row];
-    if (!self.isSearch) {
-        HistoryStockEntity *entity = (HistoryStockEntity *)_tableDate[indexPath.row];
-        dic = @{@"title": entity.name,@"code":entity.code};
-    }
-    [[DataManager shareDataMangaer] insertHistoryStock:dic];
     
-//    if (self.clickSearchViewCancelBlock) {
-//        self.clickSearchViewCancelBlock(dic);
-//    }
     StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
-    viewController.stock = dic;
-
+    id obj = _tableDate[indexPath.row];
+    if ([obj isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dic = (NSDictionary *)obj;
+        [[DataManager shareDataMangaer] insertHistoryStock:dic];
+        viewController.stockNameStr = dic[@"title"];
+        viewController.stockCodeStr = dic[@"code"];
+    } else {
+        HistoryStockEntity *entity = (HistoryStockEntity *)obj;
+        [[DataManager shareDataMangaer] insertHistoryStock:@{@"title": entity.name,@"code":entity.code}];
+        viewController.stockNameStr = entity.name;
+        viewController.stockCodeStr = entity.code;
+    }
+    
     CATransition *animation = [CATransition animation];
 
     animation.duration = .5;

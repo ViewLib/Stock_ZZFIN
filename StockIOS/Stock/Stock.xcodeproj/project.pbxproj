@@ -109,6 +109,8 @@
 		04BC27111F9C9EA7008285B2 /* GSJJCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BC270F1F9C9EA7008285B2 /* GSJJCollectionViewCell.xib */; };
 		04BC27151F9C9F06008285B2 /* PJBHCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC27131F9C9F06008285B2 /* PJBHCollectionViewCell.m */; };
 		04BC27161F9C9F06008285B2 /* PJBHCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BC27141F9C9F06008285B2 /* PJBHCollectionViewCell.xib */; };
+		04BC271B1F9E233F008285B2 /* GDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC27191F9E233F008285B2 /* GDCollectionViewCell.m */; };
+		04BC271C1F9E233F008285B2 /* GDCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BC271A1F9E233F008285B2 /* GDCollectionViewCell.xib */; };
 		04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2131F598E3700C09D86 /* MyViewController.m */; };
 		04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2161F598E4600C09D86 /* HomeViewController.m */; };
 		04C2E21A1F598E5600C09D86 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2191F598E5600C09D86 /* FindViewController.m */; };
@@ -435,6 +437,9 @@
 		04BC27121F9C9F06008285B2 /* PJBHCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PJBHCollectionViewCell.h; sourceTree = "<group>"; };
 		04BC27131F9C9F06008285B2 /* PJBHCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PJBHCollectionViewCell.m; sourceTree = "<group>"; };
 		04BC27141F9C9F06008285B2 /* PJBHCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PJBHCollectionViewCell.xib; sourceTree = "<group>"; };
+		04BC27181F9E233F008285B2 /* GDCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDCollectionViewCell.h; sourceTree = "<group>"; };
+		04BC27191F9E233F008285B2 /* GDCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GDCollectionViewCell.m; sourceTree = "<group>"; };
+		04BC271A1F9E233F008285B2 /* GDCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GDCollectionViewCell.xib; sourceTree = "<group>"; };
 		04C2E2121F598E3700C09D86 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		04C2E2131F598E3700C09D86 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		04C2E2151F598E4600C09D86 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -1334,14 +1339,25 @@
 			children = (
 				04BC270A1F9C9AE9008285B2 /* ValueCollection.h */,
 				04BC270B1F9C9AE9008285B2 /* ValueCollection.m */,
-				04BC270D1F9C9EA7008285B2 /* GSJJCollectionViewCell.h */,
-				04BC270E1F9C9EA7008285B2 /* GSJJCollectionViewCell.m */,
-				04BC270F1F9C9EA7008285B2 /* GSJJCollectionViewCell.xib */,
+				04BC27171F9E2309008285B2 /* GSJS(公司介绍) */,
 				04BC27121F9C9F06008285B2 /* PJBHCollectionViewCell.h */,
 				04BC27131F9C9F06008285B2 /* PJBHCollectionViewCell.m */,
 				04BC27141F9C9F06008285B2 /* PJBHCollectionViewCell.xib */,
 			);
 			path = valueCollection;
+			sourceTree = "<group>";
+		};
+		04BC27171F9E2309008285B2 /* GSJS(公司介绍) */ = {
+			isa = PBXGroup;
+			children = (
+				04BC270D1F9C9EA7008285B2 /* GSJJCollectionViewCell.h */,
+				04BC270E1F9C9EA7008285B2 /* GSJJCollectionViewCell.m */,
+				04BC270F1F9C9EA7008285B2 /* GSJJCollectionViewCell.xib */,
+				04BC27181F9E233F008285B2 /* GDCollectionViewCell.h */,
+				04BC27191F9E233F008285B2 /* GDCollectionViewCell.m */,
+				04BC271A1F9E233F008285B2 /* GDCollectionViewCell.xib */,
+			);
+			path = "GSJS(公司介绍)";
 			sourceTree = "<group>";
 		};
 		04C2E20F1F598DE500C09D86 /* Find */ = {
@@ -2000,6 +2016,7 @@
 				049699091F6830A600CF9185 /* SearchHistoryTableViewCell.xib in Resources */,
 				04B6BAE61F977D1800870F15 /* YYFiveRecordTableViewCell.xib in Resources */,
 				847076231F4EE36100974772 /* LaunchScreen.storyboard in Resources */,
+				04BC271C1F9E233F008285B2 /* GDCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2179,6 +2196,7 @@
 				847077731F4EF73600974772 /* IQUITextFieldView+Additions.m in Sources */,
 				0465E5EE1F645043006F7F9C /* RankViewController.m in Sources */,
 				847076341F4EE66F00974772 /* AppDelegate.m in Sources */,
+				04BC271B1F9E233F008285B2 /* GDCollectionViewCell.m in Sources */,
 				847077791F4EF73600974772 /* IQTextView.m in Sources */,
 				04BC26F41F98E52E008285B2 /* PNLineChartDataItem.m in Sources */,
 				04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */,
