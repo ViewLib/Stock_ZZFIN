@@ -88,11 +88,12 @@ public class StockService {
 
     //返回filter
     public List<StockRankFilterGroupModel> getStockFilterList(StockRankDetailFilterlRequest stockRankDetailFilterlRequest, StockRankDetailFilterlResponse stockRankDetailFilterlResponse) {
-        List<StockRankFilterModel> stockRankFilterModelList = dao.selectStockFilterList(0);
-        List<StockRankFilterGroupModel> list = new ArrayList<>();
+        List<StockRankFilterGroupModel> stockRankFilterModelList = dao.getStockRankFilterGroup(0);
+       // List<StockRankFilterGroupModel> list = new ArrayList<>();
+
         //todo
 
-        return list;
+        return stockRankFilterModelList;
     }
 
     //返回K线数据

@@ -26,4 +26,6 @@ public interface StockDao {
     public StockDetailCompanyModel getCompanyInfo(String stockCode);
 
     public List<StockDetailStockHolder> getStockHolder(String stockCode);
+
+    public List<StockRankFilterGroupModel> getStockRankFilterGroup(int first_type);
 }

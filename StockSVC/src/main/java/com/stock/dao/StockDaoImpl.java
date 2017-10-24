@@ -3,6 +3,7 @@ package com.stock.dao;
 import com.stock.model.model.*;
 import com.stock.util.StringUtil;
 
+import java.security.spec.ECField;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -176,6 +177,64 @@ public class StockDaoImpl implements StockDao {
         }
 
         return searchModelList;
+    }
+    @Override
+    public List<StockRankFilterGroupModel> getStockRankFilterGroup(int first_type){
+        //StockRankFilterItemModel
+        List<StockRankFilterGroupModel> stockRankFilterGroupModels=new ArrayList<>();
+        String first_sql = "select * from stock_first_type where status=1";
+        PreparedStatement preStmt = null;
+        //第一层
+        try{
+            preStmt = conn.prepareStatement(first_sql);
+            ResultSet rs = preStmt.executeQuery();
+            StockRankFilterGroupModel StockRankFilterGroupMode=new StockRankFilterGroupModel();
+            while (rs.next()) {
+                StockRankFilterItemModel stockRankFilterItemModel=new StockRankFilterItemModel();
+                stockRankFilterItemModel.groupType=rs.getString("show_type");
+                stockRankFilterItemModel.filterName=rs.getString("first_title");
+                stockRankFilterItemModel.filterId=rs.getString("first_type");
+                StockRankFilterGroupMode.filteList.add(stockRankFilterItemModel);
+                String second_sql="select  * from stock_type where status=1 and first_type="+stockRankFilterItemModel.filterId;
+               //第二层
+               try {
+                   preStmt = conn.prepareStatement(second_sql);
+                   rs = preStmt.executeQuery();
+                   StockRankFilterGroupModel StockRankFilterGroupSecondList = new StockRankFilterGroupModel();
+                   while (rs.next()) {
+                       StockRankFilterItemModel stockRankFilterItemSecond=new StockRankFilterItemModel();
+                       stockRankFilterItemSecond.groupType=rs.getString("first_type");
+                       stockRankFilterItemModel.filterName=rs.getString("filter_title");
+                       stockRankFilterItemModel.filterId=rs.getString("second_id");
+                       StockRankFilterGroupSecondList.filteList.add(stockRankFilterItemModel);
+                       String third_sql="select  * from filter_type_detail where status=1 and second_id="+stockRankFilterItemModel.filterId;
+                       //第三层
+                       try {
+                           preStmt = conn.prepareStatement(third_sql);
+                           rs = preStmt.executeQuery();
+                           List<StockRankFilterItemModel> StockRankFilterGroupThirdList = new ArrayList<>();
+                           while (rs.next()) {
+                               StockRankFilterItemModel stockRankFilterItemThird=new StockRankFilterItemModel();
+                               stockRankFilterItemThird.groupType=rs.getString("second_id");
+                               stockRankFilterItemThird.filterName=rs.getString("filter_title");
+                               stockRankFilterItemThird.filterId=rs.getString("filter_type");
+                               StockRankFilterGroupThirdList.add(stockRankFilterItemThird);
+                           }
+                           stockRankFilterGroupModels.add(StockRankFilterGroupSecondList);
+                       }catch (Exception e){
+                           //第三层
+                       }
+                   }
+               }catch (Exception e){
+                   //第二层
+
+               }
+                return stockRankFilterGroupModels;
+            }
+        }catch (Exception e){
+            //第一层异常
+        }
+        return stockRankFilterGroupModels;
     }
     @Override
     public List<StockRankFilterModel> selectStockFilterList(int first_type){

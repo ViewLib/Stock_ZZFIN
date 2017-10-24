@@ -1,0 +1,16 @@
+package com.stock.model.model;
+
+public class StockDetailStockHolder {
+<<<<<<< 5615640a17ed4aea3c3507e4b934752d099f958b
+    public String stockHolderName = "";//股东名称
+    public String stockHolderAmount = "";//股东持股量
+    public String stockHolderRatio = "";//股东持比例
+=======
+
+
+   public String stockHolderName = "";//股东名称
+    public String stockHolderAmount = "";//股东持股量
+    public  String stockHolderRatio = "";//股东持比例
+
+>>>>>>> filter
+}
