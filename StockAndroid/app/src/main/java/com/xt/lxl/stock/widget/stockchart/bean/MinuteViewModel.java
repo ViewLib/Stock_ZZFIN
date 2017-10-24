@@ -20,11 +20,15 @@ public class MinuteViewModel {
     public float basePrice;//昨日价格
     public List<StockMinuteDataModel> minuteList = new ArrayList<>();//最大跌幅
 
-    public void initAllModel(List<StockMinuteDataModel> list) {
+    public void initAllModel(List<StockMinuteDataModel> list, String yestodayPrice) {
         if (list.size() == 0) {
             return;
         }
-        basePrice = list.get(0).basePrice / 100f;
+        try {
+            basePrice = Float.parseFloat(yestodayPrice);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         minPrice = basePrice;
         maxPrice = basePrice;
         for (int i = 0; i < list.size(); i++) {
