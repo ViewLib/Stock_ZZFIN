@@ -46,7 +46,8 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 #pragma mark - 获取股东信息
 -(void)getShareholder:(NSDictionary *)value request:(request)request;
 
-
+#pragma mark - 获取筛选信息
+-(void)getStockRankfilter:(NSDictionary *)value request:(request)request;
 
 /*****************************下面是模拟数据获取方法***************************/
 

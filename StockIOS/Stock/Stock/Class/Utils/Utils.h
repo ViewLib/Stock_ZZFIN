@@ -13,6 +13,9 @@
 #pragma mark - 分时图数据格式转换
 + (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice;
 
+#pragma mark - K线图数据格式转换
++ (NSDictionary *)KlineDicWithDic:(NSDictionary *)dic;
+
 #pragma mark - 颜色转换
 + (UIColor *)colorFromHexRGB:(NSString *)inColorString;
 

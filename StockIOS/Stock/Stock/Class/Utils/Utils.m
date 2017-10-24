@@ -13,9 +13,23 @@
 #pragma mark - 分时图数据格式转换
 + (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice {
     NSString *time = dic[@"time"];
-    NSString *price = dic[@"price"]?dic[@"price"]:@"0";
+    NSString *price = [NSString stringWithFormat:@"%.2f",[dic[@"price"] floatValue]/100];
     NSString *volume = dic[@"volume"];
     NSDictionary *returnDic = @{@"amount": @"",@"avgPrice": avgPrice,@"minute": time,@"price": price,@"volume": volume};
+    return returnDic;
+}
+
+#pragma mark - K线图数据格式转换
++ (NSDictionary *)KlineDicWithDic:(NSDictionary *)dic {
+    NSString *close = [NSString stringWithFormat:@"%.2f",[dic[@"closePrice"] floatValue]/100];
+    NSString *volume = [NSString stringWithFormat:@"%.2f",[dic[@"volume"] floatValue]];
+    NSString *open = [NSString stringWithFormat:@"%.2f",[dic[@"openPrice"] floatValue]/100];
+    NSString *high = [NSString stringWithFormat:@"%.2f",[dic[@"maxPrice"] floatValue]/100];
+    NSString *low = [NSString stringWithFormat:@"%.2f",[dic[@"minPrice"] floatValue]/100];
+    NSString *day = dic[@"dateStr"];
+    day = [day componentsSeparatedByString:@" "].firstObject;
+    day = [day stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSDictionary *returnDic = @{@"close": close,@"open": open,@"high": high,@"low": low,@"volume": volume,@"day":day};
     return returnDic;
 }
 
