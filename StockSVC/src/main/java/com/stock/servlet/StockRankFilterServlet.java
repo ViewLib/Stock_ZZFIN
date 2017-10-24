@@ -11,7 +11,7 @@ import com.stock.servlet.base.BaseServlet;
 import javax.servlet.annotation.WebServlet;
 import java.util.List;
 
-@WebServlet(name = "StockRankListServlet")
+@WebServlet(name = "StockRankFilterServlet")
 public class StockRankFilterServlet extends BaseServlet {
 
     StockService stockService;
@@ -37,5 +37,6 @@ public class StockRankFilterServlet extends BaseServlet {
         StockRankDetailFilterlResponse stockRankDetailFilterlResponse = (StockRankDetailFilterlResponse) serviceResponse;
         List<StockRankFilterGroupModel> stockRankFilterModels = stockService.getStockFilterList(stockRankDetailFilterlRequest, stockRankDetailFilterlResponse);
         stockRankDetailFilterlResponse.rankFilterList = stockRankFilterModels;
+        System.out.print("xxx");
     }
 }

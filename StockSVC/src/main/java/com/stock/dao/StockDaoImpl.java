@@ -178,203 +178,145 @@ public class StockDaoImpl implements StockDao {
 
         return searchModelList;
     }
+
     @Override
-    public List<StockRankFilterGroupModel> getStockRankFilterGroup(int first_type){
+    public List<StockRankFilterGroupModel> getStockRankFilterGroup() {
         //StockRankFilterItemModel
-        List<StockRankFilterGroupModel> stockRankFilterGroupModels=new ArrayList<>();
-        String first_sql = "select * from stock_first_type where status=1";
+        List<StockRankFilterGroupModel> topList = new ArrayList<>();
+        String first_sql = "select * from stock_filter_group where status=1";
         PreparedStatement preStmt = null;
         //第一层
-        try{
+        try {
             preStmt = conn.prepareStatement(first_sql);
             ResultSet rs = preStmt.executeQuery();
-            StockRankFilterGroupModel StockRankFilterGroupMode=new StockRankFilterGroupModel();
             while (rs.next()) {
-                StockRankFilterItemModel stockRankFilterItemModel=new StockRankFilterItemModel();
-                stockRankFilterItemModel.groupType=rs.getString("show_type");
-                stockRankFilterItemModel.filterName=rs.getString("first_title");
-                stockRankFilterItemModel.filterId=rs.getString("first_type");
-                StockRankFilterGroupMode.filteList.add(stockRankFilterItemModel);
-                String second_sql="select  * from stock_type where status=1 and first_type="+stockRankFilterItemModel.filterId;
-               //第二层
-               try {
-                   preStmt = conn.prepareStatement(second_sql);
-                   rs = preStmt.executeQuery();
-                   StockRankFilterGroupModel StockRankFilterGroupSecondList = new StockRankFilterGroupModel();
-                   while (rs.next()) {
-                       StockRankFilterItemModel stockRankFilterItemSecond=new StockRankFilterItemModel();
-                       stockRankFilterItemSecond.groupType=rs.getString("first_type");
-                       stockRankFilterItemModel.filterName=rs.getString("filter_title");
-                       stockRankFilterItemModel.filterId=rs.getString("second_id");
-                       StockRankFilterGroupSecondList.filteList.add(stockRankFilterItemModel);
-                       String third_sql="select  * from filter_type_detail where status=1 and second_id="+stockRankFilterItemModel.filterId;
-                       //第三层
-                       try {
-                           preStmt = conn.prepareStatement(third_sql);
-                           rs = preStmt.executeQuery();
-                           List<StockRankFilterItemModel> StockRankFilterGroupThirdList = new ArrayList<>();
-                           while (rs.next()) {
-                               StockRankFilterItemModel stockRankFilterItemThird=new StockRankFilterItemModel();
-                               stockRankFilterItemThird.groupType=rs.getString("second_id");
-                               stockRankFilterItemThird.filterName=rs.getString("filter_title");
-                               stockRankFilterItemThird.filterId=rs.getString("filter_type");
-                               StockRankFilterGroupThirdList.add(stockRankFilterItemThird);
-                           }
-                           stockRankFilterGroupModels.add(StockRankFilterGroupSecondList);
-                       }catch (Exception e){
-                           //第三层
-                       }
-                   }
-               }catch (Exception e){
-                   //第二层
+                StockRankFilterGroupModel groupModel = new StockRankFilterGroupModel();
+                groupModel.groupId = rs.getInt("group_id");
+                groupModel.groupName = rs.getString("group_name");
+                groupModel.level = rs.getInt("level");
+                groupModel.showType = rs.getInt("show_type");
 
-               }
-                return stockRankFilterGroupModels;
+                topList.add(groupModel);
             }
-        }catch (Exception e){
-            //第一层异常
-        }
-        return stockRankFilterGroupModels;
-    }
-    @Override
-    public List<StockRankFilterModel> selectStockFilterList(int first_type){
-        List<StockRankFilterModel> stockRankFilterModelList=new ArrayList<>();
-        String sql = "select * from stock_type where status=1 and first_type=?";
-        PreparedStatement preStmt = null;
-        try {
-            preStmt = conn.prepareStatement(sql);
-            preStmt.setInt(1, first_type);
-            //System.out.println("已顺利连接到数据库:"+sql);
-           // System.out.println("已顺利连接到数据库:"+first_type);
-            ResultSet rs = preStmt.executeQuery();
-            while (rs.next()) {
-                Integer fiter_type = rs.getInt("filter_type");
-                String filter_title = rs.getString("filter_title");
-                StockRankFilterModel stockRankFilterModel = new StockRankFilterModel();
-                stockRankFilterModel.filter_title = filter_title;
-                stockRankFilterModel.filter_type = fiter_type;
-                //System.out.println("已顺利连接到数据库:"+filter_title);
-                String subsql="select  * from stock_filter_type where status=1 and filter_type="+fiter_type;
-                List<StockFilterViewModel> viewModelList=new ArrayList<>();
-                  try{
-                      preStmt = conn.prepareStatement(subsql);
-                      ResultSet rslist = preStmt.executeQuery();
-
-                      while(rslist.next()){
-                          StockFilterViewModel temp=new StockFilterViewModel();
-                          temp.filter_title=rslist.getString("filter_title");
-                          temp.filter_datail_type=rslist.getInt("filter_datail_type");
-                          temp.filter_name=rslist.getString("filter_name");
-                          temp.filter_type=rslist.getInt("filter_type");
-                          viewModelList.add(temp);
-                        //  System.out.println("viewModelList:"+viewModelList.size());
-                      }
-                      stockRankFilterModel.stockFilterViewModel=viewModelList;
-                  } catch (Exception e) {
-                      e.printStackTrace();
-                  } finally {
-                     // closeSql(preStmt, null);
-                  }
-                stockRankFilterModelList.add(stockRankFilterModel);
-                //System.out.println("stockRankFilterModel:"+stockRankFilterModel.toString());
-            }
-            return stockRankFilterModelList;
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            closeSql(preStmt, null);
         }
-        return stockRankFilterModelList;
+        return topList;
     }
-    //获取filter大类
-    public List<StockFirstTypeModel> selectStockFirstTypList(int version){
-        List<StockFirstTypeModel> stockFirstTypeModels=new ArrayList<>();
-        String sql="select * from stock_first_type where status=1";
+
+    @Override
+    public List<StockRankFilterGroupModel> getStockRankFilterSubGroup(int parentFilterId) {
+        //StockRankFilterItemModel
+        List<StockRankFilterGroupModel> secondList = new ArrayList<>();
+        String first_sql = "select * from stock_filter_subgroup where parent_group_id =" + parentFilterId;
         PreparedStatement preStmt = null;
+        //第一层
         try {
-            preStmt = conn.prepareStatement(sql);
+            preStmt = conn.prepareStatement(first_sql);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
-                StockFirstTypeModel stockFirstTypeModel=new StockFirstTypeModel();
-                stockFirstTypeModel.first_title=rs.getString("first_title");
-                stockFirstTypeModel.first_type=rs.getInt("first_type");
-                stockFirstTypeModels.add(stockFirstTypeModel);
+                StockRankFilterGroupModel groupModel = new StockRankFilterGroupModel();
+                groupModel.groupId = rs.getInt("group_id");
+                groupModel.groupName = rs.getString("group_name");
+                groupModel.parentGroupId = rs.getInt("parent_group_id");
+                groupModel.level = rs.getInt("level");
+                groupModel.showType = rs.getInt("show_type");
+                secondList.add(groupModel);
             }
-            return stockFirstTypeModels;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-        closeSql(preStmt, null);
-       }
-        return stockFirstTypeModels;
+        }
+        return secondList;
     }
+
     @Override
-    public List<StockDateDataModel> selectStocDetailkDataList(String stockCode,String sqlCode){
-        List<StockDateDataModel> stockDetailDataModels=new  ArrayList<>();
-        String sql = "select * from stock_sqlsetup where sql_type=1 and sql_code="+"'"+sqlCode+"'";
+    public List<StockRankFilterItemModel> getAllStockRankFilterItem() {
+        List<StockRankFilterItemModel> filterItemList = new ArrayList<>();
+        String first_sql = "select * from stock_filter_item where status=1";
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(first_sql);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                StockRankFilterItemModel itemModel = new StockRankFilterItemModel();
+                itemModel.filterId = rs.getInt("filter_id");
+                itemModel.filterName = rs.getString("filter_name");
+                itemModel.parentGroupId = rs.getInt("parent_group_id");
+                filterItemList.add(itemModel);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return filterItemList;
+    }
+
+    @Override
+    public List<StockDateDataModel> selectStocDetailkDataList(String stockCode, String sqlCode) {
+        List<StockDateDataModel> stockDetailDataModels = new ArrayList<>();
+        String sql = "select * from stock_sqlsetup where sql_type=1 and sql_code=" + "'" + sqlCode + "'";
         //System.out.println("StockDetailDataModel:"+sql);
         PreparedStatement preStmt = null;
         ResultSet rs = null;
-        try{
+        try {
             preStmt = conn.prepareStatement(sql);
-            rs=preStmt.executeQuery();
-            while (rs.next()){
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
                 String sql_title = rs.getString("sql_title");
                 String sql_list = rs.getString("sql_list");
                 Connection con = null;
                 StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
                 PreparedStatement preStmt2 = null;
                 con = stockLinkDao.getConnection();
-                try{
+                try {
                     //preStmt = conn.prepareStatement(sql_list);
                     //preStmt.setString(1, stockCode);
                     //rs=preStmt.executeQuery();
                     preStmt2 = con.prepareStatement(sql_list);
                     preStmt2.setString(1, stockCode);
                     ResultSet rslist = preStmt2.executeQuery();
-                   while (rslist.next()){
-                      // ResultSetMetaData metaData = rslist.getMetaData();
-                       StockDateDataModel stockDetailDataModel=new StockDateDataModel();
-                       //stockDetailDataModel.stockCode=rslist.getString(metaData.getColumnName(0));
-                      // stockDetailDataModel.stockCode=rslist.getString("ts_code");
-                      // System.out.println("0:"+stockDetailDataModel.stockCode);
-                      // stockDetailDataModel.tradeDate=rslist.getDate(metaData.getColumnName(1));
-                       stockDetailDataModel.dateStr=rslist.getString("trade_date");
-                      // System.out.println("1:"+stockDetailDataModel.tradeDate);
-                      // stockDetailDataModel.preClose=rslist.getDouble(metaData.getColumnName(2));
-                       //stockDetailDataModel.closePrice=rslist.getInt("pre_close")*100;
-                     //  System.out.println("2:"+stockDetailDataModel.preClose);
-                      // stockDetailDataModel.Close=rslist.getDouble(metaData.getColumnName(3));
-                       //stockDetailDataModel.=rslist.getDouble("close");
-                      // System.out.println("3:"+stockDetailDataModel.Close);
-                       //stockDetailDataModel.Open=rslist.getDouble(metaData.getColumnName(4));
-                       stockDetailDataModel.openPrice=rslist.getInt("open")*100;
-                       //stockDetailDataModel.High=rslist.getDouble(metaData.getColumnName(5));
-                       stockDetailDataModel.maxPrice=rslist.getInt("high")*100;
-                      // stockDetailDataModel.Low=rslist.getDouble(metaData.getColumnName(6));
-                       stockDetailDataModel.minPrice=rslist.getInt("low")*100;
-                       //stockDetailDataModel.Change=rslist.getDouble(metaData.getColumnName(7));
-                       stockDetailDataModel.closePrice=rslist.getInt("close")*100;
-                      // stockDetailDataModel.pctChange=rslist.getDouble(metaData.getColumnName(8));
-                     //  stockDetailDataModel.pctChange=rslist.getDouble("pct_change");
-                      // stockDetailDataModel.Volumn=rslist.getInt(metaData.getColumnName(9));
-                       stockDetailDataModel.volume=rslist.getInt("volume");
-                      // stockDetailDataModel.Amount=rslist.getDouble(metaData.getColumnName(10));
-                      // stockDetailDataModel.Amount=rslist.getDouble("amount");
-                       stockDetailDataModels.add(stockDetailDataModel);
-                   }
-                }catch (SQLException e) {
+                    while (rslist.next()) {
+                        // ResultSetMetaData metaData = rslist.getMetaData();
+                        StockDateDataModel stockDetailDataModel = new StockDateDataModel();
+                        //stockDetailDataModel.stockCode=rslist.getString(metaData.getColumnName(0));
+                        // stockDetailDataModel.stockCode=rslist.getString("ts_code");
+                        // System.out.println("0:"+stockDetailDataModel.stockCode);
+                        // stockDetailDataModel.tradeDate=rslist.getDate(metaData.getColumnName(1));
+                        stockDetailDataModel.dateStr = rslist.getString("trade_date");
+                        // System.out.println("1:"+stockDetailDataModel.tradeDate);
+                        // stockDetailDataModel.preClose=rslist.getDouble(metaData.getColumnName(2));
+                        //stockDetailDataModel.closePrice=rslist.getInt("pre_close")*100;
+                        //  System.out.println("2:"+stockDetailDataModel.preClose);
+                        // stockDetailDataModel.Close=rslist.getDouble(metaData.getColumnName(3));
+                        //stockDetailDataModel.=rslist.getDouble("close");
+                        // System.out.println("3:"+stockDetailDataModel.Close);
+                        //stockDetailDataModel.Open=rslist.getDouble(metaData.getColumnName(4));
+                        stockDetailDataModel.openPrice = rslist.getInt("open") * 100;
+                        //stockDetailDataModel.High=rslist.getDouble(metaData.getColumnName(5));
+                        stockDetailDataModel.maxPrice = rslist.getInt("high") * 100;
+                        // stockDetailDataModel.Low=rslist.getDouble(metaData.getColumnName(6));
+                        stockDetailDataModel.minPrice = rslist.getInt("low") * 100;
+                        //stockDetailDataModel.Change=rslist.getDouble(metaData.getColumnName(7));
+                        stockDetailDataModel.closePrice = rslist.getInt("close") * 100;
+                        // stockDetailDataModel.pctChange=rslist.getDouble(metaData.getColumnName(8));
+                        //  stockDetailDataModel.pctChange=rslist.getDouble("pct_change");
+                        // stockDetailDataModel.Volumn=rslist.getInt(metaData.getColumnName(9));
+                        stockDetailDataModel.volume = rslist.getInt("volume");
+                        // stockDetailDataModel.Amount=rslist.getDouble(metaData.getColumnName(10));
+                        // stockDetailDataModel.Amount=rslist.getDouble("amount");
+                        stockDetailDataModels.add(stockDetailDataModel);
+                    }
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return stockDetailDataModels;
     }
 
-    public int getHoliday(String p_date){
-        String sql = "select * from stock_date_holiday where holiday_date="+p_date;
+    public int getHoliday(String p_date) {
+        String sql = "select * from stock_date_holiday where holiday_date=" + p_date;
         PreparedStatement preStmt = null;
         try {
             preStmt = conn.prepareStatement(sql);
@@ -391,9 +333,9 @@ public class StockDaoImpl implements StockDao {
         return 0;
     }
 
-    public StockDetailCompanyModel getCompanyInfo(String stockCode){
-        StockDetailCompanyModel stockDetailCompanyModel=new StockDetailCompanyModel();
-        String sql = "SELECT [PROVINCE],[CITY],[CHAIRMAN],[FOUNDDATE],[COMPANY_DESC] FROM [zzfin].[dbo].[TS_COMPANY]  where ts_code ="+"'"+stockCode+"'";
+    public StockDetailCompanyModel getCompanyInfo(String stockCode) {
+        StockDetailCompanyModel stockDetailCompanyModel = new StockDetailCompanyModel();
+        String sql = "SELECT [PROVINCE],[CITY],[CHAIRMAN],[FOUNDDATE],[COMPANY_DESC] FROM [zzfin].[dbo].[TS_COMPANY]  where ts_code =" + "'" + stockCode + "'";
         Connection con = null;
         StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
         PreparedStatement preStmt = null;
@@ -402,10 +344,10 @@ public class StockDaoImpl implements StockDao {
             preStmt = con.prepareStatement(sql);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
-                stockDetailCompanyModel.baseArea=rs.getString("province");
-                stockDetailCompanyModel.companyBusiness=rs.getString("company_desc");
-                stockDetailCompanyModel.companyName=rs.getString("chairman");
-                stockDetailCompanyModel.establishDate=rs.getString("founddate");
+                stockDetailCompanyModel.baseArea = rs.getString("province");
+                stockDetailCompanyModel.companyBusiness = rs.getString("company_desc");
+                stockDetailCompanyModel.companyName = rs.getString("chairman");
+                stockDetailCompanyModel.establishDate = rs.getString("founddate");
             }
             return stockDetailCompanyModel;
         } catch (Exception e) {
@@ -415,8 +357,9 @@ public class StockDaoImpl implements StockDao {
         }
         return stockDetailCompanyModel;
     }
-    public List<StockDetailStockHolder> getStockHolder(String stockCode){
-        List<StockDetailStockHolder> stockDetailStockHolders=new ArrayList<>();
+
+    public List<StockDetailStockHolder> getStockHolder(String stockCode) {
+        List<StockDetailStockHolder> stockDetailStockHolders = new ArrayList<>();
         String sql = "SELECT TOP 10[HOLDER_NAME],[HOLD_NUMBER],[HOLD_RATIO] FROM [zzfin].[dbo].[EQ_FLOAT_HOLDER] \n" +
                 "where ts_code =? and end_date= (select max(end_date) from [zzfin].[dbo].[EQ_FLOAT_HOLDER] \n" +
                 "where ts_code =?) order by hold_number desc";
@@ -430,10 +373,10 @@ public class StockDaoImpl implements StockDao {
             preStmt.setString(2, stockCode);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
-                StockDetailStockHolder stockDetailStockHolder=new StockDetailStockHolder();
-                stockDetailStockHolder.stockHolderAmount=rs.getString("hold_number");
-                stockDetailStockHolder.stockHolderName=rs.getString("holder_name");
-                stockDetailStockHolder.stockHolderRatio=rs.getString("hold_ratio");
+                StockDetailStockHolder stockDetailStockHolder = new StockDetailStockHolder();
+                stockDetailStockHolder.stockHolderAmount = rs.getString("hold_number");
+                stockDetailStockHolder.stockHolderName = rs.getString("holder_name");
+                stockDetailStockHolder.stockHolderRatio = rs.getString("hold_ratio");
                 stockDetailStockHolders.add(stockDetailStockHolder);
             }
             return stockDetailStockHolders;
@@ -444,6 +387,7 @@ public class StockDaoImpl implements StockDao {
         }
         return stockDetailStockHolders;
     }
+
     private void closeSql(Statement stmt, ResultSet rs) {
         if (stmt != null) {
             try {

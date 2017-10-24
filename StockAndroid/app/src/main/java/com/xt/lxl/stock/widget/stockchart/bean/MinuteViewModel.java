@@ -3,6 +3,7 @@ package com.xt.lxl.stock.widget.stockchart.bean;
 import android.util.Log;
 
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
+import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class MinuteViewModel {
         }
         minPrice = basePrice;
         maxPrice = basePrice;
+        StockRankFilterGroupModel
         for (int i = 0; i < list.size(); i++) {
             StockMinuteDataModel stockMinuteData = list.get(i);
             stockMinuteData.state = 1;//lxltest
