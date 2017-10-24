@@ -3,10 +3,12 @@ package com.stock.dao;
 import com.stock.model.model.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StockDao {
     /**
      * 查询排行列表
+     *
      * @return
      */
     public List<StockSearchModel> selectSerchModelRankList(int showType, int limit);
@@ -14,10 +16,6 @@ public interface StockDao {
     List<StockSyncModel> selectSyncModelList(int version);
 
     public List<StockRankResultModel> selectRankDetailModelList(int version);
-
-    public List<StockRankFilterModel> selectStockFilterList(int first_type);
-
-    public List<StockFirstTypeModel> selectStockFirstTypList(int version);
 
     public List<StockDateDataModel> selectStocDetailkDataList(String stoclCode, String sqlCode);
 
@@ -27,5 +25,9 @@ public interface StockDao {
 
     public List<StockDetailStockHolder> getStockHolder(String stockCode);
 
-    public List<StockRankFilterGroupModel> getStockRankFilterGroup(int first_type);
+    public List<StockRankFilterGroupModel> getStockRankFilterGroup();//父级节点
+
+    public List<StockRankFilterGroupModel> getStockRankFilterSubGroup(int parentFilterId);//二级节点
+
+    public List<StockRankFilterItemModel> getAllStockRankFilterItem();//筛选节点
 }

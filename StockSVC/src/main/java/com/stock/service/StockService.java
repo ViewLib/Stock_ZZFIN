@@ -11,9 +11,7 @@ import com.stock.util.StringUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.EOFException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class StockService {
@@ -65,19 +63,6 @@ public class StockService {
         return syncModelList;
     }
 
-    public List<StockRankFilterModel> stockRankFilterModels(StockRankDetailFilterlRequest stockRankDetailFilterlRequest, StockRankDetailFilterlResponse stockRankDetailFilterlResponse) {
-        // List<StockRankFilterModel> stockRankFilterModelList = new ArrayList<>();
-        List<StockRankFilterModel> stockRankFilterModels = dao.selectStockFilterList(0);
-        //  stockRankFilterModelList.addAll(stockRankFilterModels);
-        return stockRankFilterModels;
-    }
-
-    //返回筛选大类
-    public List<StockFirstTypeModel> stockFirstTypeModels(StockFirstTypeRequest stockFirstTypeRequest, StockFirstTypeResponse stockFirstTypeResponse) {
-        List<StockFirstTypeModel> stockFirstTypeModels = dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
-        return stockFirstTypeModels;
-    }
-
     public static String transCode(String stockCode) throws Exception {
         if (stockCode.length() == 8) {
             return stockCode.substring(2, 8) + "." + stockCode.substring(0, 2);
@@ -88,12 +73,33 @@ public class StockService {
 
     //返回filter
     public List<StockRankFilterGroupModel> getStockFilterList(StockRankDetailFilterlRequest stockRankDetailFilterlRequest, StockRankDetailFilterlResponse stockRankDetailFilterlResponse) {
-        List<StockRankFilterGroupModel> stockRankFilterModelList = dao.getStockRankFilterGroup(0);
-       // List<StockRankFilterGroupModel> list = new ArrayList<>();
+        List<StockRankFilterGroupModel> topList = dao.getStockRankFilterGroup();//查询所有的一级节点
+        List<StockRankFilterItemModel> allStockRankFilterItem = dao.getAllStockRankFilterItem();
 
-        //todo
+        Map<Integer, List<StockRankFilterItemModel>> filterItemMap = new HashMap<>();
+        for (int i = 0; i < allStockRankFilterItem.size(); i++) {
+            StockRankFilterItemModel stockRankFilterItemModel = allStockRankFilterItem.get(i);
+            List<StockRankFilterItemModel> stockRankFilterItemModelList = filterItemMap.get(stockRankFilterItemModel.parentGroupId);
+            if (stockRankFilterItemModelList == null) {
+                stockRankFilterItemModelList = new ArrayList<>();
+                filterItemMap.put(stockRankFilterItemModel.parentGroupId, stockRankFilterItemModelList);
+            }
+            stockRankFilterItemModelList.add(stockRankFilterItemModel);
+        }
 
-        return stockRankFilterModelList;
+        for (int i = 0; i < topList.size(); i++) {
+            StockRankFilterGroupModel stockRankFilterGroupModel = topList.get(i);
+            List<StockRankFilterGroupModel> topGroupModel = dao.getStockRankFilterSubGroup(stockRankFilterGroupModel.groupId);
+            stockRankFilterGroupModel.filterGroupList.addAll(topGroupModel);
+            for (int j = 0; j < topGroupModel.size(); j++) {
+                StockRankFilterGroupModel secondLevelModel = topGroupModel.get(j);
+                List<StockRankFilterItemModel> stockRankFilterItemModels = filterItemMap.get(secondLevelModel.groupId);
+                if (stockRankFilterItemModels != null) {
+                    secondLevelModel.filteList.addAll(stockRankFilterItemModels);
+                }
+            }
+        }
+        return topList;
     }
 
     //返回K线数据

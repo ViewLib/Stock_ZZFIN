@@ -65,6 +65,7 @@ public abstract class BaseServlet extends HttpServlet {
                 baserResponse.resultMessage = "sucess";
                 response.setStatus(200);
             } catch (Exception e) {
+                e.printStackTrace();
                 baserResponse.resultMessage = e.getMessage();
                 response.setStatus(500);
             }

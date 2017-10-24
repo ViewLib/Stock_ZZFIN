@@ -53,4 +53,6 @@ public class Config {
 
 
     public String GetMinuteAPI = "http://127.0.0.1:8080/zzfin/api/stock_minute?data=%7b%22stockCode%22%3a%22sz300170%22%7d";
+
+    public String FilterList_API = "http://localhost:8080/zzfin/api/stock_rankfilter";//筛选列表
 }
