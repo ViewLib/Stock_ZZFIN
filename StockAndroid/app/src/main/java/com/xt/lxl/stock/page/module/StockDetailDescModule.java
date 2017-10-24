@@ -129,9 +129,9 @@ public class StockDetailDescModule extends StockDetailBaseModule {
         stockHolderRatioTv.setText(stockHolderRatio);
 
         if (isTitle) {
-            stockHolderNameTv.setTextAppearance(row.getContext(), R.style.text_13_186cb7);
-            stockHolderAmountTv.setTextAppearance(row.getContext(), R.style.text_13_186cb7);
-            stockHolderRatioTv.setTextAppearance(row.getContext(), R.style.text_13_186cb7);
+            stockHolderNameTv.setTextAppearance(row.getContext(), R.style.text_13_186db7);
+            stockHolderAmountTv.setTextAppearance(row.getContext(), R.style.text_13_186db7);
+            stockHolderRatioTv.setTextAppearance(row.getContext(), R.style.text_13_186db7);
         } else {
             stockHolderNameTv.setTextAppearance(row.getContext(), R.style.text_12_484848);
             stockHolderAmountTv.setTextAppearance(row.getContext(), R.style.text_12_484848);

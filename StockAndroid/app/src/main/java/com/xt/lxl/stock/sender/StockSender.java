@@ -9,6 +9,7 @@ import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
+import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.model.reponse.StockRankListResponse;
 import com.xt.lxl.stock.model.reponse.StockSyncResponse;
@@ -17,6 +18,7 @@ import com.xt.lxl.stock.model.request.StockDetailCompanyInfoRequest;
 import com.xt.lxl.stock.model.request.StockGetDateDataRequest;
 import com.xt.lxl.stock.model.request.StockGetMinuteDataRequest;
 import com.xt.lxl.stock.model.request.StockHotSearchRequest;
+import com.xt.lxl.stock.model.request.StockRankDetailFilterlRequest;
 import com.xt.lxl.stock.model.request.StockRankDetailResquest;
 import com.xt.lxl.stock.model.request.StockRankListResquest;
 import com.xt.lxl.stock.model.request.StockSyncReqeust;
@@ -198,7 +200,12 @@ public class StockSender {
         return getDateDataResponse;
     }
 
-
+    /**
+     * 公司详情服务
+     *
+     * @param stockCode
+     * @return
+     */
     public StockDetailCompanyInfoResponse requestStockCompanyService(String stockCode) {
         StockDetailCompanyInfoRequest reqeust = new StockDetailCompanyInfoRequest();
         reqeust.stockCode = stockCode;
@@ -213,6 +220,27 @@ public class StockSender {
             getDateDataResponse.resultMessage = "序列化失败";
         }
         return getDateDataResponse;
+    }
+
+
+    /**
+     * 筛选列表
+     *
+     * @return
+     */
+    public StockRankDetailFilterlResponse requestFilterList() {
+        StockRankDetailFilterlRequest reqeust = new StockRankDetailFilterlRequest();
+        String requestJsonStr = JSON.toJSONString(reqeust);
+        String s = requestGet(mBaseAPIUrl + "stock_rankfilter?", requestJsonStr, "utf-8");
+        StockRankDetailFilterlResponse filterlResponse;
+        try {
+            filterlResponse = JSON.parseObject(s, StockRankDetailFilterlResponse.class);
+        } catch (Exception e) {
+            filterlResponse = new StockRankDetailFilterlResponse();
+            filterlResponse.resultCode = 500;
+            filterlResponse.resultMessage = "序列化失败";
+        }
+        return filterlResponse;
     }
 
     private static String requestGet(String baseUrl, String requestJsonStr, String code) {
