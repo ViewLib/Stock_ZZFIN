@@ -94,7 +94,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 
     @Override
     public void refreshAllData(StockViewModel stockViewModel) {
-        sendServiceGetMinuteDataResponse(stockViewModel.getRequestStockCode());
+        sendServiceGetMinuteDataResponse(stockViewModel);
     }
 
     private void initChart() {
@@ -178,13 +178,13 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         return xLabels;
     }
 
-    private void sendServiceGetMinuteDataResponse(final String stockCode) {
+    private void sendServiceGetMinuteDataResponse(final StockViewModel stockViewModel) {
         new Thread(new Runnable() {
             @Override
             public void run() {
 //                StockGetMinuteDataResponse minuteDataResponse = StockSender.getInstance().requestMinuteData(stockCode);
                 StockGetMinuteDataResponse minuteDataResponse = DataSource.getMinuteDataResponses();
-                minuteViewModel.initAllModel(minuteDataResponse.stockMinuteDataModels);
+                minuteViewModel.initAllModel(minuteDataResponse.stockMinuteDataModels,stockViewModel.stockBasePirce);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {

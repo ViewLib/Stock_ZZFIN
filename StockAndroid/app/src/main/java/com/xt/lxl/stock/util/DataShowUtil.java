@@ -153,7 +153,7 @@ public class DataShowUtil {
             stockViewModel.stockPirce = split[4];
             stockViewModel.isSuspension = true;
         }
-//        stockViewModel.stockCode = split[4];//昨收价格
+        stockViewModel.stockBasePirce = split[4];//昨收价格
 //        stockViewModel.stockCode = split[5];//今开
 //        stockViewModel.stockCode = split[6];//成交量（手）
 //        stockViewModel.stockCode = split[7];//外盘

@@ -39,6 +39,7 @@ public class StockViewModel extends StockBaseModel {
     public String minPrice = "";//今日最低价
     public String amplitude = "";//振幅
     public String volume = "";//成交量 手
+    public String stockBasePirce = "";//昨日收盘价
     public boolean isSuspension = false;//是否停牌
 
     /**

@@ -125,7 +125,19 @@ public class StockDetailActivity extends FragmentActivity {
                 if (stockViewModelList.size() == 0) {
                     return;
                 }
-                final StockViewModel stockViewModel = stockViewModelList.get(0);
+                final StockViewModel stockViewModel = stockViewModelList.get(0);//刷新股票
+                mCacheBean.mStockViewModel.stockName = stockViewModel.stockName;
+                mCacheBean.mStockViewModel.stockPirce = stockViewModel.stockPirce;
+                mCacheBean.mStockViewModel.stockChangeValue = stockViewModel.stockChangeValue;
+                mCacheBean.mStockViewModel.stockChange = stockViewModel.stockChange;
+                mCacheBean.mStockViewModel.ratio = stockViewModel.ratio;
+                mCacheBean.mStockViewModel.turnover = stockViewModel.turnover;
+                mCacheBean.mStockViewModel.valueAll = stockViewModel.valueAll;
+                mCacheBean.mStockViewModel.maxPrice = stockViewModel.maxPrice;
+                mCacheBean.mStockViewModel.minPrice = stockViewModel.minPrice;
+                mCacheBean.mStockViewModel.amplitude = stockViewModel.amplitude;
+                mCacheBean.mStockViewModel.volume = stockViewModel.volume;
+                mCacheBean.mStockViewModel.isSuspension = stockViewModel.isSuspension;
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
