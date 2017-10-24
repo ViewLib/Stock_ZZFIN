@@ -10,6 +10,15 @@
 
 @implementation Utils
 
+#pragma mark - 分时图数据格式转换
++ (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice {
+    NSString *time = dic[@"time"];
+    NSString *price = dic[@"price"]?dic[@"price"]:@"0";
+    NSString *volume = dic[@"volume"];
+    NSDictionary *returnDic = @{@"amount": @"",@"avgPrice": avgPrice,@"minute": time,@"price": price,@"volume": volume};
+    return returnDic;
+}
+
 #pragma mark - 颜色转换
 
 + (UIColor *)colorFromHexRGB:(NSString *)inColorString

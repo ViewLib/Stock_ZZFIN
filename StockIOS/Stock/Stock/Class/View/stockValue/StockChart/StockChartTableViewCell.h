@@ -19,7 +19,7 @@
 @interface StockChartTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) NSString   *stockCode;
-
+@property (strong, nonatomic) NSString   *zrPrice;
 /**
  K线数据源
  */

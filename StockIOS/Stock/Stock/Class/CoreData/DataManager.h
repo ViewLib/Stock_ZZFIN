@@ -29,5 +29,12 @@
 //保存
 -(BOOL)updateSotckEntitys:(NSArray *)stockDic;
 
+//获取stockEntity对象
+-(StockEntity *)getStockWithAry:(NSArray *)ary;
 
+//保存stockEntity对象
+-(BOOL)updateSotckEntity:(StockEntity *)stock;
+
+//根据stockCode获取stockEntity对象
+-(StockEntity *)getStockEntityWithStockCode:(NSString *)stockCode;
 @end

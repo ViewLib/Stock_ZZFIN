@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 
 @interface Utils : NSObject
+#pragma mark - 分时图数据格式转换
++ (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice;
 
 #pragma mark - 颜色转换
 + (UIColor *)colorFromHexRGB:(NSString *)inColorString;

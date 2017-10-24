@@ -67,28 +67,31 @@
             
         }
     }];
-    
+    WS(self)
     [[HttpRequestClient sharedClient] getLineData:@{@"stockCode": self.stockCode} request:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict[@"resultCode"] intValue] == 200) {
             NSMutableArray *array = [NSMutableArray array];
             for (NSDictionary *dic in dataDict[@"stockMinuteDataModels"]) {
-                YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:dic];
+                NSDictionary *new = [Utils lineDicWithDic:dic avgPrice:selfWeak.zrPrice];
+                YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:new];
                 [array addObject: model];
             }
+            [self.stockDatadict setObject:array forKey:@"minutes"];
+            [self.stock draw];
         }
     }];
     
-    [HttpRequestClient Get:@"minute" params:nil success:^(NSDictionary *response) {
-        NSMutableArray *array = [NSMutableArray array];
-        [response[@"minutes"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:obj];
-            [array addObject: model];
-        }];
-        [self.stockDatadict setObject:array forKey:@"minutes"];
-        [self.stock draw];
-
-    } fail:^(NSDictionary *info) {
-    }];
+//    [HttpRequestClient Get:@"minute" params:nil success:^(NSDictionary *response) {
+//        NSMutableArray *array = [NSMutableArray array];
+//        [response[@"minutes"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:obj];
+//            [array addObject: model];
+//        }];
+//        [self.stockDatadict setObject:array forKey:@"minutes"];
+//        [self.stock draw];
+//
+//    } fail:^(NSDictionary *info) {
+//    }];
 }
 
 

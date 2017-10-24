@@ -79,6 +79,7 @@
         StockChartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockChartTableViewCell"];
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"StockChartTableViewCell" owner:nil options:nil] firstObject];
+            cell.zrPrice = _stock.zsprice;
             cell.stockCode = self.stockCodeStr;
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }

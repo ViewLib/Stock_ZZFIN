@@ -91,13 +91,34 @@
     [[Config shareInstance] setOptionalStocks:_stocks];
     NSString *stockCodes = @"";
     if (_stocks.count) {
-//        for (StockEntity *entity in _stocks) {
-//            [stockCodes stringByAppendingFormat:@",%@%@",entity.from,entity.code];
-//        }
+        for (int i = 0; i < _stocks.count; i++) {
+            StockEntity *entity = _stocks[i];
+            if (i == 0) {
+                stockCodes = entity.code;
+            } else {
+                stockCodes = [NSString stringWithFormat:@"%@,%@",stockCodes,entity.code];
+            }
+        }
+        WS(self)
         [[HttpRequestClient sharedClient] getStockInformation:stockCodes request:^(NSString *resultMsg, id dataDict, id error) {
-            
+            if (dataDict) {
+                NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+                NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
+                if (![responseString isEqualToString:@"pv_none_match=1"]) {
+                    if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
+                        responseString = [responseString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                        NSArray *responseValues = [responseString componentsSeparatedByString:@";"];
+                        for (NSString *value in responseValues) {
+                            NSArray *ary = [value componentsSeparatedByString:@"~"];
+                            if (ary.count > 1) {
+                                [[DataManager shareDataMangaer] updateSotckEntitys:ary];
+                            }
+                        }
+                        [selfWeak.OptionalTable reloadData];
+                    }
+                }
+            }
         }];
-        [_OptionalTable reloadData];
     }
 }
 

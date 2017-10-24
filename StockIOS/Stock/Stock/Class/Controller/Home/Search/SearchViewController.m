@@ -108,7 +108,7 @@
         cell= (SearchHistoryTableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"SearchHistoryTableViewCell" owner:nil options:nil] firstObject];
         [cell updateCell:dic];
         cell.addOptionalBlock = ^(NSInteger row) {
-            [self insertCoreData:dic[@"code"]];
+            [self insertCoreData:dic[@"code"] isJoinCoreData:YES request:nil];
             [[DataManager shareDataMangaer] insertHistoryStock:@{@"title":dic[@"title"],@"code":dic[@"code"]}];
         };
     }
@@ -116,33 +116,44 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
+    [self showHint:@"正在请求数据..."];
     id obj = _tableDate[indexPath.row];
     if ([obj isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dic = (NSDictionary *)obj;
         [[DataManager shareDataMangaer] insertHistoryStock:dic];
-        viewController.stockNameStr = dic[@"title"];
-        viewController.stockCodeStr = dic[@"code"];
+        [self insertCoreData:dic[@"code"] isJoinCoreData:NO request:^(StockEntity *entity) {
+            [self junpToStockValueViewController:entity];
+        }];
     } else {
         HistoryStockEntity *entity = (HistoryStockEntity *)obj;
         [[DataManager shareDataMangaer] insertHistoryStock:@{@"title": entity.name,@"code":entity.code}];
-        viewController.stockNameStr = entity.name;
-        viewController.stockCodeStr = entity.code;
+        [self insertCoreData:entity.code isJoinCoreData:NO request:^(StockEntity *entity) {
+            [self junpToStockValueViewController:entity];
+        }];
     }
     
+    
+}
+
+- (void)junpToStockValueViewController:(StockEntity *)entity {
+    StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
+    
+    viewController.stock = entity;
+    
     CATransition *animation = [CATransition animation];
-
+    
     animation.duration = .5;
-
+    
     animation.timingFunction = UIViewAnimationCurveEaseInOut;
-
+    
     animation.type = kCATransitionPush;
-
+    
     animation.subtype = kCATransitionFromRight;
-
+    
     [self.view.window.layer addAnimation:animation forKey:nil];
-
+    
+    [self hideHud];
+    
     [self presentViewController:viewController animated:NO completion:^{
         [self dismissViewControllerAnimated:NO completion:nil];
     }];
@@ -151,7 +162,7 @@
 /**
  搜索结果获取网络数据并写入coreData
 */
-- (void)insertCoreData:(NSString *)code {
+- (void)insertCoreData:(NSString *)code isJoinCoreData:(BOOL)isJoin request:(void(^)(StockEntity *entity))request {
     [[HttpRequestClient sharedClient] getStockInformation:code request:^(NSString *resultMsg, id dataDict, id error) {
         if (dataDict) {
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
@@ -159,8 +170,15 @@
             if (![responseString isEqualToString:@"pv_none_match=1"]) {
                 if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
                     NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
-                    [[DataManager shareDataMangaer] updateSotckEntitys:responseValues];
-                    [self showHint:@"已添加自选"];
+                    StockEntity *entity = [[DataManager shareDataMangaer] getStockWithAry:responseValues];
+                    if (isJoin) {
+                        [[DataManager shareDataMangaer] updateSotckEntity:entity];
+                        [self showHint:@"已添加自选"];
+                    } else {
+                        if (request) {
+                            request(entity);
+                        }
+                    }
                 } else {
                     [self showHint:@"您选的股票已退市"];
                 }
