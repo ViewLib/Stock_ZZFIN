@@ -7,9 +7,6 @@ import com.xt.lxl.stock.model.ServiceRequest;
  * 排行详情response
  */
 
-public class StockRankDetailFilterlRequest extends ServiceRequest{
+public class StockRankDetailFilterlRequest extends ServiceRequest {
     public int serviceCode = 2002;//服务号
-
-    public int type = 0;//类型
-
 }

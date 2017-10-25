@@ -43,4 +43,11 @@
         <attr name="stock_detail_show_canMulti" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="StockCheckedTextView">
+        <attr name="checked" format="boolean" />
+        <attr name="checkMark" format="reference" />
+        <attr name="check_drawable_width" format="dimension" />
+        <attr name="check_drawable_height" format="dimension" />
+    </declare-styleable>
+
 </resources>

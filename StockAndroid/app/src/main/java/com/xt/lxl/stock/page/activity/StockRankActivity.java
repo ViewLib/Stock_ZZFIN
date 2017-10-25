@@ -3,7 +3,6 @@ package com.xt.lxl.stock.page.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,10 +22,12 @@ import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.page.adapter.StockRankAdapter;
-import com.xt.lxl.stock.page.fragment.StockRankFilterFragment;
+import com.xt.lxl.stock.page.fragment.StockRankFilterBaseFragment;
+import com.xt.lxl.stock.page.fragment.StockRankFilterBlockFragment;
 import com.xt.lxl.stock.page.fragment.StockRankFilterGroupFragment;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
+import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.HotelViewHolder;
 import com.xt.lxl.stock.widget.view.StockTextView;
 import com.xt.lxl.stock.widget.view.StockTitleView;
@@ -111,13 +112,16 @@ public class StockRankActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //赋值逻辑
+                final StockRankDetailFilterlResponse filterlResponse = StockSender.getInstance().requestFilterList();
+                if (filterlResponse == null) {
+                    return;
+                }
+                mRankFilerList.clear();
+                mRankFilerList.addAll(filterlResponse.rankFilterList);
                 mHander.post(new Runnable() {
                     @Override
                     public void run() {
-                        //赋值逻辑
-                        StockRankDetailFilterlResponse rankDetailFilterResponse = DataSource.getRankDetailFilterResponse();
-                        mRankFilerList.clear();
-                        mRankFilerList.addAll(rankDetailFilterResponse.rankFilterList);
                         bindFilterData();
                     }
                 });
@@ -151,7 +155,23 @@ public class StockRankActivity extends FragmentActivity {
             } else if (i == 3) {
                 filter = filter4;
             }
-            HotelViewHolder.showText(filter, filterModel.filterName);
+            if (filter == null) {
+                return;
+            }
+            HotelViewHolder.showText(filter, filterModel.groupName);
+            //设置样式和监听
+            int height = DeviceUtil.getPixelFromDip(this, 7);
+            int width = DeviceUtil.getPixelFromDip(this, 11);
+            if (filterModel.filterGroupList.size() > 0) {
+                //设置监听
+                filter.setTag(filterModel);
+                filter.setOnClickListener(mCallBacks.mFilterCallBack);
+                filter.setTextAppearance(StockRankActivity.this, R.style.text_13_186db7);
+                filter.setCompoundDrawable(getResources().getDrawable(R.drawable.stock_rank_filter_enable), 2, width, height);
+            } else {
+                filter.setTextAppearance(StockRankActivity.this, R.style.text_13_6c6c6c);
+                filter.setCompoundDrawable(getResources().getDrawable(R.drawable.stock_rank_filter_disable), 2, width, height);
+            }
         }
 
     }
@@ -257,17 +277,25 @@ public class StockRankActivity extends FragmentActivity {
         mCallBacks.mFilterCallBack = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                StockRankFilterGroupModel filterModel = (StockRankFilterGroupModel) v.getTag();
                 int id = v.getId();
-                Fragment fragment = new StockRankFilterFragment();
+                StockRankFilterBaseFragment fragment = null;
                 if (id == R.id.filter1) {
-                    fragment = new StockRankFilterFragment();
-                } else if (id == R.id.filter2) {
-                    fragment = new StockRankFilterFragment();
-                } else if (id == R.id.filter3) {
-                    fragment = new StockRankFilterFragment();
-                } else if (id == R.id.filter4) {
                     fragment = new StockRankFilterGroupFragment();
+                } else if (id == R.id.filter2) {
+                    fragment = new StockRankFilterBlockFragment();
+                } else if (id == R.id.filter3) {
+                    fragment = new StockRankFilterBlockFragment();
+                } else if (id == R.id.filter4) {
+                    fragment = new StockRankFilterBlockFragment();
                 }
+                if (fragment == null) {
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(StockRankFilterBaseFragment.StockRankFilterGroupModelTag, filterModel);
+                fragment.setArguments(bundle);
+//                findViewById(R.id.stock_detail_filter_fragment).setVisibility(View.VISIBLE);
                 FragmentManager supportFragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.stock_detail_filter_fragment, fragment, "filter");
