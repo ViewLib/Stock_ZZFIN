@@ -10,6 +10,7 @@
 #import "RankTableViewCell.h"
 #import "RankViewController.h"
 #import "StockValueViewController.h"
+#import "FindSearchView.h"
 
 @interface RankViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -25,9 +26,27 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *filterFor;
 
+@property (weak, nonatomic) IBOutlet UIView *filterLine;
+
 @property (weak, nonatomic) IBOutlet UITableView *valueTable;
 
+@property (weak, nonatomic) IBOutlet UIView *contentBgView;
+
+@property (weak, nonatomic) IBOutlet  UIView *searchView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *FindViewHigh;
+
+@property (strong, nonatomic) FindSearchView *fliterSearchView;
+
 @property (nonatomic, strong)   NSArray     *tableValue;
+
+@property (nonatomic, strong)   NSDictionary    *filterOneDic;
+
+@property (nonatomic, strong)   NSDictionary    *filterTwoDic;
+
+@property (nonatomic, strong)   NSDictionary    *filterThrDic;
+
+@property (nonatomic, strong)   NSDictionary    *filterForDic;
 
 @end
 
@@ -39,14 +58,71 @@
     [_collectionBtn ImgTopTextButtom];
     
     [_topLabel setText:self.valueDic[@"rankModel"][@"title"]];
+    NSArray *btns = @[_filterOne,_filterTwo,_filterThr,_filterFor];
     
-    for (UIButton *btn in @[_filterOne,_filterTwo,_filterThr,_filterFor]) {
-        [btn ImgRightTextLeft];
-    }
+    [[Config shareInstance].rankSearchList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj) {
+            UIButton *btn = btns[idx];
+            NSDictionary *dic = obj;
+            [btn setTitle:dic[@"groupName"] forState:UIControlStateNormal];
+            [btn ImgRightTextLeft];
+        }
+    }];
+    
+    [self initSearchView];
     
 //    [self getData];
 }
 
+- (void)initSearchView {
+    _fliterSearchView = [[NSBundle mainBundle]loadNibNamed:@"FindSearchView" owner:nil options:nil].firstObject;
+    _fliterSearchView.frame = self.searchView.bounds;
+    WS(self)
+    _fliterSearchView.rightCollectionCellClick = ^(id obj, NSString *from) {
+        [selfWeak saveDic:obj From:from];
+    };
+    [self.searchView addSubview:_fliterSearchView];
+}
+
+//头部fliter的点击事件
+- (IBAction)clickFilterBtn:(UIButton *)sender {
+    self.filterLine.centerX = sender.centerX;
+    sender.selected = !sender.selected;
+    
+    if (!self.contentBgView.hidden) {
+        self.contentBgView.hidden = YES;
+    } else {
+        self.contentBgView.hidden = NO;
+    }
+    NSInteger num = sender.tag - 6001;
+    NSDictionary *dic = [Config shareInstance].rankSearchList[num];
+    [_fliterSearchView updateCell:dic];
+    if (!sender.selected) {
+        [UIView animateWithDuration:0.5f animations:^{
+            self.filterLine.hidden = YES;
+            self.tabBarController.tabBar.hidden = NO;
+            self.FindViewHigh.constant = 0;
+        }];
+    } else {
+        [UIView animateWithDuration:0.5f animations:^{
+            self.filterLine.hidden = NO;
+            self.tabBarController.tabBar.hidden = YES;
+            self.FindViewHigh.constant = K_FRAME_BASE_HEIGHT-104;
+        }];
+    }
+}
+
+//存储从筛选页面传回来的数据
+- (void)saveDic:(NSDictionary *)dic From:(NSString *)from {
+    if ([from isEqual:self.filterOne.currentTitle]) {
+        self.filterForDic = dic;
+        self.filterOne.selected = NO;
+        [self clickFilterBtn:self.filterOne];
+        self.filterOne.selected = YES;
+    }
+}
+
+//获取数据方法
 - (void)getData {
     [self showHudInView:self.view hint:@"请稍后，正在获取数据"];
     NSDictionary *dic = @{@"title":self.valueDic[@"rankModel"][@"title"],@"search_relation":self.valueDic[@"rankModel"][@"searchRelation"]};
@@ -91,13 +167,47 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self showHint:@"正在请求数据..."];
     NSDictionary *dic = self.tableValue[indexPath.row];
-    StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
-    viewController.stock = @{@"title": dic[@"stockName"],@"code":dic[@"stockCode"]};
-    [self.navigationController pushViewController:viewController animated:YES];
+    [self insertCoreData:dic[@"stockCode"] isJoinCoreData:NO request:^(StockEntity *entity) {
+        [self junpToStockValueViewController:entity];
+    }];
 }
 
+/**
+ 搜索结果获取网络数据并写入coreData
+ */
+- (void)insertCoreData:(NSString *)code isJoinCoreData:(BOOL)isJoin request:(void(^)(StockEntity *entity))request {
+    [[HttpRequestClient sharedClient] getStockInformation:code request:^(NSString *resultMsg, id dataDict, id error) {
+        if (dataDict) {
+            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
+            if (![responseString isEqualToString:@"pv_none_match=1"]) {
+                if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
+                    NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
+                    StockEntity *entity = [[DataManager shareDataMangaer] getStockWithAry:responseValues];
+                    if (request) {
+                        request(entity);
+                    }
+                } else {
+                    [self hideHud];
+                    [self showHint:@"您选的股票已退市"];
+                }
+            } else {
+                [self hideHud];
+                [self showHint:@"服务器访问失败，请重试"];
+            }
+        }
+    }];
+}
 
+- (void)junpToStockValueViewController:(StockEntity *)entity {
+    StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
+    
+    viewController.stock = entity;
+    [self hideHud];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
 
 /**
  返回按钮点击事件

@@ -71,7 +71,7 @@
 - (void)getRankfilter {
     [[HttpRequestClient sharedClient] getStockRankfilter:nil request:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict[@"resultCode"] floatValue] == 200) {
-            
+            [[Config shareInstance] setRankSearchList:dataDict[@"rankFilterList"]];
         }
     }];
 }

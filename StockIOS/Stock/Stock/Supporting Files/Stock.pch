@@ -22,7 +22,7 @@
 #import "UIViewController+HUD.h"
 #import "UIViewController+WKVC.h"
 #import "UIViewController+DismissKeyboard.h"
-
+#import "UIView+AICategory.h"
 #include "BuglyHotfixConfuse_pch.h"
 
 

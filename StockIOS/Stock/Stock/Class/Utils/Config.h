@@ -33,6 +33,9 @@
 //top10列表
 @property (nonatomic ,strong)   NSArray       *top10List;
 
+//RankTopSearchs数据
+@property (nonatomic ,strong)   NSArray       *rankSearchList;
+
 +(Config *) shareInstance;
 
 
