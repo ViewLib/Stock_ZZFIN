@@ -1,5 +1,7 @@
 package com.stock.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.stock.dao.StockDao;
 import com.stock.dao.StockDaoImpl;
 import com.stock.model.model.*;
@@ -10,6 +12,7 @@ import com.stock.util.GetDayStocklData;
 import com.stock.util.StringUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
 
 import java.net.URL;
 import java.util.*;
@@ -48,7 +51,40 @@ public class StockService {
 
     public List<StockRankResultModel> getStockDetail(StockRankDetailResquest rankDetailResquest, StockRankDetailResponse rankDetailResponse) {
         List<StockRankResultModel> rankResultModelList = new ArrayList<>();
-        List<StockRankResultModel> rankResultModels = dao.selectRankDetailModelList(rankDetailResquest.search_relation);
+        List<StockRankFilterItemModel> lists=new ArrayList<>();
+         String m=JSONArray.toJSONString(rankDetailResquest.searchlist);
+        lists=(List<StockRankFilterItemModel>)rankDetailResquest.searchlist;
+        String sqlLists="";
+      if(lists.size()>0) {
+          sqlLists = "and stock_code in(";
+          for (int i = 0; i < lists.size(); i++) {
+            if(lists.size()>2) {
+                if (i == 0) {
+                    sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId) + "  union  ";
+                }
+                if (i > 0 && i < lists.size() - 2) {
+                    sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId) + "  union  ";
+                }
+                if (i == lists.size() - 1 && lists.size() > 2) {
+                    sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId);
+                }
+            }
+           if(lists.size()<=2){
+               if(lists.size()==1){
+                   sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId);
+               }
+               if(lists.size()==2){
+                   if (i == 0) {
+                       sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId) + "  union  ";
+                   }else{
+                       sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId);
+                   }
+               }
+           }
+          }
+          sqlLists = sqlLists + ")";
+      }
+        List<StockRankResultModel> rankResultModels = dao.selectRankDetailModelList(rankDetailResquest.search_relation,sqlLists);
         if (rankResultModels.size() > 11) {
             rankResultModelList.addAll(rankResultModels.subList(0, 11));
         } else {

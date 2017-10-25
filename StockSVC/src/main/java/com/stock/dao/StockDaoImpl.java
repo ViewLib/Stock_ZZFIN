@@ -104,7 +104,7 @@ public class StockDaoImpl implements StockDao {
     }
 
     @Override
-    public List<StockRankResultModel> selectRankDetailModelList(int search_relation) {
+    public List<StockRankResultModel> selectRankDetailModelList(int search_relation,String strsql) {
         List<StockRankResultModel> searchModelList = new ArrayList<>();
         String sql = "select * from stock_rank where search_relation = ?";
         PreparedStatement preStmt = null;
@@ -116,6 +116,10 @@ public class StockDaoImpl implements StockDao {
             while (rs.next()) {
                 String rank_title = rs.getString("rank_title");
                 String rank_sql = rs.getString("rank_sql");
+                //拼接sql
+                if(!strsql.equals("")){
+                   sql=sql+strsql;
+                }
                 Connection con = null;
                 StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
                 PreparedStatement preStmt2 = null;
@@ -126,8 +130,8 @@ public class StockDaoImpl implements StockDao {
                     StockRankResultModel resultModelHeader = null;
                     while (rslist.next()) {
                         ResultSetMetaData metaData = rslist.getMetaData();
-                        String stockName = metaData.getColumnName(1);
-                        String stockCode = metaData.getColumnName(2);
+                        String stockCode = metaData.getColumnName(1);
+                        String stockName = metaData.getColumnName(2);
                         String attr1 = "";
                         String attr2 = "";
                         String attr3 = "";
@@ -387,7 +391,25 @@ public class StockDaoImpl implements StockDao {
         }
         return stockDetailStockHolders;
     }
-
+    @Override
+    public  String getListSql(int filter_id){
+        String sql = "select * from stock_filter_item where filter_id=" + filter_id;
+        PreparedStatement preStmt = null;
+        String strSql="";
+        try {
+            preStmt = conn.prepareStatement(sql);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                strSql= rs.getString("filter_sql");
+            }
+            return strSql;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+         return strSql;
+    }
     private void closeSql(Statement stmt, ResultSet rs) {
         if (stmt != null) {
             try {
