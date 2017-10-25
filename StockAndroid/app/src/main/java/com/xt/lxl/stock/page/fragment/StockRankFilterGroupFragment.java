@@ -11,6 +11,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.util.DeviceUtil;
+import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.widget.view.StockCheckedTextView;
 
 import java.util.List;
@@ -76,17 +77,32 @@ public class StockRankFilterGroupFragment extends StockRankFilterBaseFragment {
             itemCheckTv.setText(itemModel.filterName);
             itemCheckTv.setTag(itemModel);
             itemCheckTv.setPadding(padding, padding, padding, padding);
+            itemCheckTv.setCheckMarkDrawable(R.drawable.hotel_icon_radiobutton_selector);
+            itemCheckTv.setOnClickListener(itemCheckListener);
             mItemView.addView(itemCheckTv);
         }
-
-
     }
-
 
     @Override
     protected void initView(View view) {
         mSubGroupView = (LinearLayout) view.findViewById(R.id.filter_sub_group_layout);
         mItemView = (LinearLayout) view.findViewById(R.id.filter_item_layout);
     }
+
+    View.OnClickListener groupCheckListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            StockUtil.showToastOnMainThread(getContext(), "groupCheckListener");
+        }
+    };
+
+    View.OnClickListener itemCheckListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            StockUtil.showToastOnMainThread(getContext(), "itemCheckListener");
+        }
+    };
 
 }
