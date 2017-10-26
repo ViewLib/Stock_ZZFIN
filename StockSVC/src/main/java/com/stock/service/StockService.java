@@ -85,9 +85,14 @@ public class StockService {
           sqlLists = sqlLists + ")";
       }
         List<StockRankResultModel> rankResultModels = dao.selectRankDetailModelList(rankDetailResquest.search_relation,sqlLists);
-        if (rankResultModels.size() > 11) {
-            rankResultModelList.addAll(rankResultModels.subList(0, 11));
-        } else {
+
+        if(lists.size()==0) {
+            if (rankResultModels.size() > 11) {
+                rankResultModelList.addAll(rankResultModels.subList(0, 11));
+            } else {
+                rankResultModelList.addAll(rankResultModels);
+            }
+        }else{
             rankResultModelList.addAll(rankResultModels);
         }
         return rankResultModelList;
