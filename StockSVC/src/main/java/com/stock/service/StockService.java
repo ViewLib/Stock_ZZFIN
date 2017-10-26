@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.stock.dao.StockDao;
 import com.stock.dao.StockDaoImpl;
+import com.stock.dao.StockLinkDaoImpl;
 import com.stock.model.model.*;
 import com.stock.model.request.*;
 import com.stock.model.response.*;
@@ -20,11 +21,13 @@ import java.util.*;
 public class StockService {
 
     StockDao dao;
+    StockLinkDaoImpl linkDao = new StockLinkDaoImpl();
 
     public static StockService stockService;
 
     private StockService() {
         dao = StockDaoImpl.getDao();
+        linkDao = new StockLinkDaoImpl();
     }
 
     public static synchronized StockService getInstance() {
@@ -100,11 +103,18 @@ public class StockService {
     }
 
     public static String transCode(String stockCode) throws Exception {
+        //转换一下
+        if (stockCode.length() == 6) {
+            if (stockCode.startsWith("6")) {
+                return stockCode + "." + "sh";
+            }
+            return stockCode + "." + "sz";
+        }
+
         if (stockCode.length() == 8) {
             return stockCode.substring(2, 8) + "." + stockCode.substring(0, 2);
-
         }
-        throw new Exception("Error!");
+        throw new Exception("StockCode不合法!");
     }
 
     //返回filter
@@ -240,5 +250,59 @@ public class StockService {
         String stockCode = transCode(stockDetailCompanyInfoRequest.stockCode);
         List<StockDetailStockHolder> stockDetailStockHolders = dao.getStockHolder(stockCode);//dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
         return stockDetailStockHolders;
+    }
+
+    public List<StockDetailGradleModel> getStockGrade(StockDetailGradeRequest request, StockDetailGradeResponse response) throws Exception {
+        String stockCode = transCode(request.stockCode);
+        List<StockDetailGradleModel> resultModelList = new ArrayList<>();//整理成需要的形式
+        List<StockDetailGradleModel> gradleModelList = linkDao.selectStockGradle(stockCode);//返回所有的查询结果
+
+        float max = 0;
+        float average = 0;
+        float min = 0;
+        //最高价格
+        List<StockDetailGradleModel> maxGradeList = new ArrayList<>();
+
+        //最低价格
+        List<StockDetailGradleModel> minGradeList = new ArrayList<>();
+
+        for (int i = 0; i < gradleModelList.size(); i++) {
+            StockDetailGradleModel gradleModel = gradleModelList.get(i);
+            //最高价格集合
+            if (gradleModel.maxPrice > max) {
+                maxGradeList.clear();
+                maxGradeList.add(gradleModel);
+                max = gradleModel.maxPrice;
+            } else if (gradleModel.maxPrice == max && gradleModel.maxPrice > 0) {
+                maxGradeList.add(gradleModel);
+            }
+
+            //最低价格集合
+            if (gradleModel.minPrice > 0 && gradleModel.minPrice < min) {
+                minGradeList.clear();
+                minGradeList.add(gradleModel);
+                min = gradleModel.minPrice;
+            } else if (gradleModel.minPrice > 0 && gradleModel.minPrice == min) {
+                minGradeList.add(gradleModel);
+            }
+        }
+        System.out.println("gradleModelList:" + gradleModelList.size());
+        for (StockDetailGradleModel gradleModel : maxGradeList) {
+            gradleModel.showPrice = String.valueOf(gradleModel.maxPrice);
+        }
+        resultModelList.addAll(maxGradeList);
+        if (max > 0 && min > 0) {
+            average = (max + min) / 2;
+            //平均价格
+            StockDetailGradleModel averageGrade = new StockDetailGradleModel();
+            averageGrade.stockBrokerName = "券商平均价格";
+            averageGrade.showPrice = Float.toString(average);
+            resultModelList.add(averageGrade);
+        }
+        for (StockDetailGradleModel gradleModel : minGradeList) {
+            gradleModel.showPrice = String.valueOf(gradleModel.minPrice);
+        }
+        resultModelList.addAll(minGradeList);
+        return resultModelList;
     }
 }

@@ -186,6 +186,14 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>StockDetailGradeServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockDetailGradeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockDetailGradeServlet</servlet-name>
+        <url-pattern>/api/stock_grade</url-pattern>
+    </servlet-mapping>
 
     <!-- 首页 -->
     <welcome-file-list>

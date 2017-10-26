@@ -1,5 +1,6 @@
 package com.stock.dao;
 
+import com.stock.model.model.StockDetailGradleModel;
 import com.stock.model.model.StockRankDetailModel;
 
 import java.util.List;
@@ -10,4 +11,6 @@ import com.stock.model.model.StockRankResultModel;
  */
 public interface StockLinkDao {
     public List<StockRankResultModel> selectRankDetailModelList(int version);
+
+    public List<StockDetailGradleModel> selectStockGradle(String stockCode);
 }
