@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FindSearchOneCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="234" height="38"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="234" height="38"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_right" translatesAutoresizingMaskIntoConstraints="NO" id="hdM-sK-Tc9">
+                        <rect key="frame" x="12" y="14.5" width="13" height="9"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJp-eg-w3f">
+                        <rect key="frame" x="35" y="11" width="33" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="hdM-sK-Tc9" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="44T-XH-hum"/>
+                <constraint firstItem="hdM-sK-Tc9" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Qrh-2I-mc3"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PJp-eg-w3f" secondAttribute="trailing" constant="12" id="Qsd-aW-62L"/>
+                <constraint firstItem="PJp-eg-w3f" firstAttribute="leading" secondItem="hdM-sK-Tc9" secondAttribute="trailing" constant="10" id="cFQ-7B-XmV"/>
+                <constraint firstItem="PJp-eg-w3f" firstAttribute="centerY" secondItem="hdM-sK-Tc9" secondAttribute="centerY" id="fZe-FE-JBv"/>
+            </constraints>
+            <size key="customSize" width="234" height="50"/>
+            <connections>
+                <outlet property="selectedImg" destination="hdM-sK-Tc9" id="vzL-Tw-QAa"/>
+                <outlet property="value" destination="PJp-eg-w3f" id="BMT-e7-1JV"/>
+            </connections>
+            <point key="canvasLocation" x="125" y="84"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="icon_right" width="13" height="9"/>
+    </resources>
+</document>

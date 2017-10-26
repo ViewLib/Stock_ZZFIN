@@ -111,6 +111,12 @@
 		04BC27161F9C9F06008285B2 /* PJBHCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BC27141F9C9F06008285B2 /* PJBHCollectionViewCell.xib */; };
 		04BC271B1F9E233F008285B2 /* GDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC27191F9E233F008285B2 /* GDCollectionViewCell.m */; };
 		04BC271C1F9E233F008285B2 /* GDCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BC271A1F9E233F008285B2 /* GDCollectionViewCell.xib */; };
+		04BC27211FA0487A008285B2 /* FindSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC27201FA0487A008285B2 /* FindSearchView.m */; };
+		04BC27231FA0489B008285B2 /* FindSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BC27221FA0489B008285B2 /* FindSearchView.xib */; };
+		04BC27281FA0511C008285B2 /* FindSearchOneCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC27261FA0511C008285B2 /* FindSearchOneCollectionViewCell.m */; };
+		04BC27291FA0511C008285B2 /* FindSearchOneCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BC27271FA0511C008285B2 /* FindSearchOneCollectionViewCell.xib */; };
+		04BC272D1FA05339008285B2 /* FindSearchTwoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BC272B1FA05339008285B2 /* FindSearchTwoCollectionViewCell.m */; };
+		04BC272E1FA05339008285B2 /* FindSearchTwoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BC272C1FA05339008285B2 /* FindSearchTwoCollectionViewCell.xib */; };
 		04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2131F598E3700C09D86 /* MyViewController.m */; };
 		04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2161F598E4600C09D86 /* HomeViewController.m */; };
 		04C2E21A1F598E5600C09D86 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2191F598E5600C09D86 /* FindViewController.m */; };
@@ -440,6 +446,15 @@
 		04BC27181F9E233F008285B2 /* GDCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDCollectionViewCell.h; sourceTree = "<group>"; };
 		04BC27191F9E233F008285B2 /* GDCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GDCollectionViewCell.m; sourceTree = "<group>"; };
 		04BC271A1F9E233F008285B2 /* GDCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GDCollectionViewCell.xib; sourceTree = "<group>"; };
+		04BC271F1FA0487A008285B2 /* FindSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindSearchView.h; sourceTree = "<group>"; };
+		04BC27201FA0487A008285B2 /* FindSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindSearchView.m; sourceTree = "<group>"; };
+		04BC27221FA0489B008285B2 /* FindSearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FindSearchView.xib; sourceTree = "<group>"; };
+		04BC27251FA0511C008285B2 /* FindSearchOneCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindSearchOneCollectionViewCell.h; sourceTree = "<group>"; };
+		04BC27261FA0511C008285B2 /* FindSearchOneCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindSearchOneCollectionViewCell.m; sourceTree = "<group>"; };
+		04BC27271FA0511C008285B2 /* FindSearchOneCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FindSearchOneCollectionViewCell.xib; sourceTree = "<group>"; };
+		04BC272A1FA05339008285B2 /* FindSearchTwoCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindSearchTwoCollectionViewCell.h; sourceTree = "<group>"; };
+		04BC272B1FA05339008285B2 /* FindSearchTwoCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindSearchTwoCollectionViewCell.m; sourceTree = "<group>"; };
+		04BC272C1FA05339008285B2 /* FindSearchTwoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FindSearchTwoCollectionViewCell.xib; sourceTree = "<group>"; };
 		04C2E2121F598E3700C09D86 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		04C2E2131F598E3700C09D86 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		04C2E2151F598E4600C09D86 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -1360,6 +1375,30 @@
 			path = "GSJS(公司介绍)";
 			sourceTree = "<group>";
 		};
+		04BC271E1FA04830008285B2 /* FindSearchView */ = {
+			isa = PBXGroup;
+			children = (
+				04BC27241FA04F87008285B2 /* FindCollectionCell */,
+				04BC271F1FA0487A008285B2 /* FindSearchView.h */,
+				04BC27201FA0487A008285B2 /* FindSearchView.m */,
+				04BC27221FA0489B008285B2 /* FindSearchView.xib */,
+			);
+			name = FindSearchView;
+			sourceTree = "<group>";
+		};
+		04BC27241FA04F87008285B2 /* FindCollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				04BC27251FA0511C008285B2 /* FindSearchOneCollectionViewCell.h */,
+				04BC27261FA0511C008285B2 /* FindSearchOneCollectionViewCell.m */,
+				04BC27271FA0511C008285B2 /* FindSearchOneCollectionViewCell.xib */,
+				04BC272A1FA05339008285B2 /* FindSearchTwoCollectionViewCell.h */,
+				04BC272B1FA05339008285B2 /* FindSearchTwoCollectionViewCell.m */,
+				04BC272C1FA05339008285B2 /* FindSearchTwoCollectionViewCell.xib */,
+			);
+			name = FindCollectionCell;
+			sourceTree = "<group>";
+		};
 		04C2E20F1F598DE500C09D86 /* Find */ = {
 			isa = PBXGroup;
 			children = (
@@ -1588,6 +1627,7 @@
 		847076331F4EE66F00974772 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04BC271E1FA04830008285B2 /* FindSearchView */,
 				041187AE1F94F39300DE4BC9 /* stockValue */,
 				0448BFE71F7942C1009DC7D6 /* RankTableViewCell */,
 				0448BFE11F7930EB009DC7D6 /* RankTableTopView */,
@@ -1998,11 +2038,14 @@
 				04B6BAFD1F97846800870F15 /* minuteData.plist in Resources */,
 				041187D41F94FA7100DE4BC9 /* HorizontalComparisonTableViewCell.xib in Resources */,
 				04C2E22C1F599D0800C09D86 /* HomeTableViewCell.xib in Resources */,
+				04BC27291FA0511C008285B2 /* FindSearchOneCollectionViewCell.xib in Resources */,
 				0465E5E11F6183E1006F7F9C /* JSPatch.js in Resources */,
+				04BC272E1FA05339008285B2 /* FindSearchTwoCollectionViewCell.xib in Resources */,
 				847076251F4EE36100974772 /* Info.plist in Resources */,
 				041187C11F94F94500DE4BC9 /* StockMajorEventsTableViewCell.xib in Resources */,
 				847077801F4EF73600974772 /* MJRefresh.bundle in Resources */,
 				847076371F4EE6A800974772 /* Base.storyboard in Resources */,
+				04BC27231FA0489B008285B2 /* FindSearchView.xib in Resources */,
 				04BC26C81F98DA8B008285B2 /* QAView.xib in Resources */,
 				847076221F4EE36100974772 /* Assets.xcassets in Resources */,
 				041187D91F94FA8500DE4BC9 /* FinancialInformationTableViewCell.xib in Resources */,
@@ -2158,6 +2201,7 @@
 				847077CA1F4EF73600974772 /* RACUnit.m in Sources */,
 				847077DB1F4EF73600974772 /* UITableViewCell+RACSignalSupport.m in Sources */,
 				04B6BAEC1F977D1800870F15 /* YYStockView_TimeLine.m in Sources */,
+				04BC27281FA0511C008285B2 /* FindSearchOneCollectionViewCell.m in Sources */,
 				04BC26F21F98E52E008285B2 /* PNLineChart.m in Sources */,
 				04B6BAF51F9781AF00870F15 /* YYLineDataModel.m in Sources */,
 				8470777D1F4EF73600974772 /* IQToolbar.m in Sources */,
@@ -2168,6 +2212,7 @@
 				847077A71F4EF73600974772 /* RACEagerSequence.m in Sources */,
 				04BC26F61F98E52E008285B2 /* PNPieChartDataItem.m in Sources */,
 				847077701F4EF73600974772 /* UIViewController+HUD.m in Sources */,
+				04BC27211FA0487A008285B2 /* FindSearchView.m in Sources */,
 				0448C0031F7A80B5009DC7D6 /* NSString+SBJSON.m in Sources */,
 				04BC26C61F98DA72008285B2 /* QAView.m in Sources */,
 				04C2E2201F59942800C09D86 /* MBProgressHUD+Add.m in Sources */,
@@ -2199,6 +2244,7 @@
 				04BC271B1F9E233F008285B2 /* GDCollectionViewCell.m in Sources */,
 				847077791F4EF73600974772 /* IQTextView.m in Sources */,
 				04BC26F41F98E52E008285B2 /* PNLineChartDataItem.m in Sources */,
+				04BC272D1FA05339008285B2 /* FindSearchTwoCollectionViewCell.m in Sources */,
 				04C2E2141F598E3700C09D86 /* MyViewController.m in Sources */,
 				847077681F4EF73600974772 /* NSDate+Category.m in Sources */,
 				847077A61F4EF73600974772 /* RACDynamicSignal.m in Sources */,

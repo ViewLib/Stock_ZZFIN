@@ -44,27 +44,27 @@
  */
 - (void)fetchData {
     
-    [HttpRequestClient Get:@"day" params:nil success:^(NSDictionary *response) {
-        NSMutableArray *array = [NSMutableArray array];
-        __block YYLineDataModel *preModel;
-        [response[@"dayhqs"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            YYLineDataModel *model = [[YYLineDataModel alloc]initWithDict:obj];
-            model.preDataModel = preModel;
-            [model updateMA:response[@"dayhqs"] index:idx];
-            NSString *day = [NSString stringWithFormat:@"%@",obj[@"day"]];
-            if ([response[@"dayhqs"] count] % 18 == ([response[@"dayhqs"] indexOfObject:obj] + 1 )%18 ) {
-                model.showDay = [NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]];
-            }
-            [array addObject: model];
-            preModel = model;
-        }];
-        [self.stockDatadict setObject:array forKey:@"dayhqs"];
-    } fail:^(NSDictionary *info) {
-        
-    }];
     [[HttpRequestClient sharedClient] getKLineData:@{@"sqlCode": @"day",@"stockCode": self.stockCode} request:^(NSString *resultMsg, id dataDict, id error) {
+        __block YYLineDataModel *preModel;
         if ([dataDict[@"resultCode"] intValue] == 200) {
-            
+            NSMutableArray *array = [NSMutableArray array];
+            for (NSDictionary *dic in dataDict[@"dateDataList"]) {
+                NSDictionary *new = [Utils KlineDicWithDic:dic];
+                [array addObject:new];
+            }
+            NSMutableArray *newAry = [NSMutableArray array];
+            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                YYLineDataModel *model = [[YYLineDataModel alloc]initWithDict:obj];
+                model.preDataModel = preModel;
+                [model updateMA:array index:idx];
+                NSString *day = [NSString stringWithFormat:@"%@",obj[@"day"]];
+                if ([array count] % 18 == ([array indexOfObject:obj] + 1 )%18 ) {
+                    model.showDay = [NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]];
+                }
+                [newAry addObject: model];
+                preModel = model;
+            }];
+            [self.stockDatadict setObject:newAry forKey:@"dayhqs"];
         }
     }];
     WS(self)
@@ -72,26 +72,17 @@
         if ([dataDict[@"resultCode"] intValue] == 200) {
             NSMutableArray *array = [NSMutableArray array];
             for (NSDictionary *dic in dataDict[@"stockMinuteDataModels"]) {
-                NSDictionary *new = [Utils lineDicWithDic:dic avgPrice:selfWeak.zrPrice];
-                YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:new];
-                [array addObject: model];
+                if (![dic[@"time"] isEqual:@"13:00"]) {
+                    NSDictionary *new = [Utils lineDicWithDic:dic avgPrice:selfWeak.zrPrice];
+                    YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:new];
+                    [array addObject: model];
+                }
             }
             [self.stockDatadict setObject:array forKey:@"minutes"];
             [self.stock draw];
         }
     }];
     
-//    [HttpRequestClient Get:@"minute" params:nil success:^(NSDictionary *response) {
-//        NSMutableArray *array = [NSMutableArray array];
-//        [response[@"minutes"] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:obj];
-//            [array addObject: model];
-//        }];
-//        [self.stockDatadict setObject:array forKey:@"minutes"];
-//        [self.stock draw];
-//
-//    } fail:^(NSDictionary *info) {
-//    }];
 }
 
 

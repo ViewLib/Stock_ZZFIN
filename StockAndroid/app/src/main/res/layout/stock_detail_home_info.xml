@@ -45,7 +45,7 @@
 
         <com.xt.lxl.stock.widget.view.StockTextView
             android:id="@+id/stock_detail_add"
-            style="@style/text_13_186cb7"
+            style="@style/text_13_186db7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
