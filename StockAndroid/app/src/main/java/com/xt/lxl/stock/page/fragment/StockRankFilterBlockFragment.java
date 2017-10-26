@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
+import com.xt.lxl.stock.util.DeviceUtil;
+import com.xt.lxl.stock.util.StockUtil;
 
 import java.util.List;
 
@@ -24,6 +26,7 @@ import java.util.List;
 public class StockRankFilterBlockFragment extends StockRankFilterBaseFragment {
     ListView mStockRankFilterList;
     StockRankFilterBlockAdapter adapter;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +44,6 @@ public class StockRankFilterBlockFragment extends StockRankFilterBaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         bindData();
-
     }
 
     @Override
@@ -103,7 +105,7 @@ public class StockRankFilterBlockFragment extends StockRankFilterBaseFragment {
             filterTags.removeAllViews();
             if (filteList.size() >= 1) {
                 StockRankFilterItemModel stockRankFilterItemModel = filteList.get(0);
-                TextView textView = createTextView(stockRankFilterItemModel.filterName);
+                TextView textView = createTextView(stockRankFilterItemModel);
                 lp = new RelativeLayout.LayoutParams(-2, -2);
                 lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
                 lp.addRule(RelativeLayout.CENTER_VERTICAL);
@@ -111,14 +113,14 @@ public class StockRankFilterBlockFragment extends StockRankFilterBaseFragment {
             }
             if (filteList.size() >= 2) {
                 StockRankFilterItemModel stockRankFilterItemModel = filteList.get(1);
-                TextView textView = createTextView(stockRankFilterItemModel.filterName);
+                TextView textView = createTextView(stockRankFilterItemModel);
                 lp = new RelativeLayout.LayoutParams(-2, -2);
                 lp.addRule(RelativeLayout.CENTER_IN_PARENT);
                 filterTags.addView(textView, lp);
             }
             if (filteList.size() >= 3) {
                 StockRankFilterItemModel stockRankFilterItemModel = filteList.get(2);
-                TextView textView = createTextView(stockRankFilterItemModel.filterName);
+                TextView textView = createTextView(stockRankFilterItemModel);
                 lp = new RelativeLayout.LayoutParams(-2, -2);
                 lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 lp.addRule(RelativeLayout.CENTER_VERTICAL);
@@ -127,13 +129,28 @@ public class StockRankFilterBlockFragment extends StockRankFilterBaseFragment {
             return convertView;
         }
 
-        private TextView createTextView(String filterName) {
+        private TextView createTextView(StockRankFilterItemModel stockRankFilterItemModel) {
+            int padding = DeviceUtil.getPixelFromDip(getContext(), 10);
             TextView textView = new TextView(getContext());
-            textView.setText(filterName);
-            textView.setBackgroundColor(Color.parseColor("#f6f6f6"));
+            textView.setText(stockRankFilterItemModel.filterName);
+            textView.setTag(stockRankFilterItemModel);
+//            textView.setBackgroundColor(Color.parseColor("#f6f6f6"));
+            textView.setPadding(padding, padding, padding, padding);
+            textView.setSelected(stockRankFilterItemModel.isCheck);
+            textView.setBackgroundResource(R.drawable.stock_rank_filter_block_item_selector);
+            textView.setTextColor(getResources().getColor(R.color.stock_rank_filter_block_text_selector));
+            textView.setOnClickListener(itemListener);
             return textView;
         }
     }
 
 
+    View.OnClickListener itemListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            StockRankFilterItemModel stockRankFilterItemModel = (StockRankFilterItemModel) v.getTag();
+            stockRankFilterItemModel.isCheck = !stockRankFilterItemModel.isCheck;
+            adapter.notifyDataSetChanged();
+        }
+    };
 }

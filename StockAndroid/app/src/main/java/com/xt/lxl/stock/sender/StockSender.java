@@ -138,7 +138,7 @@ public class StockSender {
     public StockRankDetailResponse requestRankDetailList(String title, int search_reletion, List<StockRankFilterItemModel> searchList) {
         StockRankDetailResquest detailResquest = new StockRankDetailResquest();
         detailResquest.title = title;
-        detailResquest.serch_relation = search_reletion;
+        detailResquest.search_relation = search_reletion;
         detailResquest.searchlist = searchList;
         String requestJsonStr = JSON.toJSONString(detailResquest);
         String s = requestGet(mBaseAPIUrl + "stock_rankdetail?", requestJsonStr, "utf-8");

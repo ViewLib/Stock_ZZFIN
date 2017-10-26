@@ -15,7 +15,7 @@ import java.util.List;
 public class StockRankDetailResquest extends ServiceRequest {
     final public int serviceCode = 2003;//服务号
     public String title = "";//界面标题，比如 本日融资融券的前十家公司
-    public int serch_relation;//
+    public int search_relation;//
     public List<StockRankFilterItemModel> searchlist = new ArrayList<>();
 
 }

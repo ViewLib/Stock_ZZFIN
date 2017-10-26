@@ -309,18 +309,15 @@ public class StockRankActivity extends FragmentActivity {
         };
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onReceiveResult(int requestCode, int index, StockRankFilterGroupModel topgroupModel) {
         if (StockRankFilterBaseFragment.FilterFragmentCode == requestCode) {
-            ArrayList<StockRankFilterItemModel> list = (ArrayList<StockRankFilterItemModel>) data.getSerializableExtra(StockRankFilterBaseFragment.SelectItemList);
-            int index = data.getIntExtra(StockRankFilterBaseFragment.SelectItemIndex, 0);
             if (index > 4) {
                 return;
             }
             StockRankFilterGroupModel groupModel = mRankFilerList.get(index);
-            groupModel.filteList.clear();
-            groupModel.filteList.addAll(list);
+//            groupModel.filterGroupList.clear();
+//            groupModel.filterGroupList.addAll(topgroupModel.filterGroupList);
+            sendRankdDetailService();
         }
     }
 }

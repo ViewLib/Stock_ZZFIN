@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
+import com.xt.lxl.stock.page.activity.StockRankActivity;
 
 import java.util.ArrayList;
 
@@ -21,15 +22,12 @@ import java.util.ArrayList;
  */
 public abstract class StockRankFilterBaseFragment extends Fragment implements View.OnClickListener {
 
-    public static final String StockRankFilterGroupModelTag = "StockRankFilterGroupModel";
-    public static final String SelectItemList = "SelectItemList";
-    public static final String SelectItemIndex = "SelectItemIndex";
+    public static final String StockRankFilterGroupModelTag = "StockRankFilterGroupModelTag";
+    public static final String SelectItemIndexTag = "SelectItemIndexTag";
     public static final int FilterFragmentCode = 123456;
 
     StockRankFilterGroupModel filterGroupModel;
-    ArrayList<StockRankFilterItemModel> selectItemList = new ArrayList<>();
     int index;
-
     View mFilterClear;
     View mFilterOK;
 
@@ -54,7 +52,6 @@ public abstract class StockRankFilterBaseFragment extends Fragment implements Vi
             mFilterOK.setOnClickListener(this);
         }
         initData();
-        selectItemList = filterGroupModel.filteList;
         initView(view);
         bindData();
         view.setOnClickListener(this);
@@ -62,32 +59,31 @@ public abstract class StockRankFilterBaseFragment extends Fragment implements Vi
 
     @Override
     public void onClick(View v) {
-        if (getTargetFragment() == null) {
-            return;
-        }
         if (v.getId() == R.id.filter_clear) {
             //清空筛选
             clearSelect();
         } else if (v.getId() == R.id.filter_ok) {
             submitFilter();
+            closeFragment();
         } else {
-            submitFilter();
+            closeFragment();
         }
     }
 
-    private void submitFilter() {
-        Intent i = new Intent();
-        i.putExtra(SelectItemList, selectItemList);
-        i.putExtra(SelectItemIndex, index);
-        getTargetFragment().onActivityResult(FilterFragmentCode, Activity.RESULT_OK, i);
+    private void closeFragment() {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.remove(this);
         fragmentTransaction.commitAllowingStateLoss();
     }
 
+    private void submitFilter() {
+        ((StockRankActivity) getActivity()).onReceiveResult(FilterFragmentCode, index, filterGroupModel);
+    }
+
 
     protected void initData() {
-        filterGroupModel = (StockRankFilterGroupModel) getArguments().get(StockRankFilterGroupModelTag);
+        filterGroupModel = (StockRankFilterGroupModel) getArguments().getSerializable(StockRankFilterGroupModelTag);
+        index = getArguments().getInt(SelectItemIndexTag);
     }
 
     protected abstract void bindData();
