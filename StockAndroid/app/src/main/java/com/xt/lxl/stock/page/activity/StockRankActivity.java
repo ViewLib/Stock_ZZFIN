@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -282,6 +283,15 @@ public class StockRankActivity extends FragmentActivity {
         mCallBacks.mFilterCallBack = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentManager supportFragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                Fragment fragmentById = supportFragmentManager.findFragmentById(R.id.stock_detail_filter_fragment);
+                if (fragmentById instanceof StockRankFilterBaseFragment) {
+                    fragmentTransaction.remove(fragmentById);
+                    fragmentTransaction.commitAllowingStateLoss();
+                    return;
+                }
+
                 StockRankFilterGroupModel subGroupModel = (StockRankFilterGroupModel) v.getTag();
                 int id = v.getId();
                 StockRankFilterBaseFragment fragment = null;
@@ -301,8 +311,6 @@ public class StockRankActivity extends FragmentActivity {
                 bundle.putSerializable(StockRankFilterBaseFragment.StockRankFilterGroupModelTag, subGroupModel);
                 fragment.setArguments(bundle);
 //                findViewById(R.id.stock_detail_filter_fragment).setVisibility(View.VISIBLE);
-                FragmentManager supportFragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.stock_detail_filter_fragment, fragment, "filter");
                 fragmentTransaction.commitAllowingStateLoss();
             }

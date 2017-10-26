@@ -51,48 +51,43 @@ public class StockService {
 
     public List<StockRankResultModel> getStockDetail(StockRankDetailResquest rankDetailResquest, StockRankDetailResponse rankDetailResponse) {
         List<StockRankResultModel> rankResultModelList = new ArrayList<>();
-        List<StockRankFilterItemModel> lists=new ArrayList<>();
-         String m=JSONArray.toJSONString(rankDetailResquest.searchlist);
-        lists=(List<StockRankFilterItemModel>)rankDetailResquest.searchlist;
-        String sqlLists="";
-      if(lists.size()>0) {
-          sqlLists = "and stock_code in(";
-          for (int i = 0; i < lists.size(); i++) {
-            if(lists.size()>2) {
-                if (i == 0) {
-                    sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId) + "  union  ";
+        String m = JSONArray.toJSONString(rankDetailResquest.searchlist);
+        List<StockRankFilterItemModel> searchlist = rankDetailResquest.searchlist;
+        String sqlLists = "";
+        if (searchlist.size() > 0) {
+            sqlLists = "and stock_code in(";
+            for (int i = 0; i < searchlist.size(); i++) {
+                if (searchlist.size() > 2) {
+                    if (i == 0) {
+                        sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  union  ";
+                    }
+                    if (i > 0 && i < searchlist.size() - 2) {
+                        sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  union  ";
+                    }
+                    if (i == searchlist.size() - 1 && searchlist.size() > 2) {
+                        sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId);
+                    }
                 }
-                if (i > 0 && i < lists.size() - 2) {
-                    sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId) + "  union  ";
-                }
-                if (i == lists.size() - 1 && lists.size() > 2) {
-                    sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId);
+                if (searchlist.size() <= 2) {
+                    if (searchlist.size() == 1) {
+                        sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId);
+                    }
+                    if (searchlist.size() == 2) {
+                        if (i == 0) {
+                            sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  union  ";
+                        } else {
+                            sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId);
+                        }
+                    }
                 }
             }
-           if(lists.size()<=2){
-               if(lists.size()==1){
-                   sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId);
-               }
-               if(lists.size()==2){
-                   if (i == 0) {
-                       sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId) + "  union  ";
-                   }else{
-                       sqlLists = sqlLists + dao.getListSql(lists.get(i).filterId);
-                   }
-               }
-           }
-          }
-          sqlLists = sqlLists + ")";
-      }
-        List<StockRankResultModel> rankResultModels = dao.selectRankDetailModelList(rankDetailResquest.search_relation,sqlLists);
+            sqlLists = sqlLists + ")";
+        }
+        List<StockRankResultModel> rankResultModels = dao.selectRankDetailModelList(rankDetailResquest.search_relation, sqlLists);
 
-        if(lists.size()==0) {
-            if (rankResultModels.size() > 11) {
-                rankResultModelList.addAll(rankResultModels.subList(0, 11));
-            } else {
-                rankResultModelList.addAll(rankResultModels);
-            }
-        }else{
+        if (rankResultModels.size() > 11) {
+            rankResultModelList.addAll(rankResultModels.subList(0, 11));
+        } else {
             rankResultModelList.addAll(rankResultModels);
         }
         return rankResultModelList;
