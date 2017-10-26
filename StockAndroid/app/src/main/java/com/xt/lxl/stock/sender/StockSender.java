@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.xt.lxl.stock.application.StockApplication;
+import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
@@ -134,10 +135,11 @@ public class StockSender {
         return hotSearchResponse;
     }
 
-    public StockRankDetailResponse requestRankDetailResponse(String title, int search_reletion) {
+    public StockRankDetailResponse requestRankDetailList(String title, int search_reletion, List<StockRankFilterItemModel> searchList) {
         StockRankDetailResquest detailResquest = new StockRankDetailResquest();
         detailResquest.title = title;
         detailResquest.serch_relation = search_reletion;
+        detailResquest.searchlist = searchList;
         String requestJsonStr = JSON.toJSONString(detailResquest);
         String s = requestGet(mBaseAPIUrl + "stock_rankdetail?", requestJsonStr, "utf-8");
         StockRankDetailResponse detailResponse;

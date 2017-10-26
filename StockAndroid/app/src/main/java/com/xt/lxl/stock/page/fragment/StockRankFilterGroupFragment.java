@@ -11,7 +11,6 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.util.DeviceUtil;
-import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.widget.view.StockCheckedTextView;
 
 import java.util.List;
@@ -89,20 +88,36 @@ public class StockRankFilterGroupFragment extends StockRankFilterBaseFragment {
         mItemView = (LinearLayout) view.findViewById(R.id.filter_item_layout);
     }
 
-    View.OnClickListener groupCheckListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            StockUtil.showToastOnMainThread(getContext(), "groupCheckListener");
+    @Override
+    protected void clearSelect() {
+        filterGroupModel.clearAllSelect();
+        for (int i = 0; i < mItemView.getChildCount(); i++) {
+            StockCheckedTextView itemView = (StockCheckedTextView) mItemView.getChildAt(i);
+            itemView.setChecked(false);
         }
-    };
+    }
 
     View.OnClickListener itemCheckListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            StockUtil.showToastOnMainThread(getContext(), "itemCheckListener");
+            if (!(v instanceof StockCheckedTextView)) {
+                return;
+            }
+            StockCheckedTextView textView = ((StockCheckedTextView) v);
+            boolean checked = !textView.isChecked();
+            if (checked) {
+                for (int i = 0; i < mItemView.getChildCount(); i++) {
+                    StockCheckedTextView itemView = (StockCheckedTextView) mItemView.getChildAt(i);
+                    itemView.setChecked(false);
+                }
+            }
+            textView.setChecked(checked);
+            StockRankFilterItemModel itemModel = (StockRankFilterItemModel) textView.getTag();
+            itemModel.isCheck = checked;
         }
     };
+
+
 
 }
