@@ -8,4 +8,5 @@ public class StockRankFilterItemModel extends StockBaseModel {
     public int filterId;//筛选Id
     public int parentGroupId;//父节点筛选Id
 
+    public boolean isCheck = false;//是否选中
 }

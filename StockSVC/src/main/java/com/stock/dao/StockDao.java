@@ -15,7 +15,7 @@ public interface StockDao {
 
     List<StockSyncModel> selectSyncModelList(int version);
 
-    public List<StockRankResultModel> selectRankDetailModelList(int version);
+    public List<StockRankResultModel> selectRankDetailModelList(int version, String strsql);
 
     public List<StockDateDataModel> selectStocDetailkDataList(String stoclCode, String sqlCode);
 
@@ -30,4 +30,6 @@ public interface StockDao {
     public List<StockRankFilterGroupModel> getStockRankFilterSubGroup(int parentFilterId);//二级节点
 
     public List<StockRankFilterItemModel> getAllStockRankFilterItem();//筛选节点
+
+    public String getListSql(int filter_id);
 }

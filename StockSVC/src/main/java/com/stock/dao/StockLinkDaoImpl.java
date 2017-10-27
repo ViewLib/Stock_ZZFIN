@@ -1,6 +1,8 @@
 package com.stock.dao;
 
+import com.stock.model.model.StockDetailGradleModel;
 import com.stock.model.model.StockRankResultModel;
+import com.stock.util.StringUtil;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -34,13 +36,19 @@ public class StockLinkDaoImpl implements StockLinkDao {
     }
     //获取数据库连接
 
+    public StockLinkDaoImpl() {
+        this.conn = getConnection();
+    }
+
     public Connection getConnection() {
-        Connection conn = null;
         logger.debug("开始连接数据库");
         System.out.println("开始连接数据库。");
         try {
-            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
+            if (conn == null || conn.isClosed()) {
+                conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            } else {
+                return conn;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error("数据库连接失败！");
@@ -124,5 +132,37 @@ public class StockLinkDaoImpl implements StockLinkDao {
         }
 
         return searchModelList;
+    }
+
+    @Override
+    public List<StockDetailGradleModel> selectStockGradle(String stockCode) {
+        List<StockDetailGradleModel> gradleModelList = new ArrayList<>();
+        String sql = "SELECT top 20 [S_EST_INSTITUTE],[S_EST_LOWPRICE_INST],[S_EST_HIGHPRICE_INST],ann_dt FROM [wind].[dbo].[asharestockrating] where s_info_windcode=? order by ann_dt desc; ";
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        try {
+            preStmt = getConnection().prepareStatement(sql);
+            preStmt.setString(1, stockCode);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String brokerName = rs.getString("S_EST_INSTITUTE");//机构名称
+                String lowPrice = rs.getString("S_EST_LOWPRICE_INST");//评级最低价
+                String highPirce = rs.getString("S_EST_HIGHPRICE_INST");//评级最高价
+                String dataStr = rs.getString("ann_dt");//评级日期
+                preStmt = conn.prepareStatement(sql);
+                StockDetailGradleModel gradleModel = new StockDetailGradleModel();
+                gradleModel.dateStr = dataStr;
+                gradleModel.maxPrice = StringUtil.string2Float(highPirce);
+                gradleModel.minPrice = StringUtil.string2Float(lowPrice);
+                gradleModel.stockBrokerName = brokerName;
+                gradleModelList.add(gradleModel);
+            }
+            return gradleModelList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.close(rs, preStmt, conn);
+        }
+        return gradleModelList;
     }
 }

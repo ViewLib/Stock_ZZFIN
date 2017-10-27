@@ -2,6 +2,7 @@ package com.stock.model.request;
 
 
 import com.stock.model.ServiceRequest;
+import com.stock.model.model.StockRankFilterItemModel;
 import com.stock.model.model.StockRankResultModel;
 
 import java.util.ArrayList;
@@ -17,4 +18,7 @@ public class StockRankDetailResquest  extends ServiceRequest{
 
     public String title = "";//界面标题，比如 本日融资融券的前十家公司
     public int search_relation;
+
+    public  List<StockRankFilterItemModel> searchlist=new ArrayList<>();
+
 }

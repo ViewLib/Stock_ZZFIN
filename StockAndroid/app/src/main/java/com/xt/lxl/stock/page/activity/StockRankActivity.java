@@ -1,8 +1,10 @@
 package com.xt.lxl.stock.page.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +19,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
+import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
@@ -57,7 +60,6 @@ public class StockRankActivity extends FragmentActivity {
     public List<StockRankResultModel> mRankList = new ArrayList<>();
     private List<String> mSaveList = new ArrayList<>();
 
-
     Handler mHander = new Handler();
 
     @Override
@@ -92,7 +94,11 @@ public class StockRankActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final StockRankDetailResponse rankDetailResponse = StockSender.getInstance().requestRankDetailResponse(mRankModel.title, mRankModel.searchRelation);
+                List<StockRankFilterItemModel> searchList = new ArrayList<StockRankFilterItemModel>();
+                for (StockRankFilterGroupModel groupModel : mRankFilerList) {
+                    searchList.addAll(groupModel.getAllSelectItemModel());
+                }
+                final StockRankDetailResponse rankDetailResponse = StockSender.getInstance().requestRankDetailList(mRankModel.title, mRankModel.searchRelation, searchList);
                 mHander.post(new Runnable() {
                     @Override
                     public void run() {
@@ -277,7 +283,16 @@ public class StockRankActivity extends FragmentActivity {
         mCallBacks.mFilterCallBack = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StockRankFilterGroupModel filterModel = (StockRankFilterGroupModel) v.getTag();
+                FragmentManager supportFragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+                Fragment fragmentById = supportFragmentManager.findFragmentById(R.id.stock_detail_filter_fragment);
+                if (fragmentById instanceof StockRankFilterBaseFragment) {
+                    fragmentTransaction.remove(fragmentById);
+                    fragmentTransaction.commitAllowingStateLoss();
+                    return;
+                }
+
+                StockRankFilterGroupModel subGroupModel = (StockRankFilterGroupModel) v.getTag();
                 int id = v.getId();
                 StockRankFilterBaseFragment fragment = null;
                 if (id == R.id.filter1) {
@@ -293,14 +308,24 @@ public class StockRankActivity extends FragmentActivity {
                     return;
                 }
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(StockRankFilterBaseFragment.StockRankFilterGroupModelTag, filterModel);
+                bundle.putSerializable(StockRankFilterBaseFragment.StockRankFilterGroupModelTag, subGroupModel);
                 fragment.setArguments(bundle);
 //                findViewById(R.id.stock_detail_filter_fragment).setVisibility(View.VISIBLE);
-                FragmentManager supportFragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.stock_detail_filter_fragment, fragment, "filter");
+                fragmentTransaction.replace(R.id.stock_detail_filter_fragment, fragment, "filter");
                 fragmentTransaction.commitAllowingStateLoss();
             }
         };
+    }
+
+    public void onReceiveResult(int requestCode, int index, StockRankFilterGroupModel topgroupModel) {
+        if (StockRankFilterBaseFragment.FilterFragmentCode == requestCode) {
+            if (index > 4) {
+                return;
+            }
+            StockRankFilterGroupModel groupModel = mRankFilerList.get(index);
+//            groupModel.filterGroupList.clear();
+//            groupModel.filterGroupList.addAll(topgroupModel.filterGroupList);
+            sendRankdDetailService();
+        }
     }
 }

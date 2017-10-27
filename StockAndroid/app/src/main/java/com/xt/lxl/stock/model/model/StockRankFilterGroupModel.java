@@ -20,7 +20,7 @@ public class StockRankFilterGroupModel extends StockBaseModel {
     public int level;//层级
     public int parentGroupId;//筛选ID
     public int showType = SHOW_TYPE_GROUP;
-    public List<StockRankFilterItemModel> filteList = new ArrayList<>();//筛选列表，比如央企/私企/外企/等等
+    public ArrayList<StockRankFilterItemModel> filteList = new ArrayList<>();//筛选列表，比如央企/私企/外企/等等
     public List<StockRankFilterGroupModel> filterGroupList = new ArrayList<>();//界面筛选项列表
 
     public StockRankFilterGroupModel() {
@@ -29,5 +29,39 @@ public class StockRankFilterGroupModel extends StockBaseModel {
 
     public StockRankFilterGroupModel(String groupName) {
         this.groupName = groupName;
+    }
+
+    public List<StockRankFilterItemModel> getAllSelectItemModel() {
+        List<StockRankFilterItemModel> selectItemList = new ArrayList<>();
+        if (filteList.size() > 0) {
+            for (StockRankFilterItemModel itemModel : filteList) {
+                if (itemModel.isCheck) {
+                    selectItemList.add(itemModel);
+                }
+            }
+            return selectItemList;
+        }
+        if (filterGroupList.size() > 0) {
+            for (StockRankFilterGroupModel filterGroupModel : filterGroupList) {
+                selectItemList.addAll(filterGroupModel.getAllSelectItemModel());
+            }
+            return selectItemList;
+        }
+        return selectItemList;
+    }
+
+
+    public void clearAllSelect() {
+        if (filteList.size() > 0) {
+            for (StockRankFilterItemModel itemModel : filteList) {
+                itemModel.isCheck = false;
+            }
+            return;
+        }
+        if (filterGroupList.size() > 0) {
+            for (StockRankFilterGroupModel filterGroupModel : filterGroupList) {
+                filterGroupModel.clearAllSelect();
+            }
+        }
     }
 }

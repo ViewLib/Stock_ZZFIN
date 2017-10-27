@@ -38,20 +38,20 @@ public class StockCompanyInforServlet extends BaseServlet {
     protected Class getActionResponseClass() {
         boolean flag = true;
         Class c = null;
-        if(flag){
-            c =  StockDetailCompanyInfoResponse.class;
+        if (flag) {
+            c = StockDetailCompanyInfoResponse.class;
         }
         return c;
     }
 
     @Override
     protected void servletAction(ServiceRequest serviceRequest, ServiceResponse serviceResponse) throws Exception {
-        StockDetailCompanyInfoRequest  stockDetailCompanyInfoRequest = (StockDetailCompanyInfoRequest) serviceRequest;
-        StockDetailCompanyInfoResponse   stockDetailCompanyInfoResponse= (StockDetailCompanyInfoResponse) serviceResponse;
-       StockDetailCompanyModel stockDetailCompanyModels = stockService.stockDetailCompanyModels(stockDetailCompanyInfoRequest, stockDetailCompanyInfoResponse);
-       List<StockDetailStockHolder> stockDetailStockHolders=stockService.stockHolders(stockDetailCompanyInfoRequest, stockDetailCompanyInfoResponse);
+        StockDetailCompanyInfoRequest stockDetailCompanyInfoRequest = (StockDetailCompanyInfoRequest) serviceRequest;
+        StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse = (StockDetailCompanyInfoResponse) serviceResponse;
+        StockDetailCompanyModel stockDetailCompanyModels = stockService.stockDetailCompanyModels(stockDetailCompanyInfoRequest, stockDetailCompanyInfoResponse);
+        List<StockDetailStockHolder> stockDetailStockHolders = stockService.stockHolders(stockDetailCompanyInfoRequest, stockDetailCompanyInfoResponse);
         stockDetailCompanyInfoResponse.companyModel = stockDetailCompanyModels;
-        stockDetailCompanyInfoResponse.stockHolderList=stockDetailStockHolders;
+        stockDetailCompanyInfoResponse.stockHolderList = stockDetailStockHolders;
 
 
     }

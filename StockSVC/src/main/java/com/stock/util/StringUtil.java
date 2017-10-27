@@ -18,8 +18,17 @@ public class StringUtil {
         } catch (Exception var3) {
             i1 = -1;
         }
-
         return i1;
     }
+
+    public static Float string2Float(String floatStr) {
+        try {
+            return Float.parseFloat(floatStr);
+        } catch (Exception e) {
+
+        }
+        return 0f;
+    }
+
 
 }

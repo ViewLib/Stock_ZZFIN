@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.xt.lxl.stock.widget.view.StockTitleView
+        android:id="@+id/stock_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        app:stock_title_text_msg="设置" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+
+        <com.xt.lxl.stock.widget.view.StockInfoBar
+            android:id="@+id/stock_setting_clearcache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <com.xt.lxl.stock.widget.view.StockInfoBar
+            android:id="@+id/stock_setting_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <com.xt.lxl.stock.widget.view.StockInfoBar
+            android:id="@+id/stock_setting_statement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.xt.lxl.stock.widget.view.StockInfoBar
+            android:id="@+id/stock_setting_push"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

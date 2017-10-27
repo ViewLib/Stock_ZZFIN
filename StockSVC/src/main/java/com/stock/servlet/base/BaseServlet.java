@@ -68,6 +68,7 @@ public abstract class BaseServlet extends HttpServlet {
                 e.printStackTrace();
                 baserResponse.resultMessage = e.getMessage();
                 response.setStatus(500);
+                e.printStackTrace();
             }
         }
         PrintWriter writer = response.getWriter();
