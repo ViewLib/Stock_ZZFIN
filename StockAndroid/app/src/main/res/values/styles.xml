@@ -141,6 +141,11 @@
         <item name="android:textColor">#333333</item>
     </style>
 
+    <style name="text_14_333333">
+        <item name="android:textSize">14dip</item>
+        <item name="android:textColor">#333333</item>
+    </style>
+
     <style name="text_14_aaaaaa">
         <item name="android:textSize">14dip</item>
         <item name="android:textColor">#aaaaaa</item>

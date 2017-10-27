@@ -18,7 +18,28 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <StockT
+
+        <com.xt.lxl.stock.widget.view.StockInfoBar
+            android:id="@+id/stock_setting_clearcache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <com.xt.lxl.stock.widget.view.StockInfoBar
+            android:id="@+id/stock_setting_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <com.xt.lxl.stock.widget.view.StockInfoBar
+            android:id="@+id/stock_setting_statement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.xt.lxl.stock.widget.view.StockInfoBar
+            android:id="@+id/stock_setting_push"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
