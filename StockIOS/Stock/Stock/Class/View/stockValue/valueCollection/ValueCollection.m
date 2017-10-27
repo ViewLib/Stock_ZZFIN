@@ -118,15 +118,23 @@
         PJBHCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PJBHCollectionViewCell" forIndexPath:indexPath];
         if (indexPath.item == 0) {
             cell.backgroundColor = [Utils colorFromHexRGB:@"DEEBF6"];
-            cell.value1.text = @"标题1";
-            cell.value2.text = @"标题2";
-            cell.value3.text = @"标题3";
-            cell.value4.text = @"标题4";
-            cell.value5.text = @"标题5";
-        } else if (indexPath.item%2==1) {
-            cell.backgroundColor = [UIColor whiteColor];
+            cell.value1.text = @"券商名称";
+            cell.value2.text = @"当前价格";
+            cell.value3.text = @"";
+            cell.value4.text = @"最高价格";
+            cell.value5.text = @"最低价格";
         } else {
-            cell.backgroundColor = [Utils colorFromHexRGB:@"EDF3F8"];
+            if (indexPath.item%2==1) {
+                cell.backgroundColor = [UIColor whiteColor];
+            } else {
+                cell.backgroundColor = [Utils colorFromHexRGB:@"EDF3F8"];
+            }
+            NSDictionary *dic = self.valueAry[indexPath.item];
+            cell.value1.text = dic[@"stockBrokerName"];
+            cell.value2.text = dic[@"showPrice"];
+            cell.value3.text = @"";
+            cell.value4.text = [dic[@"maxPrice"] stringValue];
+            cell.value5.text = [dic[@"minPrice"] stringValue];
         }
         return cell;
     } else {

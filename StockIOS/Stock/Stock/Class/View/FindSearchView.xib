@@ -52,14 +52,53 @@
                                 <outlet property="delegate" destination="iN0-l3-epB" id="Qv6-2c-YGh"/>
                             </connections>
                         </collectionView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v4r-hy-nrZ">
+                            <rect key="frame" x="0.0" y="400" width="375" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RYi-qT-Bfb">
+                                    <rect key="frame" x="25" y="11" width="150" height="28"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="重置">
+                                        <color key="titleColor" red="0.42352941179999998" green="0.42352941179999998" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="clickOneReloadBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="qFe-sQ-cLC"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="feT-QL-sY4">
+                                    <rect key="frame" x="200" y="11" width="150" height="28"/>
+                                    <color key="backgroundColor" red="0.094117647060000004" green="0.42745098040000001" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="确定"/>
+                                    <connections>
+                                        <action selector="clickOneSuccessBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="h83-Ic-y3Z"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="RYi-qT-Bfb" firstAttribute="leading" secondItem="v4r-hy-nrZ" secondAttribute="leading" constant="25" id="Krq-oJ-MQC"/>
+                                <constraint firstItem="feT-QL-sY4" firstAttribute="top" secondItem="v4r-hy-nrZ" secondAttribute="top" constant="11" id="Z1W-oT-V9i"/>
+                                <constraint firstAttribute="bottom" secondItem="feT-QL-sY4" secondAttribute="bottom" constant="11" id="fWn-1Y-OOk"/>
+                                <constraint firstItem="feT-QL-sY4" firstAttribute="width" secondItem="RYi-qT-Bfb" secondAttribute="width" id="gek-Xc-Hds"/>
+                                <constraint firstAttribute="trailing" secondItem="feT-QL-sY4" secondAttribute="trailing" constant="25" id="hd3-t2-TO6"/>
+                                <constraint firstAttribute="height" constant="50" id="rZn-WP-bJy"/>
+                                <constraint firstItem="feT-QL-sY4" firstAttribute="leading" secondItem="RYi-qT-Bfb" secondAttribute="trailing" constant="25" id="rve-vR-qcY"/>
+                                <constraint firstItem="RYi-qT-Bfb" firstAttribute="top" secondItem="v4r-hy-nrZ" secondAttribute="top" constant="11" id="tih-dH-k2p"/>
+                                <constraint firstAttribute="bottom" secondItem="RYi-qT-Bfb" secondAttribute="bottom" constant="11" id="xfb-5J-c9R"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="v4r-hy-nrZ" firstAttribute="leading" secondItem="uvA-ZF-bfg" secondAttribute="leading" id="BwP-Nz-Ru2"/>
                         <constraint firstAttribute="trailing" secondItem="tGe-Bh-w0h" secondAttribute="trailing" id="CLu-ME-yhk"/>
+                        <constraint firstItem="v4r-hy-nrZ" firstAttribute="top" secondItem="Xkr-rY-Z2f" secondAttribute="bottom" id="Ck3-R0-d6h"/>
                         <constraint firstItem="Xkr-rY-Z2f" firstAttribute="top" secondItem="uvA-ZF-bfg" secondAttribute="top" id="G1S-aM-BDS"/>
                         <constraint firstItem="tGe-Bh-w0h" firstAttribute="top" secondItem="uvA-ZF-bfg" secondAttribute="top" id="aFF-0h-F8O"/>
                         <constraint firstItem="tGe-Bh-w0h" firstAttribute="leading" secondItem="Xkr-rY-Z2f" secondAttribute="trailing" id="aKR-Yn-M48"/>
                         <constraint firstItem="tGe-Bh-w0h" firstAttribute="width" secondItem="Xkr-rY-Z2f" secondAttribute="width" id="brq-Bc-zQy"/>
                         <constraint firstItem="Xkr-rY-Z2f" firstAttribute="leading" secondItem="uvA-ZF-bfg" secondAttribute="leading" id="ka9-xi-m8U"/>
+                        <constraint firstAttribute="trailing" secondItem="v4r-hy-nrZ" secondAttribute="trailing" id="nRo-ya-WhV"/>
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qH9-Cf-JMe">
@@ -91,12 +130,18 @@
                                     <state key="normal" title="重置">
                                         <color key="titleColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="clickTwoReloadBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="amJ-Ar-tMP"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSl-oi-mwv">
                                     <rect key="frame" x="200" y="11" width="150" height="28"/>
                                     <color key="backgroundColor" red="0.094117647058823528" green="0.42745098039215684" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <state key="normal" title="确定"/>
+                                    <connections>
+                                        <action selector="clickTwoSuccessBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="uvA-G8-31D"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -137,7 +182,11 @@
             <connections>
                 <outlet property="contentCollection" destination="S9N-th-3aN" id="OyJ-nn-mIW"/>
                 <outlet property="leftCollection" destination="Xkr-rY-Z2f" id="VE0-zd-r10"/>
+                <outlet property="oneReloadBtn" destination="RYi-qT-Bfb" id="rSb-FF-97l"/>
+                <outlet property="oneSuccessBtn" destination="feT-QL-sY4" id="v4g-9A-FpH"/>
                 <outlet property="rightCollection" destination="tGe-Bh-w0h" id="Zuf-Sc-xDy"/>
+                <outlet property="twoReloadBtn" destination="BAS-hD-vxK" id="Yps-uZ-XMX"/>
+                <outlet property="twoSuccessBtn" destination="sSl-oi-mwv" id="qSH-lH-sSr"/>
                 <outlet property="viewOne" destination="uvA-ZF-bfg" id="7Ps-gR-UlN"/>
                 <outlet property="viewTwo" destination="qH9-Cf-JMe" id="lBe-h2-GMA"/>
             </connections>

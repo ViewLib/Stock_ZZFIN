@@ -20,18 +20,43 @@
     layout.minimumInteritemSpacing = 5.0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     [_menuCollection setCollectionViewLayout:layout];
-    [self initValue];
 }
 
-- (void)initValue {
-    ValueCollection *view = [[ValueCollection alloc] initWithType:@"PJBH" Value:@[@"",@"",@"",@"",@"",@""]];
-    CGRect new = view.frame;
-    new.origin.x = 0;
-    new.origin.y = 0;
-    new.size.width = K_FRAME_BASE_WIDTH;
-    new.size.height = 200;
-    view.frame = new;
-    [self.valueView addSubview:view];
+- (void)setStockCode:(NSString *)stockCode {
+    if (stockCode) {
+        _stockCode = stockCode;
+    }
+    [self getStockGrade];
+}
+
+- (void)getStockGrade {
+    WS(self)
+    [[HttpRequestClient sharedClient]getStockgrade:@{@"stockCode": self.stockCode} request:^(NSString *resultMsg, id dataDict, id error) {
+        if ([dataDict[@"resultCode"] intValue] == 200) {
+            [selfWeak setInformation:dataDict[@"gradleModelList"]];
+        }
+    }];
+}
+
+- (void)setInformation:(NSArray *)dicAry {
+    NSMutableArray *ary = [NSMutableArray arrayWithObject:@""];
+    [ary addObjectsFromArray:dicAry];
+    self.stockGradeAry = ary;
+    [self pjbhView];
+}
+
+- (ValueCollection *)pjbhView{
+    if (!_pjbhView) {
+        _pjbhView = [[ValueCollection alloc] initWithType:@"PJBH" Value:self.stockGradeAry];
+        CGRect new = _pjbhView.frame;
+        new.origin.x = 0;
+        new.origin.y = 0;
+        new.size.width = K_FRAME_BASE_WIDTH;
+        new.size.height = 200;
+        _pjbhView.frame = new;
+        [self.valueView addSubview:_pjbhView];
+    }
+    return _pjbhView;
 }
 
 #pragma mark CollectionViewDelegateAndDataSource
@@ -54,19 +79,32 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"meunCall" forIndexPath:indexPath];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setFrame:CGRectMake(0, 0, 60, 33)];
-    [btn setTag:indexPath.item];
-    [btn.titleLabel setFont:[UIFont systemFontOfSize:12]];
-    [btn setTitleColor:[Utils colorFromHexRGB:@"999999"] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-    [btn setTitle:self.titleAry[indexPath.item] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:btn];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 33)];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTag:999001];
+    [label setTextColor:[Utils colorFromHexRGB:@"999999"]];
+    if (indexPath.item == 0) {
+        [label setTextColor:[UIColor blackColor]];
+    }
+    [label setText:self.titleAry[indexPath.item]];
+    [cell.contentView addSubview:label];
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    for (int i = 0; i < self.titleAry.count; i++) {
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
+        UILabel *lab = [cell viewWithTag:999001];
+        if (i == indexPath.item) {
+            [lab setTextColor:[UIColor blackColor]];
+        } else {
+            [lab setTextColor:[Utils colorFromHexRGB:@"999999"]];
+        }
+    }
+}
+
 - (void)clickBtn:(UIButton *) btn {
+    btn.selected = !btn.selected;
     NSLog(@"%@",btn);
 }
 

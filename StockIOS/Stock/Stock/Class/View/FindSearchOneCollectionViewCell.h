@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *value;
 @property (assign, nonatomic) BOOL hasChange;
 
-- (void)updateSelect;
+- (void)isSelect;
 - (void)reloadSelect;
 - (void)isChange;
 

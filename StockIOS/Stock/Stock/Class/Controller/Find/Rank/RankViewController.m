@@ -71,29 +71,80 @@
     
     [self initSearchView];
     
-//    [self getData];
+    [self getData];
 }
 
 - (void)initSearchView {
     _fliterSearchView = [[NSBundle mainBundle]loadNibNamed:@"FindSearchView" owner:nil options:nil].firstObject;
     _fliterSearchView.frame = self.searchView.bounds;
     WS(self)
-    _fliterSearchView.rightCollectionCellClick = ^(id obj, NSString *from) {
-        [selfWeak saveDic:obj From:from];
+    _fliterSearchView.collectionCellClick = ^{
+        [selfWeak reloadTableView];
+        selfWeak.contentBgView.hidden = YES;
+        if (selfWeak.FindViewHigh.constant != 0) {
+            [UIView animateWithDuration:0.5f animations:^{
+                selfWeak.filterLine.hidden = YES;
+                selfWeak.tabBarController.tabBar.hidden = NO;
+                selfWeak.FindViewHigh.constant = 0;
+            }];
+        }
     };
+    
     [self.searchView addSubview:_fliterSearchView];
+}
+
+- (void)reloadTableView {
+    NSMutableArray *searchlist = [NSMutableArray array];
+    [[Config shareInstance].rankList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[NSDictionary class]]) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:obj];
+            [dic removeObjectForKey:@"filterName"];
+            [searchlist addObject:dic];
+        }
+    }];
+    [[Config shareInstance].rankOtherList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[NSDictionary class]]) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:obj];
+            [dic removeObjectForKey:@"filterName"];
+            [searchlist addObject:dic];
+        }
+    }];
+    NSDictionary *dic = @{@"search_relation":@"114",@"searchlist":searchlist};
+    [self showHudInView:self.view hint:@"请稍后，正在获取数据"];
+    WS(self)
+    [[HttpRequestClient sharedClient] getFilterSearch:dic request:^(NSString *resultMsg, id dataDict, id error) {
+        [selfWeak hideHud];
+        if (dataDict) {
+            if ([dataDict[@"resultCode"] floatValue] == 200) {
+                selfWeak.tableValue = dataDict[@"rankResultList"];
+                [selfWeak.valueTable reloadData];
+            }
+        }
+    }];
 }
 
 //头部fliter的点击事件
 - (IBAction)clickFilterBtn:(UIButton *)sender {
+    [@[_filterOne,_filterTwo,_filterThr,_filterFor] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj) {
+            UIButton *btn = (UIButton *)obj;
+            if (![btn isEqual: sender]) {
+                btn.selected = NO;
+            }
+        }
+    }];
+    if (self.FindViewHigh.constant != 0) {
+        [UIView animateWithDuration:0.5f animations:^{
+            self.filterLine.hidden = YES;
+            self.tabBarController.tabBar.hidden = NO;
+            self.FindViewHigh.constant = 0;
+        }];
+    }
     self.filterLine.centerX = sender.centerX;
     sender.selected = !sender.selected;
     
-    if (!self.contentBgView.hidden) {
-        self.contentBgView.hidden = YES;
-    } else {
-        self.contentBgView.hidden = NO;
-    }
+    self.contentBgView.hidden = !sender.selected;
+    
     NSInteger num = sender.tag - 6001;
     NSDictionary *dic = [Config shareInstance].rankSearchList[num];
     [_fliterSearchView updateCell:dic];

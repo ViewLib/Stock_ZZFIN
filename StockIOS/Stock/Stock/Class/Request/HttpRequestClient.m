@@ -64,6 +64,13 @@
     [self httpPost:urlStr paramDict:dic completion:request];
 }
 
+#pragma mark - 获取筛选后的排行
+-(void)getFilterSearch:(NSDictionary *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_rankdetail",SERVICE];
+    NSDictionary *dic = @{@"data": [value JSONString]};
+    [self httpPost:urlStr paramDict:dic completion:request];
+}
+
 #pragma mark - 获取分时数据
 -(void)getLineData:(NSDictionary *)value request:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_minute",SERVICE];
@@ -81,6 +88,13 @@
 #pragma mark - 获取公司信息数据
 -(void)getComputerInfo:(NSDictionary *)value request:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_info",SERVICE];
+    NSDictionary *dic = @{@"data": [value JSONString]};
+    [self httpPost:urlStr paramDict:dic completion:request];
+}
+
+#pragma mark - 获取券商信息
+-(void)getStockgrade:(NSDictionary *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_grade",SERVICE];
     NSDictionary *dic = @{@"data": [value JSONString]};
     [self httpPost:urlStr paramDict:dic completion:request];
 }

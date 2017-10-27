@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ValueCollection.h"
 
 @interface BrokersRatingTableViewCell : UITableViewCell<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -15,13 +16,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *valueViewHigh;
 
 @property (strong, nonatomic) NSArray   *titleAry;
-
+@property (strong, nonatomic) NSArray   *stockGradeAry;
 @property (strong, nonatomic) NSString   *stockCode;
 
-/**
- 更新cell
- @param dic 更新的内容
- */
-- (void)updateCell:(NSDictionary *)dic;
+@property (strong, nonatomic) ValueCollection *pjbhView;
+
 
 @end

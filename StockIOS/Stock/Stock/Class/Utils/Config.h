@@ -36,6 +36,12 @@
 //RankTopSearchs数据
 @property (nonatomic ,strong)   NSArray       *rankSearchList;
 
+//RankFilter数据
+@property (nonatomic ,strong)   NSMutableArray       *rankList;
+
+//RankFilter数据
+@property (nonatomic ,strong)   NSMutableArray       *rankOtherList;
+
 +(Config *) shareInstance;
 
 
