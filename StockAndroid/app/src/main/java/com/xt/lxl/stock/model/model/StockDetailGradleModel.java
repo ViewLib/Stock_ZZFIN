@@ -1,4 +1,4 @@
-package com.stock.model.model;
+package com.xt.lxl.stock.model.model;
 
 public class StockDetailGradleModel {
     public float maxPrice;//最高价格

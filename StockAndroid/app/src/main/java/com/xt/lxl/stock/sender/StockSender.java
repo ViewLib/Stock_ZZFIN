@@ -7,6 +7,7 @@ import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
+import com.xt.lxl.stock.model.reponse.StockDetailGradeResponse;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
@@ -16,6 +17,7 @@ import com.xt.lxl.stock.model.reponse.StockRankListResponse;
 import com.xt.lxl.stock.model.reponse.StockSyncResponse;
 import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
 import com.xt.lxl.stock.model.request.StockDetailCompanyInfoRequest;
+import com.xt.lxl.stock.model.request.StockDetailGradeRequest;
 import com.xt.lxl.stock.model.request.StockGetDateDataRequest;
 import com.xt.lxl.stock.model.request.StockGetMinuteDataRequest;
 import com.xt.lxl.stock.model.request.StockHotSearchRequest;
@@ -218,6 +220,28 @@ public class StockSender {
             getDateDataResponse = JSON.parseObject(s, StockDetailCompanyInfoResponse.class);
         } catch (Exception e) {
             getDateDataResponse = new StockDetailCompanyInfoResponse();
+            getDateDataResponse.resultCode = 500;
+            getDateDataResponse.resultMessage = "序列化失败";
+        }
+        return getDateDataResponse;
+    }
+
+    /**
+     * 公司详情服务
+     *
+     * @param stockCode
+     * @return
+     */
+    public StockDetailGradeResponse requestStockGradeService(String stockCode) {
+        StockDetailGradeRequest reqeust = new StockDetailGradeRequest();
+        reqeust.stockCode = stockCode;
+        String requestJsonStr = JSON.toJSONString(reqeust);
+        String s = requestGet(mBaseAPIUrl + "stock_info?", requestJsonStr, "utf-8");
+        StockDetailGradeResponse getDateDataResponse;
+        try {
+            getDateDataResponse = JSON.parseObject(s, StockDetailGradeResponse.class);
+        } catch (Exception e) {
+            getDateDataResponse = new StockDetailGradeResponse();
             getDateDataResponse.resultCode = 500;
             getDateDataResponse.resultMessage = "序列化失败";
         }

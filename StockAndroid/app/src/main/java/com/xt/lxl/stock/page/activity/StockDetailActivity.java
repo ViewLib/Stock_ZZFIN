@@ -14,6 +14,7 @@ import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
+import com.xt.lxl.stock.model.reponse.StockDetailGradeResponse;
 import com.xt.lxl.stock.page.module.StockDetailChartModule;
 import com.xt.lxl.stock.page.module.StockDetailCompareModule;
 import com.xt.lxl.stock.page.module.StockDetailDescModule;
@@ -108,6 +109,7 @@ public class StockDetailActivity extends FragmentActivity {
         titleView.setTitle(builder);
         sendStockDataService();
         sendStockCompanyService();
+        sendStockGradeService();
     }
 
     Runnable runnable = new Runnable() {
@@ -163,6 +165,24 @@ public class StockDetailActivity extends FragmentActivity {
                     @Override
                     public void run() {
                         descModule.bindData();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void sendStockGradeService() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                StockDetailGradeResponse stockDetailGradeResponse = StockSender.getInstance().requestStockGradeService(mCacheBean.mStockViewModel.getRequestStockCode());
+                if (stockDetailGradeResponse.gradleModelList.size() > 0) {
+                    mCacheBean.gradleModelList = stockDetailGradeResponse.gradleModelList;
+                }
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        gradeModule.bindData();
                     }
                 });
             }

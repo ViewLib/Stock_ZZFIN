@@ -1,6 +1,5 @@
 package com.xt.lxl.stock.page.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.util.DeviceUtil;
-import com.xt.lxl.stock.util.StockUtil;
 
 import java.util.List;
 
@@ -99,7 +97,6 @@ public class StockRankFilterBlockFragment extends StockRankFilterBaseFragment {
             stockFilterTitle.setText(groupModel.groupName);
 
             List<StockRankFilterItemModel> filteList = groupModel.filteList;
-            TextView text;
             RelativeLayout.LayoutParams lp;
 
             filterTags.removeAllViews();

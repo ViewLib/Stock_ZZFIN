@@ -19,25 +19,15 @@
         app:hotel_text_drawable_src="@drawable/stock_detail_grade"
         app:hotel_text_drawable_width="12dp" />
 
-    <com.xt.lxl.stock.widget.view.StockTabGroupButton
-        android:id="@+id/stock_detail_grade_tab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <include
+        android:id="@+id/stock_detail_home_grade_header"
+        layout="@layout/stock_detail_home_grade_item" />
 
     <LinearLayout
         android:id="@+id/stock_detail_grade_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="100dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="券商评级内容" />
-
-    </LinearLayout>
-
+        android:orientation="vertical" />
 
 </LinearLayout>
