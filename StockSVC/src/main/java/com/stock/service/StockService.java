@@ -305,4 +305,28 @@ public class StockService {
         resultModelList.addAll(minGradeList);
         return resultModelList;
     }
+    public List<StockDetailFinanceGroup> getFinicilaGroup(StockDetailFinanceRequest stockDetailFinanceRequest,StockDetailFinanceResponse stockDetailFinanceResponse){
+        List<StockDetailFinanceGroup> stockDetailFinanceGroupList=new ArrayList<>();
+        List<StockDetailFinanceItem>  stockDetailFinanceItemList=new ArrayList<>();
+        for(int i=1;i<5;i++){
+            StockDetailFinanceGroup stockDetailFinanceGroup=new StockDetailFinanceGroup();
+            stockDetailFinanceItemList=dao.getFinalList(stockDetailFinanceRequest.stockCode,i);
+            stockDetailFinanceGroup.financeItemList=stockDetailFinanceItemList;
+           if(i==1){
+               stockDetailFinanceGroup.financeName="收入";
+           }
+            if(i==2){
+                stockDetailFinanceGroup.financeName="净利率";
+            }
+            if(i==3){
+                stockDetailFinanceGroup.financeName="毛利率";
+            }
+            if(i==4){
+                stockDetailFinanceGroup.financeName="分红率";
+            }
+            stockDetailFinanceGroup.financeType=i;
+            stockDetailFinanceGroupList.add(stockDetailFinanceGroup);
+        }
+        return stockDetailFinanceGroupList;
+    }
 }

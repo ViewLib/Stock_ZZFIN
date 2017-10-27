@@ -195,6 +195,17 @@
         <url-pattern>/api/stock_grade</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>StockFinanceServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockFinanceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockFinanceServlet</servlet-name>
+        <url-pattern>/api/stock_finicial</url-pattern>
+    </servlet-mapping>
+
+
     <!-- 首页 -->
     <welcome-file-list>
         <welcome-file>rest/index</welcome-file>
