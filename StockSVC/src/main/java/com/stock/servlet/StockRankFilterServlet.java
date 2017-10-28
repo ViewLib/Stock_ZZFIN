@@ -37,6 +37,5 @@ public class StockRankFilterServlet extends BaseServlet {
         StockRankDetailFilterlResponse stockRankDetailFilterlResponse = (StockRankDetailFilterlResponse) serviceResponse;
         List<StockRankFilterGroupModel> stockRankFilterModels = stockService.getStockFilterList(stockRankDetailFilterlRequest, stockRankDetailFilterlResponse);
         stockRankDetailFilterlResponse.rankFilterList = stockRankFilterModels;
-        System.out.print("xxx");
     }
 }

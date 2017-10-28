@@ -4,6 +4,7 @@ import com.xt.lxl.stock.model.model.StockDetailCompanyModel;
 import com.xt.lxl.stock.model.model.StockDetailGradleModel;
 import com.xt.lxl.stock.model.model.StockDetailStockHolder;
 import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class StockDetailCacheBean {
 
     public List<StockDetailGradleModel> gradleModelList = new ArrayList<>();//券商评级列表
 
+    public StockDetailFinanceResponse financeResponse = new StockDetailFinanceResponse();//财务信息
 
 }
 

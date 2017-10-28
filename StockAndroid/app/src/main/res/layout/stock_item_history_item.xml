@@ -42,8 +42,8 @@
         android:gravity="center"
         android:text="已添加"
         android:textAppearance="@style/text_14_686868"
-        app:hotel_text_drawable_width="15dp"
-        app:hotel_text_drawable_height="15dp"
+        app:stock_text_drawable_width="15dp"
+        app:stock_text_drawable_height="15dp"
         />
 
 </RelativeLayout>

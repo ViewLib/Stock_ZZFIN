@@ -14,6 +14,7 @@ import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
+import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailGradeResponse;
 import com.xt.lxl.stock.page.module.StockDetailChartModule;
 import com.xt.lxl.stock.page.module.StockDetailCompareModule;
@@ -110,6 +111,7 @@ public class StockDetailActivity extends FragmentActivity {
         sendStockDataService();
         sendStockCompanyService();
         sendStockGradeService();
+        sendFinanceService();
     }
 
     Runnable runnable = new Runnable() {
@@ -165,6 +167,25 @@ public class StockDetailActivity extends FragmentActivity {
                     @Override
                     public void run() {
                         descModule.bindData();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void sendFinanceService() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                StockDetailFinanceResponse financeResponse = StockSender.getInstance().requestFinanceService("300170.SZ");
+//                StockDetailFinanceResponse financeResponse = StockSender.getInstance().requestFinanceService(mCacheBean.mStockViewModel.getRequestStockCode());
+                if (financeResponse.resultCode == 200) {
+                    mCacheBean.financeResponse = financeResponse;
+                }
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        financeModule.bindData();
                     }
                 });
             }

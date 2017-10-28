@@ -1,7 +1,6 @@
 package com.xt.lxl.stock.widget.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,10 +19,10 @@ import com.xt.lxl.stock.R;
  * <p>Value - 当前设置/回显的内容，可设置特定的格式以支持多行显示</p>
  * <p>Arrow - 为箭头图片，默认向右</p>
  * <p>Value内容部分自适应显示宽度，剩余空间由Label标题部分自适应占满。</p>
- * <p>
- * <p>
+ * <p/>
+ * <p/>
  * <b>XML attributes</b>
- * <p>
+ * <p/>
  * 公共挪到了酒店，酒店这边独立设置，不在依赖公共。并且删除部分未使用功能
  *
  * @author xiangleiliu
@@ -46,20 +45,9 @@ public class StockInfoBar extends FrameLayout {
     public StockInfoBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         inflate(context, R.layout.stock_view_info_bar, this);
-        initFromAttributes(context, attrs);
         initView();
     }
 
-
-    public void initFromAttributes(Context context, AttributeSet attrs) {
-        // 通过xml style设置默认参数
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StockInfoBar);
-        if (attrs == null || a == null) {
-            return;
-        }
-
-        a.recycle();
-    }
 
     public void bindInfoData(String valueText, String hintText) {
         mValueText.setText(valueText);

@@ -216,12 +216,12 @@
         <item name="android:textColor">#a4aab3</item>
     </style>
 
-    <style name="hotel_text_15_4289ff">
+    <style name="text_15_4289ff">
         <item name="android:textSize">15dip</item>
         <item name="android:textColor">#4289ff</item>
     </style>
 
-    <style name="hotel_text_12_186DB7">
+    <style name="text_12_186DB7">
         <item name="android:textSize">12dip</item>
         <item name="android:textColor">#4289ff</item>
     </style>

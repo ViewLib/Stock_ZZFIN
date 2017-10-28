@@ -77,6 +77,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         lineChart = (MyLineChart) view.findViewById(R.id.kline_minute_chart);
+        lineChart.setMaxVisibleValueCount(12);
         initChart();
         stringSparseArray = setXLabels();
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {

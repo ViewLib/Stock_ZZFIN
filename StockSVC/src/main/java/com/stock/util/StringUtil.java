@@ -21,7 +21,7 @@ public class StringUtil {
         return i1;
     }
 
-    public static Float string2Float(String floatStr) {
+    public static Float toFloat(String floatStr) {
         try {
             return Float.parseFloat(floatStr);
         } catch (Exception e) {
@@ -30,5 +30,16 @@ public class StringUtil {
         return 0f;
     }
 
+    public static Long toLong(String floatStr) {
+        if (floatStr.contains(".")) {
+            floatStr = floatStr.split("\\.")[0];
+        }
+        try {
+            return Long.parseLong(floatStr);
+        } catch (Exception e) {
+
+        }
+        return 0l;
+    }
 
 }

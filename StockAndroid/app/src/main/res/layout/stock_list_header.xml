@@ -17,10 +17,10 @@
         android:gravity="center"
         android:text="编辑"
         android:textAppearance="@style/text_13_fa5259"
-        app:hotel_text_drawable_direction="hotel_left"
-        app:hotel_text_drawable_height="14dp"
-        app:hotel_text_drawable_src="@drawable/stock_head_edit"
-        app:hotel_text_drawable_width="14dp" />
+        app:stock_text_drawable_direction="stock_left"
+        app:stock_text_drawable_height="14dp"
+        app:stock_text_drawable_src="@drawable/stock_head_edit"
+        app:stock_text_drawable_width="14dp" />
 
 
     <TextView

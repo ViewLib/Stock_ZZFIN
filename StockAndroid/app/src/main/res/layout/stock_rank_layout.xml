@@ -27,11 +27,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="央企"
-            app:hotel_text_drawable_direction="hotel_right"
-            app:hotel_text_drawable_height="7dp"
-            app:hotel_text_drawable_padding="5dp"
-            app:hotel_text_drawable_src="@drawable/stock_rank_filter_disable"
-            app:hotel_text_drawable_width="11dp" />
+            app:stock_text_drawable_direction="stock_right"
+            app:stock_text_drawable_height="7dp"
+            app:stock_text_drawable_padding="5dp"
+            app:stock_text_drawable_src="@drawable/stock_rank_filter_disable"
+            app:stock_text_drawable_width="11dp" />
 
         <View
             android:layout_width="0dp"
@@ -44,11 +44,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="银行业"
-            app:hotel_text_drawable_direction="hotel_right"
-            app:hotel_text_drawable_height="7dp"
-            app:hotel_text_drawable_padding="5dp"
-            app:hotel_text_drawable_src="@drawable/stock_rank_filter_disable"
-            app:hotel_text_drawable_width="11dp" />
+            app:stock_text_drawable_direction="stock_right"
+            app:stock_text_drawable_height="7dp"
+            app:stock_text_drawable_padding="5dp"
+            app:stock_text_drawable_src="@drawable/stock_rank_filter_disable"
+            app:stock_text_drawable_width="11dp" />
 
         <View
             android:layout_width="0dp"
@@ -61,11 +61,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="区域"
-            app:hotel_text_drawable_direction="hotel_right"
-            app:hotel_text_drawable_height="7dp"
-            app:hotel_text_drawable_padding="5dp"
-            app:hotel_text_drawable_src="@drawable/stock_rank_filter_disable"
-            app:hotel_text_drawable_width="11dp" />
+            app:stock_text_drawable_direction="stock_right"
+            app:stock_text_drawable_height="7dp"
+            app:stock_text_drawable_padding="5dp"
+            app:stock_text_drawable_src="@drawable/stock_rank_filter_disable"
+            app:stock_text_drawable_width="11dp" />
 
         <View
             android:layout_width="0dp"
@@ -78,11 +78,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="其他筛选"
-            app:hotel_text_drawable_direction="hotel_right"
-            app:hotel_text_drawable_height="7dp"
-            app:hotel_text_drawable_padding="5dp"
-            app:hotel_text_drawable_src="@drawable/stock_rank_filter_disable"
-            app:hotel_text_drawable_width="11dp" />
+            app:stock_text_drawable_direction="stock_right"
+            app:stock_text_drawable_height="7dp"
+            app:stock_text_drawable_padding="5dp"
+            app:stock_text_drawable_src="@drawable/stock_rank_filter_disable"
+            app:stock_text_drawable_width="11dp" />
     </LinearLayout>
 
     <RelativeLayout

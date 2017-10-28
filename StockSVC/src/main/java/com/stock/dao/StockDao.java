@@ -32,4 +32,6 @@ public interface StockDao {
     public List<StockRankFilterItemModel> getAllStockRankFilterItem();//筛选节点
 
     public String getListSql(int filter_id);
+
+    public List<StockDetailFinanceItem> getFinalList(String stockCode,int  FinanceType);
 }

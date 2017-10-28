@@ -7,6 +7,7 @@ import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
+import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailGradeResponse;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
@@ -17,6 +18,7 @@ import com.xt.lxl.stock.model.reponse.StockRankListResponse;
 import com.xt.lxl.stock.model.reponse.StockSyncResponse;
 import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
 import com.xt.lxl.stock.model.request.StockDetailCompanyInfoRequest;
+import com.xt.lxl.stock.model.request.StockDetailFinanceRequest;
 import com.xt.lxl.stock.model.request.StockDetailGradeRequest;
 import com.xt.lxl.stock.model.request.StockGetDateDataRequest;
 import com.xt.lxl.stock.model.request.StockGetMinuteDataRequest;
@@ -227,7 +229,7 @@ public class StockSender {
     }
 
     /**
-     * 公司详情服务
+     * 公司评级服务
      *
      * @param stockCode
      * @return
@@ -236,18 +238,33 @@ public class StockSender {
         StockDetailGradeRequest reqeust = new StockDetailGradeRequest();
         reqeust.stockCode = stockCode;
         String requestJsonStr = JSON.toJSONString(reqeust);
-        String s = requestGet(mBaseAPIUrl + "stock_info?", requestJsonStr, "utf-8");
-        StockDetailGradeResponse getDateDataResponse;
+        String s = requestGet(mBaseAPIUrl + "stock_grade?", requestJsonStr, "utf-8");
+        StockDetailGradeResponse gradeResponse;
         try {
-            getDateDataResponse = JSON.parseObject(s, StockDetailGradeResponse.class);
+            gradeResponse = JSON.parseObject(s, StockDetailGradeResponse.class);
         } catch (Exception e) {
-            getDateDataResponse = new StockDetailGradeResponse();
-            getDateDataResponse.resultCode = 500;
-            getDateDataResponse.resultMessage = "序列化失败";
+            gradeResponse = new StockDetailGradeResponse();
+            gradeResponse.resultCode = 500;
+            gradeResponse.resultMessage = "序列化失败";
         }
-        return getDateDataResponse;
+        return gradeResponse;
     }
 
+    public StockDetailFinanceResponse requestFinanceService(String stockCode) {
+        StockDetailFinanceRequest reqeust = new StockDetailFinanceRequest();
+        reqeust.stockCode = stockCode;
+        String requestJsonStr = JSON.toJSONString(reqeust);
+        String s = requestGet(mBaseAPIUrl + "stock_finicial?", requestJsonStr, "utf-8");
+        StockDetailFinanceResponse response;
+        try {
+            response = JSON.parseObject(s, StockDetailFinanceResponse.class);
+        } catch (Exception e) {
+            response = new StockDetailFinanceResponse();
+            response.resultCode = 500;
+            response.resultMessage = "序列化失败";
+        }
+        return response;
+    }
 
     /**
      * 筛选列表
