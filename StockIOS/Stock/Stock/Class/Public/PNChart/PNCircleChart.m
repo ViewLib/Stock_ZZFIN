@@ -130,7 +130,7 @@ displayCountingLabel:(BOOL)displayCountingLabel
                 format = @"%d%%";
                 break;
             case PNChartFormatTypeDollar:
-                format = @"$%d";
+                format = @"%d";
                 break;
             case PNChartFormatTypeDecimal:
                 format = @"%.1f";

@@ -47,18 +47,22 @@
     [[HttpRequestClient sharedClient] getKLineData:@{@"sqlCode": @"day",@"stockCode": self.stockCode} request:^(NSString *resultMsg, id dataDict, id error) {
         __block YYLineDataModel *preModel;
         if ([dataDict[@"resultCode"] intValue] == 200) {
-            NSMutableArray *array = [NSMutableArray array];
-            for (NSDictionary *dic in dataDict[@"dateDataList"]) {
+            NSArray *array = dataDict[@"dateDataList"];
+            NSMutableArray *news = [NSMutableArray array];
+            int x = array.count - 300;
+            for (int i = x; i < array.count; i++) {
+                NSDictionary *dic = array[i];
                 NSDictionary *new = [Utils KlineDicWithDic:dic];
-                [array addObject:new];
+                [news addObject:new];
             }
+            
             NSMutableArray *newAry = [NSMutableArray array];
-            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [news enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 YYLineDataModel *model = [[YYLineDataModel alloc]initWithDict:obj];
                 model.preDataModel = preModel;
-                [model updateMA:array index:idx];
+                [model updateMA:news index:idx];
                 NSString *day = [NSString stringWithFormat:@"%@",obj[@"day"]];
-                if ([array count] % 18 == ([array indexOfObject:obj] + 1 )%18 ) {
+                if ([news count] % 18 == ([news indexOfObject:obj] + 1 )%18 ) {
                     model.showDay = [NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]];
                 }
                 [newAry addObject: model];

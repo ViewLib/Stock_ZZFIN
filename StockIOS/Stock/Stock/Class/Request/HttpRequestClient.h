@@ -49,6 +49,9 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 #pragma mark - 获取公司简介
 -(void)getComputerInfo:(NSDictionary *)value request:(request)request;
 
+#pragma mark - 财务信息
+-(void)getStockFinicial:(NSDictionary *)value request:(request)request;
+
 #pragma mark - 获取股东信息
 -(void)getShareholder:(NSDictionary *)value request:(request)request;
 

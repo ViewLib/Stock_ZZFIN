@@ -81,24 +81,37 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"meunCall" forIndexPath:indexPath];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 33)];
     [label setFont:[UIFont systemFontOfSize:12]];
-    [label setTag:999001];
+    [label setTag:999000];
+    [label setTextAlignment:NSTextAlignmentCenter];
     [label setTextColor:[Utils colorFromHexRGB:@"999999"]];
-    if (indexPath.item == 0) {
-        [label setTextColor:[UIColor blackColor]];
-    }
     [label setText:self.titleAry[indexPath.item]];
     [cell.contentView addSubview:label];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(cell.contentView.frame)-2, 60, 2)];
+    [line setBackgroundColor:MAIN_COLOR];
+    [line setCenterX:label.centerX];
+    [line setTag:999001];
+    [line setHidden:YES];
+    [cell.contentView addSubview:line];
+    
+    if (indexPath.item == 0) {
+        [label setTextColor:[UIColor blackColor]];
+        line.hidden = NO;
+    }
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     for (int i = 0; i < self.titleAry.count; i++) {
         UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
-        UILabel *lab = [cell viewWithTag:999001];
+        UILabel *lab = [cell viewWithTag:999000];
+        UIView *line = [cell viewWithTag:999001];
         if (i == indexPath.item) {
             [lab setTextColor:[UIColor blackColor]];
+            line.hidden = NO;
         } else {
             [lab setTextColor:[Utils colorFromHexRGB:@"999999"]];
+            line.hidden = YES;
         }
     }
 }

@@ -41,7 +41,7 @@
 }
 
 - (NSString *)DayDatail {
-    NSString *day = [_dict[@"day"] stringValue];
+    NSString *day = _dict[@"day"];
     return [NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]];
 }
 

@@ -104,9 +104,9 @@
         if (indexPath.item != 0) {
             [cell valueType];
             NSDictionary *dic = self.valueAry[indexPath.item];
-            cell.name.text = dic[@"stockHolderNmae"];
+            cell.name.text = dic[@"stockHolderName"];
             cell.num.text = [NSString stringWithFormat:@"%.0f",[dic[@"stockHolderAmount"] floatValue]];
-            cell.proportion.text = @"标题3";
+            cell.proportion.text = [NSString stringWithFormat:@"%@",dic[@"stockHolderRatio"]];
             if (indexPath.item%2==1) {
                 cell.backgroundColor = [UIColor whiteColor];
             } else {

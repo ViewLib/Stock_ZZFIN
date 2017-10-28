@@ -92,6 +92,13 @@
     [self httpPost:urlStr paramDict:dic completion:request];
 }
 
+#pragma mark - 财务信息
+-(void)getStockFinicial:(NSDictionary *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_finicial",SERVICE];
+    NSDictionary *dic = @{@"data": [value JSONString]};
+    [self httpPost:urlStr paramDict:dic completion:request];
+}
+
 #pragma mark - 获取券商信息
 -(void)getStockgrade:(NSDictionary *)value request:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_grade",SERVICE];

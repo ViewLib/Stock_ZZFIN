@@ -20,7 +20,7 @@
     layout.minimumInteritemSpacing = 5.0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     [_MenuCollection setCollectionViewLayout:layout];
-    [self initBarChartView];
+//    [self initBarChartView];
 }
 
 - (void)initBarChartView {
@@ -41,12 +41,9 @@
     
     self.barChart.yChartLabelWidth = 20.0;
     self.barChart.chartMarginLeft = 30.0;
-    self.barChart.chartMarginRight = 10.0;
-    self.barChart.chartMarginTop = 0.0;
+    self.barChart.chartMarginTop = 25.0;
     self.barChart.chartMarginBottom = 10.0;
     
-    
-    self.barChart.labelMarginTop = 0.0;
     self.barChart.showChartBorder = YES;
     [self.barChart setXLabels:@[@"2", @"3", @"4", @"5"]];
     
@@ -87,20 +84,41 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"meunCall" forIndexPath:indexPath];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setFrame:CGRectMake(0, 0, 60, 33)];
-    [btn setTag:indexPath.item];
-    [btn.titleLabel setFont:[UIFont systemFontOfSize:12]];
-    [btn setTitleColor:[Utils colorFromHexRGB:@"999999"] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-    [btn setTitle:self.titleAry[indexPath.item] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:btn];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 33)];
+    [label setFont:[UIFont systemFontOfSize:12]];
+    [label setTag:999000];
+    [label setTextColor:[Utils colorFromHexRGB:@"999999"]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setText:self.titleAry[indexPath.item]];
+    [cell.contentView addSubview:label];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(cell.contentView.frame)-2, 60, 2)];
+    [line setBackgroundColor:MAIN_COLOR];
+    [line setCenterX:label.centerX];
+    [line setTag:999001];
+    [line setHidden:YES];
+    [cell.contentView addSubview:line];
+    
+    if (indexPath.item == 0) {
+        [label setTextColor:[UIColor blackColor]];
+        line.hidden = NO;
+    }
     return cell;
 }
 
-- (void)clickBtn:(UIButton *) btn {
-    NSLog(@"%@",btn);
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    for (int i = 0; i < self.titleAry.count; i++) {
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
+        UILabel *lab = [cell viewWithTag:999000];
+        UIView *line = [cell viewWithTag:999001];
+        if (i == indexPath.item) {
+            [lab setTextColor:[UIColor blackColor]];
+            line.hidden = NO;
+        } else {
+            [lab setTextColor:[Utils colorFromHexRGB:@"999999"]];
+            line.hidden = YES;
+        }
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

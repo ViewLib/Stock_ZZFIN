@@ -38,7 +38,7 @@ typedef NSString *(^PNYLabelFormatter)(CGFloat yLabelValue);
 
 
 /** Update Values. */
-- (void)updateChartData:(NSArray *)data;
+-(void)updateChartYData:(NSArray *)ydata andX:(NSArray *)xdata;
 
 /** Changes chart margin. */
 @property (nonatomic) CGFloat yChartLabelWidth;
