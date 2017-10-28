@@ -32,6 +32,7 @@ public class StockTabGroupButton extends LinearLayout {
     protected LinearLayout mTabAnimView;
     protected View mAnimView0;
     protected int mWidth;
+    protected int mPadding;
     private boolean mIsFillScreen = false;
     private int mTabSize;
     protected Animation mAnimation;
@@ -56,7 +57,8 @@ public class StockTabGroupButton extends LinearLayout {
     }
 
     public void initView() {
-        mWidth = DeviceUtil.getScreenWidth(getContext());
+        mPadding = getPaddingLeft();//这里pidding为空，所以有问题
+        mWidth = DeviceUtil.getScreenWidth(getContext()) - mPadding - getPaddingRight();
         mTabAnimView.removeAllViews();
         //添加animView
         if (mTabAnimView.getVisibility() == View.VISIBLE) {
@@ -92,6 +94,13 @@ public class StockTabGroupButton extends LinearLayout {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        mPadding = getPaddingLeft();//这里pidding为空，所以有问题
+        mWidth = getMeasuredWidth();
     }
 
     /**

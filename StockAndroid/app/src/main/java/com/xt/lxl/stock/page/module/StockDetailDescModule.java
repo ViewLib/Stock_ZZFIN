@@ -106,7 +106,7 @@ public class StockDetailDescModule extends StockDetailBaseModule {
         stockHolderTable.addView(row);
         for (int i = 0; i < stockHolderList.size(); i++) {
             StockDetailStockHolder holder = stockHolderList.get(i);
-            row = setRowData(false, holder.stockHolderNmae, holder.stockHolderAmount, holder.stockHolderRatio);
+            row = setRowData(false, holder.stockHolderName, holder.stockHolderAmount, holder.stockHolderRatio);
             stockHolderTable.addView(row);
             if (i % 2 == 0) {
                 row.setBackgroundColor(Color.parseColor("#FFFFFF"));

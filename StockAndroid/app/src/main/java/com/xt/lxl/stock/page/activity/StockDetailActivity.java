@@ -179,7 +179,7 @@ public class StockDetailActivity extends FragmentActivity {
             public void run() {
                 StockDetailFinanceResponse financeResponse = StockSender.getInstance().requestFinanceService("300170.SZ");
 //                StockDetailFinanceResponse financeResponse = StockSender.getInstance().requestFinanceService(mCacheBean.mStockViewModel.getRequestStockCode());
-                if (financeResponse.resultCode == 0) {
+                if (financeResponse.resultCode == 200) {
                     mCacheBean.financeResponse = financeResponse;
                 }
                 mHandler.post(new Runnable() {

@@ -1,6 +1,5 @@
 package com.stock.service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.stock.dao.StockDao;
 import com.stock.dao.StockDaoImpl;
@@ -8,6 +7,7 @@ import com.stock.dao.StockLinkDaoImpl;
 import com.stock.model.model.*;
 import com.stock.model.request.*;
 import com.stock.model.response.*;
+import com.stock.util.AmountUtil;
 import com.stock.util.DateUtil;
 import com.stock.util.GetDayStocklData;
 import com.stock.util.StringUtil;
@@ -252,6 +252,11 @@ public class StockService {
     public List<StockDetailStockHolder> stockHolders(StockDetailCompanyInfoRequest stockDetailCompanyInfoRequest, StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse) throws Exception {
         String stockCode = transCode(stockDetailCompanyInfoRequest.stockCode);
         List<StockDetailStockHolder> stockDetailStockHolders = dao.getStockHolder(stockCode);//dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
+        //针对数据做处理，转换成手
+        for (StockDetailStockHolder holder : stockDetailStockHolders) {
+            holder.stockHolderAmount = AmountUtil.transHandFromAmount(holder.stockHolderAmount);
+            holder.stockHolderRatio = AmountUtil.transRatioFromHave(holder.stockHolderRatio);
+        }
         return stockDetailStockHolders;
     }
 
@@ -328,6 +333,12 @@ public class StockService {
             }
             if (i == 4) {
                 stockDetailFinanceGroup.financeName = "分红率";
+            }
+            //处理下时间格式
+            for (StockDetailFinanceItem item : stockDetailFinanceGroup.financeItemList) {
+                if (item.dateStr.contains(" ")) {
+                    item.dateStr = item.dateStr.split(" ")[0];
+                }
             }
             stockDetailFinanceGroup.financeType = i;
             stockDetailFinanceGroupList.add(stockDetailFinanceGroup);

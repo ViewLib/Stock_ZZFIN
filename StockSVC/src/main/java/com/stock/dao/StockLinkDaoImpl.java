@@ -152,8 +152,8 @@ public class StockLinkDaoImpl implements StockLinkDao {
                 preStmt = conn.prepareStatement(sql);
                 StockDetailGradleModel gradleModel = new StockDetailGradleModel();
                 gradleModel.dateStr = dataStr;
-                gradleModel.maxPrice = StringUtil.string2Float(highPirce);
-                gradleModel.minPrice = StringUtil.string2Float(lowPrice);
+                gradleModel.maxPrice = StringUtil.toFloat(highPirce);
+                gradleModel.minPrice = StringUtil.toFloat(lowPrice);
                 gradleModel.stockBrokerName = brokerName;
                 gradleModelList.add(gradleModel);
             }
