@@ -12,13 +12,16 @@
 
 static int num = 60;
 
-@interface LoginViewController ()<UITextFieldDelegate>
+@interface LoginViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 {
     NSTimer *time;
 }
-
+//手机区号选择
+@property (weak, nonatomic) IBOutlet UIButton *phoneCode;
 //手机号码输入框
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
+
+@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 @property (weak, nonatomic) IBOutlet UIView *Verification;
 
@@ -37,6 +40,8 @@ static int num = 60;
 
 @property (nonatomic, strong)   NSArray     *verificationLabs;
 
+
+
 @end
 
 @implementation LoginViewController
@@ -44,8 +49,15 @@ static int num = 60;
 - (void)viewDidLoad {
     [super viewDidLoad];
     _verificationLabs = @[_Verification1,_Verification2,_Verification3,_Verification4];
+    [self.phoneCode ImgRightTextLeft];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
+
+- (IBAction)clickPhoneCode:(UIButton *)sender {
+    
+}
+
+
 
 - (IBAction)clickNextBtn:(UIButton *)sender {
     if (_phoneText.text.length > 0 && [Utils validateNum:_phoneText.text]) {
@@ -154,6 +166,7 @@ static int num = 60;
         if (dataDict) {
             [[Config shareInstance] setIslogin:YES];
             [Config shareInstance].login = [[loginEntity alloc] initWithDictionary:dataDict];
+            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:UserLogin];
             if (_login_success) {
                 _login_success();
             }

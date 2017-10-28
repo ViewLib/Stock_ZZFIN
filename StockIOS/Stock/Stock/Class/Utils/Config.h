@@ -13,10 +13,15 @@
 
 @property (nonatomic ,assign)   BOOL    islogin;
 
+@property (nonatomic ,assign)   BOOL    isNotification;
+
 @property (nonatomic ,strong)   NSString      *uuid;
 
 //本地固化的股票数据
 @property (nonatomic ,strong)   NSArray       *localStocks;
+
+//本地化手机区号
+@property (nonatomic ,strong)   NSArray       *areacode;
 
 //用户对象
 @property (nonatomic ,strong)   loginEntity   *login;

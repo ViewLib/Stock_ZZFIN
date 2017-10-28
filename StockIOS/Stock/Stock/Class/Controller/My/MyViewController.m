@@ -43,9 +43,9 @@
     [_headerImg.layer setCornerRadius:_headerImg.frame.size.width/2];
     _headerImg.layer.masksToBounds =YES;
     
-    [self tipsForLoginSuccess:^{
-        _nickName.text = [Config shareInstance].login.moblie;
-    }];
+//    [self tipsForLoginSuccess:^{
+//        _nickName.text = [Config shareInstance].login.moblie;
+//    }];
 }
 
 /**

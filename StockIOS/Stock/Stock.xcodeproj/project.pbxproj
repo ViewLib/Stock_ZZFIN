@@ -129,6 +129,8 @@
 		04C2E2351F59A25300C09D86 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2341F59A25300C09D86 /* DataManager.m */; };
 		04C2E23C1F59A76900C09D86 /* HttpRequestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E23B1F59A76900C09D86 /* HttpRequestClient.m */; };
 		04C2E2611F59C1BB00C09D86 /* StockEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2601F59C1BB00C09D86 /* StockEntity.m */; };
+		04CCD5DC1FA41854008AF4F3 /* SettingValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCD5DB1FA41854008AF4F3 /* SettingValueViewController.m */; };
+		04CCD5DE1FA42658008AF4F3 /* areacode-json.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 04CCD5DD1FA42657008AF4F3 /* areacode-json.geojson */; };
 		847076221F4EE36100974772 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847076191F4EE36100974772 /* Assets.xcassets */; };
 		847076231F4EE36100974772 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8470761A1F4EE36100974772 /* LaunchScreen.storyboard */; };
 		847076251F4EE36100974772 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8470761E1F4EE36100974772 /* Info.plist */; };
@@ -479,6 +481,9 @@
 		04C2E23D1F59B3C500C09D86 /* Stock-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stock-Bridging-Header.h"; sourceTree = "<group>"; };
 		04C2E25F1F59C1BB00C09D86 /* StockEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockEntity.h; sourceTree = "<group>"; };
 		04C2E2601F59C1BB00C09D86 /* StockEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockEntity.m; sourceTree = "<group>"; };
+		04CCD5DA1FA41854008AF4F3 /* SettingValueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingValueViewController.h; sourceTree = "<group>"; };
+		04CCD5DB1FA41854008AF4F3 /* SettingValueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingValueViewController.m; sourceTree = "<group>"; };
+		04CCD5DD1FA42657008AF4F3 /* areacode-json.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "areacode-json.geojson"; sourceTree = "<group>"; };
 		16743ED1C5E2BE8144EDA026 /* Pods-Stock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock/Pods-Stock.debug.xcconfig"; sourceTree = "<group>"; };
 		536C84D01D4ACD8E9B97C355 /* Pods-Stock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stock/Pods-Stock.release.xcconfig"; sourceTree = "<group>"; };
 		847075F91F4EE20400974772 /* Stock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -960,6 +965,8 @@
 			children = (
 				0465E5521F603A94006F7F9C /* SettingViewController.h */,
 				0465E5531F603A94006F7F9C /* SettingViewController.m */,
+				04CCD5DA1FA41854008AF4F3 /* SettingValueViewController.h */,
+				04CCD5DB1FA41854008AF4F3 /* SettingValueViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -986,6 +993,7 @@
 		0465E5E21F61903E006F7F9C /* DefaultData */ = {
 			isa = PBXGroup;
 			children = (
+				04CCD5DD1FA42657008AF4F3 /* areacode-json.geojson */,
 				04B6BAFB1F97846800870F15 /* dayData.plist */,
 				04B6BAF91F97846700870F15 /* fiveData.plist */,
 				04B6BAFA1F97846800870F15 /* minuteData.plist */,
@@ -2030,6 +2038,7 @@
 			files = (
 				041187C71F94F99800DE4BC9 /* StockMajorNewsTableViewCell.xib in Resources */,
 				041187B31F94F62700DE4BC9 /* StockTopTableViewCell.xib in Resources */,
+				04CCD5DE1FA42658008AF4F3 /* areacode-json.geojson in Resources */,
 				04BC27111F9C9EA7008285B2 /* GSJJCollectionViewCell.xib in Resources */,
 				041187DF1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib in Resources */,
 				041187CD1F94F9EE00DE4BC9 /* ComputerIntroductionTableViewCell.xib in Resources */,
@@ -2158,6 +2167,7 @@
 				04BC26F51F98E52E008285B2 /* PNPieChart.m in Sources */,
 				0465E5F71F65771B006F7F9C /* loginEntity.m in Sources */,
 				04B6BADD1F977D1800870F15 /* YYVolumePositionModel.m in Sources */,
+				04CCD5DC1FA41854008AF4F3 /* SettingValueViewController.m in Sources */,
 				04BC27151F9C9F06008285B2 /* PJBHCollectionViewCell.m in Sources */,
 				8470778A1F4EF73600974772 /* NSEnumerator+RACSequenceAdditions.m in Sources */,
 				847077C51F4EF73600974772 /* RACTargetQueueScheduler.m in Sources */,

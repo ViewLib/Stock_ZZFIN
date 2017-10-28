@@ -13,8 +13,11 @@
 #import <BuglyHotfix/BuglyMender.h>
 #import "JPEngine.h"
 #import <AdSupport/AdSupport.h>
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
 
-@interface AppDelegate ()<BuglyDelegate>
+@interface AppDelegate ()<BuglyDelegate,UNUserNotificationCenterDelegate>
 
 @end
 
@@ -38,6 +41,12 @@
     [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
     [IQKeyboardManager sharedManager].toolbarDoneBarButtonItemText = @"完成";
     
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:UserLogin]) {
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:UserLogin] isEqual:@"YES"]) {
+            [Config shareInstance].islogin = YES;
+        }
+    }
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self getStocks];
         [self configBugly];
@@ -48,8 +57,64 @@
     
     //获取设备UUID
     [Config shareInstance].uuid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    
+    [self replyPushNotificationAuthorization:application];
     return YES;
+}
+
+#pragma mark - 申请通知权限
+// 申请通知权限
+- (void)replyPushNotificationAuthorization:(UIApplication *)application{
+    if (IOS10_OR_LATER) {
+        //iOS 10 later
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        //必须写代理，不然无法监听通知的接收与点击事件
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (!error && granted) {
+                NSLog(@"注册成功");
+            }else{
+                NSLog(@"注册失败");
+            }
+        }];
+        
+        // 可以通过 getNotificationSettingsWithCompletionHandler 获取权限设置
+        //之前注册推送服务，用户点击了同意还是不同意，以及用户之后又做了怎样的更改我们都无从得知，现在 apple 开放了这个 API，我们可以直接获取到用户的设定信息了。注意UNNotificationSettings是只读对象哦，不能直接修改！
+        [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+            if (settings.authorizationStatus == UNAuthorizationStatusNotDetermined) {
+                NSLog(@"未选择");
+            } else if (settings.authorizationStatus == UNAuthorizationStatusDenied) {
+                NSLog(@"未授权");
+            } else if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
+                NSLog(@"已授权");
+                [[Config shareInstance] setIsNotification:YES];
+            }
+        }];
+    }else if (IOS8_OR_LATER){
+        //iOS 8 - iOS 10系统
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }else{
+        //iOS 8.0系统以下
+        [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
+    }
+    
+    //注册远端消息通知获取device token
+    [application registerForRemoteNotifications];
+}
+
+#pragma  mark - 获取device Token
+//获取DeviceToken成功
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    //正确写法
+    NSString *deviceString = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    deviceString = [deviceString stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSLog(@"deviceToken===========%@",deviceString);
+}
+
+//获取DeviceToken失败
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    NSLog(@"[DeviceToken Error]:%@\n",error.description);
 }
 
 - (void)getHotStock {
@@ -139,6 +204,14 @@
  */
 - (void)getStocks {
     [[Config shareInstance] setLocalStocks:[Utils getArrayFromJsonFile:@"DefaultStock"]];
+}
+
+
+/**
+ 获取手机区号本地数据
+ */
+- (void)getAreaCode {
+    [[Config shareInstance] setAreacode:[Utils getArrayFromJsonFile:@"areacode-json"]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
