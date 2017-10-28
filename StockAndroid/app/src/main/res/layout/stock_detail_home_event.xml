@@ -13,11 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="重大事件：一分钟了解一家公司最近所有事情"
-        app:hotel_text_drawable_direction="hotel_left"
-        app:hotel_text_drawable_height="14dp"
-        app:hotel_text_drawable_padding="3dp"
-        app:hotel_text_drawable_src="@drawable/stock_icon_important"
-        app:hotel_text_drawable_width="14dp" />
+        app:stock_text_drawable_direction="stock_left"
+        app:stock_text_drawable_height="14dp"
+        app:stock_text_drawable_padding="3dp"
+        app:stock_text_drawable_src="@drawable/stock_icon_important"
+        app:stock_text_drawable_width="14dp" />
 
     <LinearLayout
         android:id="@+id/stock_important_event_list"
@@ -37,16 +37,16 @@
 
     <com.xt.lxl.stock.widget.view.StockTextView
         android:id="@+id/stock_detail_event_lookmore"
-        style="@style/hotel_text_12_186DB7"
+        style="@style/text_12_186DB7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="3dp"
         android:text="查看更多"
-        app:hotel_text_drawable_direction="hotel_right"
-        app:hotel_text_drawable_height="9dp"
-        app:hotel_text_drawable_padding="1dp"
-        app:hotel_text_drawable_src="@drawable/stock_detail_event_lookmore"
-        app:hotel_text_drawable_width="9dp" />
+        app:stock_text_drawable_direction="stock_right"
+        app:stock_text_drawable_height="9dp"
+        app:stock_text_drawable_padding="1dp"
+        app:stock_text_drawable_src="@drawable/stock_detail_event_lookmore"
+        app:stock_text_drawable_width="9dp" />
 
 </LinearLayout>

@@ -58,6 +58,15 @@
             android:name=".page.StockMainActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".page.activity.StockSettingActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".page.activity.StockDisclaimerActivity"
+            android:screenOrientation="portrait" />
+
+
         <!--Mob-->
         <activity
             android:name="com.mob.tools.MobUIShell"

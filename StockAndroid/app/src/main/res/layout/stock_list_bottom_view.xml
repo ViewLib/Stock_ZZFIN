@@ -15,10 +15,10 @@
         android:gravity="center"
         android:text="自选"
         android:textAppearance="@style/text_12_ffffff"
-        app:hotel_text_drawable_direction="hotel_top"
-        app:hotel_text_drawable_height="30dp"
-        app:hotel_text_drawable_src="@drawable/stock_optional_tab_selected"
-        app:hotel_text_drawable_width="30dp" />
+        app:stock_text_drawable_direction="stock_top"
+        app:stock_text_drawable_height="30dp"
+        app:stock_text_drawable_src="@drawable/stock_optional_tab_selected"
+        app:stock_text_drawable_width="30dp" />
 
     <com.xt.lxl.stock.widget.view.StockTextView
         android:id="@+id/stock_self_quotation"
@@ -28,9 +28,9 @@
         android:gravity="center"
         android:text="行情"
         android:textAppearance="@style/text_12_ffffff"
-        app:hotel_text_drawable_direction="hotel_top"
-        app:hotel_text_drawable_height="30dp"
-        app:hotel_text_drawable_src="@drawable/stock_quote_tab_normal"
-        app:hotel_text_drawable_width="30dp" />
+        app:stock_text_drawable_direction="stock_top"
+        app:stock_text_drawable_height="30dp"
+        app:stock_text_drawable_src="@drawable/stock_quote_tab_normal"
+        app:stock_text_drawable_width="30dp" />
 
 </LinearLayout>

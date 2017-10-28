@@ -27,16 +27,16 @@ public class StockTextView extends TextView {
     private void initAttributes(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StockTextView);
 
-        Drawable drawable = a.getDrawable(R.styleable.StockTextView_hotel_text_drawable_src);
+        Drawable drawable = a.getDrawable(R.styleable.StockTextView_stock_text_drawable_src);
         if (drawable != null) {
-            int direction = a.getInt(R.styleable.StockTextView_hotel_text_drawable_direction, 0);
+            int direction = a.getInt(R.styleable.StockTextView_stock_text_drawable_direction, 0);
             if (direction < 0 || direction > 3) {
                 direction = 0;
             }
 
-            int width = a.getDimensionPixelSize(R.styleable.StockTextView_hotel_text_drawable_width, 0);
-            int height = a.getDimensionPixelSize(R.styleable.StockTextView_hotel_text_drawable_height, 0);
-            int padding = a.getDimensionPixelSize(R.styleable.StockTextView_hotel_text_drawable_padding, 0);
+            int width = a.getDimensionPixelSize(R.styleable.StockTextView_stock_text_drawable_width, 0);
+            int height = a.getDimensionPixelSize(R.styleable.StockTextView_stock_text_drawable_height, 0);
+            int padding = a.getDimensionPixelSize(R.styleable.StockTextView_stock_text_drawable_padding, 0);
             setCompoundDrawablePadding(padding);
             setCompoundDrawable(drawable, direction, width, height);
         }

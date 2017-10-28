@@ -13,11 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="公司介绍"
-        app:hotel_text_drawable_direction="hotel_left"
-        app:hotel_text_drawable_height="12dp"
-        app:hotel_text_drawable_padding="3dp"
-        app:hotel_text_drawable_src="@drawable/stock_detail_desc_icon"
-        app:hotel_text_drawable_width="12dp" />
+        app:stock_text_drawable_direction="stock_left"
+        app:stock_text_drawable_height="12dp"
+        app:stock_text_drawable_padding="3dp"
+        app:stock_text_drawable_src="@drawable/stock_detail_desc_icon"
+        app:stock_text_drawable_width="12dp" />
 
     <com.xt.lxl.stock.widget.view.StockTabGroupButton
         android:id="@+id/stock_detail_desc_tab"

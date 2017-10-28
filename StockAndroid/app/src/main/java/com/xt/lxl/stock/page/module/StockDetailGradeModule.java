@@ -37,7 +37,6 @@ public class StockDetailGradeModule extends StockDetailBaseModule {
         List<StockDetailGradleModel> gradleModelList = mCacheBean.gradleModelList;
         mContainer.removeAllViews();
         for (int i = -1; i < gradleModelList.size(); i++) {
-            StockDetailGradleModel stockDetailGradleModel = gradleModelList.get(i);
             View inflate = View.inflate(mContainer.getContext(), R.layout.stock_detail_home_grade_item, null);
             TextView nameTv = (TextView) inflate.findViewById(R.id.stock_detail_grade_name);
             TextView levelTv = (TextView) inflate.findViewById(R.id.stock_detail_grade_level);
@@ -49,6 +48,7 @@ public class StockDetailGradeModule extends StockDetailBaseModule {
                 priceTv.setText("目标价格");
                 dateTv.setText("评级日期");
             } else {
+                StockDetailGradleModel stockDetailGradleModel = gradleModelList.get(i);
                 nameTv.setText(stockDetailGradleModel.stockBrokerName);
                 levelTv.setText("买入");
                 priceTv.setText(stockDetailGradleModel.showPrice);

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="StockTextView">
-        <attr name="Stock_text_drawable_src" format="reference" />
-        <attr name="Stock_text_drawable_direction">
-            <enum name="Stock_left" value="0" />
-            <enum name="Stock_top" value="1" />
-            <enum name="Stock_right" value="2" />
-            <enum name="Stock_bottom" value="3" />
+        <attr name="stock_text_drawable_src" format="reference" />
+        <attr name="stock_text_drawable_direction">
+            <enum name="stock_left" value="0" />
+            <enum name="stock_top" value="1" />
+            <enum name="stock_right" value="2" />
+            <enum name="stock_bottom" value="3" />
         </attr>
-        <attr name="Stock_text_drawable_width" format="dimension" />
-        <attr name="Stock_text_drawable_height" format="dimension" />
-        <attr name="Stock_text_drawable_padding" format="dimension" />
+        <attr name="stock_text_drawable_width" format="dimension" />
+        <attr name="stock_text_drawable_height" format="dimension" />
+        <attr name="stock_text_drawable_padding" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="StockTitleView">

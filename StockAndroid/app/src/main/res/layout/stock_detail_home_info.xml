@@ -51,10 +51,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="添加"
-            app:hotel_text_drawable_direction="hotel_top"
-            app:hotel_text_drawable_height="15dp"
-            app:hotel_text_drawable_src="@drawable/stock_history_item_add"
-            app:hotel_text_drawable_width="15dp" />
+            app:stock_text_drawable_direction="stock_top"
+            app:stock_text_drawable_height="15dp"
+            app:stock_text_drawable_src="@drawable/stock_history_item_add"
+            app:stock_text_drawable_width="15dp" />
 
     </RelativeLayout>
 

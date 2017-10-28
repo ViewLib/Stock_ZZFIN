@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.page.activity.StockRegisterActivity;
+import com.xt.lxl.stock.page.activity.StockSettingActivity;
 import com.xt.lxl.stock.util.FormatUtil;
 import com.xt.lxl.stock.util.HotelViewHolder;
 import com.xt.lxl.stock.util.StockUser;
@@ -87,6 +88,7 @@ public class StockMainUserFragment extends Fragment implements View.OnClickListe
     }
 
     private void initListener() {
+        mStockUserSettingBtn.setOnClickListener(this);
         mStockUserExitLoginBtn.setOnClickListener(this);
         mUserRegisterBtn.setOnClickListener(this);
         mStockUserFeedbackBtn.setOnClickListener(this);
@@ -118,6 +120,10 @@ public class StockMainUserFragment extends Fragment implements View.OnClickListe
         } else if (id == R.id.stock_user_feedback_btn) {
             FeedbackAPI.setDefaultUserContactInfo("13800000000");
             FeedbackAPI.openFeedbackActivity();
+        } else if (id == R.id.stock_user_setting_btn) {
+            Intent intent = new Intent();
+            intent.setClass(getContext(), StockSettingActivity.class);
+            getActivity().startActivity(intent);
         }
     }
 

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">StockDemo</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="stock_setting_disclaimer">免责声明内容：\n免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明。\n免责免责免责免责免责免责免责。</string>
 </resources>
