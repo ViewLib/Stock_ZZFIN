@@ -19,10 +19,6 @@
         app:stock_text_drawable_src="@drawable/stock_detail_grade"
         app:stock_text_drawable_width="12dp" />
 
-    <include
-        android:id="@+id/stock_detail_home_grade_header"
-        layout="@layout/stock_detail_home_grade_item" />
-
     <LinearLayout
         android:id="@+id/stock_detail_grade_container"
         android:layout_width="match_parent"

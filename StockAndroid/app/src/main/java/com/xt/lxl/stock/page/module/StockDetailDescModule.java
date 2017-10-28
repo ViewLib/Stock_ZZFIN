@@ -1,10 +1,8 @@
 package com.xt.lxl.stock.page.module;
 
 import android.graphics.Color;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -12,6 +10,7 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockDetailCompanyModel;
 import com.xt.lxl.stock.model.model.StockDetailStockHolder;
+import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockDetailShowText;
 import com.xt.lxl.stock.widget.view.StockTabGroupButton;
@@ -31,7 +30,7 @@ public class StockDetailDescModule extends StockDetailBaseModule {
     private StockTabGroupButton mTab;//查看更多
     private ViewPager mPager;//
     private List<View> mViewList = new ArrayList<>();
-
+    private StockViewPagerAdapter pagerAdapter;
 
     public StockDetailDescModule(StockDetailCacheBean cacheBean) {
         super(cacheBean);
@@ -53,6 +52,7 @@ public class StockDetailDescModule extends StockDetailBaseModule {
     public void bindData() {
         createViewList();
         //拼接List<View>
+        pagerAdapter = new StockViewPagerAdapter(mViewList);
         mPager.setAdapter(pagerAdapter);
         pagerAdapter.notifyDataSetChanged();
         mTab.setOnTabItemSelectedListener(new StockTabGroupButton.OnTabItemSelectedListener() {
@@ -139,36 +139,5 @@ public class StockDetailDescModule extends StockDetailBaseModule {
         }
         return row;
     }
-
-
-    PagerAdapter pagerAdapter = new PagerAdapter() {
-
-        @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            // TODO Auto-generated method stub
-            return arg0 == arg1;
-        }
-
-        @Override
-        public int getCount() {
-            // TODO Auto-generated method stub
-            return mViewList.size();
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position,
-                                Object object) {
-            // TODO Auto-generated method stub
-            container.removeView(mViewList.get(position));
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            // TODO Auto-generated method stub
-            container.addView(mViewList.get(position));
-            return mViewList.get(position);
-        }
-    };
-
 
 }
