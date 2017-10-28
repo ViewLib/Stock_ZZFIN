@@ -78,12 +78,16 @@
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_price_top"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:stock_detail_show_canMulti="false"
+                app:stock_title_width="60dp" />
 
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_price_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:stock_detail_show_canMulti="false"
+                app:stock_title_width="60dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -95,13 +99,16 @@
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_upanddown"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:stock_detail_show_canMulti="false"
+                app:stock_title_width="60dp" />
 
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                app:stock_detail_show_canMulti="false"
+                app:stock_title_width="60dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -113,12 +120,16 @@
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_turnover"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:stock_detail_show_canMulti="false"
+                app:stock_title_width="50dp" />
 
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_marketvalue"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:stock_detail_show_canMulti="false"
+                app:stock_title_width="50dp" />
         </LinearLayout>
 
 

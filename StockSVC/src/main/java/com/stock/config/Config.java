@@ -57,4 +57,6 @@ public class Config {
     public String FilterList_API = "http://localhost:8080/zzfin/api/stock_rankfilter";//筛选列表
 
     public String Grade_API = "http://127.0.0.1:8080/zzfin/api/stock_grade?data=%7b%22stockCode%22%3a%22sz300170%22%7d";//券商评级
+
+    public String Finicial_API = "http://115.159.31.128:8090/zzfin/api/stock_finicial?data=%7B%22serviceCode%22%3A2007%2C%22stockCode%22%3A%22sz300170%22%2C%22versionCode%22%3A1%7D";
 }

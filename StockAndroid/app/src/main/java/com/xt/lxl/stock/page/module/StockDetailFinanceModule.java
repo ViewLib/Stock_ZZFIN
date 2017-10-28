@@ -3,7 +3,7 @@ package com.xt.lxl.stock.page.module;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockDetailFinanceGroup;
@@ -25,7 +25,6 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
 
     private StockTextView mTitle;
     private StockTabGroupButton mTab;//查看更多
-    private LinearLayout mContainer;//问题列表
     private ViewPager mViewPager;//问题列表
     private StockViewPagerAdapter adapter;
 
@@ -68,8 +67,12 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
 
     private List<View> createViewList(List<StockDetailFinanceGroup> financeGroupList) {
         List<View> viewList = new ArrayList<>();
-
-
+        for (int i = 0; i < financeGroupList.size(); i++) {
+            StockDetailFinanceGroup stockDetailFinanceGroup = financeGroupList.get(i);
+            TextView text = new TextView(mContainer.getContext());
+            text.setText(stockDetailFinanceGroup.financeName);
+            viewList.add(text);
+        }
         return viewList;
     }
 

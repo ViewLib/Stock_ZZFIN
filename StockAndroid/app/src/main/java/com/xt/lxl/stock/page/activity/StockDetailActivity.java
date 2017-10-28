@@ -177,7 +177,8 @@ public class StockDetailActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockDetailFinanceResponse financeResponse = StockSender.getInstance().requestFinanceService(mCacheBean.mStockViewModel.getRequestStockCode());
+                StockDetailFinanceResponse financeResponse = StockSender.getInstance().requestFinanceService("300170.SZ");
+//                StockDetailFinanceResponse financeResponse = StockSender.getInstance().requestFinanceService(mCacheBean.mStockViewModel.getRequestStockCode());
                 if (financeResponse.resultCode == 0) {
                     mCacheBean.financeResponse = financeResponse;
                 }

@@ -1,5 +1,6 @@
 package com.xt.lxl.stock.page.module;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,16 +44,28 @@ public class StockDetailGradeModule extends StockDetailBaseModule {
             TextView priceTv = (TextView) inflate.findViewById(R.id.stock_detail_grade_price);
             TextView dateTv = (TextView) inflate.findViewById(R.id.stock_detail_grade_date);
             if (i == -1) {
+                inflate.setBackgroundColor(Color.parseColor("#DEEBF6"));
                 nameTv.setText("券商名称");
                 levelTv.setText("评级");
                 priceTv.setText("目标价格");
                 dateTv.setText("评级日期");
+
+                nameTv.setTextAppearance(mContainer.getContext(), R.style.text_13_186db7);
+                levelTv.setTextAppearance(mContainer.getContext(), R.style.text_13_186db7);
+                priceTv.setTextAppearance(mContainer.getContext(), R.style.text_13_186db7);
+                dateTv.setTextAppearance(mContainer.getContext(), R.style.text_13_186db7);
             } else {
+                inflate.setBackgroundColor(Color.parseColor(i % 2 == 0 ? "#ffffff" : "#EDF3F8"));
                 StockDetailGradleModel stockDetailGradleModel = gradleModelList.get(i);
                 nameTv.setText(stockDetailGradleModel.stockBrokerName);
                 levelTv.setText("买入");
                 priceTv.setText(stockDetailGradleModel.showPrice);
                 dateTv.setText(stockDetailGradleModel.dateStr);
+
+                nameTv.setTextAppearance(mContainer.getContext(), R.style.text_12_484848);
+                levelTv.setTextAppearance(mContainer.getContext(), R.style.text_12_484848);
+                priceTv.setTextAppearance(mContainer.getContext(), R.style.text_12_484848);
+                dateTv.setTextAppearance(mContainer.getContext(), R.style.text_12_484848);
             }
             mContainer.addView(inflate);
         }

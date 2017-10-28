@@ -114,6 +114,9 @@ public class StockService {
         if (stockCode.length() == 8) {
             return stockCode.substring(2, 8) + "." + stockCode.substring(0, 2);
         }
+        if (stockCode.length() == 9) {
+            return stockCode;
+        }
         throw new Exception("StockCode不合法!");
     }
 
@@ -305,26 +308,28 @@ public class StockService {
         resultModelList.addAll(minGradeList);
         return resultModelList;
     }
-    public List<StockDetailFinanceGroup> getFinicilaGroup(StockDetailFinanceRequest stockDetailFinanceRequest,StockDetailFinanceResponse stockDetailFinanceResponse){
-        List<StockDetailFinanceGroup> stockDetailFinanceGroupList=new ArrayList<>();
-        List<StockDetailFinanceItem>  stockDetailFinanceItemList=new ArrayList<>();
-        for(int i=1;i<5;i++){
-            StockDetailFinanceGroup stockDetailFinanceGroup=new StockDetailFinanceGroup();
-            stockDetailFinanceItemList=dao.getFinalList(stockDetailFinanceRequest.stockCode,i);
-            stockDetailFinanceGroup.financeItemList=stockDetailFinanceItemList;
-           if(i==1){
-               stockDetailFinanceGroup.financeName="收入";
-           }
-            if(i==2){
-                stockDetailFinanceGroup.financeName="净利率";
+
+    public List<StockDetailFinanceGroup> getFinicilaGroup(StockDetailFinanceRequest stockDetailFinanceRequest, StockDetailFinanceResponse stockDetailFinanceResponse) throws Exception {
+        List<StockDetailFinanceGroup> stockDetailFinanceGroupList = new ArrayList<>();
+        List<StockDetailFinanceItem> stockDetailFinanceItemList = new ArrayList<>();
+        String stockCode = transCode(stockDetailFinanceRequest.stockCode);
+        for (int i = 1; i < 5; i++) {
+            StockDetailFinanceGroup stockDetailFinanceGroup = new StockDetailFinanceGroup();
+            stockDetailFinanceItemList = dao.getFinalList(stockDetailFinanceRequest.stockCode, i);
+            stockDetailFinanceGroup.financeItemList = stockDetailFinanceItemList;
+            if (i == 1) {
+                stockDetailFinanceGroup.financeName = "收入";
             }
-            if(i==3){
-                stockDetailFinanceGroup.financeName="毛利率";
+            if (i == 2) {
+                stockDetailFinanceGroup.financeName = "净利率";
             }
-            if(i==4){
-                stockDetailFinanceGroup.financeName="分红率";
+            if (i == 3) {
+                stockDetailFinanceGroup.financeName = "毛利率";
             }
-            stockDetailFinanceGroup.financeType=i;
+            if (i == 4) {
+                stockDetailFinanceGroup.financeName = "分红率";
+            }
+            stockDetailFinanceGroup.financeType = i;
             stockDetailFinanceGroupList.add(stockDetailFinanceGroup);
         }
         return stockDetailFinanceGroupList;
