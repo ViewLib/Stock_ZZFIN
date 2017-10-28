@@ -320,7 +320,7 @@ public class StockService {
         String stockCode = transCode(stockDetailFinanceRequest.stockCode);
         for (int i = 1; i < 5; i++) {
             StockDetailFinanceGroup stockDetailFinanceGroup = new StockDetailFinanceGroup();
-            stockDetailFinanceItemList = dao.getFinalList(stockDetailFinanceRequest.stockCode, i);
+            stockDetailFinanceItemList = dao.getFinalList(stockCode, i);
             stockDetailFinanceGroup.financeItemList = stockDetailFinanceItemList;
             if (i == 1) {
                 stockDetailFinanceGroup.financeName = "收入";
