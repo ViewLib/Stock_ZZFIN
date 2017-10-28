@@ -1,9 +1,11 @@
 package com.xt.lxl.stock.page.module;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockTabGroupButton;
 import com.xt.lxl.stock.widget.view.StockTextView;
@@ -34,10 +36,9 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
         mContainer = (LinearLayout) view.findViewById(R.id.stock_detail_finance_container);
         List<String> list = new ArrayList<>();
         list.add("收入");
-        list.add("毛利");
-        list.add("净利");
-        list.add("现金");
-        list.add("分红");
+        list.add("净利率");
+        list.add("毛利率");
+        list.add("分红率");
 
         mTab.setTabItemArrayText(list);
         mTab.initView();
@@ -45,6 +46,10 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
 
     @Override
     public void bindData() {
+        //刷新数据
+        StockDetailFinanceResponse financeResponse = mCacheBean.financeResponse;
+
+        Log.i("lxltest", "financeResponse:" + financeResponse.groupList.size());
 
     }
 

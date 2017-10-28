@@ -1,7 +1,6 @@
-package com.stock.model.model;
+package com.xt.lxl.stock.model.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class StockDetailFinanceGroup {
 
@@ -12,6 +11,6 @@ public class StockDetailFinanceGroup {
 
     public String financeName = "";//收入/净利率/毛利率/分红率
     public int financeType = FinanceType_INCOME;
-    public List<StockDetailFinanceItem> financeItemList = new ArrayList<>();
+    public ArrayList<StockDetailFinanceItem> financeItemList = new ArrayList<>();
 
 }
