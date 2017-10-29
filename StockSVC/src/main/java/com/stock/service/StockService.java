@@ -11,6 +11,8 @@ import com.stock.util.AmountUtil;
 import com.stock.util.DateUtil;
 import com.stock.util.GetDayStocklData;
 import com.stock.util.StringUtil;
+import com.stock.viewmodel.SQLViewModel;
+import com.stock.viewmodel.StoctEventSQLResultModel;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -345,20 +347,100 @@ public class StockService {
         }
         return stockDetailFinanceGroupList;
     }
-    public List<StockEventsDataList> getStockEventsList(StockEventsDataRequest stockEventsDataRequest,StockEventsDataResponse stockEventsDataResponse) throws Exception{
-        List<StockEventsDataList> stockEventsDataLists=new ArrayList<>();
-      //  List<StockEventsDataModel> stockEventsDataModels=new ArrayList<>();
+
+    public List<StockEventsDataList> getStockEventsList(StockEventsDataRequest stockEventsDataRequest, StockEventsDataResponse stockEventsDataResponse) throws Exception {
+        List<StockEventsDataList> stockEventsDataLists = new ArrayList<>();
+        //  List<StockEventDataModel> stockEventsDataModels=new ArrayList<>();
+
         String stockCode = transCode(stockEventsDataRequest.stockCode);
-        Integer type=stockEventsDataRequest.type;
-        int len=dao.getEventCount(type);
-        //if(type==2 ||type.equals(2)){
-           for(int i=1;i<=len;i++){
-               StockEventsDataList stockEvents=new StockEventsDataList();
-               String m=String.valueOf(i);
-               stockEvents=dao.getStockEventsList(stockCode,type,m);
-               stockEventsDataLists.add(stockEvents);
-           }
-       // }
+//        stockEventsDataLists = getTextData();
+        //根据类型获取数量
+        //根据类型获取sql
+        List<SQLViewModel> stockEventSQLList = dao.getStockEventSQL(stockEventsDataRequest.type);
+
+        //根据sql去查询对应的类型
+        for (int i = 0; i < stockEventSQLList.size(); i++) {
+            SQLViewModel sqlViewModel = stockEventSQLList.get(i);
+            List<StoctEventSQLResultModel> stockEventBySQLModel = linkDao.getStockEventBySQLModel(sqlViewModel, stockCode);
+
+            StockEventsDataList stockEvents = new StockEventsDataList();
+            stockEvents.eventName = sqlViewModel.sqlTitle;
+            stockEvents.eventType = sqlViewModel.sqlType;
+            stockEvents.subType = sqlViewModel.subSqlType;
+            stockEvents.stockEventsDataModels.clear();
+            for (int j = 0; j < stockEventBySQLModel.size(); j++) {
+                StoctEventSQLResultModel resultModel = stockEventBySQLModel.get(j);
+                StockEventDataModel eventDataModel = transfor2EventDataModel(resultModel, stockEvents);//转换
+                stockEvents.stockEventsDataModels.add(eventDataModel);
+            }
+            stockEventsDataLists.add(stockEvents);
+        }
+        return stockEventsDataLists;
+    }
+
+    public StockEventDataModel transfor2EventDataModel(StoctEventSQLResultModel resultModel, StockEventsDataList stockEvents) {
+        int subType = stockEvents.subType;
+        StockEventDataModel eventDataModel = new StockEventDataModel();
+        if (subType == StockEventsDataList.TYPE_LIFTED) {//解禁
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.attr4 + "," + resultModel.attr3 + "解禁" + resultModel.attr1 + "股";
+        } else if (subType == StockEventsDataList.TYPE_PLEDGE) {//质押
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            //范建震
+            eventDataModel.eventDesc = resultModel.attr6 + resultModel.attr1 + "向" + resultModel.attr7 + "质押" + resultModel.attr4 + "万手";
+        } else if (subType == StockEventsDataList.TYPE_HOLDER_CHANGE) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.eventDate + "，股东人数为：" + resultModel.attr1;
+        }
+        return eventDataModel;
+    }
+
+
+    private List<StockEventsDataList> getTextData() {
+        List<StockEventsDataList> stockEventsDataLists = new ArrayList<>();
+
+        StockEventsDataList eventsDataList1 = new StockEventsDataList();
+        eventsDataList1.eventName = "股票解禁";
+        eventsDataList1.eventType = StockEventsDataList.TYPE_LIFTED;
+
+        StockEventDataModel model11 = new StockEventDataModel();
+        model11.eventDate = "2017-10-29";
+        model11.eventTitle = "股权解禁";
+        model11.eventDesc = "定向增发机构配售股份，赵旭民解禁3375000股票";
+
+        StockEventDataModel model12 = new StockEventDataModel();
+        model12.eventDate = "2017-10-31";
+        model12.eventTitle = "股权解禁";
+        model12.eventDesc = "首发原股东限售股份，曲水迪宣投资管理合伙企业(有限合伙)解禁3375000股票";
+
+        eventsDataList1.stockEventsDataModels.add(model11);
+        eventsDataList1.stockEventsDataModels.add(model12);
+
+        stockEventsDataLists.add(eventsDataList1);
+
+
+        StockEventsDataList eventsDataList2 = new StockEventsDataList();
+        eventsDataList2.eventName = "股权质押";
+        eventsDataList2.eventType = StockEventsDataList.TYPE_LIFTED;
+
+        StockEventDataModel model21 = new StockEventDataModel();
+        model21.eventDate = "2017-10-29";
+        model21.eventTitle = "股权质押";
+        model21.eventDesc = "范建震向上海东方证券资产管理有限公司质押股票327.5433万手";
+
+        StockEventDataModel model22 = new StockEventDataModel();
+        model22.eventDate = "2017-10-31";
+        model22.eventTitle = "股权质押";
+        model22.eventDesc = "陈迪清向兴业证券股份有限公司质押股票550万手";
+
+        eventsDataList2.stockEventsDataModels.add(model21);
+        eventsDataList2.stockEventsDataModels.add(model22);
+
+        stockEventsDataLists.add(eventsDataList2);
+
         return stockEventsDataLists;
     }
 }

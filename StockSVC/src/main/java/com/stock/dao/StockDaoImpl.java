@@ -2,8 +2,8 @@ package com.stock.dao;
 
 import com.stock.model.model.*;
 import com.stock.util.StringUtil;
+import com.stock.viewmodel.SQLViewModel;
 
-import java.security.spec.ECField;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +104,7 @@ public class StockDaoImpl implements StockDao {
     }
 
     @Override
-    public List<StockRankResultModel> selectRankDetailModelList(int search_relation,String strsql) {
+    public List<StockRankResultModel> selectRankDetailModelList(int search_relation, String strsql) {
         List<StockRankResultModel> searchModelList = new ArrayList<>();
         String sql = "select * from stock_rank where search_relation = ?";
         PreparedStatement preStmt = null;
@@ -117,8 +117,8 @@ public class StockDaoImpl implements StockDao {
                 String rank_title = rs.getString("rank_title");
                 String rank_sql = rs.getString("rank_sql");
                 //拼接sql
-                if(!strsql.equals("")){
-                   sql=sql+strsql;
+                if (!strsql.equals("")) {
+                    sql = sql + strsql;
                 }
                 Connection con = null;
                 StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
@@ -391,16 +391,17 @@ public class StockDaoImpl implements StockDao {
         }
         return stockDetailStockHolders;
     }
+
     @Override
-    public  String getListSql(int filter_id){
+    public String getListSql(int filter_id) {
         String sql = "select * from stock_filter_item where filter_id=" + filter_id;
         PreparedStatement preStmt = null;
-        String strSql="";
+        String strSql = "";
         try {
             preStmt = conn.prepareStatement(sql);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
-                strSql= rs.getString("filter_sql");
+                strSql = rs.getString("filter_sql");
             }
             return strSql;
         } catch (Exception e) {
@@ -408,56 +409,61 @@ public class StockDaoImpl implements StockDao {
         } finally {
             closeSql(preStmt, null);
         }
-         return strSql;
+        return strSql;
     }
 
-    public List<StockDetailFinanceItem> getFinalList(String stockCode,int  FinanceType){
-        List<StockDetailFinanceItem> stockDetailFinanceItemList=new ArrayList<>();
-       String sql="";
-        if(FinanceType==1){//收入
-            sql="select top 10 report_period,oper_rev from [wind].[dbo].[ASHAREINCOME] where wind_code=? and STATEMENT_TYPE=408001000 order by report_period desc";
+    public List<StockDetailFinanceItem> getFinalList(String stockCode, int FinanceType) {
+        List<StockDetailFinanceItem> stockDetailFinanceItemList = new ArrayList<>();
+        String sql = "";
+        if (FinanceType == 1) {//收入
+            sql = "select top 10 report_period,oper_rev from [wind].[dbo].[ASHAREINCOME] where wind_code=? and STATEMENT_TYPE=408001000 order by report_period desc";
         }
-        if(FinanceType==2){//净利率
-           sql="SELECT TOP 10 report_period,s_fa_grossprofitmargin" +
-                   "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? order by report_period desc";
+        if (FinanceType == 2) {//净利率
+            sql = "SELECT TOP 10 report_period,s_fa_grossprofitmargin" +
+                    "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? order by report_period desc";
         }
-        if(FinanceType==3){//毛利率
-         sql="SELECT TOP 10 report_period,s_fa_netprofitmargin" +
-                 "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? order by report_period desc";
+        if (FinanceType == 3) {//毛利率
+            sql = "SELECT TOP 10 report_period,s_fa_netprofitmargin" +
+                    "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? order by report_period desc";
         }
-        if(FinanceType==4) {//分红率
+        if (FinanceType == 4) {//分红率
             sql = "SELECT div.EX_DIV_DATE date, [DIV_CASH_BONUS_PRE_TAX]/(price.[PRE_CLOSE]*price.ADJ_FACTOR) div_pct\n" +
                     "  FROM [zzfin].[dbo].[EQ_DIVIDEND]  div,[zzfin].[dbo].MKT_D_PRICE price\n" +
                     "  where div.ts_code=? and div.ts_code=price.ts_code and div.EX_DIV_DATE=price.TRADE_DATE order by div.EX_DIV_DATE desc";
         }
-            Connection con = null;
-            StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
-            PreparedStatement preStmt = null;
-            con = stockLinkDao.getConnection();
-            try {
-                preStmt = con.prepareStatement(sql);
-                preStmt.setString(1, stockCode);
-                ResultSet rs = preStmt.executeQuery();
-                StockRankResultModel resultModelHeader = null;
-                while (rs.next()) {
-                    StockDetailFinanceItem stockDetailFinanceItem=new StockDetailFinanceItem();
-                    ResultSetMetaData metaData = rs.getMetaData();
-                    String ColumnName1 = metaData.getColumnName(1);
-                    String ColumnName2 = metaData.getColumnName(2);
-                    stockDetailFinanceItem.dateStr=rs.getString(ColumnName1);
-                    stockDetailFinanceItem.valueStr=rs.getString(ColumnName2);
-                    stockDetailFinanceItemList.add(stockDetailFinanceItem);
-                }
-
-            }catch (Exception e){
+        Connection con = null;
+        StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+        PreparedStatement preStmt = null;
+        con = stockLinkDao.getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            preStmt.setString(1, stockCode);
+            ResultSet rs = preStmt.executeQuery();
+            StockRankResultModel resultModelHeader = null;
+            while (rs.next()) {
+                StockDetailFinanceItem stockDetailFinanceItem = new StockDetailFinanceItem();
+                ResultSetMetaData metaData = rs.getMetaData();
+                String ColumnName1 = metaData.getColumnName(1);
+                String ColumnName2 = metaData.getColumnName(2);
+                stockDetailFinanceItem.dateStr = rs.getString(ColumnName1);
+                stockDetailFinanceItem.valueStr = rs.getString(ColumnName2);
+                stockDetailFinanceItemList.add(stockDetailFinanceItem);
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
         return stockDetailFinanceItemList;
     }
 
-    public StockEventsDataList  getStockEventsList(String stockCode,int type,String sqlCode){
-         StockEventsDataList stockEventsDataLists=new StockEventsDataList();
-        List<StockEventsDataModel> eventsDataModelList=new ArrayList<>();
-        String sql = "select * from stock_sqlsetup where sql_type="+type+" and sql_code=" + "'" + sqlCode + "'";
+    @Override
+    public List<SQLViewModel> getStockEventSQL(int type) {
+        List<SQLViewModel> sqlViewModelList = new ArrayList<>();
+        StockEventsDataList stockEventsDataLists = new StockEventsDataList();
+        List<StockEventDataModel> eventsDataModelList = new ArrayList<>();
+        String sql = "select * from stock_sqlsetup where sql_type=" + type;
         //System.out.println("StockDetailDataModel:"+sql);
         PreparedStatement preStmt = null;
         ResultSet rs = null;
@@ -465,86 +471,27 @@ public class StockDaoImpl implements StockDao {
             preStmt = conn.prepareStatement(sql);
             rs = preStmt.executeQuery();
             while (rs.next()) {
+                SQLViewModel sqlViewModel = new SQLViewModel();
+                int sqlId = rs.getInt("sql_id");
                 String sql_title = rs.getString("sql_title");
                 String sql_list = rs.getString("sql_list");
-                stockEventsDataLists.eventType=rs.getInt("sql_code");
-                stockEventsDataLists.eventName=rs.getString("sql_title");
-                Connection con = null;
-                StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
-                PreparedStatement preStmt2 = null;
-                con = stockLinkDao.getConnection();
-                try {
-                    //preStmt = conn.prepareStatement(sql_list);
-                    //preStmt.setString(1, stockCode);
-                    //rs=preStmt.executeQuery();
-                    preStmt2 = con.prepareStatement(sql_list);
-                    preStmt2.setString(1, stockCode);
-
-                    ResultSet rslist = preStmt2.executeQuery();
-                    while (rslist.next()) {
-                        ResultSetMetaData metaData = rslist.getMetaData();
-                        StockEventsDataModel stockEventsDataModel = new StockEventsDataModel();
-                        stockEventsDataModel.eventData=rslist.getString(metaData.getColumnName(1));
-                        stockEventsDataModel.attribute1=rslist.getString(metaData.getColumnName(2));
-                        if (metaData.getColumnCount() >= 3) {
-                            stockEventsDataModel.attribute2=rslist.getString(metaData.getColumnName(3));
-                        }
-                        if (metaData.getColumnCount() >= 4) {
-                            stockEventsDataModel.attribute3=rslist.getString(metaData.getColumnName(4));
-                        }
-                        if (metaData.getColumnCount() >= 5) {
-                            stockEventsDataModel.attribute4=rslist.getString(metaData.getColumnName(5));
-                        }
-                        if (metaData.getColumnCount() >= 6) {
-                            stockEventsDataModel.attribute5=rslist.getString(metaData.getColumnName(6));
-                        }
-                        if (metaData.getColumnCount() >= 7) {
-                            stockEventsDataModel.attribute6=rslist.getString(metaData.getColumnName(7));
-                        }
-                        if (metaData.getColumnCount() >= 8) {
-                            stockEventsDataModel.attribute7=rslist.getString(metaData.getColumnName(8));
-                        }
-                        if (metaData.getColumnCount() >= 9) {
-                            stockEventsDataModel.attribute8=rslist.getString(metaData.getColumnName(9));
-                        }
-                        if (metaData.getColumnCount() >= 10) {
-                            stockEventsDataModel.attribute9=rslist.getString(metaData.getColumnName(10));
-                        }
-                        if (metaData.getColumnCount() >= 11) {
-                            stockEventsDataModel.attribute10=rslist.getString(metaData.getColumnName(11));
-                        }
-                        eventsDataModelList.add(stockEventsDataModel);
-                        stockEventsDataLists.stockEventsDataModels=eventsDataModelList;
-
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                String sqlCode = rs.getString("sql_code");
+                int sqlType = rs.getInt("sql_type");
+                int subSqlType = rs.getInt("sql_subtype");
+                sqlViewModel.sqlId = sqlId;
+                sqlViewModel.sqlTitle = sql_title;
+                sqlViewModel.sql = sql_list;
+                sqlViewModel.sqlCode = sqlCode;
+                sqlViewModel.sqlType = sqlType;
+                sqlViewModel.subSqlType = subSqlType;
+                sqlViewModelList.add(sqlViewModel);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return stockEventsDataLists;
-    }
-    public int getEventCount(int type){
-        String sql = "select * from stock_sqlsetup where sql_type=" + type;
-        PreparedStatement preStmt = null;
-        String strSql="";
-        int count=0;
-        try {
-            preStmt = conn.prepareStatement(sql);
-            ResultSet rs = preStmt.executeQuery();
-            //count=rs.getFetchSize();
-            while (rs.next()) {
-                count=count+1;
-            }
-            return count;
-        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             closeSql(preStmt, null);
         }
-        return count;
+        return sqlViewModelList;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {

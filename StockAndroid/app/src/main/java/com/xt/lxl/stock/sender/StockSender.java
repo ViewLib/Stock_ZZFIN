@@ -9,6 +9,7 @@ import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailGradeResponse;
+import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.model.reponse.StockHotSearchResponse;
@@ -20,6 +21,7 @@ import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
 import com.xt.lxl.stock.model.request.StockDetailCompanyInfoRequest;
 import com.xt.lxl.stock.model.request.StockDetailFinanceRequest;
 import com.xt.lxl.stock.model.request.StockDetailGradeRequest;
+import com.xt.lxl.stock.model.request.StockEventsDataRequest;
 import com.xt.lxl.stock.model.request.StockGetDateDataRequest;
 import com.xt.lxl.stock.model.request.StockGetMinuteDataRequest;
 import com.xt.lxl.stock.model.request.StockHotSearchRequest;
@@ -49,6 +51,7 @@ public class StockSender {
     //    http://qt.gtimg.cn/q=sz300170,sz300171,sz300172,sz300173,sz300174,sz300170,sz300170,sz300170,sz300170,
 //    private static String mBaseAPIUrl = "http://10.32.151.30:8090/zzfin/api/";
     private static String mBaseAPIUrl = "http://115.159.31.128:8090/zzfin/api/";
+//    private static String mBaseAPIUrl = "http://10.32.151.17:8080/zzfin/api/";
 //    http://10.32.151.30:8090/zzfin/api/register?moblie=15601817211
 //    http://10.32.151.30:8090/zzfin/api/completion?userid=10000002&moblie=15601817296&nickname=hahahah&area=山东日照&age=28
 
@@ -286,6 +289,29 @@ public class StockSender {
         return filterlResponse;
     }
 
+    /**
+     * 重大事件
+     *
+     * @param requestStockCode
+     * @return
+     */
+    public StockEventsDataResponse requestStockEventImportant(String requestStockCode,int type) {
+        StockEventsDataRequest reqeust = new StockEventsDataRequest();
+        reqeust.stockCode = requestStockCode;
+        reqeust.type = type;
+        String requestJsonStr = JSON.toJSONString(reqeust);
+        String s = requestGet(mBaseAPIUrl + "stock_event?", requestJsonStr, "utf-8");
+        StockEventsDataResponse eventsDataResponse;
+        try {
+            eventsDataResponse = JSON.parseObject(s, StockEventsDataResponse.class);
+        } catch (Exception e) {
+            eventsDataResponse = new StockEventsDataResponse();
+            eventsDataResponse.resultCode = 500;
+            eventsDataResponse.resultMessage = "序列化失败";
+        }
+        return eventsDataResponse;
+    }
+
     private static String requestGet(String baseUrl, String requestJsonStr, String code) {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("data", requestJsonStr);
@@ -327,7 +353,7 @@ public class StockSender {
             if (urlConn.getResponseCode() == 200) {
                 // 获取返回的数据
                 String result = IOHelper.fromIputStreamToString(urlConn.getInputStream(), code);
-                Log.e("TEST", "Get方式请求成功，result--->" + result);
+//                Log.e("TEST", "Get方式请求成功，result--->" + result);
                 return result;
             } else {
                 String errorInfo = IOHelper.fromIputStreamToString(urlConn.getInputStream(), code);

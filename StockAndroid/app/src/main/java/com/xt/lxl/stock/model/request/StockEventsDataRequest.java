@@ -1,6 +1,7 @@
 package com.xt.lxl.stock.model.request;
 
-import com.stock.model.ServiceRequest;
+
+import com.xt.lxl.stock.model.ServiceRequest;
 
 /**
  * Created by hp on 2017/10/29.

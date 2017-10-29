@@ -13,4 +13,5 @@ public class StockEventsDataList {
     public int eventType;//
     public String eventName = "";
     public List<StockEventsDataModel> stockEventsDataModels = new ArrayList<>();
+
 }

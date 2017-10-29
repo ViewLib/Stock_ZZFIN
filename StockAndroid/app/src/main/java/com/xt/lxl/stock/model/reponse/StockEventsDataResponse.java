@@ -1,8 +1,8 @@
 package com.xt.lxl.stock.model.reponse;
 
-import com.stock.model.ServiceResponse;
-import com.stock.model.model.StockEventsDataList;
-import com.stock.model.model.StockEventsDataModel;
+
+import com.xt.lxl.stock.model.ServiceResponse;
+import com.xt.lxl.stock.model.model.StockEventsDataList;
 
 import java.util.ArrayList;
 import java.util.List;
