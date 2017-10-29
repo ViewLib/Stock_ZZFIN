@@ -206,6 +206,15 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>StockEventsDataServlet</servlet-name>
+        <servlet-class>com.stock.servlet.StockEventsDataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StockEventsDataServlet</servlet-name>
+        <url-pattern>/api/stock_event</url-pattern>
+    </servlet-mapping>
+
     <!-- 首页 -->
     <welcome-file-list>
         <welcome-file>rest/index</welcome-file>

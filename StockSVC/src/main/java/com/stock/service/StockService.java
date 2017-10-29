@@ -345,4 +345,20 @@ public class StockService {
         }
         return stockDetailFinanceGroupList;
     }
+    public List<StockEventsDataList> getStockEventsList(StockEventsDataRequest stockEventsDataRequest,StockEventsDataResponse stockEventsDataResponse) throws Exception{
+        List<StockEventsDataList> stockEventsDataLists=new ArrayList<>();
+      //  List<StockEventsDataModel> stockEventsDataModels=new ArrayList<>();
+        String stockCode = transCode(stockEventsDataRequest.stockCode);
+        Integer type=stockEventsDataRequest.type;
+        int len=dao.getEventCount(type);
+        //if(type==2 ||type.equals(2)){
+           for(int i=1;i<=len;i++){
+               StockEventsDataList stockEvents=new StockEventsDataList();
+               String m=String.valueOf(i);
+               stockEvents=dao.getStockEventsList(stockCode,type,m);
+               stockEventsDataLists.add(stockEvents);
+           }
+       // }
+        return stockEventsDataLists;
+    }
 }

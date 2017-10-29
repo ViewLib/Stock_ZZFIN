@@ -454,7 +454,98 @@ public class StockDaoImpl implements StockDao {
         return stockDetailFinanceItemList;
     }
 
+    public StockEventsDataList  getStockEventsList(String stockCode,int type,String sqlCode){
+         StockEventsDataList stockEventsDataLists=new StockEventsDataList();
+        List<StockEventsDataModel> eventsDataModelList=new ArrayList<>();
+        String sql = "select * from stock_sqlsetup where sql_type="+type+" and sql_code=" + "'" + sqlCode + "'";
+        //System.out.println("StockDetailDataModel:"+sql);
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String sql_title = rs.getString("sql_title");
+                String sql_list = rs.getString("sql_list");
+                stockEventsDataLists.eventType=rs.getInt("sql_code");
+                stockEventsDataLists.eventName=rs.getString("sql_title");
+                Connection con = null;
+                StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+                PreparedStatement preStmt2 = null;
+                con = stockLinkDao.getConnection();
+                try {
+                    //preStmt = conn.prepareStatement(sql_list);
+                    //preStmt.setString(1, stockCode);
+                    //rs=preStmt.executeQuery();
+                    preStmt2 = con.prepareStatement(sql_list);
+                    preStmt2.setString(1, stockCode);
 
+                    ResultSet rslist = preStmt2.executeQuery();
+                    while (rslist.next()) {
+                        ResultSetMetaData metaData = rslist.getMetaData();
+                        StockEventsDataModel stockEventsDataModel = new StockEventsDataModel();
+                        stockEventsDataModel.eventData=rslist.getString(metaData.getColumnName(1));
+                        stockEventsDataModel.attribute1=rslist.getString(metaData.getColumnName(2));
+                        if (metaData.getColumnCount() >= 3) {
+                            stockEventsDataModel.attribute2=rslist.getString(metaData.getColumnName(3));
+                        }
+                        if (metaData.getColumnCount() >= 4) {
+                            stockEventsDataModel.attribute3=rslist.getString(metaData.getColumnName(4));
+                        }
+                        if (metaData.getColumnCount() >= 5) {
+                            stockEventsDataModel.attribute4=rslist.getString(metaData.getColumnName(5));
+                        }
+                        if (metaData.getColumnCount() >= 6) {
+                            stockEventsDataModel.attribute5=rslist.getString(metaData.getColumnName(6));
+                        }
+                        if (metaData.getColumnCount() >= 7) {
+                            stockEventsDataModel.attribute6=rslist.getString(metaData.getColumnName(7));
+                        }
+                        if (metaData.getColumnCount() >= 8) {
+                            stockEventsDataModel.attribute7=rslist.getString(metaData.getColumnName(8));
+                        }
+                        if (metaData.getColumnCount() >= 9) {
+                            stockEventsDataModel.attribute8=rslist.getString(metaData.getColumnName(9));
+                        }
+                        if (metaData.getColumnCount() >= 10) {
+                            stockEventsDataModel.attribute9=rslist.getString(metaData.getColumnName(10));
+                        }
+                        if (metaData.getColumnCount() >= 11) {
+                            stockEventsDataModel.attribute10=rslist.getString(metaData.getColumnName(11));
+                        }
+                        eventsDataModelList.add(stockEventsDataModel);
+                        stockEventsDataLists.stockEventsDataModels=eventsDataModelList;
+
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return stockEventsDataLists;
+    }
+    public int getEventCount(int type){
+        String sql = "select * from stock_sqlsetup where sql_type=" + type;
+        PreparedStatement preStmt = null;
+        String strSql="";
+        int count=0;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            ResultSet rs = preStmt.executeQuery();
+            //count=rs.getFetchSize();
+            while (rs.next()) {
+                count=count+1;
+            }
+            return count;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return count;
+    }
 
     private void closeSql(Statement stmt, ResultSet rs) {
         if (stmt != null) {
