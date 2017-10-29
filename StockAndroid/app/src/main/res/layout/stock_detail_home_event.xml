@@ -38,6 +38,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="3dp"
         android:text="查看更多"
+        android:visibility="gone"
         app:stock_text_drawable_direction="stock_right"
         app:stock_text_drawable_height="9dp"
         app:stock_text_drawable_padding="1dp"

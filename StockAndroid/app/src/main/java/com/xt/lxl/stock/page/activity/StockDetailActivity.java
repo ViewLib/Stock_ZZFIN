@@ -216,7 +216,7 @@ public class StockDetailActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockEventsDataResponse eventsDataResponse = StockSender.getInstance().requestStockEventImportant(mCacheBean.mStockViewModel.getRequestStockCode(), 1);
+                StockEventsDataResponse eventsDataResponse = StockSender.getInstance().requestStockEventImportant(mCacheBean.mStockViewModel.getRequestStockCode(), 2);
                 if (eventsDataResponse.resultCode != 200) {
                     return;
                 }

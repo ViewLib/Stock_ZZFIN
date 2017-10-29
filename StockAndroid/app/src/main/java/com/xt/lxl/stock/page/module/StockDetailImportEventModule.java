@@ -58,6 +58,9 @@ public class StockDetailImportEventModule extends StockDetailBaseModule implemen
         for (StockEventsDataList dataList : showList) {
             bindItemEventModel(dataList);
         }
+        if (isShowMore && mEventContainer.getChildCount() <= 3) {
+            mLookMore.setVisibility(View.GONE);
+        }
     }
 
     public void bindItemEventModel(StockEventsDataList eventsDataList) {
