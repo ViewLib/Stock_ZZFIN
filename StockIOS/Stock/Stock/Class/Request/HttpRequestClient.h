@@ -55,6 +55,9 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 #pragma mark - 获取股东信息
 -(void)getShareholder:(NSDictionary *)value request:(request)request;
 
+#pragma mark - 获取重大事件
+-(void)getStockEvent:(NSDictionary *)value request:(request)request;
+
 #pragma mark - 获取券商信息
 -(void)getStockgrade:(NSDictionary *)value request:(request)request;
 

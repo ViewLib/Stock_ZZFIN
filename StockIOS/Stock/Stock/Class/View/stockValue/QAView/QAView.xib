@@ -73,6 +73,11 @@
                 <constraint firstItem="enH-14-VAb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="A3J-Rn-n9c"/>
                 <constraint firstItem="enH-14-VAb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ixo-0m-4aD"/>
             </constraints>
+            <connections>
+                <outlet property="answer" destination="r7E-1o-fYy" id="xX1-g2-0JG"/>
+                <outlet property="contentView" destination="enH-14-VAb" id="j6t-Bw-MLZ"/>
+                <outlet property="question" destination="oUM-1A-tUQ" id="1hI-pf-eeK"/>
+            </connections>
             <point key="canvasLocation" x="34.5" y="80.5"/>
         </view>
     </objects>

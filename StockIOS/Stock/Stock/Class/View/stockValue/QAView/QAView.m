@@ -10,8 +10,42 @@
 
 @implementation QAView
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+}
+
 - (void)updateView:(NSDictionary *)dic {
-    self.viewHigh = 35;
+    NSArray *dicValue = dic[@"stockEventsDataModels"];
+    NSDictionary *newModel = [dicValue firstObject];
+    self.question.text = newModel[@"eventTitle"];
+    self.answer.text = newModel[@"eventDesc"];
+    
+    CGRect rect = [self.question.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0)
+                                       options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin |
+                   NSStringDrawingUsesFontLeading
+                                    attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}
+                                       context:nil];
+    
+    CGRect size = [self.answer.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0)
+                                                 options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin |
+                   NSStringDrawingUsesFontLeading
+                                              attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}
+                                                 context:nil];
+    
+    float high = rect.size.height;
+    if (high < size.size.height) {
+        high = size.size.height;
+    }
+    
+    self.viewHigh = high + 20;
+    
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self.contentView.layer setBorderWidth:1];
+    [self.contentView.layer setBorderColor:[Utils colorFromHexRGB:@"C0C0C0"].CGColor];
 }
 
 /*

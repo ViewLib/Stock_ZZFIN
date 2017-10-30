@@ -99,6 +99,13 @@
     [self httpPost:urlStr paramDict:dic completion:request];
 }
 
+#pragma mark - 获取重大事件
+-(void)getStockEvent:(NSDictionary *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_event",SERVICE];
+    NSDictionary *dic = @{@"data": [value JSONString]};
+    [self httpPost:urlStr paramDict:dic completion:request];
+}
+
 #pragma mark - 获取券商信息
 -(void)getStockgrade:(NSDictionary *)value request:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_grade",SERVICE];

@@ -17,6 +17,8 @@
 
 @property (strong, nonatomic) NSString   *stockCode;
 
+@property (strong, nonatomic) NSArray    *events;
+
 /**
  更新cell
  @param dic 更新的内容

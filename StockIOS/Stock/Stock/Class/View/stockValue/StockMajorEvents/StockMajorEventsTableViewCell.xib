@@ -34,56 +34,35 @@
                             <constraint firstAttribute="height" constant="1" id="6aa-qV-D0i"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gts-WC-YBW">
-                        <rect key="frame" x="12" y="36" width="70" height="33"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <state key="normal" title="重组">
-                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHV-Wa-9h6">
-                        <rect key="frame" x="82" y="36" width="70.5" height="33"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <state key="normal" title="定增">
-                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2K6-pX-HvO">
-                        <rect key="frame" x="152.5" y="36" width="70" height="33"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <state key="normal" title="大宗">
-                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RzJ-6e-buN">
-                        <rect key="frame" x="222.5" y="36" width="70.5" height="33"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <state key="normal" title="分红">
-                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-47-ODM">
-                        <rect key="frame" x="293" y="36" width="70" height="33"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <state key="normal" title="投资">
-                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atW-3i-9vM">
+                        <rect key="frame" x="0.0" y="36" width="375" height="33"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="nu6-c6-KBb">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="quT-Qy-b91"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9Dk-vE-pDK">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <connections>
+                                    <outlet property="dataSource" destination="KGk-i7-Jjw" id="Sze-d3-E8N"/>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="p2S-9O-Grp"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="nu6-c6-KBb" secondAttribute="bottom" id="Hfg-YC-akd"/>
+                            <constraint firstAttribute="trailing" secondItem="nu6-c6-KBb" secondAttribute="trailing" id="V3f-CO-c61"/>
+                            <constraint firstItem="nu6-c6-KBb" firstAttribute="leading" secondItem="atW-3i-9vM" secondAttribute="leading" id="hWi-Zk-jEE"/>
+                            <constraint firstItem="nu6-c6-KBb" firstAttribute="top" secondItem="atW-3i-9vM" secondAttribute="top" id="tlp-ho-aiy"/>
+                        </constraints>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Fp-EV-rGy">
                         <rect key="frame" x="0.0" y="69" width="375" height="1"/>
                         <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -107,53 +86,32 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="2K6-pX-HvO" firstAttribute="width" secondItem="Gts-WC-YBW" secondAttribute="width" id="0FS-cO-Hfl"/>
                     <constraint firstItem="fix-VK-X7k" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1XX-0h-k4D"/>
                     <constraint firstAttribute="trailing" secondItem="fix-VK-X7k" secondAttribute="trailing" id="3Jv-NS-h1O"/>
                     <constraint firstItem="h25-dD-N9S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4Is-0p-W89"/>
                     <constraint firstAttribute="trailing" secondItem="6Fp-EV-rGy" secondAttribute="trailing" id="59X-IR-K5W"/>
                     <constraint firstAttribute="trailing" secondItem="h25-dD-N9S" secondAttribute="trailing" id="7g8-p7-L78"/>
-                    <constraint firstItem="ARz-47-ODM" firstAttribute="top" secondItem="fix-VK-X7k" secondAttribute="bottom" id="ADt-sE-kdi"/>
                     <constraint firstItem="h25-dD-N9S" firstAttribute="top" secondItem="6Fp-EV-rGy" secondAttribute="bottom" id="BHK-ec-1Ps"/>
-                    <constraint firstItem="Gts-WC-YBW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="CWI-L2-FwN"/>
                     <constraint firstItem="2OU-16-jjN" firstAttribute="top" secondItem="h25-dD-N9S" secondAttribute="bottom" id="G7I-to-gp1"/>
-                    <constraint firstItem="pHV-Wa-9h6" firstAttribute="top" secondItem="fix-VK-X7k" secondAttribute="bottom" id="Hh1-gE-0WO"/>
-                    <constraint firstItem="6Fp-EV-rGy" firstAttribute="top" secondItem="fix-VK-X7k" secondAttribute="bottom" constant="33" id="J6M-Bj-sdQ"/>
                     <constraint firstItem="6Fp-EV-rGy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Jfq-N6-Gyd"/>
-                    <constraint firstItem="RzJ-6e-buN" firstAttribute="top" secondItem="fix-VK-X7k" secondAttribute="bottom" id="Kye-zg-i0a"/>
-                    <constraint firstItem="RzJ-6e-buN" firstAttribute="width" secondItem="Gts-WC-YBW" secondAttribute="width" id="Mgf-mT-96E"/>
-                    <constraint firstItem="2K6-pX-HvO" firstAttribute="top" secondItem="fix-VK-X7k" secondAttribute="bottom" id="NtS-nQ-cwZ"/>
-                    <constraint firstItem="6Fp-EV-rGy" firstAttribute="top" secondItem="ARz-47-ODM" secondAttribute="bottom" id="RFD-GS-VND"/>
+                    <constraint firstItem="6Fp-EV-rGy" firstAttribute="top" secondItem="atW-3i-9vM" secondAttribute="bottom" id="OK9-Mm-jY4"/>
                     <constraint firstItem="nzT-o0-3ue" firstAttribute="leading" secondItem="cen-SX-uyZ" secondAttribute="trailing" constant="3" id="S7w-py-ldR"/>
                     <constraint firstItem="cen-SX-uyZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="XrJ-BE-8IL"/>
-                    <constraint firstItem="ARz-47-ODM" firstAttribute="width" secondItem="Gts-WC-YBW" secondAttribute="width" id="Xvi-vm-hou"/>
                     <constraint firstItem="cen-SX-uyZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="YGl-eh-naa"/>
-                    <constraint firstItem="2K6-pX-HvO" firstAttribute="leading" secondItem="pHV-Wa-9h6" secondAttribute="trailing" id="cEg-h9-zFQ"/>
-                    <constraint firstItem="RzJ-6e-buN" firstAttribute="leading" secondItem="2K6-pX-HvO" secondAttribute="trailing" id="ci3-ad-Opf"/>
                     <constraint firstItem="nzT-o0-3ue" firstAttribute="centerY" secondItem="cen-SX-uyZ" secondAttribute="centerY" id="dGU-it-tWE"/>
-                    <constraint firstItem="6Fp-EV-rGy" firstAttribute="top" secondItem="Gts-WC-YBW" secondAttribute="bottom" id="eAG-Gz-qoO"/>
-                    <constraint firstItem="6Fp-EV-rGy" firstAttribute="top" secondItem="pHV-Wa-9h6" secondAttribute="bottom" id="fJa-kn-hGb"/>
                     <constraint firstItem="fix-VK-X7k" firstAttribute="top" secondItem="cen-SX-uyZ" secondAttribute="bottom" constant="12" id="fls-AN-yya"/>
-                    <constraint firstItem="Gts-WC-YBW" firstAttribute="top" secondItem="fix-VK-X7k" secondAttribute="bottom" id="gz7-Pe-fpw"/>
-                    <constraint firstItem="pHV-Wa-9h6" firstAttribute="leading" secondItem="Gts-WC-YBW" secondAttribute="trailing" id="hgc-DF-IbO"/>
-                    <constraint firstAttribute="trailing" secondItem="ARz-47-ODM" secondAttribute="trailing" constant="12" id="jgY-q3-kuc"/>
-                    <constraint firstItem="6Fp-EV-rGy" firstAttribute="top" secondItem="RzJ-6e-buN" secondAttribute="bottom" id="obf-2B-5AV"/>
+                    <constraint firstAttribute="trailing" secondItem="atW-3i-9vM" secondAttribute="trailing" id="mAk-Z0-71U"/>
                     <constraint firstAttribute="bottom" secondItem="2OU-16-jjN" secondAttribute="bottom" id="sj1-vc-AuI"/>
                     <constraint firstItem="2OU-16-jjN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="tZs-Fb-sQq"/>
+                    <constraint firstItem="atW-3i-9vM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="vdV-Ea-MTK"/>
                     <constraint firstAttribute="trailing" secondItem="2OU-16-jjN" secondAttribute="trailing" id="wkT-u6-I2o"/>
-                    <constraint firstItem="6Fp-EV-rGy" firstAttribute="top" secondItem="2K6-pX-HvO" secondAttribute="bottom" id="x0r-ft-5Yp"/>
-                    <constraint firstItem="pHV-Wa-9h6" firstAttribute="width" secondItem="Gts-WC-YBW" secondAttribute="width" id="xOj-Ab-mJ2"/>
-                    <constraint firstItem="ARz-47-ODM" firstAttribute="leading" secondItem="RzJ-6e-buN" secondAttribute="trailing" id="z1d-cV-1u4"/>
+                    <constraint firstItem="atW-3i-9vM" firstAttribute="top" secondItem="fix-VK-X7k" secondAttribute="bottom" id="yD6-a5-aZ5"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="LineViewHigh" destination="9vu-Gm-J8J" id="RKx-ie-ugZ"/>
-                <outlet property="czBtn" destination="Gts-WC-YBW" id="DBP-dk-DSx"/>
-                <outlet property="dazBtn" destination="2K6-pX-HvO" id="ucY-Yp-kEu"/>
-                <outlet property="dzBtn" destination="pHV-Wa-9h6" id="YU9-82-MpO"/>
-                <outlet property="fhBtn" destination="RzJ-6e-buN" id="NJM-tG-ERE"/>
+                <outlet property="MenuCollection" destination="nu6-c6-KBb" id="LfK-Zr-IdP"/>
                 <outlet property="lineView" destination="h25-dD-N9S" id="ev1-sC-Xcm"/>
-                <outlet property="tzBtn" destination="ARz-47-ODM" id="jKO-Re-NcA"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="53.5"/>
         </tableViewCell>
