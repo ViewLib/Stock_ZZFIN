@@ -66,10 +66,10 @@ public class DataShowUtil {
             leftModel.mTextColor = "#000000";
             if (viewModel.stockChangeD < -0.03) {
                 leftModel.mTextColor = "#ffffff";
-                leftModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_CENTER;
+                leftModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_LEFT;
             } else {
                 leftModel.mTextColor = "#000000";
-                leftModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_LEFT;
+                leftModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_CENTER;
             }
         }
         drawables[0].setLabelModel(leftModel);
