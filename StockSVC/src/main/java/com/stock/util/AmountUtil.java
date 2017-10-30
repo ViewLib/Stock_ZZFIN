@@ -3,7 +3,7 @@ package com.stock.util;
 import java.math.BigDecimal;
 
 /**
- * Created by xiangleiliu on 2017/10/28.
+ * Created by xiangleiliu on 2017/10/29.
  */
 public class AmountUtil {
 

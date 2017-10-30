@@ -1,8 +1,12 @@
 package com.stock.dao;
 
 import com.stock.model.model.StockDetailGradleModel;
+import com.stock.model.model.StockEventsDataList;
+import com.stock.model.model.StockEventDataModel;
 import com.stock.model.model.StockRankResultModel;
 import com.stock.util.StringUtil;
+import com.stock.viewmodel.SQLViewModel;
+import com.stock.viewmodel.StoctEventSQLResultModel;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -10,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by hp on 2017/9/26.
+ * Created by xiangleiliu on 2017/10/29.
  */
 public class StockLinkDaoImpl implements StockLinkDao {
     Connection conn;
@@ -164,5 +168,59 @@ public class StockLinkDaoImpl implements StockLinkDao {
             this.close(rs, preStmt, conn);
         }
         return gradleModelList;
+    }
+
+    public List<StoctEventSQLResultModel> getStockEventBySQLModel(SQLViewModel sqlViewModel, String stockCode) {
+        List<StoctEventSQLResultModel> list = new ArrayList<>();
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        StockEventsDataList dataList = new StockEventsDataList();
+        dataList.eventName = sqlViewModel.sqlTitle;
+        dataList.eventType = sqlViewModel.sqlType;
+        Connection con = getConnection();
+        try {
+            preStmt = con.prepareStatement(sqlViewModel.sql);
+            preStmt.setString(1, stockCode);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                ResultSetMetaData metaData = rs.getMetaData();
+                StoctEventSQLResultModel resultModel = new StoctEventSQLResultModel();
+                resultModel.eventDate = rs.getString(metaData.getColumnName(1));
+                resultModel.attr1 = rs.getString(metaData.getColumnName(2));
+                if (metaData.getColumnCount() >= 3) {
+                    resultModel.attr2 = rs.getString(metaData.getColumnName(3));
+                }
+                if (metaData.getColumnCount() >= 4) {
+                    resultModel.attr3 = rs.getString(metaData.getColumnName(4));
+                }
+                if (metaData.getColumnCount() >= 5) {
+                    resultModel.attr4 = rs.getString(metaData.getColumnName(5));
+                }
+                if (metaData.getColumnCount() >= 6) {
+                    resultModel.attr5 = rs.getString(metaData.getColumnName(6));
+                }
+                if (metaData.getColumnCount() >= 7) {
+                    resultModel.attr6 = rs.getString(metaData.getColumnName(7));
+                }
+                if (metaData.getColumnCount() >= 8) {
+                    resultModel.attr7 = rs.getString(metaData.getColumnName(8));
+                }
+                if (metaData.getColumnCount() >= 9) {
+                    resultModel.attr8 = rs.getString(metaData.getColumnName(9));
+                }
+                if (metaData.getColumnCount() >= 10) {
+                    resultModel.attr9 = rs.getString(metaData.getColumnName(10));
+                }
+                if (metaData.getColumnCount() >= 11) {
+                    resultModel.attr10 = rs.getString(metaData.getColumnName(11));
+                }
+                list.add(resultModel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.close(rs, preStmt, con);
+        }
+        return list;
     }
 }

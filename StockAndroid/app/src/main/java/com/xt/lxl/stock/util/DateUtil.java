@@ -223,6 +223,21 @@ public class DateUtil {
         return Calendar.getInstance();
     }
 
+    public static Calendar YYYY_MM_DD2calendar(String dateStr) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLEFORMATTYPESTRING7);
+        TimeZone timeZone = TimeZone.getTimeZone(TIMEZONE_CN);
+        dateFormat.setTimeZone(timeZone);
+        try {
+            Date parse = dateFormat.parse(dateStr);
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(parse);
+            return instance;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return Calendar.getInstance();
+    }
+
 
     public static String calendar2YYYY_MM_DD(Calendar calendar) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLEFORMATTYPESTRING9);

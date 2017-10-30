@@ -1,6 +1,7 @@
 package com.stock.dao;
 
 import com.stock.model.model.*;
+import com.stock.viewmodel.SQLViewModel;
 
 import java.util.List;
 import java.util.Map;
@@ -34,4 +35,6 @@ public interface StockDao {
     public String getListSql(int filter_id);
 
     public List<StockDetailFinanceItem> getFinalList(String stockCode,int  FinanceType);
+
+    public List<SQLViewModel> getStockEventSQL(int type);
 }
