@@ -21,6 +21,8 @@ static int num = 60;
 //手机号码输入框
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
 
+@property (weak, nonatomic) IBOutlet UIView *picBgView;
+
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 @property (weak, nonatomic) IBOutlet UIView *Verification;
@@ -40,6 +42,9 @@ static int num = 60;
 
 @property (nonatomic, strong)   NSArray     *verificationLabs;
 
+@property (nonatomic, strong)   NSString    *btnTitle;
+
+@property (nonatomic, strong)   NSString    *key;
 
 
 @end
@@ -54,22 +59,94 @@ static int num = 60;
 }
 
 - (IBAction)clickPhoneCode:(UIButton *)sender {
+    self.picBgView.hidden = !self.picBgView.hidden;
+}
+
+#pragma mark - UIPickerViewDelegateAndDataSourece
+//指定pickerview有几个表盘
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+//指定每个表盘上有几行数据
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [Config shareInstance].areacode.count;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
+{
+    return K_FRAME_BASE_WIDTH;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
+    return 40;
+}
+
+//指定每行如何展示数据（此处和tableview类似）
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    NSDictionary *dic = [Config shareInstance].areacode[component];
+    NSString * title = dic[@"key"];
+    return title;
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    for(UIView *singleLine in pickerView.subviews)
+    {
+        if (singleLine.frame.size.height < 1)
+        {
+            singleLine.backgroundColor = [UIColor lightGrayColor];
+        }
+    }
+    
+    UILabel* pickerLabel = (UILabel*)view;
+    if (!pickerLabel) {
+        pickerLabel = [[UILabel alloc] init];
+        pickerLabel.adjustsFontSizeToFitWidth = YES;
+        pickerLabel.textAlignment = NSTextAlignmentCenter;
+        [pickerLabel setTextColor:MAIN_COLOR];
+        [pickerLabel setBackgroundColor:[UIColor clearColor]];
+        [pickerLabel setFont:[UIFont boldSystemFontOfSize:24]];
+    }
+    
+    pickerLabel.text=[self pickerView:pickerView titleForRow:row forComponent:component];//调用上一个委托方法，获得要展示的title
+    
+    return pickerLabel;
     
 }
 
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    NSDictionary *dic = [Config shareInstance].areacode[component];
+    self.btnTitle = dic[@"key"];
+    self.key = dic[@"value"];
+}
+
+- (IBAction)clickSuccessBtn:(UIButton *)sender {
+    self.picBgView.hidden = YES;
+    [self.phoneCode setTitle:self.btnTitle forState:UIControlStateNormal];
+}
+
+- (IBAction)clickHIddenBtn:(UIButton *)sender {
+    self.picBgView.hidden = YES;
+}
 
 
 - (IBAction)clickNextBtn:(UIButton *)sender {
     if (_phoneText.text.length > 0 && [Utils validateNum:_phoneText.text]) {
-        [self showSecondView];
-//        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:@"86" result:^(NSError *error) {
-//            if (!error) {
-//                [self showHint:@"验证码发送成功"];
-//                [self showSecondView];
-//            } else {
-//                [self showHint:@"手机号码有误"];
-//            }
-//        }];
+//        [self showSecondView];
+        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:self.key result:^(NSError *error) {
+            if (!error) {
+                [self showHint:@"验证码发送成功"];
+                [self showSecondView];
+            } else {
+                [self showHint:@"手机号码有误"];
+            }
+        }];
     }
 }
 
@@ -174,7 +251,6 @@ static int num = 60;
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {

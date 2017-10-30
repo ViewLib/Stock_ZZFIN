@@ -43,9 +43,16 @@
     [_headerImg.layer setCornerRadius:_headerImg.frame.size.width/2];
     _headerImg.layer.masksToBounds =YES;
     
-//    [self tipsForLoginSuccess:^{
-//        _nickName.text = [Config shareInstance].login.moblie;
-//    }];
+    UIButton *btn = [[UIButton alloc] initWithFrame:self.headerImg.bounds];
+    [btn addTarget:self action:@selector(clickImageBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerImg addSubview:btn];
+
+}
+
+- (void)clickImageBtn {
+    [self tipsForLoginSuccess:^{
+        _nickName.text = [Config shareInstance].login.moblie;
+    }];
 }
 
 /**

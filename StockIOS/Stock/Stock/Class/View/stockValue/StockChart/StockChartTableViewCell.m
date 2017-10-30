@@ -48,18 +48,24 @@
         __block YYLineDataModel *preModel;
         if ([dataDict[@"resultCode"] intValue] == 200) {
             NSArray *array = dataDict[@"dateDataList"];
+            
             NSMutableArray *news = [NSMutableArray array];
-            int x = array.count - 300;
-            for (int i = x; i < array.count; i++) {
+            for (int i = 0; i < array.count; i++) {
                 NSDictionary *dic = array[i];
-                NSDictionary *new = [Utils KlineDicWithDic:dic];
-                [news addObject:new];
+                if ([dic[@"volume"] intValue] > 0) {
+                    NSDictionary *new = [Utils KlineDicWithDic:dic];
+                    [news addObject:new];
+                    if (news.count == 780) {
+                        break;
+                    }
+                }
             }
             
             NSMutableArray *newAry = [NSMutableArray array];
             [news enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 YYLineDataModel *model = [[YYLineDataModel alloc]initWithDict:obj];
                 model.preDataModel = preModel;
+                NSLog(@"index = %lu",(unsigned long)idx);
                 [model updateMA:news index:idx];
                 NSString *day = [NSString stringWithFormat:@"%@",obj[@"day"]];
                 if ([news count] % 18 == ([news indexOfObject:obj] + 1 )%18 ) {
