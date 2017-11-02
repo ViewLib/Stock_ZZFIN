@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/stock_main_white_bg"
+    android:background="@drawable/stock_detail_home_edit_module_bg"
     android:padding="10dp"
     >
 
