@@ -7,6 +7,7 @@
 //
 
 #import "StockMajorEventsTableViewCell.h"
+#import "LineView.h"
 
 
 @implementation StockMajorEventsTableViewCell
@@ -19,8 +20,12 @@
     layout.minimumInteritemSpacing = 5.0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     [_MenuCollection setCollectionViewLayout:layout];
-    
-    [self initLineView];
+    WS(self)
+    [RACObserve([Config shareInstance], KlineDate) subscribeNext:^(NSArray *x) {
+        if (x.count > 0) {
+            [selfWeak initLineView];
+        }
+    }];
     // Initialization code
 }
 
@@ -32,7 +37,6 @@
 }
 
 - (void)getStockEvent {
-    
     WS(self)
     [[HttpRequestClient sharedClient] getStockEvent:@{@"stockCode": self.stockCode, @"type":@3} request:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict[@"resultCode"] intValue] == 200) {
@@ -42,99 +46,40 @@
                 [ary addObject:dic[@"eventName"]];
             }
             selfWeak.titleAry = ary;
+            selfWeak.titleNews = [ary firstObject];
+            [selfWeak monitorReload];
             [selfWeak.MenuCollection reloadData];
         }
     }];
 }
 
 - (void)initLineView {
-    
-    self.lineChart.backgroundColor = [UIColor whiteColor];
-    self.lineChart.yGridLinesColor = [UIColor grayColor];
-    [self.lineChart.chartData enumerateObjectsUsingBlock:^(PNLineChartData *obj, NSUInteger idx, BOOL *stop) {
-        obj.pointLabelColor = [UIColor blackColor];
-    }];
-    
-    self.lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 10, K_FRAME_BASE_WIDTH, 200.0)];
-    self.lineChart.showCoordinateAxis = YES;
-    self.lineChart.yLabelFormat = @"%1.1f";
-    self.lineChart.xLabelFont = [UIFont fontWithName:@"Helvetica-Light" size:8.0];
-    [self.lineChart setXLabels:@[@"SEP 1", @"SEP 2", @"SEP 3", @"SEP 4", @"SEP 5", @"SEP 6", @"SEP 7"]];
-    self.lineChart.yLabelColor = [UIColor blackColor];
-    self.lineChart.xLabelColor = [UIColor blackColor];
-    
-    // added an example to show how yGridLines can be enabled
-    // the color is set to clearColor so that the demo remains the same
-    self.lineChart.showGenYLabels = NO;
-    self.lineChart.showYGridLines = YES;
-    
-    //Use yFixedValueMax and yFixedValueMin to Fix the Max and Min Y Value
-    //Only if you needed
-    self.lineChart.yFixedValueMax = 300.0;
-    self.lineChart.yFixedValueMin = 0.0;
-    
-    [self.lineChart setYLabels:@[
-                                 @"0",
-                                 @"50",
-                                 @"100",
-                                 @"150",
-                                 @"200",
-                                 @"250",
-                                 @"300",
-                                 ]
-     ];
-    
-    // Line Chart #1
-    NSArray *data01Array = @[@15.1, @60.1, @110.4, @10.0, @186.2, @197.2, @276.2];
-    data01Array = [[data01Array reverseObjectEnumerator] allObjects];
-    PNLineChartData *data01 = [PNLineChartData new];
-    
-    data01.rangeColors = @[
-                           [[PNLineChartColorRange alloc] initWithRange:NSMakeRange(0, 300) color:[Utils colorFromHexRGB:@"1F91E5"]]
-                           ];
-    data01.dataTitle = @"Alpha";
-    data01.color = [UIColor redColor];
-    //[UIColor colorWithRed:77.0 / 255.0 green:196.0 / 255.0 blue:122.0 / 255.0 alpha:1.0f];
-    data01.pointLabelColor = [UIColor blackColor];
-    data01.alpha = 1.0f;
-    data01.showPointLabel = YES;
-    data01.pointLabelFont = [UIFont fontWithName:@"Helvetica-Light" size:9.0];
-    data01.itemCount = data01Array.count;
-    data01.inflexionPointColor = [Utils colorFromHexRGB:@"1F91E5"];
-    data01.inflexionPointStyle = PNLineChartPointStyleTriangle;
-    data01.getData = ^(NSUInteger index) {
-        CGFloat yValue = [data01Array[index] floatValue];
-        return [PNLineChartDataItem dataItemWithY:yValue];
-    };
-    
-    self.lineChart.chartData = @[data01];
-    [self.lineChart.chartData enumerateObjectsUsingBlock:^(PNLineChartData *obj, NSUInteger idx, BOOL *stop) {
-        obj.pointLabelColor = [UIColor blackColor];
-    }];
-    
-    
-    [self.lineChart strokeChart];
-    self.lineChart.delegate = self;
-    
-    
-    [self.lineView addSubview:self.lineChart];
-    
-    self.lineChart.legendStyle = PNLegendItemStyleStacked;
-    self.lineChart.legendFont = [UIFont boldSystemFontOfSize:12.0f];
-    self.lineChart.legendFontColor = [UIColor redColor];
-    
-    UIView *legend = [self.lineChart getLegendWithMaxWidth:320];
-    [legend setFrame:CGRectMake(30, 340, legend.frame.size.width, legend.frame.size.width)];
-//    [self.lineView addSubview:legend];
-    self.LineViewHigh.constant = 210;
+    if (!self.line) {
+        self.line = [[LineView alloc] initWithFrame:CGRectMake(0, 0, K_FRAME_BASE_WIDTH, 237) andViewData:[Config shareInstance].KlineDate];
+        [self.line setBackgroundColor:[UIColor clearColor]];
+        [self.lineView addSubview:self.line];
+    }
 }
 
-- (void)userClickedOnLineKeyPoint:(CGPoint)point lineIndex:(NSInteger)lineIndex pointIndex:(NSInteger)pointIndex {
-    NSLog(@"Click Key on line %f, %f line index is %d and point index is %d", point.x, point.y, (int) lineIndex, (int) pointIndex);
+- (void)monitorReload {
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadLineView) userInfo:nil repeats:YES];
 }
 
-- (void)userClickedOnLinePoint:(CGPoint)point lineIndex:(NSInteger)lineIndex {
-    NSLog(@"Click on line %f, %f, line index is %d", point.x, point.y, (int) lineIndex);
+- (void)reloadLineView {
+    if (self.line) {
+        [self.timer invalidate];
+        self.timer = nil;
+        NSArray *value = [NSArray array];
+        for (NSDictionary *dic in self.events) {
+            if ([self.titleNews isEqual:dic[@"eventName"]] && self.line) {
+                value = dic[@"stockEventsDataModels"];
+            }
+        }
+        //    if (value.count > 0) {
+        [self.line reloadNewView:value];
+        //    }
+    }
+    
 }
 
 #pragma mark CollectionViewDelegateAndDataSource
@@ -174,6 +119,7 @@
     if (indexPath.item == 0) {
         [label setTextColor:[UIColor blackColor]];
         line.hidden = NO;
+        self.titleNews = label.text;
     }
     
     return cell;
@@ -187,11 +133,13 @@
         if (i == indexPath.item) {
             [lab setTextColor:[UIColor blackColor]];
             line.hidden = NO;
+            self.titleNews = lab.text;
         } else {
             [lab setTextColor:[Utils colorFromHexRGB:@"999999"]];
             line.hidden = YES;
         }
     }
+    [self reloadLineView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

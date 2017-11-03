@@ -87,18 +87,15 @@
 
 #pragma mark - getOptionalStocks
 - (void)getTableData {
+    [Utils updateStock];
     _stocks = [[DataManager shareDataMangaer] queryStockEntitys];
-    [[Config shareInstance] setOptionalStocks:_stocks];
-    NSString *stockCodes = @"";
     if (_stocks.count) {
+        NSMutableArray *stocks = [NSMutableArray array];
         for (int i = 0; i < _stocks.count; i++) {
             StockEntity *entity = _stocks[i];
-            if (i == 0) {
-                stockCodes = entity.code;
-            } else {
-                stockCodes = [NSString stringWithFormat:@"%@,%@",stockCodes,entity.code];
-            }
+            [stocks addObject:entity.code];
         }
+        NSString *stockCodes = [stocks componentsJoinedByString:@","];
         WS(self)
         [[HttpRequestClient sharedClient] getStockInformation:stockCodes request:^(NSString *resultMsg, id dataDict, id error) {
             if (dataDict) {
@@ -160,7 +157,55 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+ /- (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
+ <#code#>
+ }
+ 
+ - (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
+ <#code#>
+ }
+ 
+ - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+ <#code#>
+ }
+ 
+ - (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+ <#code#>
+ }
+ 
+ - (CGSize)sizeForChildContentContainer:(nonnull id<UIContentContainer>)container withParentContainerSize:(CGSize)parentSize {
+ <#code#>
+ }
+ 
+ - (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+ <#code#>
+ }
+ 
+ - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+ <#code#>
+ }
+ 
+ - (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+ <#code#>
+ }
+ 
+ - (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
+ <#code#>
+ }
+ 
+ - (void)setNeedsFocusUpdate {
+ <#code#>
+ }
+ 
+ - (BOOL)shouldUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context {
+ <#code#>
+ }
+ 
+ - (void)updateFocusIfNeeded {
+ <#code#>
+ }
+ 
+ / Pass the selected object to the new view controller.
 }
 */
 

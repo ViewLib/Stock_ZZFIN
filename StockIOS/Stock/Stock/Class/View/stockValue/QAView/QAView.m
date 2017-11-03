@@ -21,13 +21,15 @@
     self.question.text = newModel[@"eventTitle"];
     self.answer.text = newModel[@"eventDesc"];
     
-    CGRect rect = [self.question.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0)
+    float width = K_FRAME_BASE_WIDTH/2+65;
+    
+    CGRect rect = [self.question.text boundingRectWithSize:CGSizeMake(width, 0)
                                        options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin |
                    NSStringDrawingUsesFontLeading
                                     attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}
                                        context:nil];
     
-    CGRect size = [self.answer.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0)
+    CGRect size = [self.answer.text boundingRectWithSize:CGSizeMake(width, 0)
                                                  options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin |
                    NSStringDrawingUsesFontLeading
                                               attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}
@@ -38,7 +40,7 @@
         high = size.size.height;
     }
     
-    self.viewHigh = high + 20;
+    self.viewHigh = high+10;
     
 }
 

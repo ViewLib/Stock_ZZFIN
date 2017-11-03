@@ -28,14 +28,7 @@
     self.value1.text = dic[@"attr1"];
     self.value2.text = dic[@"attr2"];
     
-    [self isOrNotOptional:dic];
-}
-
-- (void)isOrNotOptional:(NSDictionary *)dic {
-    NSPredicate* pred = [NSPredicate predicateWithFormat:@"code == %@", self.stockCode.text];
-    // 使用谓词过滤NSArray
-    NSArray *value = [[Config shareInstance].optionalStocks filteredArrayUsingPredicate:pred];
-    if (value.count > 0) {
+    if ([Utils isSelectionStock:dic[@"stockCode"]]) {
         _addBtn.hidden = YES;
         _addValue.hidden = NO;
     }

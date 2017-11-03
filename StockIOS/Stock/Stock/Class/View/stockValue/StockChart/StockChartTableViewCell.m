@@ -60,20 +60,25 @@
                     }
                 }
             }
-            
+            NSMutableArray *configKNew = [NSMutableArray array];
             NSMutableArray *newAry = [NSMutableArray array];
             [news enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 YYLineDataModel *model = [[YYLineDataModel alloc]initWithDict:obj];
                 model.preDataModel = preModel;
-                NSLog(@"index = %lu",(unsigned long)idx);
                 [model updateMA:news index:idx];
+                
+                NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:obj];
+                
                 NSString *day = [NSString stringWithFormat:@"%@",obj[@"day"]];
                 if ([news count] % 18 == ([news indexOfObject:obj] + 1 )%18 ) {
                     model.showDay = [NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]];
+                    [dic setValue:[NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]] forKey:@"showDay"];
                 }
                 [newAry addObject: model];
+                [configKNew addObject:dic];
                 preModel = model;
             }];
+            [[Config shareInstance] setKlineDate:configKNew];
             [self.stockDatadict setObject:newAry forKey:@"dayhqs"];
         }
     }];

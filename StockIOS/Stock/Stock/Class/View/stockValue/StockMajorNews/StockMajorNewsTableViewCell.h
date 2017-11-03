@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^reloadTable)();
+
 //重大事件
 @interface StockMajorNewsTableViewCell : UITableViewCell
 
@@ -19,10 +21,7 @@
 
 @property (strong, nonatomic) NSArray    *events;
 
-/**
- 更新cell
- @param dic 更新的内容
- */
-- (void)updateCell:(NSDictionary *)dic;
+@property (nonatomic, copy) reloadTable reloadTable;
+
 
 @end

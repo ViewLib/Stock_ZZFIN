@@ -50,20 +50,12 @@
         [qa updateView:dic];
         qa.frame = CGRectMake(0, viewY, K_FRAME_BASE_WIDTH-24, qa.viewHigh);
         viewY += qa.viewHigh + 20;
-        NSLog(@"%f--%f--%f",viewY,qa.viewHigh,qa.frame.origin.y);
         [self.valueView addSubview:qa];
     }
     self.valueViewHigh.constant = viewY;
-    [self updateFocusIfNeeded];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    CGRect newViewFrame = self.contentView.frame;
-    newViewFrame.size.height = self.valueView.frame.size.height + 78;
-    self.contentView.frame = newViewFrame;
-    
-//    self.frame = self.contentView.frame;
+    if (self.reloadTable) {
+        self.reloadTable();
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

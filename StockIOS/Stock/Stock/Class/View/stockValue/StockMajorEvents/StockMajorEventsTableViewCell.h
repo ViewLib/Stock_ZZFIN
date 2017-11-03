@@ -7,30 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PNLineChart.h"
-#import "PNLineChartData.h"
-#import "PNLineChartDataItem.h"
+#import "LineView.h"
 
 //重大消息
-@interface StockMajorEventsTableViewCell : UITableViewCell<PNChartDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface StockMajorEventsTableViewCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *MenuCollection;
 
-@property (strong, nonatomic) NSArray   *titleAry;
+@property (strong, nonatomic) NSArray *titleAry;
+
+@property (strong, nonatomic) NSString *titleNews;
 
 @property (weak, nonatomic) IBOutlet UIView *lineView;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *LineViewHigh;
 
-@property (nonatomic) PNLineChart * lineChart;
+@property (strong, nonatomic) NSString *stockCode;
 
-@property (strong, nonatomic) NSString   *stockCode;
+@property (strong, nonatomic) NSArray *events;
 
-@property (strong, nonatomic) NSArray    *events;
+@property (nonatomic, strong) NSTimer *timer;
 
-/**
- 更新cell
- @param dic 更新的内容
- */
-- (void)updateCell:(NSDictionary *)dic;
+@property (nonatomic) LineView *line;
+
 
 @end

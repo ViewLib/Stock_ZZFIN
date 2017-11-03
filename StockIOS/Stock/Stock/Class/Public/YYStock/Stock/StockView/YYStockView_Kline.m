@@ -282,7 +282,6 @@
     NSInteger length = startIndex+drawLineCount < self.lineModels.count ? drawLineCount+1 : self.lineModels.count - startIndex;
     [self.drawLineModels addObjectsFromArray:[self.lineModels subarrayWithRange:NSMakeRange(startIndex, length)]];
     
-    //更新顶部ma数据
     selectedModel = self.drawLineModels.lastObject;
     
     //更新最大值最小值-价格

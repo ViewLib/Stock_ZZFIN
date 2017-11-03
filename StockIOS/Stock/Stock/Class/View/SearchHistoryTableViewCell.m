@@ -34,14 +34,7 @@
         _Name.text = [titles firstObject];
         _code.text = [[titles lastObject] stringByReplacingOccurrencesOfString:@")" withString:@""];
     }
-    [self isOrNotOptional:dic];
-}
-
-- (void)isOrNotOptional:(NSDictionary *)dic {
-    NSPredicate* pred = [NSPredicate predicateWithFormat:@"code == %@", dic[@"code"]];
-    // 使用谓词过滤NSArray
-    NSArray *value = [[Config shareInstance].optionalStocks filteredArrayUsingPredicate:pred];
-    if (value.count > 0) {
+    if ([Utils isSelectionStock:dic[@"code"]]) {
         _addBtn.hidden = YES;
         _ValueLab.hidden = NO;
     }

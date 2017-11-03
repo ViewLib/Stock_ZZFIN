@@ -34,6 +34,20 @@ static const void *loadHud = &loadHud;
     [self setHud:hud];
 }
 
+- (void)showHudWithMessage:(NSString *)message {
+    UIView *view = [[UIApplication sharedApplication].delegate window];
+    [view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[MBProgressHUD class]]) {
+            [obj removeFromSuperview];
+        }
+    }];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = message;
+    hud.removeFromSuperViewOnHide = YES;
+    [self setHud:hud];
+}
+
 - (void)showMessageHud:(NSString *)message hideAfter:(NSTimeInterval )timer {
     UIWindow *view = [[UIApplication sharedApplication].delegate window];
     [view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
