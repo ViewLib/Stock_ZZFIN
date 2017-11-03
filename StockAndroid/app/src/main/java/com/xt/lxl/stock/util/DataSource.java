@@ -310,10 +310,11 @@ public class DataSource {
         Calendar instance = Calendar.getInstance();
         for (int i = 0; i < 10; i++) {
             if (instance.get(Calendar.DAY_OF_WEEK) == 5 || instance.get(Calendar.DAY_OF_WEEK) == 0) {
+                instance.add(Calendar.DAY_OF_MONTH, -1);
                 continue;
             }
             StockDateDataModel model = new StockDateDataModel();
-            String s = DateUtil.calendar2YYYY_MM_DD(instance);
+            String s = DateUtil.calendar2String(instance, DateUtil.SIMPLEFORMATTYPESTRING17);
 
             model.dateStr = s;
             model.maxPrice = maxPrice;

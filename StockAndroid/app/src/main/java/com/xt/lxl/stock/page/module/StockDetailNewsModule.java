@@ -110,9 +110,9 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
 
     private void initBarChart(LineChart lineChart) {
         lineChart.setDrawBorders(true); // 是否在折线图上添加边框
-        lineChart.setDescription("NIRSA");// 数据描述
-        lineChart.setDescriptionPosition(550, 60);//设置表格描述
-        lineChart.setDescriptionColor(Color.BLACK);//设置颜色
+//        lineChart.setDescription("NIRSA");// 数据描述
+//        lineChart.setDescriptionPosition(550, 60);//设置表格描述
+//        lineChart.setDescriptionColor(Color.BLACK);//设置颜色
         // 如果没有数据的时候，会显示这个，类似listview的emtpyview
         lineChart.setNoDataTextDescription("You need to provide data for the chart.");
         lineChart.setDrawGridBackground(true); // 是否显示表格颜色
@@ -138,7 +138,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setEnabled(true);//显示X轴
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//X轴位置
-        xAxis.setDrawGridLines(true);//设置x轴上每个点对应的线
+//        xAxis.setDrawGridLines(true);//设置x轴上每个点对应的线
         xAxis.setSpaceBetweenLabels(2);
         xAxis.setDrawGridLines(false);
 
@@ -151,6 +151,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
 //        leftAxis.setValueFormatter();//自定义Y轴数据格式
         leftAxis.setStartAtZero(false);//设置Y轴的数据不是从0开始
         leftAxis.setDrawTopYLabelEntry(true);
+        leftAxis.setDrawGridLines(false);
     }
 
     private void bindChartData(LineChart mChart, List<StockDateDataModel> dataList) {
@@ -175,7 +176,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
         // 用y轴的集合来设置参数
         lineDataSet.setLineWidth(2.0f); // 线宽
         lineDataSet.setCircleSize(0f);// 显示的圆形大小
-        lineDataSet.setColor(Color.BLUE);// 显示颜色
+        lineDataSet.setColor(Color.parseColor("#1F91E5"));// 显示颜色
         lineDataSet.setCircleColor(Color.TRANSPARENT);// 圆形的颜色
         lineDataSet.setHighLightColor(Color.TRANSPARENT); // 点击后高亮的线的颜色
         lineDataSet.setDrawValues(false);//隐藏折线图每个数据点的值
