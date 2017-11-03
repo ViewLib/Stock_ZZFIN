@@ -295,6 +295,47 @@ public class DataSource {
         response.rankResultList.add(model1);
         response.rankResultList.add(model2);
         response.rankResultList.add(model3);
+
         return response;
+    }
+
+    public static List<StockDateDataModel> getDayDataPriceList() {
+        List<StockDateDataModel> list = new ArrayList<>();
+
+        int maxPrice = 1100;//当前股票最高价格，单位：分
+        int minPrice = 1000;//当前股票最低价格，单位：分
+        int openPrice = 1040;//当前股票最低价格，单位：分
+        int closePrice = 1060;//当前股票最低价格，单位：分
+
+        Calendar instance = Calendar.getInstance();
+        for (int i = 0; i < 20; i++) {
+            if (instance.get(Calendar.DAY_OF_WEEK) == 5 || instance.get(Calendar.DAY_OF_WEEK) == 0) {
+                instance.add(Calendar.DAY_OF_MONTH, -1);
+                continue;
+            }
+            StockDateDataModel model = new StockDateDataModel();
+            String s = DateUtil.calendar2String(instance, DateUtil.SIMPLEFORMATTYPESTRING17);
+
+            model.dateStr = s;
+            model.maxPrice = maxPrice;
+            model.minPrice = minPrice;
+            model.openPrice = openPrice;
+            model.closePrice = closePrice;
+            model.volume = (int) (Math.random() * 1000);
+            list.add(model);
+
+            //add value
+            instance.add(Calendar.DAY_OF_MONTH, -1);
+            maxPrice += 10;
+            minPrice += 10;
+            openPrice += 10;
+            closePrice += 10;
+        }
+
+        List<StockDateDataModel> list2 = new ArrayList<>();
+        for (int i = list.size() - 1; i >= 0; i--) {
+            list2.add(list.get(i));
+        }
+        return list2;
     }
 }

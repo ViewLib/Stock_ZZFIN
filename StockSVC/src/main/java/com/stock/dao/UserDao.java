@@ -3,6 +3,9 @@ package com.stock.dao;
 
 import com.stock.model.model.StockUserModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by xiangleiliu on 2017/5/25.
  */
@@ -19,5 +22,5 @@ public interface UserDao {
 
     public StockUserModel selectStockUserModel(String moblie);
 
-
+    public ArrayList<StockUserModel> selectUserInfoList(int startIndex, int endIndex);
 }

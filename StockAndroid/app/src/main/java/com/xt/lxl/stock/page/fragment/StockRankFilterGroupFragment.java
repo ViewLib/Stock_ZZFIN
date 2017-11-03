@@ -78,6 +78,7 @@ public class StockRankFilterGroupFragment extends StockRankFilterBaseFragment {
             itemCheckTv.setPadding(padding, padding, padding, padding);
             itemCheckTv.setCheckMarkDrawable(R.drawable.hotel_icon_radiobutton_selector);
             itemCheckTv.setOnClickListener(itemCheckListener);
+            itemCheckTv.setChecked(itemModel.isCheck);
             mItemView.addView(itemCheckTv);
         }
     }
@@ -117,7 +118,6 @@ public class StockRankFilterGroupFragment extends StockRankFilterBaseFragment {
             itemModel.isCheck = checked;
         }
     };
-
 
 
 }

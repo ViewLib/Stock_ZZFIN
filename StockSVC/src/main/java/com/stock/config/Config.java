@@ -70,4 +70,10 @@ public class Config {
      * 财务数据
      */
     public String Finicial_API = "http://115.159.31.128:8090/zzfin/api/stock_finicial?data=%7B%22serviceCode%22%3A2007%2C%22stockCode%22%3A%22sz300170%22%2C%22versionCode%22%3A1%7D";
+
+
+    /**
+     * 用户信息
+     */
+    public String UserList_API = "http://localhost:8080/zzfin/back/user_manager";
 }

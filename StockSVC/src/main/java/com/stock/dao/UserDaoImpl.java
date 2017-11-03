@@ -5,6 +5,7 @@ import com.stock.model.model.StockUserModel;
 import com.stock.util.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -147,6 +148,41 @@ public class UserDaoImpl implements UserDao {
             closeSql(preStmt, null);
         }
         return null;
+    }
+
+    @Override
+    public ArrayList<StockUserModel> selectUserInfoList(int startIndex, int count) {
+        ArrayList<StockUserModel> userList = new ArrayList<>();
+        String sql = "select * from stock_user";
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+//            preStmt.setInt(1, startIndex);
+//            preStmt.setInt(2, count);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                int userid = rs.getInt("userid");
+                String nickname = rs.getString("nickname");
+                String moblie = rs.getString("moblie");
+                String area = rs.getString("area");
+                int age = rs.getInt("age");
+                Timestamp createTime = rs.getTimestamp("createTime");
+
+                StockUserModel userModel = new StockUserModel();
+                userModel.userId = userid;
+                userModel.moblie = moblie;
+                userModel.nickName = nickname;
+                userModel.area = area;
+                userModel.age = age;
+                userModel.createTime = new Date(createTime.getTime());
+                userList.add(userModel);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return userList;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {

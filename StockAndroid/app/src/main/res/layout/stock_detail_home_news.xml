@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/stock_detail_home_edit_module_bg"
     android:orientation="vertical"
-    android:background="@color/stock_main_white_bg"
-    android:padding="10dp"
-    >
+    android:padding="10dp">
 
     <com.xt.lxl.stock.widget.view.StockTextView
         android:id="@+id/stock_news_title"
         style="@style/text_14_000000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:text="重大消息"
         app:stock_text_drawable_direction="stock_left"
         app:stock_text_drawable_height="12dp"
@@ -21,22 +21,27 @@
         app:stock_text_drawable_width="12dp" />
 
     <com.xt.lxl.stock.widget.view.StockTabGroupButton
-        android:id="@+id/stock_detail_tab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:id="@+id/stock_news_container"
+        android:id="@+id/stock_detail_news_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="150dp">
+        android:layout_below="@id/stock_news_title" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="重大消息内容界面" />
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/stock_detail_linechart"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/stock_detail_news_tab" />
 
-    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/stock_event_news_view"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/stock_detail_news_tab" />
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/stock_detail_news_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>
