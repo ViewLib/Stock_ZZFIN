@@ -322,7 +322,7 @@ public class StockRankActivity extends FragmentActivity {
             if (index > 4) {
                 return;
             }
-            StockRankFilterGroupModel groupModel = mRankFilerList.get(index);
+//            StockRankFilterGroupModel groupModel = mRankFilerList.get(index);
 //            groupModel.filterGroupList.clear();
 //            groupModel.filterGroupList.addAll(topgroupModel.filterGroupList);
             sendRankdDetailService();
