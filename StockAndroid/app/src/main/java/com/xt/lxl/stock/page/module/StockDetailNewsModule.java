@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,28 +18,32 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
+import com.xt.lxl.stock.model.model.StockEventsDataList;
+import com.xt.lxl.stock.model.model.StockEventsDataModel;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
 import com.xt.lxl.stock.util.DataSource;
-import com.xt.lxl.stock.util.StockUtil;
+import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockTabGroupButton;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/19 0019.
  * 重大消息
  */
 
-public class StockDetailNewsModule extends StockDetailBaseModule {
+public class StockDetailNewsModule extends StockDetailBaseModule implements View.OnClickListener {
 
     private StockTextView mTitle;
     private StockTabGroupButton mTab;//查看更多
     private ViewPager mViewPager;//问题列表
-    private RelativeLayout mStockEventNewsView;
+    private RelativeLayout mStockNewDetail;
     private LineChart mLineChart;
     private StockViewPagerAdapter adapter;
 
@@ -52,9 +57,10 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
         mTitle = (StockTextView) view.findViewById(R.id.stock_news_title);
         mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_news_tab);
         mLineChart = (LineChart) view.findViewById(R.id.stock_detail_linechart);
-        mStockEventNewsView = (RelativeLayout) view.findViewById(R.id.stock_event_news_view);
-//        mViewPager = (ViewPager) view.findViewById(R.id.stock_detail_news_view_pager);
-
+        mStockNewDetail = (RelativeLayout) view.findViewById(R.id.stock_detail_news_detail);
+        mViewPager = (ViewPager) view.findViewById(R.id.stock_detail_news_view_pager);
+        mStockNewDetail = (RelativeLayout) view.findViewById(R.id.stock_detail_news_detail);
+        mStockNewDetail.setOnClickListener(this);
         List<String> list = new ArrayList<>();
         list.add("重组");
         list.add("定增");
@@ -80,52 +86,80 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
 
     @Override
     public void bindData() {
-        StockEventsDataResponse eventsDataResponse = mCacheBean.eventsDataResponse;
-        Log.i("lxltest", "eventsDataResponse:" + eventsDataResponse.stockEventsDataLists.size());
+        StockEventsDataResponse newsResponse = mCacheBean.newsResponse;
+        Log.i("lxltest", "eventsDataResponse:" + newsResponse.stockEventsDataLists.size());
         List<StockDateDataModel> dataList = DataSource.getDayDataPriceList();//重大事件日线图
 
         initBarChart(mLineChart);
         initBarChartXY(mLineChart, dataList);
         bindChartData(mLineChart, dataList);
 
-        TextView text = new TextView(mContainer.getContext());
-        text.setText("哈哈");
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(-2, -2);
-        lp.setMargins(100, 100, 0, 0);
-        mStockEventNewsView.addView(text, lp);
 
-        text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StockUtil.showToastOnMainThread(mContainer.getContext(), "Toast哈哈");
-            }
-        });
+        List<View> viewList = createViewList(mLineChart, dataList, newsResponse.stockEventsDataLists);
+        adapter = new StockViewPagerAdapter(viewList);
+        mViewPager.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
-//        List<View> viewList = createViewList(dataList);
-//        adapter = new StockViewPagerAdapter(viewList);
-//        mViewPager.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
     }
 
-//    private List<View> createViewList(List<StockDateDataModel> dataList) {
-//        List<View> viewList = new ArrayList<>();
-//        for (int i = 0; i < dataList.size(); i++) {
-//            StockDateDataModel model = dataList.get(i);
-//            View bar = createBarChart(model.closePrice);
-//            viewList.add(bar);
-//        }
-//        return viewList;
-//    }
+    private List<View> createViewList(View lineChart, List<StockDateDataModel> dataList, List<StockEventsDataList> stockEventsDataLists) {
 
-//    private View createBarChart(StockEventsDataList eventsDataList) {
-//        LineChart lineChart = new LineChart(mContainer.getContext());
-//        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(-1, DeviceUtil.getPixelFromDip(mContainer.getContext(), 150));
-//        lineChart.setLayoutParams(lp);
-//        initBarChart(lineChart);
-//        initBarChartXY(lineChart, eventsDataList);
-//        bindChartData(lineChart, eventsDataList.stockEventsDataModels);
-//        return null;
-//    }
+        int width = -2;
+        int height = -2;
+        int showNum = dataList.size();//一屏内展示的数量
+        int maxPrice = 12;
+        int minPrice = 10;
+
+        List<View> viewList = new ArrayList<>();
+        for (int i = 0; i < stockEventsDataLists.size(); i++) {
+            RelativeLayout eventContainer = new RelativeLayout(mContainer.getContext());
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(width, height);
+            eventContainer.setLayoutParams(lp);
+
+            StockEventsDataList eventsDataList = stockEventsDataLists.get(i);
+            Map<String, StockEventsDataModel> eventMap = new HashMap<>();
+            for (StockEventsDataModel eventsDataModel : eventsDataList.stockEventsDataModels) {
+                if (eventMap.get(eventsDataModel.eventDate) == null) {
+                    eventMap.put(eventsDataModel.eventDate, eventsDataModel);
+                }
+            }
+
+            //向RelativeLayout中添加view
+            for (int k = 0; k < dataList.size(); k++) {
+                StockDateDataModel model = dataList.get(k);
+                StockEventsDataModel eventsDataModel = eventMap.get(model.dateStr);
+                if (eventsDataModel == null) {
+                    continue;
+                }
+                TextView text = new TextView(mContainer.getContext());
+                text.setBackgroundResource(R.drawable.stock_detail_news_icon);
+                text.setOnClickListener(this);
+                text.setTag(eventsDataModel);
+                int iconWidth = DeviceUtil.getPixelFromDip(mContext, 15);
+                int iconHegiht = DeviceUtil.getPixelFromDip(mContext, 12);
+                RelativeLayout.LayoutParams relp = new RelativeLayout.LayoutParams(iconWidth, iconHegiht);
+                relp.setMargins(k * 20, 100, 0, 0);
+                eventContainer.addView(text, relp);
+            }
+            viewList.add(eventContainer);
+        }
+        return viewList;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.stock_detail_news_detail) {
+            mStockNewDetail.setVisibility(View.GONE);
+        } else if (v instanceof TextView) {
+            StockEventsDataModel eventsDataModel = (StockEventsDataModel) v.getTag();
+            mStockNewDetail.setVisibility(View.VISIBLE);
+            TextView newsTv = (TextView) mStockNewDetail.findViewById(R.id.stock_detail_news_detail_title);
+            TextView descTv = (TextView) mStockNewDetail.findViewById(R.id.stock_detail_news_detail_desc);
+            newsTv.setText(eventsDataModel.eventTitle);
+            descTv.setText(eventsDataModel.eventDesc);
+        }
+    }
 
     private void initBarChart(LineChart lineChart) {
         lineChart.setDrawBorders(true); // 是否在折线图上添加边框

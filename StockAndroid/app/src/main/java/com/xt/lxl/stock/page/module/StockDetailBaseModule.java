@@ -1,5 +1,6 @@
 package com.xt.lxl.stock.page.module;
 
+import android.content.Context;
 import android.view.View;
 
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
@@ -11,6 +12,7 @@ public abstract class StockDetailBaseModule {
 
     protected View mContainer;
     protected StockDetailCacheBean mCacheBean;
+    protected Context mContext;
 
     public StockDetailBaseModule(StockDetailCacheBean cacheBean) {
         mCacheBean = cacheBean;
@@ -18,6 +20,7 @@ public abstract class StockDetailBaseModule {
 
     public void setModuleView(View view) {
         mContainer = view;
+        this.mContext = mContainer.getContext();
         initModuleView(view);
     }
 
