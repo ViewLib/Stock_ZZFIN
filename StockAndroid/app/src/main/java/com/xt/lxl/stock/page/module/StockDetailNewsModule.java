@@ -4,8 +4,11 @@ import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -17,6 +20,7 @@ import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
 import com.xt.lxl.stock.util.DataSource;
+import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockTabGroupButton;
 import com.xt.lxl.stock.widget.view.StockTextView;
@@ -34,6 +38,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
     private StockTextView mTitle;
     private StockTabGroupButton mTab;//查看更多
     private ViewPager mViewPager;//问题列表
+    private RelativeLayout mStockEventNewsView;
     private LineChart mLineChart;
     private StockViewPagerAdapter adapter;
 
@@ -47,6 +52,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
         mTitle = (StockTextView) view.findViewById(R.id.stock_news_title);
         mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_news_tab);
         mLineChart = (LineChart) view.findViewById(R.id.stock_detail_linechart);
+        mStockEventNewsView = (RelativeLayout) view.findViewById(R.id.stock_event_news_view);
 //        mViewPager = (ViewPager) view.findViewById(R.id.stock_detail_news_view_pager);
 
         List<String> list = new ArrayList<>();
@@ -82,6 +88,19 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
         initBarChartXY(mLineChart, dataList);
         bindChartData(mLineChart, dataList);
 
+        TextView text = new TextView(mContainer.getContext());
+        text.setText("哈哈");
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(-2, -2);
+        lp.setMargins(100, 100, 0, 0);
+        mStockEventNewsView.addView(text, lp);
+
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StockUtil.showToastOnMainThread(mContainer.getContext(), "Toast哈哈");
+            }
+        });
+
 //        List<View> viewList = createViewList(dataList);
 //        adapter = new StockViewPagerAdapter(viewList);
 //        mViewPager.setAdapter(adapter);
@@ -110,7 +129,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
 
     private void initBarChart(LineChart lineChart) {
         lineChart.setDrawBorders(true); // 是否在折线图上添加边框
-//        lineChart.setDescription("NIRSA");// 数据描述
+        lineChart.setDescription("");// 隐藏描述
 //        lineChart.setDescriptionPosition(550, 60);//设置表格描述
 //        lineChart.setDescriptionColor(Color.BLACK);//设置颜色
         // 如果没有数据的时候，会显示这个，类似listview的emtpyview
@@ -128,6 +147,9 @@ public class StockDetailNewsModule extends StockDetailBaseModule {
         // if disabled, scaling can be done on x- and y-axis separately
         lineChart.setPinchZoom(false);//
         lineChart.setBackgroundColor(Color.WHITE);// 设置背景
+
+        Legend lineChartLegend = lineChart.getLegend();
+        lineChartLegend.setEnabled(false);
 
     }
 

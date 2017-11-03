@@ -308,7 +308,7 @@ public class DataSource {
         int closePrice = 1060;//当前股票最低价格，单位：分
 
         Calendar instance = Calendar.getInstance();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             if (instance.get(Calendar.DAY_OF_WEEK) == 5 || instance.get(Calendar.DAY_OF_WEEK) == 0) {
                 instance.add(Calendar.DAY_OF_MONTH, -1);
                 continue;
@@ -332,6 +332,10 @@ public class DataSource {
             closePrice += 10;
         }
 
-        return list;
+        List<StockDateDataModel> list2 = new ArrayList<>();
+        for (int i = list.size() - 1; i >= 0; i--) {
+            list2.add(list.get(i));
+        }
+        return list2;
     }
 }

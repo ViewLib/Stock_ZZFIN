@@ -215,6 +215,15 @@
         <url-pattern>/api/stock_event</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UserGetInfoListServlet</servlet-name>
+        <servlet-class>com.stock.servlet.UserGetInfoListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserGetInfoListServlet</servlet-name>
+        <url-pattern>/back/user_manager</url-pattern>
+    </servlet-mapping>
+
     <!-- 首页 -->
     <welcome-file-list>
         <welcome-file>rest/index</welcome-file>

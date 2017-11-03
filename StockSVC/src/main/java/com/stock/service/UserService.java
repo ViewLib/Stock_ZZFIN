@@ -8,6 +8,9 @@ import com.stock.model.request.StockUserRegisterRequest;
 import com.stock.model.response.StockUserCompletionResponse;
 import com.stock.model.response.StockUserRegisterResponse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by xiangleiliu on 2017/9/6.
  */
@@ -75,4 +78,11 @@ public class UserService {
         }
     }
 
+    public ArrayList<StockUserModel> selectUserInfo(String pageStr) {
+        //每页20条
+//        int page = Integer.parseInt(pageStr);
+//        int startIndex = (page - 1) * 20;
+        ArrayList<StockUserModel> stockUserModels = dao.selectUserInfoList(0, 20);
+        return stockUserModels;
+    }
 }
