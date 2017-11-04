@@ -196,11 +196,11 @@ scrollView滑动重绘页面
 
 - (void)reloadNewView:(NSArray *)news {
     
-    NSDictionary *dic1 = @{@"eventDate": @"1999-03-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
-    NSDictionary *dic2 = @{@"eventDate": @"2014-04-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
-    NSDictionary *dic3 = @{@"eventDate": @"2016-03-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
-    NSDictionary *dic4 = @{@"eventDate": @"2015-03-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
-    news = [NSArray arrayWithObjects:dic1,dic2,dic3,dic4, nil];
+//    NSDictionary *dic1 = @{@"eventDate": @"1999-03-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
+//    NSDictionary *dic2 = @{@"eventDate": @"2014-04-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
+//    NSDictionary *dic3 = @{@"eventDate": @"2016-03-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
+//    NSDictionary *dic4 = @{@"eventDate": @"2015-03-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
+//    news = [NSArray arrayWithObjects:dic1,dic2,dic3,dic4, nil];
     self.listNews = news;
     if (self.listNews.count > 0) {
         WS(self)

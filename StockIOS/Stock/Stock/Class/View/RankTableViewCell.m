@@ -24,7 +24,7 @@
 - (void)updateCell:(NSDictionary *)dic {
     self.number.text = [NSString stringWithFormat:@"%02ld",self.row+1];
     self.stockName.text = dic[@"stockName"];
-    self.stockCode.text = [dic[@"stockCode"] substringToIndex:6];
+    self.stockCode.text = dic[@"stockCode"];
     self.value1.text = dic[@"attr1"];
     self.value2.text = dic[@"attr2"];
     
@@ -58,6 +58,13 @@
     }];
 }
 
+- (void)updateCellColor {
+    NSArray *labels = @[_number,_stockName,_stockCode,_addValue,_value1,_value2];
+    [labels enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UILabel *lab = (UILabel *)obj;
+        lab.textColor = MAIN_COLOR;
+    }];
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

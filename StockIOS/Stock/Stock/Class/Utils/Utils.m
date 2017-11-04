@@ -18,8 +18,8 @@
         StockEntity *entity = (StockEntity *)obj;
         [stocks addObject:entity.code];
     }];
-    NSSet *set = [NSSet setWithArray:stock];
-    [[Config shareInstance] setOptionalStocks:[set allObjects]];
+    NSSet *set = [NSSet setWithArray:stocks];
+    [[Config shareInstance] setOptionalStocks:[set allObjects].mutableCopy];
 }
 
 #pragma mark - 是否为自选股

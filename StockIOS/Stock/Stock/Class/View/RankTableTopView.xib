@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -70,6 +70,11 @@
                 <constraint firstItem="h8Q-IQ-Uu8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VOJ-0W-g25"/>
                 <constraint firstAttribute="trailing" secondItem="h8Q-IQ-Uu8" secondAttribute="trailing" id="nR8-OD-0yz"/>
             </constraints>
+            <connections>
+                <outlet property="Name" destination="Paj-aG-MfQ" id="nVQ-CU-8YO"/>
+                <outlet property="value1" destination="XOM-sr-pnY" id="B2m-yV-nOM"/>
+                <outlet property="value2" destination="9me-Bz-oWs" id="0S0-UA-ix7"/>
+            </connections>
         </view>
     </objects>
 </document>
