@@ -240,6 +240,8 @@ public class StockDetailActivity extends FragmentActivity {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        mCacheBean.newsResponse = DataSource.getNewsResponse();
+
                         newsModule.bindData();
                     }
                 });

@@ -6,10 +6,13 @@ import android.util.Log;
 
 import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
+import com.xt.lxl.stock.model.model.StockEventsDataList;
+import com.xt.lxl.stock.model.model.StockEventsDataModel;
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockSyncModel;
+import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
@@ -314,7 +317,7 @@ public class DataSource {
                 continue;
             }
             StockDateDataModel model = new StockDateDataModel();
-            String s = DateUtil.calendar2String(instance, DateUtil.SIMPLEFORMATTYPESTRING17);
+            String s = DateUtil.calendar2String(instance, DateUtil.SIMPLEFORMATTYPESTRING7);
 
             model.dateStr = s;
             model.maxPrice = maxPrice;
@@ -337,5 +340,22 @@ public class DataSource {
             list2.add(list.get(i));
         }
         return list2;
+    }
+
+    public static StockEventsDataResponse getNewsResponse() {
+        StockEventsDataResponse response = new StockEventsDataResponse();
+        StockEventsDataList dataList = new StockEventsDataList();
+        dataList.eventType = StockEventsDataList.TYPE_LIFTED;
+        dataList.eventName = "解禁事件";
+
+        StockEventsDataModel eventModel = new StockEventsDataModel();
+        eventModel.eventDate = "2017-11-01";
+        eventModel.eventTitle = "范建震解禁1851万";
+        eventModel.eventDesc = "大股东减持30万股，平均每股38元";
+
+        dataList.stockEventsDataModels.add(eventModel);
+        response.moduleName = "重大消息";
+        response.stockEventsDataLists.add(dataList);
+        return response;
     }
 }

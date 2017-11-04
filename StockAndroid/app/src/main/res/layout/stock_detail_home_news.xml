@@ -2,10 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="240dp"
     android:background="@drawable/stock_detail_home_edit_module_bg"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
     <com.xt.lxl.stock.widget.view.StockTextView
         android:id="@+id/stock_news_title"
@@ -13,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:padding="10dp"
         android:text="重大消息"
         app:stock_text_drawable_direction="stock_left"
         app:stock_text_drawable_height="12dp"
@@ -23,7 +23,7 @@
     <com.xt.lxl.stock.widget.view.StockTabGroupButton
         android:id="@+id/stock_detail_news_tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@id/stock_news_title" />
 
     <com.github.mikephil.charting.charts.LineChart
@@ -32,16 +32,48 @@
         android:layout_height="150dp"
         android:layout_below="@id/stock_detail_news_tab" />
 
-    <RelativeLayout
-        android:id="@+id/stock_event_news_view"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@id/stock_detail_news_tab" />
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/stock_event_news_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:layout_below="@id/stock_detail_news_tab" />-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/stock_detail_news_view_pager"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:visibility="gone" />
+        android:layout_below="@id/stock_detail_news_tab" />
+
+    <RelativeLayout
+        android:id="@+id/stock_detail_news_detail"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/stock_detail_news_tab"
+        android:background="#55000000"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/stock_detail_news_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大股东最近是否增持" />
+
+            <TextView
+                android:id="@+id/stock_detail_news_detail_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大股东减持30万股" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
