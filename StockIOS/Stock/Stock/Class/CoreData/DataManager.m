@@ -100,13 +100,15 @@
     } else {
         entity = (StockEntity *)[NSEntityDescription insertNewObjectForEntityForName:@"StockEntity" inManagedObjectContext:self.mManagerContent];
     }
-    entity = [self getStockWithAry:stockValue];
+    entity = [self getStockWithAry:stockValue withEntity:entity];
     return [self.mManagerContent save:nil];
 }
 
 //获取stockEntity对象
--(StockEntity *)getStockWithAry:(NSArray *)ary {
-    StockEntity *entity = (StockEntity *)[NSEntityDescription insertNewObjectForEntityForName:@"StockEntity" inManagedObjectContext:self.mManagerContent];
+-(StockEntity *)getStockWithAry:(NSArray *)ary withEntity:(StockEntity *)entity {
+    if (!entity) {
+        entity = (StockEntity *)[NSEntityDescription insertNewObjectForEntityForName:@"StockEntity" inManagedObjectContext:self.mManagerContent];
+    }
     //名字
     entity.name = ary[1];
     //代码

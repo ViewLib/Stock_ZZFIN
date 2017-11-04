@@ -33,7 +33,7 @@
 -(BOOL)updateSotckEntitys:(NSArray *)stockDic;
 
 //获取stockEntity对象
--(StockEntity *)getStockWithAry:(NSArray *)ary;
+-(StockEntity *)getStockWithAry:(NSArray *)ary withEntity:(StockEntity *)entity;
 
 //保存stockEntity对象
 -(BOOL)updateSotckEntity:(StockEntity *)stock;

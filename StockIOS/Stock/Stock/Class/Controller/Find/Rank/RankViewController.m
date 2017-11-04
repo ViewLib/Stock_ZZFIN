@@ -56,8 +56,9 @@
     [super viewDidLoad];
     
     [_collectionBtn ImgTopTextButtom];
-    
-    [_topLabel setText:self.valueDic[@"rankModel"][@"title"]];
+//    NSString *titleStr = self.valueDic[@"rankModel"][@"title"];
+    NSString *titleStr = self.valueDic[@"stockViewModel"][@"stockCode"];
+    [_topLabel setText:titleStr];
     NSArray *btns = @[_filterOne,_filterTwo,_filterThr,_filterFor];
     
     [[Config shareInstance].rankSearchList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -236,7 +237,7 @@
             if (![responseString isEqualToString:@"pv_none_match=1"]) {
                 if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
                     NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
-                    StockEntity *entity = [[DataManager shareDataMangaer] getStockWithAry:responseValues];
+                    StockEntity *entity = [[DataManager shareDataMangaer] getStockWithAry:responseValues withEntity:nil];
                     if (request) {
                         request(entity);
                     }

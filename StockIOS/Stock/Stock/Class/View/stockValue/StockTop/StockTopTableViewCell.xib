@@ -46,7 +46,7 @@
                                 <state key="normal" title="加自选" image="icon_add">
                                     <color key="titleColor" red="0.094117647060000004" green="0.42745098040000001" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <state key="selected" title="删自选" image=" "/>
+                                <state key="selected" title="删自选" image="icon_subtract"/>
                                 <connections>
                                     <action selector="clickSelectBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aGO-5u-eB3"/>
                                 </connections>
@@ -295,7 +295,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name=" " width="16" height="16"/>
         <image name="icon_add" width="19" height="19"/>
+        <image name="icon_subtract" width="19" height="19"/>
     </resources>
 </document>
