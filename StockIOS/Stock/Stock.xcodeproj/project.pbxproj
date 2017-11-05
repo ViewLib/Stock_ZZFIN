@@ -148,6 +148,8 @@
 		04D500C71FAF0F9E00BA86A3 /* MyCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D500C51FAF0F9E00BA86A3 /* MyCollectionTableViewCell.xib */; };
 		04D500CB1FAF0FB100BA86A3 /* MyNewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500C91FAF0FB100BA86A3 /* MyNewsTableViewCell.m */; };
 		04D500CC1FAF0FB100BA86A3 /* MyNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D500CA1FAF0FB100BA86A3 /* MyNewsTableViewCell.xib */; };
+		04D500CF1FAF37C800BA86A3 /* RACSignal+CCPRAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500CE1FAF37C800BA86A3 /* RACSignal+CCPRAC.m */; };
+		04D500D21FAF386400BA86A3 /* NSArray+CCPArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500D11FAF386400BA86A3 /* NSArray+CCPArray.m */; };
 		847076221F4EE36100974772 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847076191F4EE36100974772 /* Assets.xcassets */; };
 		847076231F4EE36100974772 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8470761A1F4EE36100974772 /* LaunchScreen.storyboard */; };
 		847076251F4EE36100974772 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8470761E1F4EE36100974772 /* Info.plist */; };
@@ -533,6 +535,10 @@
 		04D500C81FAF0FB100BA86A3 /* MyNewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyNewsTableViewCell.h; sourceTree = "<group>"; };
 		04D500C91FAF0FB100BA86A3 /* MyNewsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyNewsTableViewCell.m; sourceTree = "<group>"; };
 		04D500CA1FAF0FB100BA86A3 /* MyNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyNewsTableViewCell.xib; sourceTree = "<group>"; };
+		04D500CD1FAF37C700BA86A3 /* RACSignal+CCPRAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+CCPRAC.h"; sourceTree = "<group>"; };
+		04D500CE1FAF37C800BA86A3 /* RACSignal+CCPRAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+CCPRAC.m"; sourceTree = "<group>"; };
+		04D500D01FAF386400BA86A3 /* NSArray+CCPArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CCPArray.h"; sourceTree = "<group>"; };
+		04D500D11FAF386400BA86A3 /* NSArray+CCPArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CCPArray.m"; sourceTree = "<group>"; };
 		16743ED1C5E2BE8144EDA026 /* Pods-Stock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock/Pods-Stock.debug.xcconfig"; sourceTree = "<group>"; };
 		536C84D01D4ACD8E9B97C355 /* Pods-Stock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stock/Pods-Stock.release.xcconfig"; sourceTree = "<group>"; };
 		847075F91F4EE20400974772 /* Stock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1886,6 +1892,10 @@
 		8470768E1F4EF73500974772 /* ReactiveObjC */ = {
 			isa = PBXGroup;
 			children = (
+				04D500D01FAF386400BA86A3 /* NSArray+CCPArray.h */,
+				04D500D11FAF386400BA86A3 /* NSArray+CCPArray.m */,
+				04D500CD1FAF37C700BA86A3 /* RACSignal+CCPRAC.h */,
+				04D500CE1FAF37C800BA86A3 /* RACSignal+CCPRAC.m */,
 				8470768F1F4EF73500974772 /* extobjc */,
 				847076951F4EF73500974772 /* MKAnnotationView+RACSignalSupport.h */,
 				847076961F4EF73500974772 /* MKAnnotationView+RACSignalSupport.m */,
@@ -2360,6 +2370,7 @@
 				847077D21F4EF73600974772 /* UIControl+RACSignalSupportPrivate.m in Sources */,
 				04D500CB1FAF0FB100BA86A3 /* MyNewsTableViewCell.m in Sources */,
 				041187C01F94F94500DE4BC9 /* StockMajorEventsTableViewCell.m in Sources */,
+				04D500CF1FAF37C800BA86A3 /* RACSignal+CCPRAC.m in Sources */,
 				847077761F4EF73600974772 /* IQUIWindow+Hierarchy.m in Sources */,
 				0448BFEB1F7942FD009DC7D6 /* RankTableViewCell.m in Sources */,
 				0448C0001F7A80B5009DC7D6 /* JSONKit.m in Sources */,
@@ -2424,6 +2435,7 @@
 				04BC270C1F9C9AE9008285B2 /* ValueCollection.m in Sources */,
 				847077CB1F4EF73600974772 /* RACValueTransformer.m in Sources */,
 				8470776D1F4EF73600974772 /* UIResponder+Router.m in Sources */,
+				04D500D21FAF386400BA86A3 /* NSArray+CCPArray.m in Sources */,
 				847077B91F4EF73600974772 /* RACSequence.m in Sources */,
 				04C2E23C1F59A76900C09D86 /* HttpRequestClient.m in Sources */,
 				847077CF1F4EF73600974772 /* UIButton+RACCommandSupport.m in Sources */,

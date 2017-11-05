@@ -101,7 +101,7 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Wj-y7-wEn">
                                         <rect key="frame" x="190" y="241" width="155" height="40"/>
-                                        <color key="backgroundColor" red="0.094117647060000004" green="0.42745098040000001" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="155" id="16P-fq-Y4b"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="jn1-dY-Ckc"/>
@@ -121,11 +121,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rf8-RO-inc">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rf8-RO-inc">
+                                        <rect key="frame" x="0.0" y="-20" width="375" height="667"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SBB-3l-INm">
-                                                <rect key="frame" x="0.0" y="391" width="375" height="40"/>
+                                                <rect key="frame" x="0.0" y="411" width="375" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtK-D8-HEW">
                                                         <rect key="frame" x="315" y="5" width="50" height="30"/>
@@ -160,7 +160,7 @@
                                                 </constraints>
                                             </view>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPH-h5-smd">
-                                                <rect key="frame" x="0.0" y="431" width="375" height="216"/>
+                                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="X5X-jC-f6X" id="SmW-LY-YYQ"/>
@@ -197,7 +197,7 @@
                                     <constraint firstItem="j56-Iz-Mxk" firstAttribute="top" secondItem="JN3-qe-KCl" secondAttribute="bottom" constant="35" id="fAj-aN-oN4"/>
                                     <constraint firstItem="7ZS-z1-caU" firstAttribute="leading" secondItem="Mja-dc-hTV" secondAttribute="leading" id="laL-va-4mQ"/>
                                     <constraint firstAttribute="bottom" secondItem="Rf8-RO-inc" secondAttribute="bottom" id="pVZ-Oc-7pY"/>
-                                    <constraint firstItem="Rf8-RO-inc" firstAttribute="top" secondItem="Mja-dc-hTV" secondAttribute="top" id="qim-bQ-XLe"/>
+                                    <constraint firstItem="Rf8-RO-inc" firstAttribute="top" secondItem="Mja-dc-hTV" secondAttribute="top" constant="-20" id="qim-bQ-XLe"/>
                                     <constraint firstItem="epH-dy-JKW" firstAttribute="top" secondItem="j56-Iz-Mxk" secondAttribute="bottom" constant="20" id="tKd-Wb-ysD"/>
                                     <constraint firstItem="7ZS-z1-caU" firstAttribute="top" secondItem="Mja-dc-hTV" secondAttribute="top" id="vQS-Lt-pnC"/>
                                 </constraints>
@@ -422,11 +422,6 @@
                             <constraint firstItem="v9O-nH-tQ5" firstAttribute="top" secondItem="hI3-EP-hdN" secondAttribute="bottom" id="YNg-zR-sVi"/>
                             <constraint firstItem="v9O-nH-tQ5" firstAttribute="leading" secondItem="TtZ-ih-xkJ" secondAttribute="leading" id="aaH-n5-Rdy"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="v9O-nH-tQ5"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="jJG-d8-mSF"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -439,6 +434,7 @@
                         <outlet property="VerificationView" destination="IW0-IW-Az4" id="WYr-Mg-mU4"/>
                         <outlet property="againBtn" destination="Qog-IM-EgB" id="OOK-er-CQc"/>
                         <outlet property="codeText" destination="3Ib-fT-Yfw" id="80S-DR-erS"/>
+                        <outlet property="oneNextBtn" destination="4Wj-y7-wEn" id="pHQ-V2-rGJ"/>
                         <outlet property="phoneCode" destination="CmP-95-5pJ" id="PwQ-ZK-s4F"/>
                         <outlet property="phoneNum" destination="Nbn-bg-0H3" id="Qab-gN-3j2"/>
                         <outlet property="phoneText" destination="j56-Iz-Mxk" id="dcj-Kd-GtC"/>

@@ -16,6 +16,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if ([Config shareInstance].login) {
+        
+    }
+    
     // Do any additional setup after loading the view.
 }
 

@@ -53,6 +53,8 @@
         [self getHotStock];
         [self getTop10];
         [self getRankfilter];
+        [self getAreaCode];
+        [self autoLogin];
     });
     
     //获取设备UUID
@@ -189,6 +191,20 @@
     return @"Test User attachment";
 }
 
+- (void)autoLogin {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults valueForKey:UserLogin]) {
+        [[HttpRequestClient sharedClient] registerWithPhone:[defaults valueForKey:UserLogin] request:^(NSString *resultMsg, id dataDict, id error) {
+            [self hideHud];
+            if (dataDict) {
+                [[Config shareInstance] setIslogin:YES];
+                [Config shareInstance].login = [[loginEntity alloc] initWithDictionary:dataDict];
+            } 
+        }];
+    }
+    
+}
+
 /**
  转跳登陆页面
  */
@@ -205,7 +221,6 @@
 - (void)getStocks {
     [[Config shareInstance] setLocalStocks:[Utils getArrayFromJsonFile:@"DefaultStock"]];
 }
-
 
 /**
  获取手机区号本地数据

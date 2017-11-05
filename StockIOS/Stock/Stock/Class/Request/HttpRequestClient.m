@@ -22,8 +22,6 @@
     return _sharedClient;
 }
 
-
-
 #pragma mark - 注册
 - (void)registerWithPhone:(NSString *)phone request:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/register",SERVICE];

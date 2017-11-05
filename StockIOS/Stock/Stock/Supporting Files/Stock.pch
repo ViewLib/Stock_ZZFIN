@@ -24,6 +24,9 @@
 #import "UIViewController+DismissKeyboard.h"
 #import "UIView+AICategory.h"
 #include "BuglyHotfixConfuse_pch.h"
+#import "RACSignal.h"
+#import "RACSignal+CCPRAC.h"
+#import "NSArray+CCPArray.h"
 
 
 #endif /* Stock_pch */

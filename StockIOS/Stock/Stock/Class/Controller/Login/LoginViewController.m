@@ -13,15 +13,15 @@
 static int num = 60;
 
 @interface LoginViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
-{
-    NSTimer *time;
-}
+
 //手机区号选择
 @property (weak, nonatomic) IBOutlet UIButton *phoneCode;
 //手机号码输入框
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
 
 @property (weak, nonatomic) IBOutlet UIView *picBgView;
+
+@property (weak, nonatomic) IBOutlet UIButton *oneNextBtn;
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
@@ -40,6 +40,8 @@ static int num = 60;
 
 @property (weak, nonatomic) IBOutlet UIButton *againBtn;
 
+@property (strong, nonatomic)   NSTimer    *timer;
+
 @property (nonatomic, strong)   NSArray     *verificationLabs;
 
 @property (nonatomic, strong)   NSString    *btnTitle;
@@ -56,6 +58,7 @@ static int num = 60;
     _verificationLabs = @[_Verification1,_Verification2,_Verification3,_Verification4];
     [self.phoneCode ImgRightTextLeft];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    [self racOneNextBtn];
 }
 
 - (IBAction)clickPhoneCode:(UIButton *)sender {
@@ -88,53 +91,26 @@ static int num = 60;
 //指定每行如何展示数据（此处和tableview类似）
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    NSDictionary *dic = [Config shareInstance].areacode[component];
+    NSDictionary *dic = [Config shareInstance].areacode[row];
     NSString * title = dic[@"key"];
     return title;
 }
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{
-    for(UIView *singleLine in pickerView.subviews)
-    {
-        if (singleLine.frame.size.height < 1)
-        {
-            singleLine.backgroundColor = [UIColor lightGrayColor];
-        }
-    }
-    
-    UILabel* pickerLabel = (UILabel*)view;
-    if (!pickerLabel) {
-        pickerLabel = [[UILabel alloc] init];
-        pickerLabel.adjustsFontSizeToFitWidth = YES;
-        pickerLabel.textAlignment = NSTextAlignmentCenter;
-        [pickerLabel setTextColor:MAIN_COLOR];
-        [pickerLabel setBackgroundColor:[UIColor clearColor]];
-        [pickerLabel setFont:[UIFont boldSystemFontOfSize:24]];
-    }
-    
-    pickerLabel.text=[self pickerView:pickerView titleForRow:row forComponent:component];//调用上一个委托方法，获得要展示的title
-    
-    return pickerLabel;
-    
-}
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSDictionary *dic = [Config shareInstance].areacode[component];
+    NSDictionary *dic = [Config shareInstance].areacode[row];
     self.btnTitle = dic[@"key"];
     self.key = dic[@"value"];
 }
 
 - (IBAction)clickSuccessBtn:(UIButton *)sender {
     self.picBgView.hidden = YES;
-    [self.phoneCode setTitle:self.btnTitle forState:UIControlStateNormal];
+    [self.phoneCode setTitle:[NSString stringWithFormat:@"+%@",self.key] forState:UIControlStateNormal];
 }
 
 - (IBAction)clickHIddenBtn:(UIButton *)sender {
     self.picBgView.hidden = YES;
 }
-
 
 - (IBAction)clickNextBtn:(UIButton *)sender {
     if (_phoneText.text.length > 0 && [Utils validateNum:_phoneText.text]) {
@@ -144,7 +120,7 @@ static int num = 60;
                 [self showHint:@"验证码发送成功"];
                 [self showSecondView];
             } else {
-                [self showHint:@"手机号码有误"];
+                [self showHint:@"验证码发送失败"];
             }
         }];
     }
@@ -182,17 +158,17 @@ static int num = 60;
 //开始倒计时
 - (void)startTime {
     self.againBtn.userInteractionEnabled = NO;
-    time = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateBtnTitle) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateBtnTitle) userInfo:nil repeats:YES];
 }
 
 - (void)updateBtnTitle {
-    [self.againBtn setTitle:[NSString stringWithFormat:@"%d",num] forState:UIControlStateSelected];
+    [self.againBtn setTitle:[NSString stringWithFormat:@"%d",num] forState:UIControlStateNormal];
     if (num > 0) {
         num --;
     } else if (num == 0) {
         num = 60;
-        [time invalidate];
-        time = nil;
+        [self.timer invalidate];
+        self.timer = nil;
         [self.againBtn setTitle:@"重新获取" forState:UIControlStateNormal];
         self.againBtn.userInteractionEnabled = YES;
     }
@@ -227,7 +203,7 @@ static int num = 60;
 
 - (void)commitCode:(NSString *)string {
     [self showHudInView:self.Verification hint:@"正在登录"];
-    [SMSSDK commitVerificationCode:string phoneNumber:_phoneNum.text zone:@"86" result:^(NSError *error) {
+    [SMSSDK commitVerificationCode:string phoneNumber:_phoneNum.text zone:self.key result:^(NSError *error) {
         if (!error) {
             [self login];
         } else {
@@ -238,17 +214,32 @@ static int num = 60;
 }
 
 - (void)login {
-    [[HttpRequestClient sharedClient] registerWithPhone:[NSString stringWithFormat:@"86_%@",_phoneNum.text] request:^(NSString *resultMsg, id dataDict, id error) {
+    [[HttpRequestClient sharedClient] registerWithPhone:[NSString stringWithFormat:@"%@_%@",_key ,_phoneNum.text] request:^(NSString *resultMsg, id dataDict, id error) {
         [self hideHud];
         if (dataDict) {
             [[Config shareInstance] setIslogin:YES];
             [Config shareInstance].login = [[loginEntity alloc] initWithDictionary:dataDict];
-            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:UserLogin];
+            [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@_%@",_key ,_phoneNum.text] forKey:UserLogin];
             if (_login_success) {
                 _login_success();
             }
             [self showHint:@"注册/登录成功"];
             [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [self showHint:resultMsg];
+        }
+    }];
+}
+
+- (void)racOneNextBtn {
+    NSMutableArray *ary = [NSMutableArray arrayWithObject:_phoneText];
+    
+    WS(self)
+    RACSignal *newSignal = [RACSignal rac_tfs:ary];
+    [newSignal subscribeNext:^(id x) {
+        selfWeak.oneNextBtn.userInteractionEnabled = [x boolValue];
+        if (selfWeak.oneNextBtn.userInteractionEnabled) {
+            [selfWeak.oneNextBtn setBackgroundColor:MAIN_COLOR];
         }
     }];
 }

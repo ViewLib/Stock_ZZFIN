@@ -46,6 +46,7 @@
     [self createDate];
     [_headerImg.layer setCornerRadius:_headerImg.frame.size.width/2];
     _headerImg.layer.masksToBounds =YES;
+    _headerImg.userInteractionEnabled = YES;
     
     UIButton *btn = [[UIButton alloc] initWithFrame:self.headerImg.bounds];
     [btn addTarget:self action:@selector(clickImageBtn) forControlEvents:UIControlEventTouchUpInside];
