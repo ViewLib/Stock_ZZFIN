@@ -192,6 +192,7 @@ public class StockRankActivity extends FragmentActivity {
         TextView attr3 = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_attr3);
 
         if (mRankList.size() == 0) {
+            mRankAdapter.notifyDataSetChanged();
             return;
         }
         //header

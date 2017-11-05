@@ -121,10 +121,10 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         int bottomPadding = DeviceUtil.getPixelFromDip(mContext, 15);
         int containerHeight = DeviceUtil.getPixelFromDip(mContext, 150);
         double itemHeight = ((double) (containerHeight - topPadding - bottomPadding)) / (axisMaximum - axisMinimum);//1分价格对应的高度
-        double itemWidht = (double) (DeviceUtil.getScreenWidth(mContext) - leftPadding - rigntPadding) / (showNum - 1);
+        double itemWidth = (double) (DeviceUtil.getScreenWidth(mContext) - leftPadding - rigntPadding) / (showNum - 1);
 
         int iconWidth = DeviceUtil.getPixelFromDip(mContext, 15);
-        int iconHegiht = DeviceUtil.getPixelFromDip(mContext, 12);
+        int iconHeight = DeviceUtil.getPixelFromDip(mContext, 12);
 
 
         for (int i = 0; i < stockEventsDataLists.size(); i++) {
@@ -140,6 +140,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
                     eventMap.put(eventsDataModel.eventDate, eventsDataModel);
                 }
             }
+            boolean isShowBigIcon = eventMap.size() <= 1;
 
             //向RelativeLayout中添加view
             for (int k = 0; k < dataList.size(); k++) {
@@ -148,15 +149,19 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
                 if (eventsDataModel == null) {
                     continue;
                 }
+                int showWidth = isShowBigIcon ? iconWidth * 3 : iconWidth;
+                int showHeight = isShowBigIcon ? iconHeight * 3 : iconHeight;
                 TextView text = new TextView(mContainer.getContext());
                 text.setBackgroundResource(R.drawable.stock_detail_news_icon);
                 text.setOnClickListener(this);
                 text.setTag(eventsDataModel);
-                RelativeLayout.LayoutParams relp = new RelativeLayout.LayoutParams(iconWidth, iconHegiht);
-
+                RelativeLayout.LayoutParams relp = new RelativeLayout.LayoutParams(showWidth, showHeight);
+                if (isShowBigIcon) {
+                    text.setText(eventsDataModel.eventTitle);
+                }
                 //计算上下边距
-                int itemRightMargin = (int) (itemWidht * k - (iconWidth / 2));
-                int itemTopMarigin = (int) ((axisMaximum - model.closePrice) * itemHeight - iconHegiht / 2);
+                int itemRightMargin = (int) (itemWidth * k - (iconWidth / 2));
+                int itemTopMarigin = (int) ((axisMaximum - model.closePrice) * itemHeight - iconHeight / 2);
 
                 relp.setMargins(itemRightMargin, itemTopMarigin, 0, 0);
                 eventContainer.addView(text, relp);

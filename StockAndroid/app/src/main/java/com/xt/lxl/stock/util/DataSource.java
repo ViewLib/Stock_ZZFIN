@@ -40,7 +40,7 @@ public class DataSource {
         instance.set(Calendar.MINUTE, 29);
         List<StockMinuteDataModel> minuteDataList = response.stockMinuteDataModels;
         for (int i = 0; i < 100; i++) {
-            int v = (int) (Math.random() * 10 - 5) * 10 + 1290;
+            int v = (int) (Math.random() * 10 - 5) * 10 + 1107;
             Log.i("lxltest", "v:" + v);
             StockMinuteDataModel stockMinuteData = new StockMinuteDataModel(DateUtil.calendar2Time(instance.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING12), v, 10, 1290);
             minuteDataList.add(stockMinuteData);
