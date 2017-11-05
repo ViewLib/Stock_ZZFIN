@@ -110,6 +110,8 @@ public class StockRankFilterGroupFragment extends StockRankFilterBaseFragment {
             if (checked) {
                 for (int i = 0; i < mItemView.getChildCount(); i++) {
                     StockCheckedTextView itemView = (StockCheckedTextView) mItemView.getChildAt(i);
+                    StockRankFilterItemModel itemModel = (StockRankFilterItemModel) itemView.getTag();
+                    itemModel.isCheck = false;
                     itemView.setChecked(false);
                 }
             }

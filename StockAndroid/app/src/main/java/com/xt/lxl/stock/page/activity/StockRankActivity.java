@@ -239,6 +239,7 @@ public class StockRankActivity extends FragmentActivity {
                 mRankAdapter.notifyDataSetChanged();
             }
         });
+        mRankAdapter.notifyDataSetChanged();
     }
 
     HashMap<Integer, Integer> mWidthMap = new HashMap<>();
