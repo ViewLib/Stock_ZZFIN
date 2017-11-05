@@ -90,30 +90,47 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         Log.i("lxltest", "eventsDataResponse:" + newsResponse.stockEventsDataLists.size());
         List<StockDateDataModel> dataList = DataSource.getDayDataPriceList();//重大事件日线图
 
+        //K线图不变化
         initBarChart(mLineChart);
         initBarChartXY(mLineChart, dataList);
         bindChartData(mLineChart, dataList);
 
-
-        List<View> viewList = createViewList(mLineChart, dataList, newsResponse.stockEventsDataLists);
+        //线程刷新
+        //消息事件发生变化
+        List<View> viewList = createViewList(dataList, newsResponse.stockEventsDataLists, mLineChart);
         adapter = new StockViewPagerAdapter(viewList);
         mViewPager.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
     }
 
-    private List<View> createViewList(View lineChart, List<StockDateDataModel> dataList, List<StockEventsDataList> stockEventsDataLists) {
-
-        int width = -2;
-        int height = -2;
-        int showNum = dataList.size();//一屏内展示的数量
-        int maxPrice = 12;
-        int minPrice = 10;
-
+    private List<View> createViewList(List<StockDateDataModel> dataList, List<StockEventsDataList> stockEventsDataLists, LineChart lineChart) {
         List<View> viewList = new ArrayList<>();
+        if (dataList.size() <= 1) {
+            return viewList;
+        }
+        int showNum = dataList.size();//一屏内展示的数量
+        YAxis leftAxis = lineChart.getAxisLeft();
+        float axisMaximum = leftAxis.getAxisMaximum() * 100;
+        float axisMinimum = leftAxis.getAxisMinimum() * 100;
+        Log.i("test", "max:" + axisMaximum + ",min:" + axisMinimum);
+
+        int leftPadding = DeviceUtil.getPixelFromDip(mContext, 29);
+        int rigntPadding = DeviceUtil.getPixelFromDip(mContext, 15);
+        int topPadding = DeviceUtil.getPixelFromDip(mContext, 15);
+        int bottomPadding = DeviceUtil.getPixelFromDip(mContext, 15);
+        int containerHeight = DeviceUtil.getPixelFromDip(mContext, 150);
+        double itemHeight = ((double) (containerHeight - topPadding - bottomPadding)) / (axisMaximum - axisMinimum);//1分价格对应的高度
+        double itemWidht = (double) (DeviceUtil.getScreenWidth(mContext) - leftPadding - rigntPadding) / (showNum - 1);
+
+        int iconWidth = DeviceUtil.getPixelFromDip(mContext, 15);
+        int iconHegiht = DeviceUtil.getPixelFromDip(mContext, 12);
+
+
         for (int i = 0; i < stockEventsDataLists.size(); i++) {
             RelativeLayout eventContainer = new RelativeLayout(mContainer.getContext());
-            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(width, height);
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            eventContainer.setPadding(leftPadding, topPadding, rigntPadding, bottomPadding);
             eventContainer.setLayoutParams(lp);
 
             StockEventsDataList eventsDataList = stockEventsDataLists.get(i);
@@ -135,10 +152,13 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
                 text.setBackgroundResource(R.drawable.stock_detail_news_icon);
                 text.setOnClickListener(this);
                 text.setTag(eventsDataModel);
-                int iconWidth = DeviceUtil.getPixelFromDip(mContext, 15);
-                int iconHegiht = DeviceUtil.getPixelFromDip(mContext, 12);
                 RelativeLayout.LayoutParams relp = new RelativeLayout.LayoutParams(iconWidth, iconHegiht);
-                relp.setMargins(k * 20, 100, 0, 0);
+
+                //计算上下边距
+                int itemRightMargin = (int) (itemWidht * k - (iconWidth / 2));
+                int itemTopMarigin = (int) ((axisMaximum - model.closePrice) * itemHeight - iconHegiht / 2);
+
+                relp.setMargins(itemRightMargin, itemTopMarigin, 0, 0);
                 eventContainer.addView(text, relp);
             }
             viewList.add(eventContainer);

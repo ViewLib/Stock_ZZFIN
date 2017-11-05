@@ -3,7 +3,6 @@ package com.xt.lxl.stock.page.module;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -77,7 +76,6 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
     public void bindData() {
         //刷新数据
         StockDetailFinanceResponse financeResponse = mCacheBean.financeResponse;
-        Log.i("lxltest", "financeResponse:" + financeResponse.groupList.size());
         List<View> viewList = createViewList(financeResponse.groupList);
         adapter = new StockViewPagerAdapter(viewList);
         mViewPager.setAdapter(adapter);
