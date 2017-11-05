@@ -140,7 +140,8 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
                     eventMap.put(eventsDataModel.eventDate, eventsDataModel);
                 }
             }
-            boolean isShowBigIcon = eventMap.size() <= 1;
+            boolean isShowBigIcon = false;
+//            boolean isShowBigIcon = eventMap.size() <= 1;
 
             //向RelativeLayout中添加view
             for (int k = 0; k < dataList.size(); k++) {

@@ -117,17 +117,17 @@ public class StockDaoImpl implements StockDao {
                 String rank_title = rs.getString("rank_title");
                 String rank_sql = rs.getString("rank_sql");
                 //拼接sql
-               // System.out.println("1---rank_sql_01:"+rank_sql);
+                // System.out.println("1---rank_sql_01:"+rank_sql);
                 if (!strsql.equals("")) {
-                   // rank_sql = rank_sql + strsql;
-                    rank_sql=rank_sql.replace("#",strsql);
-                }else{
-                    rank_sql=rank_sql.replace("#","");
+                    // rank_sql = rank_sql + strsql;
+                    rank_sql = rank_sql.replace("#", strsql);
+                } else {
+                    rank_sql = rank_sql.replace("#", "");
                 }
                 Connection con = null;
                 StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
                 PreparedStatement preStmt2 = null;
-               // System.out.println("2---search_relation:"+search_relation);
+                // System.out.println("2---search_relation:"+search_relation);
                 //System.out.println("3---strsql:"+strsql);
                 //System.out.println("4---rank_sql_02:"+rank_sql);
                 try {
@@ -177,14 +177,14 @@ public class StockDaoImpl implements StockDao {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                   // stockLinkDao.close(rs, preStmt2, con);
+                    // stockLinkDao.close(rs, preStmt2, con);
                 }
             }
             return searchModelList;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-           // closeSql(preStmt, null);
+            // closeSql(preStmt, null);
         }
 
         return searchModelList;
@@ -244,10 +244,11 @@ public class StockDaoImpl implements StockDao {
     public List<StockRankFilterItemModel> getAllStockRankFilterItem() {
         List<StockRankFilterItemModel> filterItemList = new ArrayList<>();
         String first_sql = "select * from stock_filter_item where status=1";
+        ResultSet rs = null;
         PreparedStatement preStmt = null;
         try {
             preStmt = conn.prepareStatement(first_sql);
-            ResultSet rs = preStmt.executeQuery();
+            rs = preStmt.executeQuery();
             while (rs.next()) {
                 StockRankFilterItemModel itemModel = new StockRankFilterItemModel();
                 itemModel.filterId = rs.getInt("filter_id");
@@ -257,6 +258,8 @@ public class StockDaoImpl implements StockDao {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            closeSql(preStmt, rs);
         }
         return filterItemList;
     }
@@ -414,7 +417,7 @@ public class StockDaoImpl implements StockDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-           // closeSql(preStmt, null);
+            // closeSql(preStmt, null);
         }
         return strSql;
     }

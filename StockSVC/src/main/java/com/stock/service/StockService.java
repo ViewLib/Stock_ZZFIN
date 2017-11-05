@@ -392,7 +392,7 @@ public class StockService {
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
             //范建震
-            eventDataModel.eventDesc = resultModel.attr6 + resultModel.attr1 + "向" + resultModel.attr7 + "质押" + resultModel.attr4 + "万手";
+            eventDataModel.eventDesc = resultModel.attr6 + resultModel.attr1 + "向" + resultModel.attr7 + "质押" + resultModel.attr4 + "万股";
         } else if (subType == StockEventsDataList.TYPE_HOLDER_CHANGE) {
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;

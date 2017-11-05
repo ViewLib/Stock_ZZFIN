@@ -407,7 +407,7 @@ public class DataSource {
         dataList2.eventName = "股票质押";
 
         StockEventsDataModel eventModel21 = new StockEventsDataModel();
-        eventModel21.eventDate = "2017-10-15";
+        eventModel21.eventDate = "2017-10-19";
         eventModel21.eventTitle = "范建震质押1851万";
         eventModel21.eventDesc = "大股东质押30万股";
 
