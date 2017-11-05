@@ -60,14 +60,14 @@ public class StockService {
         List<StockRankFilterItemModel> searchlist = rankDetailResquest.searchlist;
         String sqlLists = "";
         if (searchlist.size() > 0) {
-            sqlLists = "and stock_code in(";
+            sqlLists = "and ts.ts_code in(";
             for (int i = 0; i < searchlist.size(); i++) {
                 if (searchlist.size() > 2) {
                     if (i == 0) {
-                        sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  union  ";
+                        sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  intersect  ";
                     }
-                    if (i > 0 && i < searchlist.size() - 2) {
-                        sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  union  ";
+                    if (i > 0 && i<searchlist.size() - 1) {
+                        sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  intersect  ";
                     }
                     if (i == searchlist.size() - 1 && searchlist.size() > 2) {
                         sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId);
@@ -79,7 +79,7 @@ public class StockService {
                     }
                     if (searchlist.size() == 2) {
                         if (i == 0) {
-                            sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  union  ";
+                            sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  intersect  ";
                         } else {
                             sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId);
                         }
