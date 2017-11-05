@@ -10,4 +10,8 @@
 
 @interface RankTableTopView : UIView
 
+@property (weak, nonatomic) IBOutlet UILabel *Name;
+
+@property (weak, nonatomic) IBOutlet UILabel *value1;
+@property (weak, nonatomic) IBOutlet UILabel *value2;
 @end

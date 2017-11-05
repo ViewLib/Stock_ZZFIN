@@ -10,6 +10,69 @@
 
 @implementation Utils
 
+#pragma mark - 更新自选股
++ (void)updateStock {
+    NSArray *stock = [[DataManager shareDataMangaer] queryStockEntitys];
+    NSMutableArray *stocks = [NSMutableArray array];
+    [stock enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        StockEntity *entity = (StockEntity *)obj;
+        [stocks addObject:entity.code];
+    }];
+    NSSet *set = [NSSet setWithArray:stocks];
+    [[Config shareInstance] setOptionalStocks:[set allObjects].mutableCopy];
+}
+
+#pragma mark - 是否为自选股
++ (BOOL)isSelectionStock:(NSString *)stockCode {
+    if ([[Config shareInstance].optionalStocks indexOfObject:stockCode] != NSNotFound) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+#pragma mark - 添加自选股
++ (void)AddStock:(NSString *)stockCode utilRequest:(utilRequest)utilRequest {
+    [[UIApplication sharedApplication].delegate.window.rootViewController.view showHudWithMessage:@"正在添加自选"];
+    [[HttpRequestClient sharedClient] getStockInformation:stockCode request:^(NSString *resultMsg, id dataDict, id error) {
+        [[UIApplication sharedApplication].delegate.window.rootViewController.view hideHud];
+        if (dataDict) {
+            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
+            if (![responseString isEqualToString:@"pv_none_match=1"]) {
+                if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
+                    NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
+                    [[DataManager shareDataMangaer] updateSotckEntitys:responseValues];
+                    [[UIApplication sharedApplication].delegate.window.rootViewController showHint:@"已添加自选"];
+                    if (utilRequest) {
+                        utilRequest(YES);
+                    }
+                } else {
+                    [[UIApplication sharedApplication].delegate.window.rootViewController showHint:@"您选的股票已退市"];
+                    if (utilRequest) {
+                        utilRequest(NO);
+                    }
+                }
+            } else {
+                [[UIApplication sharedApplication].delegate.window.rootViewController showHint:@"服务器访问失败，请重试"];
+                if (utilRequest) {
+                    utilRequest(NO);
+                }
+            }
+            [Utils updateStock];
+        }
+    }];
+}
+
+#pragma mark - 删除自选股
++ (void)removeStock:(NSString *)stockCode utilRequest:(utilRequest)utilRequest {
+    BOOL isSuccess = [[DataManager shareDataMangaer] removeStockEntity:stockCode];
+    if (utilRequest) {
+        utilRequest(isSuccess);
+    }
+    [Utils updateStock];
+}
+
 #pragma mark - 分时图数据格式转换
 + (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice {
     NSString *time = dic[@"time"];

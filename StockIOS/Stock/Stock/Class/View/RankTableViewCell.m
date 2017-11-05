@@ -24,18 +24,11 @@
 - (void)updateCell:(NSDictionary *)dic {
     self.number.text = [NSString stringWithFormat:@"%02ld",self.row+1];
     self.stockName.text = dic[@"stockName"];
-    self.stockCode.text = [dic[@"stockCode"] substringToIndex:6];
+    self.stockCode.text = dic[@"stockCode"];
     self.value1.text = dic[@"attr1"];
     self.value2.text = dic[@"attr2"];
     
-    [self isOrNotOptional:dic];
-}
-
-- (void)isOrNotOptional:(NSDictionary *)dic {
-    NSPredicate* pred = [NSPredicate predicateWithFormat:@"code == %@", self.stockCode.text];
-    // 使用谓词过滤NSArray
-    NSArray *value = [[Config shareInstance].optionalStocks filteredArrayUsingPredicate:pred];
-    if (value.count > 0) {
+    if ([Utils isSelectionStock:dic[@"stockCode"]]) {
         _addBtn.hidden = YES;
         _addValue.hidden = NO;
     }
@@ -65,6 +58,13 @@
     }];
 }
 
+- (void)updateCellColor {
+    NSArray *labels = @[_number,_stockName,_stockCode,_addValue,_value1,_value2];
+    [labels enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UILabel *lab = (UILabel *)obj;
+        lab.textColor = MAIN_COLOR;
+    }];
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

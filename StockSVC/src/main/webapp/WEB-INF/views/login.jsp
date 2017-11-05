@@ -78,7 +78,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 			<label class="control-label visible-ie8 visible-ie9">密码</label>
 			<div class="input-icon">
 				<i class="fa fa-lock"></i>
-				<input name="password" id="password" size="25" value="lxl301lxl" class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" />
+				<input name="password" id="password" size="25" value="lxl" class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" />
 			</div>
 		</div>
 		<div class="form-actions">

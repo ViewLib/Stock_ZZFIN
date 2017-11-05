@@ -79,7 +79,7 @@
         cell.viewTwoClickBlock = ^(NSInteger row) {
             [selfWeak clickView:row type:@"Two"];
         };
-        [cell updateCell:ary];
+        [cell updateCell:ary with:(int)indexPath.row];
     }
     return cell;
 }

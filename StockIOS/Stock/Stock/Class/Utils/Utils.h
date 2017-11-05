@@ -9,7 +9,22 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef void(^utilRequest)(BOOL value);
+
 @interface Utils : NSObject
+
+#pragma mark - 更新自选股
++ (void)updateStock;
+
+#pragma mark - 是否为自选股
++ (BOOL)isSelectionStock:(NSString *)stockCode;
+
+#pragma mark - 添加自选股
++ (void)AddStock:(NSString *)stockCode utilRequest:(utilRequest)utilRequest;
+
+#pragma mark - 删除自选股
++ (void)removeStock:(NSString *)stockCode utilRequest:(utilRequest)utilRequest;
+
 #pragma mark - 分时图数据格式转换
 + (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice;
 

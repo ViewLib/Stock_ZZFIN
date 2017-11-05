@@ -27,7 +27,7 @@
 @property (nonatomic ,strong)   loginEntity   *login;
 
 //用户自选股
-@property (nonatomic ,strong)   NSArray       *optionalStocks;
+@property (nonatomic ,strong)   NSMutableArray *optionalStocks;
 
 //热门推荐股票列表
 @property (nonatomic ,strong)   NSArray       *hotStocks;
@@ -44,8 +44,11 @@
 //RankFilter数据
 @property (nonatomic ,strong)   NSMutableArray       *rankList;
 
-//RankFilter数据
+//RankOther数据
 @property (nonatomic ,strong)   NSMutableArray       *rankOtherList;
+
+//K线图数据
+@property (nonatomic ,strong)   NSMutableArray       *KlineDate;
 
 +(Config *) shareInstance;
 

@@ -248,6 +248,9 @@ public class StockService {
     public StockDetailCompanyModel stockDetailCompanyModels(StockDetailCompanyInfoRequest stockDetailCompanyInfoRequest, StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse) throws Exception {
         String stockCode = transCode(stockDetailCompanyInfoRequest.stockCode);
         StockDetailCompanyModel stockDetailCompanyModels = dao.getCompanyInfo(stockCode);//dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
+        if(stockDetailCompanyModels.establishDate.contains(" ")){
+            stockDetailCompanyModels.establishDate = stockDetailCompanyModels.establishDate.split(" ")[0];
+        }
         return stockDetailCompanyModels;
     }
 

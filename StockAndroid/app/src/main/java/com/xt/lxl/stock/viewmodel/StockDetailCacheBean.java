@@ -26,6 +26,7 @@ public class StockDetailCacheBean {
     public StockDetailFinanceResponse financeResponse = new StockDetailFinanceResponse();//财务信息
 
     public StockEventsDataResponse eventsDataResponse = new StockEventsDataResponse();//重大事件模块
+    public StockEventsDataResponse newsResponse = new StockEventsDataResponse();//重大消息模块
 
 }
 

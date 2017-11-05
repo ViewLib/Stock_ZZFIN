@@ -170,7 +170,7 @@
             if (![responseString isEqualToString:@"pv_none_match=1"]) {
                 if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
                     NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
-                    StockEntity *entity = [[DataManager shareDataMangaer] getStockWithAry:responseValues];
+                    StockEntity *entity = [[DataManager shareDataMangaer] getStockWithAry:responseValues withEntity:nil];
                     if (isJoin) {
                         [[DataManager shareDataMangaer] updateSotckEntity:entity];
                         [self showHint:@"已添加自选"];

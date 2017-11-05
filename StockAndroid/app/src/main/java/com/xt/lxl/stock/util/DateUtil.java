@@ -247,6 +247,14 @@ public class DateUtil {
         return str;
     }
 
+    public static String calendar2String(Calendar calendar,String type) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(type);
+        TimeZone timeZone = TimeZone.getTimeZone(TIMEZONE_CN);
+        dateFormat.setTimeZone(timeZone);
+        String str = dateFormat.format(calendar.getTime());
+        return str;
+    }
+
     /**
      * 获取当前日期 8位
      *

@@ -1,6 +1,5 @@
 package com.xt.lxl.stock.page.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -77,6 +76,7 @@ public class StockRankActivity extends FragmentActivity {
     }
 
     private void bindData() {
+        mTitleTv.setTitle(mRankModel.title, R.style.text_18_ffffff);
         mSaveList.clear();
         mSaveList.addAll(DataSource.getSaveStockCodeList(this));
         mRankAdapter = new StockRankAdapter(this, mCallBacks);
@@ -192,6 +192,7 @@ public class StockRankActivity extends FragmentActivity {
         TextView attr3 = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_attr3);
 
         if (mRankList.size() == 0) {
+            mRankAdapter.notifyDataSetChanged();
             return;
         }
         //header
@@ -239,6 +240,7 @@ public class StockRankActivity extends FragmentActivity {
                 mRankAdapter.notifyDataSetChanged();
             }
         });
+        mRankAdapter.notifyDataSetChanged();
     }
 
     HashMap<Integer, Integer> mWidthMap = new HashMap<>();
@@ -322,7 +324,7 @@ public class StockRankActivity extends FragmentActivity {
             if (index > 4) {
                 return;
             }
-            StockRankFilterGroupModel groupModel = mRankFilerList.get(index);
+//            StockRankFilterGroupModel groupModel = mRankFilerList.get(index);
 //            groupModel.filterGroupList.clear();
 //            groupModel.filterGroupList.addAll(topgroupModel.filterGroupList);
             sendRankdDetailService();

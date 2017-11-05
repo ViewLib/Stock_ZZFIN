@@ -89,6 +89,10 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"StockMajorNewsTableViewCell" owner:nil options:nil] firstObject];
             cell.stockCode = self.stockCodeStr;
+            WS(self)
+            cell.reloadTable = ^{
+                [selfWeak.valueTable reloadData];
+            };
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
         return cell;

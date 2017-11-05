@@ -17,12 +17,12 @@ public class AmountUtil {
     public static String transHandFromAmount(String amout) {
         Long aLong = StringUtil.toLong(amout);
         if (aLong > 100000000L) {
-            return aLong / 100 / 100000000 + "亿手";
+            return aLong / 100000000 + "亿股";
         }
         if (aLong > 10000L) {
-            return aLong / 100 / 10000 + "万手";
+            return aLong / 10000 + "万股";
         }
-        return aLong / 100 + "手";
+        return aLong + "股";
     }
 
     public static String transRatioFromHave(String amout) {

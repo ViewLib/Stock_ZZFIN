@@ -10,7 +10,6 @@
 
 @interface MAline : UIView
 
-
 - (instancetype)initWithContext:(CGContextRef)context;
 
 - (void)drawWithColor:(UIColor *)lineColor maPositions:(NSArray *)maPositions;

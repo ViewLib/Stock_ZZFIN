@@ -229,6 +229,17 @@ public class StockDayChartFragment extends StockBaseChartFragment {
             return dayViewModel;
         }
         dayViewModel.dateDataList = dataResponses.dateDataList;
+        int size = dayViewModel.dateDataList.size();
+        if (size > 260) {
+            dayViewModel.dateDataList = dayViewModel.dateDataList.subList(size - 260, size);
+        }
+
+        for (StockDateDataModel dateDataModel : dayViewModel.dateDataList) {
+            if (dateDataModel.dateStr.contains(" ")) {
+                dateDataModel.dateStr = dateDataModel.dateStr.split(" ")[0];
+            }
+        }
+
         dayViewModel.maxVolum = dayViewModel.dateDataList.get(0).volume;
         for (int i = 0; i < dayViewModel.dateDataList.size(); i++) {
             StockDateDataModel stockDateData = dayViewModel.dateDataList.get(i);
@@ -307,6 +318,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         barChart.setDescription("");
         barChart.setDragEnabled(true);
         barChart.setScaleYEnabled(false);
+        barChart.setMaxVisibleValueCount(60);
 
         Legend barChartLegend = barChart.getLegend();
         barChartLegend.setEnabled(false);

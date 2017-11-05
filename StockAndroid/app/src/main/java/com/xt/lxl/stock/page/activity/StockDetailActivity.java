@@ -113,7 +113,8 @@ public class StockDetailActivity extends FragmentActivity {
         sendStockCompanyService();
         sendStockGradeService();
         sendFinanceService();
-        sendEventImportant();
+        sendImportantEvent();
+        sendNewsEvent();
     }
 
     Runnable runnable = new Runnable() {
@@ -212,7 +213,7 @@ public class StockDetailActivity extends FragmentActivity {
         }).start();
     }
 
-    private void sendEventImportant() {
+    private void sendImportantEvent() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -225,6 +226,23 @@ public class StockDetailActivity extends FragmentActivity {
                     @Override
                     public void run() {
                         importEventModule.bindData();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void sendNewsEvent() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCacheBean.newsResponse = DataSource.getNewsResponse();
+
+                        newsModule.bindData();
                     }
                 });
             }

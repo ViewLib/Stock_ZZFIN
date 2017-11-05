@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1RB-fR-oJr">
-                        <rect key="frame" x="0.0" y="0.0" width="79" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="81.5" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfj-4e-M6j">
                                 <rect key="frame" x="0.0" y="0.0" width="25" height="50"/>
@@ -31,13 +31,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中国银行" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmQ-83-UMw">
-                                <rect key="frame" x="25" y="5" width="54" height="20"/>
+                                <rect key="frame" x="25" y="5" width="56.5" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="330022" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cm2-k9-Usn">
-                                <rect key="frame" x="25" y="25" width="54" height="20"/>
+                                <rect key="frame" x="25" y="25" width="56.5" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -60,7 +60,7 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="190-BV-zY7">
-                        <rect key="frame" x="79" y="0.0" width="59" height="49.5"/>
+                        <rect key="frame" x="81.5" y="0.0" width="61.5" height="49.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <state key="normal" image="icon_add">
                             <color key="titleColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -70,19 +70,19 @@
                         </connections>
                     </button>
                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已添加" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W5J-fL-z7K">
-                        <rect key="frame" x="79" y="0.0" width="59" height="49.5"/>
+                        <rect key="frame" x="81.5" y="0.0" width="61.5" height="49.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8M7-8d-Uh0">
-                        <rect key="frame" x="138" y="0.0" width="158.5" height="49.5"/>
+                        <rect key="frame" x="143" y="0.0" width="151" height="49.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZN-Gy-Nj9">
-                        <rect key="frame" x="296.5" y="0.0" width="78.5" height="49.5"/>
+                        <rect key="frame" x="294" y="0.0" width="81" height="49.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -98,7 +98,7 @@
                     <constraint firstAttribute="trailing" secondItem="HZN-Gy-Nj9" secondAttribute="trailing" id="Ft9-NC-mzb"/>
                     <constraint firstAttribute="bottom" secondItem="8M7-8d-Uh0" secondAttribute="bottom" id="Igh-zL-iul"/>
                     <constraint firstItem="8M7-8d-Uh0" firstAttribute="leading" secondItem="190-BV-zY7" secondAttribute="trailing" id="KFE-0y-P1q"/>
-                    <constraint firstItem="8M7-8d-Uh0" firstAttribute="width" secondItem="1RB-fR-oJr" secondAttribute="width" constant="80" id="Lay-2C-edC"/>
+                    <constraint firstItem="8M7-8d-Uh0" firstAttribute="width" secondItem="1RB-fR-oJr" secondAttribute="width" constant="70" id="Lay-2C-edC"/>
                     <constraint firstItem="190-BV-zY7" firstAttribute="width" secondItem="1RB-fR-oJr" secondAttribute="width" constant="-20" id="McL-cP-CEG"/>
                     <constraint firstItem="1RB-fR-oJr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SCP-SP-GPS"/>
                     <constraint firstAttribute="bottom" secondItem="190-BV-zY7" secondAttribute="bottom" id="TGK-iE-SIa"/>

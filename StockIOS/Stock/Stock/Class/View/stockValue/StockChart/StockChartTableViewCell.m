@@ -48,26 +48,37 @@
         __block YYLineDataModel *preModel;
         if ([dataDict[@"resultCode"] intValue] == 200) {
             NSArray *array = dataDict[@"dateDataList"];
-            NSMutableArray *news = [NSMutableArray array];
-            int x = array.count - 300;
-            for (int i = x; i < array.count; i++) {
-                NSDictionary *dic = array[i];
-                NSDictionary *new = [Utils KlineDicWithDic:dic];
-                [news addObject:new];
-            }
             
+            NSMutableArray *news = [NSMutableArray array];
+            for (int i = 0; i < array.count; i++) {
+                NSDictionary *dic = array[i];
+                if ([dic[@"volume"] intValue] > 0) {
+                    NSDictionary *new = [Utils KlineDicWithDic:dic];
+                    [news addObject:new];
+                    if (news.count == 780) {
+                        break;
+                    }
+                }
+            }
+            NSMutableArray *configKNew = [NSMutableArray array];
             NSMutableArray *newAry = [NSMutableArray array];
             [news enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 YYLineDataModel *model = [[YYLineDataModel alloc]initWithDict:obj];
                 model.preDataModel = preModel;
                 [model updateMA:news index:idx];
+                
+                NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:obj];
+                
                 NSString *day = [NSString stringWithFormat:@"%@",obj[@"day"]];
                 if ([news count] % 18 == ([news indexOfObject:obj] + 1 )%18 ) {
                     model.showDay = [NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]];
+                    [dic setValue:[NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]] forKey:@"showDay"];
                 }
                 [newAry addObject: model];
+                [configKNew addObject:dic];
                 preModel = model;
             }];
+            [[Config shareInstance] setKlineDate:configKNew];
             [self.stockDatadict setObject:newAry forKey:@"dayhqs"];
         }
     }];

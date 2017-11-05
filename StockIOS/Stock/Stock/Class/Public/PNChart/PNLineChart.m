@@ -21,6 +21,8 @@
 @property(nonatomic) NSMutableArray *pointPath;       // Array of point path, one for each line
 @property(nonatomic) NSMutableArray *endPointsOfPath;      // Array of start and end points of each line path, one for each line
 
+@property(nonatomic) NSMutableArray *imagePoint;
+
 @property(nonatomic) CABasicAnimation *pathAnimation; // will be set to nil if _displayAnimation is NO
 
 // display grade
@@ -235,12 +237,25 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self touchPoint:touches withEvent:event];
+    [self touchImage:touches withEvent:event];
     [self touchKeyPoint:touches withEvent:event];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [self touchPoint:touches withEvent:event];
+    [self touchImage:touches withEvent:event];
     [self touchKeyPoint:touches withEvent:event];
+}
+
+- (void)touchImage:(NSSet *)touches withEvent:(UIEvent *)event {
+    CGPoint point = [[touches anyObject] locationInView:self];
+    for (CALayer *layer in self.imagePoint) {
+        CGPoint Point = [layer convertPoint:point fromLayer:self.layer];
+        if ([layer containsPoint:Point]) {
+            [_delegate userClickedOnLinePoint:point lineIndex:1111111111];
+            return;
+        }
+    }
 }
 
 - (void)touchPoint:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -259,7 +274,7 @@
             float distance = (float) fabs(((p2.x - p1.x) * (touchPoint.y - p1.y)) - ((p1.x - touchPoint.x) * (p1.y - p2.y)));
             distance /= hypot(p2.x - p1.x, p1.y - p2.y);
 
-            if (distance <= 5.0) {
+            if (distance <= 25.0) {
                 // Conform to delegate parameters, figure out what bezier path this CGPoint belongs to.
                 NSUInteger lineIndex = 0;
                 for (NSArray<UIBezierPath *> *paths in _chartPath) {
@@ -392,13 +407,38 @@
 
         [CATransaction commit];
 
+        self.imagePoint = [NSMutableArray array];
+        
         NSMutableArray *textLayerArray = self.gradeStringPaths[lineIndex];
         for (CATextLayer *textLayer in textLayerArray) {
             CABasicAnimation *fadeAnimation = [self fadeAnimation];
             [textLayer addAnimation:fadeAnimation forKey:nil];
+//            [imagePoint addObject:@{@"key": textLayer.string, @"x": [NSNumber numberWithDouble:textLayer.position.x], @"y": [NSNumber numberWithDouble:textLayer.position.y]}];
+            
+            // 新建图层
+            CALayer *layer = [CALayer layer];
+            // 设置图层背景
+            layer.backgroundColor = MAIN_COLOR.CGColor;
+            // 这一句等同于上面两句的效果。
+            layer.frame = CGRectMake(0, 0, 30, 30);
+            
+            layer.position = CGPointMake(textLayer.position.x, textLayer.position.y - 30*2/3);
+            
+            // 设置图层圆角
+            layer.cornerRadius = 3;
+            // 设置超出部分剪掉
+            layer.masksToBounds = YES;
+            // 设置图层内容
+//            layer.contents = (id)[UIImage imageNamed:@"lufy"].CGImage;
+            // 显示图层
+            [self.layer addSublayer:layer];
+            
+            [self.imagePoint addObject:layer];
         }
 
         UIGraphicsEndImageContext();
+        
+        
     }
     [self setNeedsDisplay];
 }

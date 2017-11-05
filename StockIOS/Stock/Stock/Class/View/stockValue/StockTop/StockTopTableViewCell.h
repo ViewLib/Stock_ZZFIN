@@ -31,6 +31,8 @@
 //市值
 @property (weak, nonatomic) IBOutlet UILabel *marketValue;
 
+@property (strong, nonatomic) NSString *code;
+
 /**
  更新cell
  @param dic 更新的内容

@@ -24,4 +24,7 @@
  */
 - (void)updateCell:(NSDictionary *)dic;
 
+//更新颜色
+- (void)updateCellColor;
+
 @end

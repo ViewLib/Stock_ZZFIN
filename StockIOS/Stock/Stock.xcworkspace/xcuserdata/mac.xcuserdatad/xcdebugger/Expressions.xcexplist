@@ -3,10 +3,27 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "__60-[HttpRequestClient httpBossWith:type:paramDict:completion:]_block_invoke.96:HttpRequestClient.m">
+         contextName = "-[LineView reloadNewView:]:LineView.m">
+      </ContextState>
+      <ContextState
+         contextName = "__39-[WKNewView drawWithColor:maPositions:]_block_invoke:WKNewView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.MAPositions">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__46-[StockMajorEventsTableViewCell getStockEvent]_block_invoke:StockMajorEventsTableViewCell.m">
       </ContextState>
       <ContextState
          contextName = "__29-[RankViewController getData]_block_invoke:RankViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__60-[HttpRequestClient httpBossWith:type:paramDict:completion:]_block_invoke.96:HttpRequestClient.m">
+      </ContextState>
+      <ContextState
+         contextName = "__85-[WKSLineView convertToPositionModelsWithXPosition:drawLineModels:maxValue:minValue:]_block_invoke:WKSLineView.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

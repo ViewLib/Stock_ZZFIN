@@ -10,7 +10,11 @@
 
 @interface QAView : UIView
 
+@property (weak, nonatomic) IBOutlet UILabel *question;
 
+@property (weak, nonatomic) IBOutlet UILabel *answer;
+
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, assign)   float   viewHigh;
 /**
  更新cell

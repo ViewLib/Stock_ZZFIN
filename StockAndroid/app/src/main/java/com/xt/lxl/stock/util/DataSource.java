@@ -6,10 +6,13 @@ import android.util.Log;
 
 import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
+import com.xt.lxl.stock.model.model.StockEventsDataList;
+import com.xt.lxl.stock.model.model.StockEventsDataModel;
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockSyncModel;
+import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
@@ -37,7 +40,7 @@ public class DataSource {
         instance.set(Calendar.MINUTE, 29);
         List<StockMinuteDataModel> minuteDataList = response.stockMinuteDataModels;
         for (int i = 0; i < 100; i++) {
-            int v = (int) (Math.random() * 10 - 5) * 10 + 1290;
+            int v = (int) (Math.random() * 10 - 5) * 10 + 1107;
             Log.i("lxltest", "v:" + v);
             StockMinuteDataModel stockMinuteData = new StockMinuteDataModel(DateUtil.calendar2Time(instance.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING12), v, 10, 1290);
             minuteDataList.add(stockMinuteData);
@@ -295,6 +298,124 @@ public class DataSource {
         response.rankResultList.add(model1);
         response.rankResultList.add(model2);
         response.rankResultList.add(model3);
+
+        return response;
+    }
+
+    public static List<StockDateDataModel> getDayDataPriceList() {
+        List<StockDateDataModel> list = new ArrayList<>();
+
+        int maxPrice = 1100;//当前股票最高价格，单位：分
+        int minPrice = 1000;//当前股票最低价格，单位：分
+        int openPrice = 1040;//当前股票最低价格，单位：分
+        int closePrice = 1060;//当前股票最低价格，单位：分
+
+        Calendar instance = Calendar.getInstance();
+        for (int i = 0; i < 20; i++) {
+            if (instance.get(Calendar.DAY_OF_WEEK) == 7 || instance.get(Calendar.DAY_OF_WEEK) == 1) {//周六或者周天跳过
+                instance.add(Calendar.DAY_OF_MONTH, -1);
+                continue;
+            }
+            StockDateDataModel model = new StockDateDataModel();
+            String s = DateUtil.calendar2String(instance, DateUtil.SIMPLEFORMATTYPESTRING7);
+
+            model.dateStr = s;
+            model.maxPrice = maxPrice;
+            model.minPrice = minPrice;
+            model.openPrice = openPrice;
+            model.closePrice = closePrice;
+            model.volume = (int) (Math.random() * 1000);
+            list.add(model);
+
+            //add value
+            instance.add(Calendar.DAY_OF_MONTH, -1);
+            maxPrice += 10;
+            minPrice += 10;
+            openPrice += 10;
+            closePrice += 10;
+        }
+
+        List<StockDateDataModel> list2 = new ArrayList<>();
+        for (int i = list.size() - 1; i >= 0; i--) {
+            list2.add(list.get(i));
+        }
+        return list2;
+    }
+
+    public static StockEventsDataResponse getNewsResponse() {
+        StockEventsDataResponse response = new StockEventsDataResponse();
+        StockEventsDataList dataList1 = new StockEventsDataList();
+        dataList1.eventType = StockEventsDataList.TYPE_LIFTED;
+        dataList1.eventName = "解禁事件";
+
+        StockEventsDataModel eventModel2 = new StockEventsDataModel();
+        eventModel2.eventDate = "2017-10-18";
+        eventModel2.eventTitle = "范建震解禁1851万";
+        eventModel2.eventDesc = "大股东减持30万股，平均每股38元";
+
+        StockEventsDataModel eventModel3 = new StockEventsDataModel();
+        eventModel3.eventDate = "2017-10-19";
+        eventModel3.eventTitle = "范建震解禁1851万";
+        eventModel3.eventDesc = "大股东减持30万股，平均每股38元";
+
+
+        StockEventsDataModel eventModel4 = new StockEventsDataModel();
+        eventModel4.eventDate = "2017-10-20";
+        eventModel4.eventTitle = "范建震解禁1851万";
+        eventModel4.eventDesc = "大股东减持30万股，平均每股38元";
+
+
+        StockEventsDataModel eventModel5 = new StockEventsDataModel();
+        eventModel5.eventDate = "2017-10-23";
+        eventModel5.eventTitle = "范建震解禁1851万";
+        eventModel5.eventDesc = "大股东减持30万股，平均每股38元";
+
+
+        StockEventsDataModel eventModel6 = new StockEventsDataModel();
+        eventModel6.eventDate = "2017-10-24";
+        eventModel6.eventTitle = "范建震解禁1851万";
+        eventModel6.eventDesc = "大股东减持30万股，平均每股38元";
+
+        StockEventsDataModel eventModel7 = new StockEventsDataModel();
+        eventModel7.eventDate = "2017-10-31";
+        eventModel7.eventTitle = "范建震解禁1851万";
+        eventModel7.eventDesc = "大股东减持30万股，平均每股38元";
+
+
+        StockEventsDataModel eventModel8 = new StockEventsDataModel();
+        eventModel8.eventDate = "2017-11-01";
+        eventModel8.eventTitle = "范建震解禁1851万";
+        eventModel8.eventDesc = "大股东减持30万股，平均每股38元";
+
+        StockEventsDataModel eventModel9 = new StockEventsDataModel();
+        eventModel8.eventDate = "2017-11-02";
+        eventModel8.eventTitle = "范建震解禁1851万";
+        eventModel8.eventDesc = "大股东减持30万股，平均每股38元";
+
+        dataList1.stockEventsDataModels.add(eventModel2);
+        dataList1.stockEventsDataModels.add(eventModel3);
+        dataList1.stockEventsDataModels.add(eventModel4);
+        dataList1.stockEventsDataModels.add(eventModel5);
+        dataList1.stockEventsDataModels.add(eventModel6);
+        dataList1.stockEventsDataModels.add(eventModel7);
+        dataList1.stockEventsDataModels.add(eventModel8);
+        dataList1.stockEventsDataModels.add(eventModel9);
+
+
+        StockEventsDataList dataList2 = new StockEventsDataList();
+        dataList2.eventType = StockEventsDataList.TYPE_PLEDGE;
+        dataList2.eventName = "股票质押";
+
+        StockEventsDataModel eventModel21 = new StockEventsDataModel();
+        eventModel21.eventDate = "2017-10-15";
+        eventModel21.eventTitle = "范建震质押1851万";
+        eventModel21.eventDesc = "大股东质押30万股";
+
+        dataList2.stockEventsDataModels.add(eventModel21);
+
+        response.moduleName = "重大消息";
+        response.stockEventsDataLists.add(dataList1);
+        response.stockEventsDataLists.add(dataList2);
         return response;
     }
 }

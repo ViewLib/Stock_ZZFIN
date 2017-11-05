@@ -15,12 +15,32 @@
     [super awakeFromNib];
     // Initialization code
     [_lookMoreBtn ImgRightTextLeft];
-    self.valueViewHigh.constant = 0;
-    [self addQAView:@[@{@"": @""},@{@"": @""},@{@"": @""}]];
+//    self.valueViewHigh.constant = 0;
 }
 
-- (void)updateCell:(NSDictionary *)dic {
-    
+- (void)setStockCode:(NSString *)stockCode {
+    if (stockCode) {
+        _stockCode = stockCode;
+    }
+    [self getStockEvent];
+}
+
+- (void)getStockEvent {
+    WS(self)
+    [[HttpRequestClient sharedClient] getStockEvent:@{@"stockCode": self.stockCode, @"type":@2} request:^(NSString *resultMsg, id dataDict, id error) {
+        if ([dataDict[@"resultCode"] intValue] == 200) {
+            selfWeak.events = [NSArray arrayWithArray:dataDict[@"stockEventsDataLists"]];
+            NSMutableArray *array = [NSMutableArray array];
+            for (NSDictionary *dic in selfWeak.events) {
+                NSArray *value = dic[@"stockEventsDataModels"];
+                if (value.count > 0) {
+                    [array addObject:dic];
+                }
+            }
+            selfWeak.events = array;
+            [selfWeak addQAView:selfWeak.events];
+        }
+    }];
 }
 
 - (void)addQAView:(NSArray *) array {
@@ -29,18 +49,13 @@
         QAView *qa = [[NSBundle mainBundle] loadNibNamed:@"QAView" owner:nil options:nil].firstObject;
         [qa updateView:dic];
         qa.frame = CGRectMake(0, viewY, K_FRAME_BASE_WIDTH-24, qa.viewHigh);
-        viewY += qa.viewHigh + 10;
+        viewY += qa.viewHigh + 20;
         [self.valueView addSubview:qa];
     }
     self.valueViewHigh.constant = viewY;
-}
-
-- (void)layoutSubviews {
-//    CGRect newViewFrame = self.frame;
-//    newViewFrame.size.height = self.valueView.frame.size.height + 150;
-//    self.frame = newViewFrame;
-    
-    
+    if (self.reloadTable) {
+        self.reloadTable();
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

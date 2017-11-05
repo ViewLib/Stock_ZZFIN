@@ -56,8 +56,9 @@
     [super viewDidLoad];
     
     [_collectionBtn ImgTopTextButtom];
-    
-    [_topLabel setText:self.valueDic[@"rankModel"][@"title"]];
+    NSString *titleStr = self.valueDic[@"rankModel"][@"title"];
+//    NSString *titleStr = self.valueDic[@"stockViewModel"][@"stockCode"];
+    [_topLabel setText:titleStr];
     NSArray *btns = @[_filterOne,_filterTwo,_filterThr,_filterFor];
     
     [[Config shareInstance].rankSearchList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -198,21 +199,28 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     RankTableTopView *view = [[NSBundle mainBundle] loadNibNamed:@"RankTableTopView" owner:nil options:nil].firstObject;
+    NSDictionary *dic = [self.tableValue firstObject];
+    view.Name.text = dic[@"stockName"];
+    view.value1.text = dic[@"attr1"];
+    view.value2.text = dic[@"attr2"];
     [view setFrame:CGRectMake(0, 0, K_FRAME_BASE_WIDTH-24, 30)];
     return view;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.tableValue.count;
+    return self.tableValue.count - 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
-    NSDictionary *dic = self.tableValue[indexPath.row];
+    NSDictionary *dic = self.tableValue[indexPath.row + 1];
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"RankTableViewCell" owner:nil options:nil] firstObject];
         cell.row = indexPath.row;
         [cell updateCell:dic];
+    }
+    if (indexPath.row < 3) {
+        [cell updateCellColor];
     }
     return cell;
 }
@@ -236,7 +244,7 @@
             if (![responseString isEqualToString:@"pv_none_match=1"]) {
                 if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
                     NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
-                    StockEntity *entity = [[DataManager shareDataMangaer] getStockWithAry:responseValues];
+                    StockEntity *entity = [[DataManager shareDataMangaer] getStockWithAry:responseValues withEntity:nil];
                     if (request) {
                         request(entity);
                     }

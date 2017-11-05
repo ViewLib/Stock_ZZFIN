@@ -19,8 +19,8 @@ typedef void(^viewTwoClickBlock)(NSInteger row);
 
 /**
  更新cell
- @param dic 更新的内容
+ @param dics 更新的内容
  */
-- (void)updateCell:(NSArray *)dics;
+- (void)updateCell:(NSArray *)dics with:(int)currentRow;
 
 @end

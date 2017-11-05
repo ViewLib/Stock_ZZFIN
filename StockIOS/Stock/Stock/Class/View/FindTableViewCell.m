@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *towValue;
 @property (weak, nonatomic) IBOutlet UIImageView *twoType;
 
+@property (nonatomic, assign) int   row;
+
 @end
 
 @implementation FindTableViewCell
@@ -39,12 +41,13 @@
 
 /**
  更新cell
- @param dic 更新的内容
+ @param dics 更新的内容
  */
-- (void)updateCell:(NSArray *)dics {
+- (void)updateCell:(NSArray *)dics with:(int)currentRow {
     if (dics.count == 1) {
         _viewTwo.hidden = YES;
     }
+    _row = currentRow;
     NSDictionary *dic = [dics firstObject];
     _oneValue.text = dic[@"rankModel"][@"title"];
     
@@ -54,13 +57,13 @@
 
 - (IBAction)clickOneBtn:(UIButton *)sender {
     if (self.viewOneClickBlock) {
-        self.viewOneClickBlock(self.indentationLevel);
+        self.viewOneClickBlock(self.row);
     }
 }
 
 - (IBAction)clickTwoBtn:(UIButton *)sender {
     if (self.viewTwoClickBlock) {
-        self.viewTwoClickBlock(self.indentationLevel);
+        self.viewTwoClickBlock(self.row);
     }
 }
 

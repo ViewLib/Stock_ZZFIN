@@ -24,6 +24,7 @@
 		041187D91F94FA8500DE4BC9 /* FinancialInformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041187D71F94FA8500DE4BC9 /* FinancialInformationTableViewCell.xib */; };
 		041187DE1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041187DC1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.m */; };
 		041187DF1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041187DD1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib */; };
+		041EB6D21FA8AAF600967D14 /* EventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EB6D11FA8AAF600967D14 /* EventView.m */; };
 		043702591F755F6C0070A807 /* HistoryStockEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 043702581F755F6C0070A807 /* HistoryStockEntity.m */; };
 		0437025D1F756E810070A807 /* StockValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437025C1F756E810070A807 /* StockValueViewController.m */; };
 		043702611F76175D0070A807 /* hotStockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 043702601F76175D0070A807 /* hotStockView.m */; };
@@ -131,6 +132,14 @@
 		04C2E2611F59C1BB00C09D86 /* StockEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2E2601F59C1BB00C09D86 /* StockEntity.m */; };
 		04CCD5DC1FA41854008AF4F3 /* SettingValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCD5DB1FA41854008AF4F3 /* SettingValueViewController.m */; };
 		04CCD5DE1FA42658008AF4F3 /* areacode-json.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 04CCD5DD1FA42657008AF4F3 /* areacode-json.geojson */; };
+		04D500A51FAADE2800BA86A3 /* LineBgScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D5009A1FAADE2800BA86A3 /* LineBgScrollView.m */; };
+		04D500A61FAADE2800BA86A3 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D5009C1FAADE2800BA86A3 /* LineView.m */; };
+		04D500A71FAADE2800BA86A3 /* WKButtomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D5009E1FAADE2800BA86A3 /* WKButtomView.m */; };
+		04D500A81FAADE2800BA86A3 /* WKLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500A01FAADE2800BA86A3 /* WKLineView.m */; };
+		04D500A91FAADE2800BA86A3 /* WKSLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500A21FAADE2800BA86A3 /* WKSLineView.m */; };
+		04D500AA1FAADE2800BA86A3 /* WKVolumePositionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500A41FAADE2800BA86A3 /* WKVolumePositionModel.m */; };
+		04D500AD1FAB5F7400BA86A3 /* WKNewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500AC1FAB5F7400BA86A3 /* WKNewView.m */; };
+		04D500B01FAC17C900BA86A3 /* WKMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500AF1FAC17C900BA86A3 /* WKMaskView.m */; };
 		847076221F4EE36100974772 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847076191F4EE36100974772 /* Assets.xcassets */; };
 		847076231F4EE36100974772 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8470761A1F4EE36100974772 /* LaunchScreen.storyboard */; };
 		847076251F4EE36100974772 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8470761E1F4EE36100974772 /* Info.plist */; };
@@ -286,6 +295,8 @@
 		041187DB1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrokersRatingTableViewCell.h; sourceTree = "<group>"; };
 		041187DC1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrokersRatingTableViewCell.m; sourceTree = "<group>"; };
 		041187DD1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrokersRatingTableViewCell.xib; sourceTree = "<group>"; };
+		041EB6D01FA8AAF600967D14 /* EventView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
+		041EB6D11FA8AAF600967D14 /* EventView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventView.m; sourceTree = "<group>"; };
 		043702571F755F6C0070A807 /* HistoryStockEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryStockEntity.h; sourceTree = "<group>"; };
 		043702581F755F6C0070A807 /* HistoryStockEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryStockEntity.m; sourceTree = "<group>"; };
 		0437025B1F756E810070A807 /* StockValueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockValueViewController.h; sourceTree = "<group>"; };
@@ -484,6 +495,22 @@
 		04CCD5DA1FA41854008AF4F3 /* SettingValueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingValueViewController.h; sourceTree = "<group>"; };
 		04CCD5DB1FA41854008AF4F3 /* SettingValueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingValueViewController.m; sourceTree = "<group>"; };
 		04CCD5DD1FA42657008AF4F3 /* areacode-json.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "areacode-json.geojson"; sourceTree = "<group>"; };
+		04D500991FAADE2800BA86A3 /* LineBgScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineBgScrollView.h; sourceTree = "<group>"; };
+		04D5009A1FAADE2800BA86A3 /* LineBgScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineBgScrollView.m; sourceTree = "<group>"; };
+		04D5009B1FAADE2800BA86A3 /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
+		04D5009C1FAADE2800BA86A3 /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
+		04D5009D1FAADE2800BA86A3 /* WKButtomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKButtomView.h; sourceTree = "<group>"; };
+		04D5009E1FAADE2800BA86A3 /* WKButtomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKButtomView.m; sourceTree = "<group>"; };
+		04D5009F1FAADE2800BA86A3 /* WKLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKLineView.h; sourceTree = "<group>"; };
+		04D500A01FAADE2800BA86A3 /* WKLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKLineView.m; sourceTree = "<group>"; };
+		04D500A11FAADE2800BA86A3 /* WKSLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKSLineView.h; sourceTree = "<group>"; };
+		04D500A21FAADE2800BA86A3 /* WKSLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKSLineView.m; sourceTree = "<group>"; };
+		04D500A31FAADE2800BA86A3 /* WKVolumePositionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKVolumePositionModel.h; sourceTree = "<group>"; };
+		04D500A41FAADE2800BA86A3 /* WKVolumePositionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKVolumePositionModel.m; sourceTree = "<group>"; };
+		04D500AB1FAB5F7400BA86A3 /* WKNewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKNewView.h; sourceTree = "<group>"; };
+		04D500AC1FAB5F7400BA86A3 /* WKNewView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKNewView.m; sourceTree = "<group>"; };
+		04D500AE1FAC17C900BA86A3 /* WKMaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKMaskView.h; sourceTree = "<group>"; };
+		04D500AF1FAC17C900BA86A3 /* WKMaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKMaskView.m; sourceTree = "<group>"; };
 		16743ED1C5E2BE8144EDA026 /* Pods-Stock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock/Pods-Stock.debug.xcconfig"; sourceTree = "<group>"; };
 		536C84D01D4ACD8E9B97C355 /* Pods-Stock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stock/Pods-Stock.release.xcconfig"; sourceTree = "<group>"; };
 		847075F91F4EE20400974772 /* Stock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -771,6 +798,7 @@
 		041187AE1F94F39300DE4BC9 /* stockValue */ = {
 			isa = PBXGroup;
 			children = (
+				041EB6CF1FA8AAB000967D14 /* EventView */,
 				04BC27091F9C9843008285B2 /* valueCollection */,
 				04BC26C31F98DA55008285B2 /* QAView */,
 				041187B41F94F75F00DE4BC9 /* StockTop */,
@@ -863,6 +891,15 @@
 				041187DD1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib */,
 			);
 			path = BrokersRating;
+			sourceTree = "<group>";
+		};
+		041EB6CF1FA8AAB000967D14 /* EventView */ = {
+			isa = PBXGroup;
+			children = (
+				041EB6D01FA8AAF600967D14 /* EventView.h */,
+				041EB6D11FA8AAF600967D14 /* EventView.m */,
+			);
+			path = EventView;
 			sourceTree = "<group>";
 		};
 		0437025A1F756E670070A807 /* Value */ = {
@@ -1488,6 +1525,29 @@
 			path = Entitys;
 			sourceTree = "<group>";
 		};
+		04D500981FAADE2800BA86A3 /* WKLine */ = {
+			isa = PBXGroup;
+			children = (
+				04D500991FAADE2800BA86A3 /* LineBgScrollView.h */,
+				04D5009A1FAADE2800BA86A3 /* LineBgScrollView.m */,
+				04D5009B1FAADE2800BA86A3 /* LineView.h */,
+				04D5009C1FAADE2800BA86A3 /* LineView.m */,
+				04D5009D1FAADE2800BA86A3 /* WKButtomView.h */,
+				04D5009E1FAADE2800BA86A3 /* WKButtomView.m */,
+				04D5009F1FAADE2800BA86A3 /* WKLineView.h */,
+				04D500A01FAADE2800BA86A3 /* WKLineView.m */,
+				04D500AB1FAB5F7400BA86A3 /* WKNewView.h */,
+				04D500AC1FAB5F7400BA86A3 /* WKNewView.m */,
+				04D500AE1FAC17C900BA86A3 /* WKMaskView.h */,
+				04D500AF1FAC17C900BA86A3 /* WKMaskView.m */,
+				04D500A11FAADE2800BA86A3 /* WKSLineView.h */,
+				04D500A21FAADE2800BA86A3 /* WKSLineView.m */,
+				04D500A31FAADE2800BA86A3 /* WKVolumePositionModel.h */,
+				04D500A41FAADE2800BA86A3 /* WKVolumePositionModel.m */,
+			);
+			path = WKLine;
+			sourceTree = "<group>";
+		};
 		734B6A6867E4E0B6E28C0AB2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1597,6 +1657,7 @@
 		847076301F4EE66F00974772 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				04D500981FAADE2800BA86A3 /* WKLine */,
 				04BC26C91F98E52E008285B2 /* PNChart */,
 				04B6BA921F977D1800870F15 /* YYStock */,
 				0448BFEE1F7A80B5009DC7D6 /* JSON */,
@@ -2152,6 +2213,7 @@
 				847077841F4EF73600974772 /* MJRefreshHeaderView.m in Sources */,
 				0448C0041F7A80B5009DC7D6 /* SBJSON.m in Sources */,
 				847077AE1F4EF73600974772 /* RACIndexSetSequence.m in Sources */,
+				04D500A51FAADE2800BA86A3 /* LineBgScrollView.m in Sources */,
 				847077871F4EF73600974772 /* NSArray+RACSequenceAdditions.m in Sources */,
 				847077CD1F4EF73600974772 /* UIAlertView+RACSignalSupport.m in Sources */,
 				041187DE1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.m in Sources */,
@@ -2182,6 +2244,7 @@
 				8470763A1F4EED6300974772 /* LoginViewController.m in Sources */,
 				04C2E21A1F598E5600C09D86 /* FindViewController.m in Sources */,
 				847077741F4EF73600974772 /* IQUIView+Hierarchy.m in Sources */,
+				04D500AA1FAADE2800BA86A3 /* WKVolumePositionModel.m in Sources */,
 				847077D81F4EF73600974772 /* UISlider+RACSignalSupport.m in Sources */,
 				847077D41F4EF73600974772 /* UIGestureRecognizer+RACSignalSupport.m in Sources */,
 				847077711F4EF73600974772 /* IQNSArray+Sort.m in Sources */,
@@ -2204,6 +2267,7 @@
 				8470778F1F4EF73600974772 /* NSObject+RACDeallocating.m in Sources */,
 				8470778D1F4EF73600974772 /* NSInvocation+RACTypeParsing.m in Sources */,
 				847077861F4EF73600974772 /* MKAnnotationView+RACSignalSupport.m in Sources */,
+				04D500A81FAADE2800BA86A3 /* WKLineView.m in Sources */,
 				847077B61F4EF73600974772 /* RACReturnSignal.m in Sources */,
 				847077671F4EF73600974772 /* CALayer+UIColorToCGColor.m in Sources */,
 				8470777C1F4EF73600974772 /* IQTitleBarButtonItem.m in Sources */,
@@ -2223,6 +2287,7 @@
 				04BC26F61F98E52E008285B2 /* PNPieChartDataItem.m in Sources */,
 				847077701F4EF73600974772 /* UIViewController+HUD.m in Sources */,
 				04BC27211FA0487A008285B2 /* FindSearchView.m in Sources */,
+				04D500AD1FAB5F7400BA86A3 /* WKNewView.m in Sources */,
 				0448C0031F7A80B5009DC7D6 /* NSString+SBJSON.m in Sources */,
 				04BC26C61F98DA72008285B2 /* QAView.m in Sources */,
 				04C2E2201F59942800C09D86 /* MBProgressHUD+Add.m in Sources */,
@@ -2306,6 +2371,7 @@
 				847077981F4EF73600974772 /* NSString+RACSequenceAdditions.m in Sources */,
 				04C2E2211F59942800C09D86 /* MBProgressHUD.m in Sources */,
 				847077B71F4EF73600974772 /* RACScheduler.m in Sources */,
+				041EB6D21FA8AAF600967D14 /* EventView.m in Sources */,
 				04B6BAEA1F977D1800870F15 /* YYTimeLineVolumeView.m in Sources */,
 				847077821F4EF73600974772 /* MJRefreshConst.m in Sources */,
 				8470777E1F4EF73600974772 /* IQUIView+IQKeyboardToolbar.m in Sources */,
@@ -2315,7 +2381,9 @@
 				04C2E22B1F599D0800C09D86 /* HomeTableViewCell.m in Sources */,
 				0448BFE41F793DF0009DC7D6 /* RankTableTopView.m in Sources */,
 				847077CE1F4EF73600974772 /* UIBarButtonItem+RACCommandSupport.m in Sources */,
+				04D500A91FAADE2800BA86A3 /* WKSLineView.m in Sources */,
 				847077891F4EF73600974772 /* NSDictionary+RACSequenceAdditions.m in Sources */,
+				04D500A71FAADE2800BA86A3 /* WKButtomView.m in Sources */,
 				041187C61F94F99800DE4BC9 /* StockMajorNewsTableViewCell.m in Sources */,
 				04B6BAF61F9781AF00870F15 /* YYFiveRecordModel.m in Sources */,
 				04B6BAED1F977D1800870F15 /* YYStock.m in Sources */,
@@ -2335,12 +2403,14 @@
 				04B6BAE91F977D1800870F15 /* YYTimeLineView.m in Sources */,
 				847077961F4EF73600974772 /* NSSet+RACSequenceAdditions.m in Sources */,
 				0465E5541F603A94006F7F9C /* SettingViewController.m in Sources */,
+				04D500A61FAADE2800BA86A3 /* LineView.m in Sources */,
 				04C2E2171F598E4600C09D86 /* HomeViewController.m in Sources */,
 				847077691F4EF73600974772 /* NSDateFormatter+Category.m in Sources */,
 				04C2E2261F5998B400C09D86 /* Utils.m in Sources */,
 				847077C41F4EF73600974772 /* RACSubscriptionScheduler.m in Sources */,
 				0448C0071F7A80B5009DC7D6 /* SBJsonWriter.m in Sources */,
 				8470779D1F4EF73600974772 /* RACBehaviorSubject.m in Sources */,
+				04D500B01FAC17C900BA86A3 /* WKMaskView.m in Sources */,
 				04BC26F01F98E52E008285B2 /* PNColor.m in Sources */,
 				045ED16E1F5BAC3600F7DE20 /* UIViewController+WKVC.m in Sources */,
 				847077D91F4EF73600974772 /* UIStepper+RACSignalSupport.m in Sources */,

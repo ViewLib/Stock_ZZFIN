@@ -78,6 +78,7 @@ public class StockRankFilterGroupFragment extends StockRankFilterBaseFragment {
             itemCheckTv.setPadding(padding, padding, padding, padding);
             itemCheckTv.setCheckMarkDrawable(R.drawable.hotel_icon_radiobutton_selector);
             itemCheckTv.setOnClickListener(itemCheckListener);
+            itemCheckTv.setChecked(itemModel.isCheck);
             mItemView.addView(itemCheckTv);
         }
     }
@@ -109,6 +110,8 @@ public class StockRankFilterGroupFragment extends StockRankFilterBaseFragment {
             if (checked) {
                 for (int i = 0; i < mItemView.getChildCount(); i++) {
                     StockCheckedTextView itemView = (StockCheckedTextView) mItemView.getChildAt(i);
+                    StockRankFilterItemModel itemModel = (StockRankFilterItemModel) itemView.getTag();
+                    itemModel.isCheck = false;
                     itemView.setChecked(false);
                 }
             }
@@ -117,7 +120,6 @@ public class StockRankFilterGroupFragment extends StockRankFilterBaseFragment {
             itemModel.isCheck = checked;
         }
     };
-
 
 
 }
