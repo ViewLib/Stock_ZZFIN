@@ -398,6 +398,36 @@ public class StockService {
             eventDataModel.eventTitle = stockEvents.eventName;
             eventDataModel.eventDesc = resultModel.eventDate + "，股东人数为：" + resultModel.attr1;
         }
+        //重组
+        else if (subType == StockEventsDataList.TYPE_REFORM) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.attr1;
+        }
+        //定增
+        else if (subType == StockEventsDataList.TYPE_SETBY) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.attr1;
+        }
+        //大宗交易
+        else if (subType == StockEventsDataList.TYPE_BLOCK_TRADING) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.attr1;
+        }
+        //分红
+        else if (subType == StockEventsDataList.TYPE_DIVIEND) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.attr1;
+        }
+        //减持
+        else if (subType == StockEventsDataList.TYPE_REDUCE) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.attr1;
+        }
         return eventDataModel;
     }
 
