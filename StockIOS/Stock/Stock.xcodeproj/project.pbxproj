@@ -140,6 +140,14 @@
 		04D500AA1FAADE2800BA86A3 /* WKVolumePositionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500A41FAADE2800BA86A3 /* WKVolumePositionModel.m */; };
 		04D500AD1FAB5F7400BA86A3 /* WKNewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500AC1FAB5F7400BA86A3 /* WKNewView.m */; };
 		04D500B01FAC17C900BA86A3 /* WKMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500AF1FAC17C900BA86A3 /* WKMaskView.m */; };
+		04D500B31FAF029400BA86A3 /* MyInforViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500B21FAF029400BA86A3 /* MyInforViewController.m */; };
+		04D500B61FAF08C600BA86A3 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500B51FAF08C600BA86A3 /* FeedBackViewController.m */; };
+		04D500B91FAF0C1000BA86A3 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500B81FAF0C1000BA86A3 /* AboutViewController.m */; };
+		04D500BC1FAF0D3A00BA86A3 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500BB1FAF0D3A00BA86A3 /* MineViewController.m */; };
+		04D500C61FAF0F9E00BA86A3 /* MyCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500C41FAF0F9E00BA86A3 /* MyCollectionTableViewCell.m */; };
+		04D500C71FAF0F9E00BA86A3 /* MyCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D500C51FAF0F9E00BA86A3 /* MyCollectionTableViewCell.xib */; };
+		04D500CB1FAF0FB100BA86A3 /* MyNewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D500C91FAF0FB100BA86A3 /* MyNewsTableViewCell.m */; };
+		04D500CC1FAF0FB100BA86A3 /* MyNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D500CA1FAF0FB100BA86A3 /* MyNewsTableViewCell.xib */; };
 		847076221F4EE36100974772 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847076191F4EE36100974772 /* Assets.xcassets */; };
 		847076231F4EE36100974772 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8470761A1F4EE36100974772 /* LaunchScreen.storyboard */; };
 		847076251F4EE36100974772 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8470761E1F4EE36100974772 /* Info.plist */; };
@@ -511,6 +519,20 @@
 		04D500AC1FAB5F7400BA86A3 /* WKNewView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKNewView.m; sourceTree = "<group>"; };
 		04D500AE1FAC17C900BA86A3 /* WKMaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKMaskView.h; sourceTree = "<group>"; };
 		04D500AF1FAC17C900BA86A3 /* WKMaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKMaskView.m; sourceTree = "<group>"; };
+		04D500B11FAF029400BA86A3 /* MyInforViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyInforViewController.h; sourceTree = "<group>"; };
+		04D500B21FAF029400BA86A3 /* MyInforViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyInforViewController.m; sourceTree = "<group>"; };
+		04D500B41FAF08C600BA86A3 /* FeedBackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
+		04D500B51FAF08C600BA86A3 /* FeedBackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
+		04D500B71FAF0C1000BA86A3 /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		04D500B81FAF0C1000BA86A3 /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		04D500BA1FAF0D3A00BA86A3 /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
+		04D500BB1FAF0D3A00BA86A3 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		04D500C31FAF0F9E00BA86A3 /* MyCollectionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectionTableViewCell.h; sourceTree = "<group>"; };
+		04D500C41FAF0F9E00BA86A3 /* MyCollectionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectionTableViewCell.m; sourceTree = "<group>"; };
+		04D500C51FAF0F9E00BA86A3 /* MyCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectionTableViewCell.xib; sourceTree = "<group>"; };
+		04D500C81FAF0FB100BA86A3 /* MyNewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyNewsTableViewCell.h; sourceTree = "<group>"; };
+		04D500C91FAF0FB100BA86A3 /* MyNewsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyNewsTableViewCell.m; sourceTree = "<group>"; };
+		04D500CA1FAF0FB100BA86A3 /* MyNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyNewsTableViewCell.xib; sourceTree = "<group>"; };
 		16743ED1C5E2BE8144EDA026 /* Pods-Stock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock/Pods-Stock.debug.xcconfig"; sourceTree = "<group>"; };
 		536C84D01D4ACD8E9B97C355 /* Pods-Stock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stock/Pods-Stock.release.xcconfig"; sourceTree = "<group>"; };
 		847075F91F4EE20400974772 /* Stock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1470,6 +1492,14 @@
 			children = (
 				04C2E2121F598E3700C09D86 /* MyViewController.h */,
 				04C2E2131F598E3700C09D86 /* MyViewController.m */,
+				04D500B11FAF029400BA86A3 /* MyInforViewController.h */,
+				04D500B21FAF029400BA86A3 /* MyInforViewController.m */,
+				04D500B41FAF08C600BA86A3 /* FeedBackViewController.h */,
+				04D500B51FAF08C600BA86A3 /* FeedBackViewController.m */,
+				04D500B71FAF0C1000BA86A3 /* AboutViewController.h */,
+				04D500B81FAF0C1000BA86A3 /* AboutViewController.m */,
+				04D500BA1FAF0D3A00BA86A3 /* MineViewController.h */,
+				04D500BB1FAF0D3A00BA86A3 /* MineViewController.m */,
 				0465E5511F603A7F006F7F9C /* Setting */,
 			);
 			path = My;
@@ -1546,6 +1576,26 @@
 				04D500A41FAADE2800BA86A3 /* WKVolumePositionModel.m */,
 			);
 			path = WKLine;
+			sourceTree = "<group>";
+		};
+		04D500BE1FAF0ED000BA86A3 /* MyNewsTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				04D500C81FAF0FB100BA86A3 /* MyNewsTableViewCell.h */,
+				04D500C91FAF0FB100BA86A3 /* MyNewsTableViewCell.m */,
+				04D500CA1FAF0FB100BA86A3 /* MyNewsTableViewCell.xib */,
+			);
+			name = MyNewsTableViewCell;
+			sourceTree = "<group>";
+		};
+		04D500BF1FAF0F4000BA86A3 /* MyCollectionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				04D500C31FAF0F9E00BA86A3 /* MyCollectionTableViewCell.h */,
+				04D500C41FAF0F9E00BA86A3 /* MyCollectionTableViewCell.m */,
+				04D500C51FAF0F9E00BA86A3 /* MyCollectionTableViewCell.xib */,
+			);
+			name = MyCollectionTableViewCell;
 			sourceTree = "<group>";
 		};
 		734B6A6867E4E0B6E28C0AB2 /* Pods */ = {
@@ -1696,6 +1746,8 @@
 		847076331F4EE66F00974772 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04D500BF1FAF0F4000BA86A3 /* MyCollectionTableViewCell */,
+				04D500BE1FAF0ED000BA86A3 /* MyNewsTableViewCell */,
 				04BC271E1FA04830008285B2 /* FindSearchView */,
 				041187AE1F94F39300DE4BC9 /* stockValue */,
 				0448BFE71F7942C1009DC7D6 /* RankTableViewCell */,
@@ -2097,11 +2149,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D500CC1FAF0FB100BA86A3 /* MyNewsTableViewCell.xib in Resources */,
 				041187C71F94F99800DE4BC9 /* StockMajorNewsTableViewCell.xib in Resources */,
 				041187B31F94F62700DE4BC9 /* StockTopTableViewCell.xib in Resources */,
 				04CCD5DE1FA42658008AF4F3 /* areacode-json.geojson in Resources */,
 				04BC27111F9C9EA7008285B2 /* GSJJCollectionViewCell.xib in Resources */,
 				041187DF1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib in Resources */,
+				04D500C71FAF0F9E00BA86A3 /* MyCollectionTableViewCell.xib in Resources */,
 				041187CD1F94F9EE00DE4BC9 /* ComputerIntroductionTableViewCell.xib in Resources */,
 				8470777F1F4EF73600974772 /* IQKeyboardManager.bundle in Resources */,
 				04B6BAFC1F97846800870F15 /* fiveData.plist in Resources */,
@@ -2201,6 +2255,7 @@
 				847077BC1F4EF73600974772 /* RACSignal.m in Sources */,
 				847077B01F4EF73600974772 /* RACKVOProxy.m in Sources */,
 				0448C0051F7A80B5009DC7D6 /* SBJsonBase.m in Sources */,
+				04D500BC1FAF0D3A00BA86A3 /* MineViewController.m in Sources */,
 				847077DA1F4EF73600974772 /* UISwitch+RACSignalSupport.m in Sources */,
 				043702591F755F6C0070A807 /* HistoryStockEntity.m in Sources */,
 				04BC26EC1F98E52E008285B2 /* PNBar.m in Sources */,
@@ -2234,6 +2289,7 @@
 				8470778A1F4EF73600974772 /* NSEnumerator+RACSequenceAdditions.m in Sources */,
 				847077C51F4EF73600974772 /* RACTargetQueueScheduler.m in Sources */,
 				8470778B1F4EF73600974772 /* NSFileHandle+RACSupport.m in Sources */,
+				04D500B91FAF0C1000BA86A3 /* AboutViewController.m in Sources */,
 				0465E5F11F64560E006F7F9C /* UIButton+WKType.m in Sources */,
 				04B6BAD91F977D1800870F15 /* UIColor+YYStockTheme.m in Sources */,
 				0465E5581F603EB9006F7F9C /* SearchViewController.m in Sources */,
@@ -2300,7 +2356,9 @@
 				847077DC1F4EF73600974772 /* UITableViewHeaderFooterView+RACSignalSupport.m in Sources */,
 				8470776F1F4EF73600974772 /* UIViewController+DismissKeyboard.m in Sources */,
 				847077BF1F4EF73600974772 /* RACStream.m in Sources */,
+				04D500B31FAF029400BA86A3 /* MyInforViewController.m in Sources */,
 				847077D21F4EF73600974772 /* UIControl+RACSignalSupportPrivate.m in Sources */,
+				04D500CB1FAF0FB100BA86A3 /* MyNewsTableViewCell.m in Sources */,
 				041187C01F94F94500DE4BC9 /* StockMajorEventsTableViewCell.m in Sources */,
 				847077761F4EF73600974772 /* IQUIWindow+Hierarchy.m in Sources */,
 				0448BFEB1F7942FD009DC7D6 /* RankTableViewCell.m in Sources */,
@@ -2316,6 +2374,7 @@
 				847077731F4EF73600974772 /* IQUITextFieldView+Additions.m in Sources */,
 				0465E5EE1F645043006F7F9C /* RankViewController.m in Sources */,
 				847076341F4EE66F00974772 /* AppDelegate.m in Sources */,
+				04D500B61FAF08C600BA86A3 /* FeedBackViewController.m in Sources */,
 				04BC271B1F9E233F008285B2 /* GDCollectionViewCell.m in Sources */,
 				847077791F4EF73600974772 /* IQTextView.m in Sources */,
 				04BC26F41F98E52E008285B2 /* PNLineChartDataItem.m in Sources */,
@@ -2420,6 +2479,7 @@
 				847077B11F4EF73600974772 /* RACKVOTrampoline.m in Sources */,
 				8470779C1F4EF73600974772 /* RACArraySequence.m in Sources */,
 				847077A11F4EF73600974772 /* RACCompoundDisposable.m in Sources */,
+				04D500C61FAF0F9E00BA86A3 /* MyCollectionTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2536,6 +2596,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6UFBWMTJ8V;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2548,6 +2609,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zzfin.Stock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Stock-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2563,6 +2625,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6UFBWMTJ8V;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2575,6 +2638,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zzfin.Stock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Stock-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

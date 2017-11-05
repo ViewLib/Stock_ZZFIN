@@ -7,7 +7,11 @@
 //
 
 #import "MyViewController.h"
+#import "MineViewController.h"
+#import "AboutViewController.h"
 #import "SettingViewController.h"
+#import "MyInforViewController.h"
+#import "FeedBackViewController.h"
 
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -52,6 +56,8 @@
 - (void)clickImageBtn {
     [self tipsForLoginSuccess:^{
         _nickName.text = [Config shareInstance].login.moblie;
+        MyInforViewController *myinforVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"MyInfor"];
+        [self.navigationController pushViewController:myinforVC animated:YES];
     }];
 }
 
@@ -106,9 +112,17 @@
 }
 
 - (void)jumpToClickCellViewController:(NSInteger)row {
-    SettingViewController *settingVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Setting"];
-    settingVC.topTitle = _cellTitle[row];
-    [self.navigationController pushViewController:settingVC animated:YES];
+    if (row == 0) {
+        SettingViewController *settingVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Setting"];
+        settingVC.topTitle = _cellTitle[row];
+        [self.navigationController pushViewController:settingVC animated:YES];
+    } else if (row == 2) {
+        FeedBackViewController *feedbackVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"FeedBack"];
+        [self.navigationController pushViewController:feedbackVC animated:YES];
+    } else if (row == 3) {
+        AboutViewController *aboutVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"About"];
+        [self.navigationController pushViewController:aboutVC animated:YES];
+    }
 }
 
 - (void)viewDidLayoutSubviews {

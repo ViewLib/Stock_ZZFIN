@@ -75,9 +75,9 @@
                 value = dic[@"stockEventsDataModels"];
             }
         }
-        //    if (value.count > 0) {
-        [self.line reloadNewView:value];
-        //    }
+        if (value.count > 0) {
+            [self.line reloadNewView:value];
+        }
     }
     
 }

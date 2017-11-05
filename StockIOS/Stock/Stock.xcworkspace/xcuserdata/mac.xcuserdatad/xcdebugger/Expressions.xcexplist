@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[StockMajorEventsTableViewCell reloadLineView]:StockMajorEventsTableViewCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.events">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[LineView reloadNewView:]:LineView.m">
       </ContextState>
       <ContextState
@@ -20,10 +28,19 @@
          contextName = "__29-[RankViewController getData]_block_invoke:RankViewController.m">
       </ContextState>
       <ContextState
+         contextName = "__85-[WKSLineView convertToPositionModelsWithXPosition:drawLineModels:maxValue:minValue:]_block_invoke:WKSLineView.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[RankTableViewCell updateCell:]:RankTableViewCell.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[FindTableViewCell updateCell:]:FindTableViewCell.m">
+      </ContextState>
+      <ContextState
          contextName = "__60-[HttpRequestClient httpBossWith:type:paramDict:completion:]_block_invoke.96:HttpRequestClient.m">
       </ContextState>
       <ContextState
-         contextName = "__85-[WKSLineView convertToPositionModelsWithXPosition:drawLineModels:maxValue:minValue:]_block_invoke:WKSLineView.m">
+         contextName = "-[RankViewController tableView:viewForHeaderInSection:]:RankViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>
