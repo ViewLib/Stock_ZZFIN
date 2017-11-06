@@ -81,5 +81,5 @@ public class Config {
     /**
      * 重大消息
      */
-    public String NEW_API = "http://115.159.31.128:8090/zzfin/api/stock_event?data=%7B%22serviceCode%22%3A2010%2C%22stockCode%22%3A%22sz300170%22%2C%22type%22%3A2%2C%22versionCode%22%3A1%7D";
+    public String NEW_API = "http://127.0.0.1:8080/zzfin/api/stock_event?data=%7B%22serviceCode%22%3A2010%2C%22stockCode%22%3A%22sz300170%22%2C%22type%22%3A2%2C%22versionCode%22%3A1%7D";
 }

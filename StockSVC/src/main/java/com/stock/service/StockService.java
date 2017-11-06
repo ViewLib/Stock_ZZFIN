@@ -7,13 +7,11 @@ import com.stock.dao.StockLinkDaoImpl;
 import com.stock.model.model.*;
 import com.stock.model.request.*;
 import com.stock.model.response.*;
-import com.stock.util.AmountUtil;
-import com.stock.util.DateUtil;
-import com.stock.util.GetDayStocklData;
-import com.stock.util.StringUtil;
+import com.stock.util.*;
 import com.stock.viewmodel.SQLViewModel;
 import com.stock.viewmodel.StoctEventSQLResultModel;
 import org.jsoup.Jsoup;
+import org.jsoup.helper.DataUtil;
 import org.jsoup.nodes.Document;
 
 
@@ -66,7 +64,7 @@ public class StockService {
                     if (i == 0) {
                         sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  intersect  ";
                     }
-                    if (i > 0 && i<searchlist.size() - 1) {
+                    if (i > 0 && i < searchlist.size() - 1) {
                         sqlLists = sqlLists + dao.getListSql(searchlist.get(i).filterId) + "  intersect  ";
                     }
                     if (i == searchlist.size() - 1 && searchlist.size() > 2) {
@@ -248,7 +246,7 @@ public class StockService {
     public StockDetailCompanyModel stockDetailCompanyModels(StockDetailCompanyInfoRequest stockDetailCompanyInfoRequest, StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse) throws Exception {
         String stockCode = transCode(stockDetailCompanyInfoRequest.stockCode);
         StockDetailCompanyModel stockDetailCompanyModels = dao.getCompanyInfo(stockCode);//dao.selectStockFirstTypList(stockFirstTypeRequest.first_type);
-        if(stockDetailCompanyModels.establishDate.contains(" ")){
+        if (stockDetailCompanyModels.establishDate.contains(" ")) {
             stockDetailCompanyModels.establishDate = stockDetailCompanyModels.establishDate.split(" ")[0];
         }
         return stockDetailCompanyModels;
@@ -387,16 +385,28 @@ public class StockService {
         if (subType == StockEventsDataList.TYPE_LIFTED) {//解禁
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.attr4 + "," + resultModel.attr3 + "解禁" + resultModel.attr1 + "股";
+            eventDataModel.eventDesc = resultModel.attr4 + "," + resultModel.attr3 + "解禁" + FormatUtil.formatStockNum(resultModel.attr1) + "股";
         } else if (subType == StockEventsDataList.TYPE_PLEDGE) {//质押
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
             //范建震
-            eventDataModel.eventDesc = resultModel.attr6 + resultModel.attr1 + "向" + resultModel.attr7 + "质押" + resultModel.attr4 + "万股";
-        } else if (subType == StockEventsDataList.TYPE_HOLDER_CHANGE) {
+            eventDataModel.eventDesc = resultModel.attr6 + FormatUtil.forDataStr(resultModel.attr1) + "向" + resultModel.attr7 + "质押" + resultModel.attr4 + "万股";
+        } else if (subType == StockEventsDataList.TYPE_EXCITATION) {
+            eventDataModel.eventDate = FormatUtil.forDataStr(resultModel.eventDate);
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = FormatUtil.forDataStr(resultModel.eventDate) + resultModel.attr3 + "，数量：" + resultModel.attr4 + "万股，解禁日期：" + FormatUtil.forDataStr(resultModel.attr7);
+        } else if (subType == StockEventsDataList.TYPE_EXCHANGE) {//股票置换
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.eventDate + "，股东人数为：" + resultModel.attr1;
+            eventDataModel.eventDesc = resultModel.eventDate + "，股权置换数量为：" + resultModel.attr1;
+        } else if (subType == StockEventsDataList.TYPE_INSTITUTIONAL_NUM) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.eventDate + "，机构持股数量为：" + FormatUtil.formatStockNum(resultModel.attr1) + "股";
+        } else if (subType == StockEventsDataList.TYPE_SHAREHOLDER_NUM) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.eventDate + "日，股东数量为：" + FormatUtil.formatStockNum(resultModel.attr1) + "人";
         }
         //重组
         else if (subType == StockEventsDataList.TYPE_REFORM) {

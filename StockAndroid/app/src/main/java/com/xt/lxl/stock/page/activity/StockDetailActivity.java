@@ -236,12 +236,14 @@ public class StockDetailActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
+                final StockEventsDataResponse eventsDataResponse = StockSender.getInstance().requestStockEventImportant(mCacheBean.mStockViewModel.getRequestStockCode(), 3);
+                if (eventsDataResponse.resultCode != 200) {
+                    return;
+                }
+                mCacheBean.newsResponse = eventsDataResponse;
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mCacheBean.newsResponse = DataSource.getNewsResponse();
-
                         newsModule.bindData();
                     }
                 });

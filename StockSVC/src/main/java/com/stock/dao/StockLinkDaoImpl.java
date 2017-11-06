@@ -44,9 +44,8 @@ public class StockLinkDaoImpl implements StockLinkDao {
         this.conn = getConnection();
     }
 
-    public Connection getConnection() {
+    public synchronized Connection getConnection() {
         logger.debug("开始连接数据库");
-        System.out.println("开始连接数据库。");
         try {
             if (conn == null || conn.isClosed()) {
                 conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -56,10 +55,8 @@ public class StockLinkDaoImpl implements StockLinkDao {
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error("数据库连接失败！");
-            System.out.println("数据库连接失败。");
         }
         logger.debug("数据库连接成功");
-        System.out.println("已顺利连接到数据库。");
         return conn;
     }
 
