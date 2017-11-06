@@ -19,25 +19,25 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名称" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Paj-aG-MfQ">
-                            <rect key="frame" x="0.0" y="0.0" width="79" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="加入自选" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeX-HG-fcq">
-                            <rect key="frame" x="79" y="0.0" width="59" height="30"/>
+                            <rect key="frame" x="85" y="0.0" width="65.5" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="连续跌停天数" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOM-sr-pnY">
-                            <rect key="frame" x="138" y="0.0" width="158.5" height="30"/>
+                            <rect key="frame" x="150.5" y="0.0" width="149.5" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今年表现" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9me-Bz-oWs">
-                            <rect key="frame" x="296.5" y="0.0" width="78.5" height="30"/>
+                            <rect key="frame" x="300" y="0.0" width="75" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -54,14 +54,14 @@
                         <constraint firstItem="XOM-sr-pnY" firstAttribute="leading" secondItem="zeX-HG-fcq" secondAttribute="trailing" id="Yv8-NP-beZ"/>
                         <constraint firstAttribute="trailing" secondItem="9me-Bz-oWs" secondAttribute="trailing" id="bfI-pl-cgp"/>
                         <constraint firstItem="XOM-sr-pnY" firstAttribute="top" secondItem="h8Q-IQ-Uu8" secondAttribute="top" id="bp6-Cd-0f7"/>
-                        <constraint firstItem="XOM-sr-pnY" firstAttribute="width" secondItem="Paj-aG-MfQ" secondAttribute="width" constant="80" id="hNt-76-XAG"/>
+                        <constraint firstItem="XOM-sr-pnY" firstAttribute="width" secondItem="Paj-aG-MfQ" secondAttribute="width" constant="65" id="hNt-76-XAG"/>
                         <constraint firstItem="9me-Bz-oWs" firstAttribute="leading" secondItem="XOM-sr-pnY" secondAttribute="trailing" id="hzQ-It-pf1"/>
                         <constraint firstItem="zeX-HG-fcq" firstAttribute="leading" secondItem="Paj-aG-MfQ" secondAttribute="trailing" id="mda-3Y-Wgj"/>
                         <constraint firstAttribute="height" constant="30" id="mwz-nJ-q1n"/>
                         <constraint firstAttribute="bottom" secondItem="zeX-HG-fcq" secondAttribute="bottom" id="pyZ-eX-ebF"/>
                         <constraint firstItem="Paj-aG-MfQ" firstAttribute="leading" secondItem="h8Q-IQ-Uu8" secondAttribute="leading" id="qPA-WY-ynv"/>
                         <constraint firstItem="zeX-HG-fcq" firstAttribute="width" secondItem="Paj-aG-MfQ" secondAttribute="width" constant="-20" id="t3D-uk-W7y"/>
-                        <constraint firstItem="9me-Bz-oWs" firstAttribute="width" secondItem="Paj-aG-MfQ" secondAttribute="width" id="zHS-gN-5wR"/>
+                        <constraint firstItem="9me-Bz-oWs" firstAttribute="width" secondItem="Paj-aG-MfQ" secondAttribute="width" constant="-10" id="zHS-gN-5wR"/>
                     </constraints>
                 </view>
             </subviews>
