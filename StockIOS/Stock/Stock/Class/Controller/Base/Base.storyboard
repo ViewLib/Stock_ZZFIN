@@ -1208,8 +1208,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="BuildNum" destination="OOd-kg-AvN" id="ALf-Kp-WI9"/>
                         <outlet property="logoImg" destination="JLJ-Dk-RHg" id="Fta-II-rtT"/>
                         <outlet property="updateBtn" destination="yvT-Yb-Ftu" id="i3o-I8-r31"/>
+                        <outlet property="updateLabel" destination="lAj-OA-T5y" id="jl6-Zu-5FT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UFT-5Z-xL8" userLabel="First Responder" sceneMemberID="firstResponder"/>

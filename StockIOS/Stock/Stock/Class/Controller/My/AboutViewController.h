@@ -14,4 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *updateBtn;
 
+@property (weak, nonatomic) IBOutlet UILabel *updateLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *BuildNum;
+
 @end
