@@ -8,5 +8,6 @@ import android.view.View;
 public class StockListCallBacks {
 
     public View.OnClickListener mAddCallBack;//添加股票
+    public View.OnLongClickListener mActionCallBack;//操作股票
 
 }

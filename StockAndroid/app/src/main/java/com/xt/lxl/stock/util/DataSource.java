@@ -21,6 +21,7 @@ import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -87,6 +88,28 @@ public class DataSource {
         }
         String[] split = codeListStr.split(",");
         return Arrays.asList(split);
+    }
+
+    public static boolean deleteStockCode(Context context, String code) {
+        if (StringUtil.emptyOrNull(code)) {
+            return false;
+        }
+        List<String> list = getSaveStockCodeList(context);
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            String next = iterator.next();
+            if (code.equals(next)) {
+                iterator.remove();
+                break;
+            }
+        }
+        StringBuilder builder = new StringBuilder();
+        for (String str : list) {
+            builder.append(str);
+            builder.append(",");
+        }
+        SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
+        return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
     }
 
     public static boolean addStockCode(Context context, String code) {
