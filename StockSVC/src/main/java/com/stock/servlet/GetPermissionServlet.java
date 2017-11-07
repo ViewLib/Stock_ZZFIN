@@ -18,11 +18,11 @@ public class GetPermissionServlet extends HttpServlet {
         response.setStatus(200);
         PrintWriter writer = response.getWriter();
         double random = Math.random();
-        if (random > 0.5) {
-            writer.write("noPermission");
-        } else {
+//        if (random > 0.5) {
+//            writer.write("noPermission");
+//        } else {
             writer.write("success");
-        }
+//        }
 
         writer.flush();
     }
