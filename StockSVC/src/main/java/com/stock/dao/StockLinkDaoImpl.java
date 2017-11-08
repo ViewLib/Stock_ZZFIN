@@ -1,17 +1,17 @@
 package com.stock.dao;
 
-import com.stock.model.model.StockDetailGradleModel;
-import com.stock.model.model.StockEventsDataList;
-import com.stock.model.model.StockEventDataModel;
-import com.stock.model.model.StockRankResultModel;
+import com.stock.model.model.*;
 import com.stock.util.StringUtil;
+import com.stock.util.TransformUtil;
 import com.stock.viewmodel.SQLViewModel;
 import com.stock.viewmodel.StoctEventSQLResultModel;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiangleiliu on 2017/10/29.
@@ -167,6 +167,7 @@ public class StockLinkDaoImpl implements StockLinkDao {
         return gradleModelList;
     }
 
+    @Override
     public List<StoctEventSQLResultModel> getStockEventBySQLModel(SQLViewModel sqlViewModel, String stockCode) {
         List<StoctEventSQLResultModel> list = new ArrayList<>();
         PreparedStatement preStmt = null;
@@ -220,4 +221,188 @@ public class StockLinkDaoImpl implements StockLinkDao {
         }
         return list;
     }
+
+    @Override
+    public String selectLastTradeDate() {
+        String tradeDate = "";
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        String sql = "select max(TRADE_DATE) from [zzfin].[dbo].mkt_d_price";//查询最后一个交易日
+        Connection con = getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String dateStr = rs.getString(1);
+                tradeDate = dateStr;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.close(rs, preStmt, con);
+        }
+        return tradeDate;
+    }
+
+    @Override
+    public Map<String, String> selectRatioByCodeList(List<String> stockInfoList, String tradeDate) {
+        Map<String, String> ratioMap = new HashMap<>();
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        String s = TransformUtil.stockCodeList2String(stockInfoList);
+        String sql = "SELECT s_val_pe,TRADE_DT,[S_INFO_WINDCODE] ts_code FROM [wind].[dbo].[ashareeodderivativeindicator]  where [S_INFO_WINDCODE] in (" +
+                "?) and TRADE_DT = ?";//市盈率的
+        Connection con = getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+//            preStmt.setString(1, s);
+//            preStmt.setString(2, tradeDate);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String ts_code = rs.getString("ts_code");
+                String peStr = rs.getString("s_val_pe");
+                ratioMap.put(ts_code, peStr);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.close(rs, preStmt, con);
+        }
+        return ratioMap;
+    }
+
+    @Override
+    public Map<String, String> selectIncomeGrowthByCodeList(List<String> stockInfoList, String tradeStr) {
+        Map<String, String> map = new HashMap<>();
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        String sql = "select top 4 s_fa_yoy_or,s_info_windcode ts_code,report_period " +
+                " from  asharefinancialindicator where [S_INFO_WINDCODE] in (?)" +
+                " order by report_period desc;";//横向比较的sql
+        String s = TransformUtil.stockCodeList2String(stockInfoList);
+        Connection con = getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            preStmt.setString(1, s);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String ts_code = rs.getString("ts_code");
+                String s_fa_yoy_or = rs.getString("s_fa_yoy_or");
+                map.put(ts_code, s_fa_yoy_or);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.close(rs, preStmt, con);
+        }
+        return map;
+    }
+
+    @Override
+    public Map<String, String> selectStockPriceByCodeList(List<String> stockInfoList, String tradeStr) {
+        Map<String, String> map = new HashMap<>();
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        String sql = "";//横向比较的sql
+        String s = TransformUtil.stockCodeList2String(stockInfoList);
+        Connection con = getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            preStmt.setString(1, s);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String ts_code = rs.getString("ts_code");
+                String ratioStr = rs.getString("ts_code");
+                map.put(ts_code, ratioStr);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.close(rs, preStmt, con);
+        }
+        return map;
+    }
+
+    @Override
+    public Map<String, String> selectShareOutByCodeList(List<String> stockInfoList, String tradeStr) {
+        Map<String, String> ratioMap = new HashMap<>();
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        String sql = "ELECT div.ts_code ts_code, div.EX_DIV_DATE date, [DIV_CASH_BONUS_PRE_TAX]/(price.[PRE_CLOSE]*price.ADJ_FACTOR) div_pct\n" +
+                " FROM [zzfin].[dbo].[EQ_DIVIDEND]  div,[zzfin].[dbo].MKT_D_PRICE price\n" +
+                " where div.ts_code in (?) and div.ts_code=price.ts_code and div.EX_DIV_DATE=price.TRADE_DATE" +
+                " order by div.EX_DIV_DATE desc;";//横向比较的sql
+        String s = TransformUtil.stockCodeList2String(stockInfoList);
+        Connection con = getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            preStmt.setString(1, s);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String ts_code = rs.getString("ts_code");
+                String div_pct = rs.getString("div_pct");
+                ratioMap.put(ts_code, div_pct);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.close(rs, preStmt, con);
+        }
+        return ratioMap;
+    }
+
+    @Override
+    public String selectFirstTradeDate(String lastTradeDate) {
+        String firstTradeDate = "";
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        String sql = "select distinct trade_date from [zzfin].[dbo].[MKT_D_PRICE] order by trade_date";
+        Connection con = getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String trade_date = rs.getString("trade_date");
+                firstTradeDate = trade_date;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.close(rs, preStmt, con);
+        }
+        return firstTradeDate;
+    }
+
+    @Override
+    public List<String> selectCompareStockCodeList(String stockCode, String tradeDate) {
+        List<String> codeList = new ArrayList<>();
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        String sql = "select top 3 ts_code from [zzfin].[dbo].mkt_d_price where ts_code in" +
+                " (select s_info_windcode from wind.dbo.ashareswindustriesclass where sw_ind_code in " +
+                "(select top 1 sw_ind_code from [wind].dbo.ashareswindustriesclass where S_INFO_WINDCODE =? order by ENTRY_DT desc" +
+                "))" +
+                " and TRADE_DATE =?" +
+                " and ts_code !=? order by amount";//横向比较的sql
+//        String sql = "";
+        Connection con = getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            preStmt.setString(1, stockCode);
+            preStmt.setString(2, tradeDate);
+            preStmt.setString(3, stockCode);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                String ts_code = rs.getString("ts_code");
+                codeList.add(ts_code);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.close(rs, preStmt, con);
+        }
+        return codeList;
+    }
+
+
 }

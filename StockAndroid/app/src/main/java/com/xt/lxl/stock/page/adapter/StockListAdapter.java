@@ -79,7 +79,8 @@ public class StockListAdapter extends BaseAdapter {
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.stock_list_item, parent, false);
             }
-            bindData(convertView, getItem(position));
+            StockViewModel item = getItem(position);
+            bindData(convertView, item);
         }
         return convertView;
     }

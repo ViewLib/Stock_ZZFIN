@@ -3,6 +3,7 @@ package com.stock.service;
 import com.alibaba.fastjson.JSONArray;
 import com.stock.dao.StockDao;
 import com.stock.dao.StockDaoImpl;
+import com.stock.dao.StockLinkDao;
 import com.stock.dao.StockLinkDaoImpl;
 import com.stock.model.model.*;
 import com.stock.model.request.*;
@@ -21,7 +22,7 @@ import java.util.*;
 public class StockService {
 
     StockDao dao;
-    StockLinkDaoImpl linkDao = new StockLinkDaoImpl();
+    StockLinkDao linkDao = new StockLinkDaoImpl();
 
     public static StockService stockService;
 
@@ -371,7 +372,7 @@ public class StockService {
             stockEvents.stockEventsDataModels.clear();
             for (int j = 0; j < stockEventBySQLModel.size(); j++) {
                 StoctEventSQLResultModel resultModel = stockEventBySQLModel.get(j);
-                StockEventDataModel eventDataModel = transfor2EventDataModel(resultModel, stockEvents);//转换
+                StockEventDataModel eventDataModel = TransformUtil.transfor2EventDataModel(resultModel, stockEvents);//转换
                 stockEvents.stockEventsDataModels.add(eventDataModel);
             }
             stockEventsDataLists.add(stockEvents);
@@ -379,111 +380,37 @@ public class StockService {
         return stockEventsDataLists;
     }
 
-    public StockEventDataModel transfor2EventDataModel(StoctEventSQLResultModel resultModel, StockEventsDataList stockEvents) {
-        int subType = stockEvents.subType;
-        StockEventDataModel eventDataModel = new StockEventDataModel();
-        if (subType == StockEventsDataList.TYPE_LIFTED) {//解禁
-            eventDataModel.eventDate = resultModel.eventDate;
-            eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.attr4 + "," + resultModel.attr3 + "解禁" + FormatUtil.formatStockNum(resultModel.attr1) + "股";
-        } else if (subType == StockEventsDataList.TYPE_PLEDGE) {//质押
-            eventDataModel.eventDate = resultModel.eventDate;
-            eventDataModel.eventTitle = stockEvents.eventName;
-            //范建震
-            eventDataModel.eventDesc = resultModel.attr6 + FormatUtil.forDataStr(resultModel.attr1) + "向" + resultModel.attr7 + "质押" + resultModel.attr4 + "万股";
-        } else if (subType == StockEventsDataList.TYPE_EXCITATION) {
-            eventDataModel.eventDate = FormatUtil.forDataStr(resultModel.eventDate);
-            eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = FormatUtil.forDataStr(resultModel.eventDate) + resultModel.attr3 + "，数量：" + resultModel.attr4 + "万股，解禁日期：" + FormatUtil.forDataStr(resultModel.attr7);
-        } else if (subType == StockEventsDataList.TYPE_EXCHANGE) {//股票置换
-            eventDataModel.eventDate = resultModel.eventDate;
-            eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.eventDate + "，股权置换数量为：" + resultModel.attr1;
-        } else if (subType == StockEventsDataList.TYPE_INSTITUTIONAL_NUM) {
-            eventDataModel.eventDate = resultModel.eventDate;
-            eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.eventDate + "，机构持股数量为：" + FormatUtil.formatStockNum(resultModel.attr1) + "股";
-        } else if (subType == StockEventsDataList.TYPE_SHAREHOLDER_NUM) {
-            eventDataModel.eventDate = resultModel.eventDate;
-            eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.eventDate + "日，股东数量为：" + FormatUtil.formatStockNum(resultModel.attr1) + "人";
+    public List<StockDetailCompareModel> getCompareListInfo(StockDetailCompareRequest request) throws Exception {
+        List<StockDetailCompareModel> stockViewModelList = new ArrayList<>();
+        //获取最后一个交易日
+        String lastTradeDate = linkDao.selectLastTradeDate();
+
+        String selectStockCode = transCode(request.stockCode);
+        List<String> stockList = linkDao.selectCompareStockCodeList(selectStockCode, lastTradeDate);
+        Map<String, String> ratioMap = linkDao.selectRatioByCodeList(stockList, lastTradeDate);
+        Map<String, String> incomeMap = linkDao.selectIncomeGrowthByCodeList(stockList, lastTradeDate);
+        Map<String, String> shareOutMap = linkDao.selectShareOutByCodeList(stockList, lastTradeDate);
+
+        //股价表现
+        //获取年度第一个交易日
+        String firstTradeDate = linkDao.selectFirstTradeDate(lastTradeDate);
+
+        Map<String, String> firstPriceMap = linkDao.selectStockPriceByCodeList(stockList, firstTradeDate);
+        Map<String, String> lastPriceMap = linkDao.selectStockPriceByCodeList(stockList, lastTradeDate);
+
+        for (int i = 0; i < stockList.size(); i++) {
+            String stockCode = stockList.get(i);
+            StockDetailCompareModel compareModel = new StockDetailCompareModel();
+            compareModel.stockCode = stockCode;
+            compareModel.ratio = Float.parseFloat(ratioMap.get(stockCode));
+            compareModel.income = Float.parseFloat(incomeMap.get(stockCode));
+            compareModel.shareOut = Float.parseFloat(shareOutMap.get(stockCode));
+            String firstPrice = firstPriceMap.get(stockCode);
+            String lastPrice = lastPriceMap.get(stockCode);
+            compareModel.pricePerfor = Float.parseFloat(lastPrice) - Float.parseFloat(firstPrice);
+            stockViewModelList.add(compareModel);
         }
-        //重组
-        else if (subType == StockEventsDataList.TYPE_REFORM) {
-            eventDataModel.eventDate = resultModel.eventDate;
-            eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.attr1;
-        }
-        //定增
-        else if (subType == StockEventsDataList.TYPE_SETBY) {
-            eventDataModel.eventDate = resultModel.eventDate;
-            eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.attr1;
-        }
-        //大宗交易
-        else if (subType == StockEventsDataList.TYPE_BLOCK_TRADING) {
-            eventDataModel.eventDate = resultModel.eventDate;
-            eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.attr1;
-        }
-        //分红
-        else if (subType == StockEventsDataList.TYPE_DIVIEND) {
-            eventDataModel.eventDate = resultModel.eventDate;
-            eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.attr1;
-        }
-        //减持
-        else if (subType == StockEventsDataList.TYPE_REDUCE) {
-            eventDataModel.eventDate = resultModel.eventDate;
-            eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.attr1;
-        }
-        return eventDataModel;
-    }
 
-
-    private List<StockEventsDataList> getTextData() {
-        List<StockEventsDataList> stockEventsDataLists = new ArrayList<>();
-
-        StockEventsDataList eventsDataList1 = new StockEventsDataList();
-        eventsDataList1.eventName = "股票解禁";
-        eventsDataList1.eventType = StockEventsDataList.TYPE_LIFTED;
-
-        StockEventDataModel model11 = new StockEventDataModel();
-        model11.eventDate = "2017-10-29";
-        model11.eventTitle = "股权解禁";
-        model11.eventDesc = "定向增发机构配售股份，赵旭民解禁3375000股票";
-
-        StockEventDataModel model12 = new StockEventDataModel();
-        model12.eventDate = "2017-10-31";
-        model12.eventTitle = "股权解禁";
-        model12.eventDesc = "首发原股东限售股份，曲水迪宣投资管理合伙企业(有限合伙)解禁3375000股票";
-
-        eventsDataList1.stockEventsDataModels.add(model11);
-        eventsDataList1.stockEventsDataModels.add(model12);
-
-        stockEventsDataLists.add(eventsDataList1);
-
-
-        StockEventsDataList eventsDataList2 = new StockEventsDataList();
-        eventsDataList2.eventName = "股权质押";
-        eventsDataList2.eventType = StockEventsDataList.TYPE_LIFTED;
-
-        StockEventDataModel model21 = new StockEventDataModel();
-        model21.eventDate = "2017-10-29";
-        model21.eventTitle = "股权质押";
-        model21.eventDesc = "范建震向上海东方证券资产管理有限公司质押股票327.5433万手";
-
-        StockEventDataModel model22 = new StockEventDataModel();
-        model22.eventDate = "2017-10-31";
-        model22.eventTitle = "股权质押";
-        model22.eventDesc = "陈迪清向兴业证券股份有限公司质押股票550万手";
-
-        eventsDataList2.stockEventsDataModels.add(model21);
-        eventsDataList2.stockEventsDataModels.add(model22);
-
-        stockEventsDataLists.add(eventsDataList2);
-
-        return stockEventsDataLists;
+        return stockViewModelList;
     }
 }

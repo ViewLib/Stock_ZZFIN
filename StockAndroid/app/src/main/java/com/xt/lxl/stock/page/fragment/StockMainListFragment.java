@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
@@ -31,7 +32,7 @@ import java.util.List;
 /**
  * Created by xiangleiliu on 2017/9/2.
  */
-public class StockMainListFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class StockMainListFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     public static final int RequestCodeForSearch = 1;
     StockListCallBacks mCallBacks = new StockListCallBacks();
@@ -70,8 +71,30 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
                 startActivityForResult(intent, RequestCodeForSearch);
             }
         };
+        mCallBacks.mActionCallBack = new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                PopupWindow pop = new PopupWindow();
+                View view = View.inflate(getActivity(), R.layout.pop_menu_dialog, null);
+                pop.setContentView(view);
+                view.findViewById(R.id.stock_delete).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        StockViewModel item = (StockViewModel) v.getTag();
+                        DataSource.deleteStockCode(getActivity(), item.stockCode);
+                        initData();
+                    }
+                });
+                pop.setOutsideTouchable(true);   //设置外部点击关闭ppw窗口
+                pop.setFocusable(true);
+                pop.showAsDropDown(v, 0, 0);
+                return false;
+            }
+        };
         mStockKeywordEditText.setOnClickListener(this);
         mStockListView.setOnItemClickListener(this);
+        mStockListView.setOnItemLongClickListener(this);
     }
 
     private void initData() {
@@ -115,6 +138,15 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
             intent.putExtra(StockDetailActivity.STOCK_DETAIL, stockViewModel);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        StockViewModel stockViewModel = (StockViewModel) parent.getItemAtPosition(position);
+        if (stockViewModel.showType == StockViewModel.STOCK_SHOW_TYPE_NORMAL) {
+            DataSource.deleteStockCode(getContext(), stockViewModel.stockCode);
+        }
+        return false;
     }
 
     @Override
