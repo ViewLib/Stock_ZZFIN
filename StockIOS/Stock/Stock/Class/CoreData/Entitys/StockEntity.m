@@ -54,4 +54,6 @@
 @dynamic sell4num;
 @dynamic sell3num;
 @dynamic amplitude;
+@dynamic iD;
+@dynamic isTop;
 @end

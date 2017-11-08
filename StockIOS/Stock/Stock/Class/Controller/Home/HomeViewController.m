@@ -96,6 +96,9 @@
             [stocks addObject:entity.code];
         }
         NSString *stockCodes = [stocks componentsJoinedByString:@","];
+//        if (stockCodes.length == 0) {
+//            stockCodes = @"zs000001,zs399001,zs399005";
+//        }
         WS(self)
         [[HttpRequestClient sharedClient] getStockInformation:stockCodes request:^(NSString *resultMsg, id dataDict, id error) {
             if (dataDict) {
@@ -135,6 +138,7 @@
     if (nil == cell) {
         cell= (HomeTableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"HomeTableViewCell" owner:self options:nil] firstObject];
         [cell updateCell:_stocks[indexPath.row]];
+        
     }
     
     return cell;

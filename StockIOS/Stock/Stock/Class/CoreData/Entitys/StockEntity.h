@@ -142,7 +142,11 @@
 //跌停价
 @property (nullable, nonatomic, copy) NSString *limit;
 
+//id 排序用
+@property (nullable, nonatomic, copy) NSString *iD;
 
+//置顶
+@property (nullable, nonatomic, copy) NSString *isTop;
 
 
 

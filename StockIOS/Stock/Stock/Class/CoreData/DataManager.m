@@ -206,6 +206,10 @@
     entity.highlimit = ary[47];
     //跌停价
     entity.limit = ary[48];
+    //排序
+    entity.iD = [NSString stringWithFormat:@"%lu",(unsigned long)[self queryStockEntitys].count];
+    //置顶
+    entity.isTop = @"NO";
     
     return entity;
 }

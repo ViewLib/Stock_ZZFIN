@@ -140,8 +140,8 @@
 
 - (NSArray *)stockTopBarTitleArray {
     if (!_stockTopBarTitleArray) {
-        _stockTopBarTitleArray = @[@"分时",@"日K"];
-//        _stockTopBarTitleArray = @[@"分时",@"日K",@"周K",@"月K"];
+//        _stockTopBarTitleArray = @[@"分时",@"日K"];
+        _stockTopBarTitleArray = @[@"分时",@"日K",@"周K",@"月K"];
     }
     return _stockTopBarTitleArray;
 }

@@ -20,7 +20,7 @@
     layout.minimumInteritemSpacing = 5.0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     [_MenuCollection setCollectionViewLayout:layout];
-//    [self initBarChartView];
+    [self initBarChartView];
 }
 
 - (void)initBarChartView {
