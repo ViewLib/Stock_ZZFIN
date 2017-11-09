@@ -11,6 +11,17 @@ import java.util.List;
  */
 public class TransformUtil {
 
+    public static String stockCode2SQL(List<String> stockInfoList) {
+        String pssql = "";
+        for (int i = 0; i < stockInfoList.size(); i++) {
+            pssql += "?,";
+        }
+        if (pssql.endsWith(",")) {
+            pssql = pssql.substring(0, pssql.length() - 1);
+        }
+        return pssql;
+    }
+
     public static String stockCodeList2String(List<String> list) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {

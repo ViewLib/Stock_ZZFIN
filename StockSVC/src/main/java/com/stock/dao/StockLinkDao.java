@@ -44,7 +44,7 @@ public interface StockLinkDao {
     public Map<String, String> selectStockPriceByCodeList(List<String> stockInfoList, String tradeStr);
 
     /**
-     * 查询市盈率
+     * 查询分红比例
      */
     public Map<String, String> selectShareOutByCodeList(List<String> stockInfoList, String tradeStr);
 

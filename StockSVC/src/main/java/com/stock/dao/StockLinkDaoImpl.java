@@ -249,14 +249,17 @@ public class StockLinkDaoImpl implements StockLinkDao {
         Map<String, String> ratioMap = new HashMap<>();
         PreparedStatement preStmt = null;
         ResultSet rs = null;
-        String s = TransformUtil.stockCodeList2String(stockInfoList);
-        String sql = "SELECT s_val_pe,TRADE_DT,[S_INFO_WINDCODE] ts_code FROM [wind].[dbo].[ashareeodderivativeindicator]  where [S_INFO_WINDCODE] in (" +
-                "?) and TRADE_DT = ?";//市盈率的
+//        String s = TransformUtil.stockCodeList2String(stockInfoList);
+        String pssql = TransformUtil.stockCode2SQL(stockInfoList);
+        String sql = "SELECT s_val_pe,TRADE_DT,[S_INFO_WINDCODE] ts_code FROM [wind].[dbo].[ashareeodderivativeindicator]  where TRADE_DT = ? and [S_INFO_WINDCODE] in (" +
+                pssql + ")";//市盈率的
         Connection con = getConnection();
         try {
             preStmt = con.prepareStatement(sql);
-//            preStmt.setString(1, s);
-//            preStmt.setString(2, tradeDate);
+            preStmt.setString(1, tradeDate);
+            for (int i = 0; i < stockInfoList.size(); i++) {
+                preStmt.setString(2 + i, stockInfoList.get(i));
+            }
             rs = preStmt.executeQuery();
             while (rs.next()) {
                 String ts_code = rs.getString("ts_code");
@@ -276,14 +279,17 @@ public class StockLinkDaoImpl implements StockLinkDao {
         Map<String, String> map = new HashMap<>();
         PreparedStatement preStmt = null;
         ResultSet rs = null;
+        String pssql = TransformUtil.stockCode2SQL(stockInfoList);
         String sql = "select top 4 s_fa_yoy_or,s_info_windcode ts_code,report_period " +
-                " from  asharefinancialindicator where [S_INFO_WINDCODE] in (?)" +
+                " from [wind].[dbo].asharefinancialindicator where [S_INFO_WINDCODE] in (" + pssql + ")" +
                 " order by report_period desc;";//横向比较的sql
-        String s = TransformUtil.stockCodeList2String(stockInfoList);
+//        String s = TransformUtil.stockCodeList2String(stockInfoList);
         Connection con = getConnection();
         try {
             preStmt = con.prepareStatement(sql);
-            preStmt.setString(1, s);
+            for (int i = 0; i < stockInfoList.size(); i++) {
+                preStmt.setString(1 + i, stockInfoList.get(i));
+            }
             rs = preStmt.executeQuery();
             while (rs.next()) {
                 String ts_code = rs.getString("ts_code");
@@ -303,17 +309,21 @@ public class StockLinkDaoImpl implements StockLinkDao {
         Map<String, String> map = new HashMap<>();
         PreparedStatement preStmt = null;
         ResultSet rs = null;
-        String sql = "";//横向比较的sql
-        String s = TransformUtil.stockCodeList2String(stockInfoList);
+        String pssql = TransformUtil.stockCode2SQL(stockInfoList);
+        String sql = "SELECT ts_code,[CLOSE] FROM [zzfin].[dbo].[MKT_D_PRICE] " +
+                " where TRADE_DATE = ? and ts_code in (" + pssql + ")";//横向比较的sql
         Connection con = getConnection();
         try {
             preStmt = con.prepareStatement(sql);
-            preStmt.setString(1, s);
+            preStmt.setString(1, tradeStr);
+            for (int i = 0; i < stockInfoList.size(); i++) {
+                preStmt.setString(2 + i, stockInfoList.get(i));
+            }
             rs = preStmt.executeQuery();
             while (rs.next()) {
                 String ts_code = rs.getString("ts_code");
-                String ratioStr = rs.getString("ts_code");
-                map.put(ts_code, ratioStr);
+                String close = rs.getString("CLOSE");
+                map.put(ts_code, close);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -328,15 +338,17 @@ public class StockLinkDaoImpl implements StockLinkDao {
         Map<String, String> ratioMap = new HashMap<>();
         PreparedStatement preStmt = null;
         ResultSet rs = null;
-        String sql = "ELECT div.ts_code ts_code, div.EX_DIV_DATE date, [DIV_CASH_BONUS_PRE_TAX]/(price.[PRE_CLOSE]*price.ADJ_FACTOR) div_pct\n" +
-                " FROM [zzfin].[dbo].[EQ_DIVIDEND]  div,[zzfin].[dbo].MKT_D_PRICE price\n" +
-                " where div.ts_code in (?) and div.ts_code=price.ts_code and div.EX_DIV_DATE=price.TRADE_DATE" +
+        String pssql = TransformUtil.stockCode2SQL(stockInfoList);
+        String sql = "SELECT div.ts_code ts_code, div.EX_DIV_DATE date, [DIV_CASH_BONUS_PRE_TAX]/(price.[PRE_CLOSE]*price.ADJ_FACTOR) div_pct" +
+                " FROM [zzfin].[dbo].[EQ_DIVIDEND]  div,[zzfin].[dbo].MKT_D_PRICE price" +
+                " where div.ts_code in (" + pssql + ") and div.ts_code=price.ts_code and div.EX_DIV_DATE=price.TRADE_DATE" +
                 " order by div.EX_DIV_DATE desc;";//横向比较的sql
-        String s = TransformUtil.stockCodeList2String(stockInfoList);
         Connection con = getConnection();
         try {
             preStmt = con.prepareStatement(sql);
-            preStmt.setString(1, s);
+            for (int i = 0; i < stockInfoList.size(); i++) {
+                preStmt.setString(1 + i, stockInfoList.get(i));
+            }
             rs = preStmt.executeQuery();
             while (rs.next()) {
                 String ts_code = rs.getString("ts_code");
