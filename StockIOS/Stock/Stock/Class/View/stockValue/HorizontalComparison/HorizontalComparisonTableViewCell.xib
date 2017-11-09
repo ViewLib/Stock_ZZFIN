@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -87,14 +87,13 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="EfH-NM-dvm" firstAttribute="top" secondItem="iSt-sA-0Y5" secondAttribute="bottom" id="0SG-di-s1y"/>
-                    <constraint firstItem="ija-AF-yAB" firstAttribute="top" secondItem="4eg-H7-9d5" secondAttribute="bottom" constant="12" id="0Wu-m6-KtZ"/>
                     <constraint firstItem="sT6-Nw-rij" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="2Wk-Co-g5H"/>
                     <constraint firstItem="tOc-oW-LXi" firstAttribute="centerY" secondItem="4eg-H7-9d5" secondAttribute="centerY" id="2fL-nv-tgU"/>
                     <constraint firstItem="4eg-H7-9d5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="3fH-vn-tqf"/>
+                    <constraint firstItem="ija-AF-yAB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="36" id="7sx-1T-hC0"/>
                     <constraint firstItem="4eg-H7-9d5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="9KG-ek-g6Y"/>
                     <constraint firstItem="EfH-NM-dvm" firstAttribute="top" secondItem="5Gd-r9-EWs" secondAttribute="bottom" id="B0Y-Tp-X2d"/>
                     <constraint firstAttribute="trailing" secondItem="EfH-NM-dvm" secondAttribute="trailing" id="Pnv-ZK-LDf"/>
-                    <constraint firstItem="ija-AF-yAB" firstAttribute="top" secondItem="4eg-H7-9d5" secondAttribute="bottom" constant="12" id="Qaa-iv-sVQ"/>
                     <constraint firstItem="ija-AF-yAB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="XJh-4o-ywH"/>
                     <constraint firstItem="EfH-NM-dvm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Xck-n3-eAG"/>
                     <constraint firstAttribute="bottom" secondItem="sT6-Nw-rij" secondAttribute="bottom" id="aqe-it-Xeq"/>

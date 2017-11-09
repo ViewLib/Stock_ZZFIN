@@ -29,7 +29,7 @@
 
 - (void)getComputerInformation {
     WS(self)
-    [[HttpRequestClient sharedClient] getStockFinicial:@{@"stockCode": @"300170.SZ"} request:^(NSString *resultMsg, id dataDict, id error) {//self.stockCode
+    [[HttpRequestClient sharedClient] getStockFinicial:@{@"stockCode": self.stockCode} request:^(NSString *resultMsg, id dataDict, id error) {//self.stockCode
         if ([dataDict[@"resultCode"] intValue] == 200) {
             selfWeak.titleAry = dataDict[@"groupList"];
             [self.MenuCollection reloadData];

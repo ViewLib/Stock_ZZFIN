@@ -61,6 +61,9 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 #pragma mark - 获取券商信息
 -(void)getStockgrade:(NSDictionary *)value request:(request)request;
 
+#pragma mark - 横向比较
+- (void)getStockCompare:(NSDictionary *)value request:(request)request;
+
 /*****************************下面是模拟数据获取方法***************************/
 
 /**

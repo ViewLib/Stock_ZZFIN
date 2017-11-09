@@ -24,6 +24,16 @@
 
 @property (strong, nonatomic) NSString   *stockCode;
 
+@property (strong, nonatomic) NSArray   *barValueAry;
+
+@property (strong, nonatomic) NSMutableArray   *barX;
+
+@property (strong, nonatomic) NSMutableArray   *barY;
+
+@property (strong, nonatomic) NSString  *yType;
+
+@property (assign, nonatomic) NSInteger currentIndex;
+
 /**
  更新cell
  @param dic 更新的内容

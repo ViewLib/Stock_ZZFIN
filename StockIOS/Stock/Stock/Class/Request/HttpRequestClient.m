@@ -118,6 +118,12 @@
     [self httpPost:urlStr paramDict:dic completion:request];
 }
 
+#pragma mark - 横向比较
+- (void)getStockCompare:(NSDictionary *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_compare",SERVICE];
+    NSDictionary *dic = @{@"data": [value JSONString]};
+    [self httpPost:urlStr paramDict:dic completion:request];}
+
 #pragma mark ------请求公共方法-------
 #pragma mark - 提交get请求
 -(void) httpGet:(NSString *) urlstring paramDict:(NSDictionary *)paramDict completion:(request )completion {

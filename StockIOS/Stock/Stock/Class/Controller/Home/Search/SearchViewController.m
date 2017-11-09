@@ -209,12 +209,14 @@
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
-    CGRect new = searchBar.frame;
-    if (searchBar.frame.origin.y == 0) {
-        new.origin.y = 12;
-        _topHigh.constant = searchBar.frame.size.height;
+    if (IOS11_OR_LATER) {
+        CGRect new = searchBar.frame;
+        if (searchBar.frame.origin.y == 0) {
+            new.origin.y = 12;
+            _topHigh.constant = searchBar.frame.size.height;
+        }
+        searchBar.frame = new;
     }
-    searchBar.frame = new;
     
     NSLog(@"searchBarShouldEndEditing");
     return YES;
