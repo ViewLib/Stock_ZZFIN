@@ -387,27 +387,34 @@ public class StockService {
 
         String selectStockCode = transCode(request.stockCode);
         List<String> stockList = linkDao.selectCompareStockCodeList(selectStockCode, lastTradeDate);
-        Map<String, String> ratioMap = linkDao.selectRatioByCodeList(stockList, lastTradeDate);
-        Map<String, String> incomeMap = linkDao.selectIncomeGrowthByCodeList(stockList, lastTradeDate);
+        Calendar calendar = DateUtil.dateStr2calendar(FormatUtil.forDataStr(lastTradeDate), DateUtil.SIMPLEFORMATTYPESTRING7);
+        String dateStr = DateUtil.calendar2Time(calendar.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING6);
+        Map<String, String> ratioMap = linkDao.selectRatioByCodeList(stockList, dateStr);//ok
+        Map<String, String> incomeMap = linkDao.selectIncomeGrowthByCodeList(stockList, lastTradeDate);//OK
         Map<String, String> shareOutMap = linkDao.selectShareOutByCodeList(stockList, lastTradeDate);
 
         //股价表现
         //获取年度第一个交易日
-        String firstTradeDate = linkDao.selectFirstTradeDate(lastTradeDate);
+        String firstTradeDate = linkDao.selectFirstTradeDate(lastTradeDate);//这里返回的是从1990年开始的
 
-        Map<String, String> firstPriceMap = linkDao.selectStockPriceByCodeList(stockList, firstTradeDate);
-        Map<String, String> lastPriceMap = linkDao.selectStockPriceByCodeList(stockList, lastTradeDate);
+        Map<String, String> firstPriceMap = linkDao.selectStockPriceByCodeList(stockList, firstTradeDate);//ok
+        Map<String, String> lastPriceMap = linkDao.selectStockPriceByCodeList(stockList, lastTradeDate);//ok
 
         for (int i = 0; i < stockList.size(); i++) {
             String stockCode = stockList.get(i);
             StockDetailCompareModel compareModel = new StockDetailCompareModel();
             compareModel.stockCode = stockCode;
-            compareModel.ratio = Float.parseFloat(ratioMap.get(stockCode));
-            compareModel.income = Float.parseFloat(incomeMap.get(stockCode));
-            compareModel.shareOut = Float.parseFloat(shareOutMap.get(stockCode));
-            String firstPrice = firstPriceMap.get(stockCode);
-            String lastPrice = lastPriceMap.get(stockCode);
-            compareModel.pricePerfor = Float.parseFloat(lastPrice) - Float.parseFloat(firstPrice);
+            compareModel.ratio = AmountUtil.parse2Float(ratioMap.get(stockCode));
+            compareModel.income = AmountUtil.parse2Float(incomeMap.get(stockCode));
+            compareModel.shareOut = AmountUtil.parse2Float(shareOutMap.get(stockCode));
+            String firstPriceStr = firstPriceMap.get(stockCode);
+            String lastPriceStr = lastPriceMap.get(stockCode);
+            float firstPrice = AmountUtil.parse2Float(firstPriceStr);
+            float lastPrice = AmountUtil.parse2Float(lastPriceStr);
+            if (firstPrice == 0 || lastPrice == 0) {
+
+            }
+            compareModel.pricePerfor = AmountUtil.roundedFor(lastPrice - firstPrice, 2);
             stockViewModelList.add(compareModel);
         }
 

@@ -14,6 +14,16 @@ public class AmountUtil {
         return value;
     }
 
+    public static Float parse2Float(String str) {
+        try {
+            return Float.parseFloat(str);
+        } catch (Exception e) {
+
+        }
+        return 0f;
+    }
+
+
     public static String transHandFromAmount(String amout) {
         Long aLong = StringUtil.toLong(amout);
         if (aLong > 100000000L) {

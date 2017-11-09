@@ -208,6 +208,22 @@ public class DateUtil {
         return s;
     }
 
+    public static Calendar dateStr2calendar(String dateStr,String type) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(type);
+        TimeZone timeZone = TimeZone.getTimeZone(TIMEZONE_CN);
+        dateFormat.setTimeZone(timeZone);
+        try {
+            Date parse = dateFormat.parse(dateStr);
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(parse);
+            return instance;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return Calendar.getInstance();
+    }
+
+
     public static Calendar YYYYMMDD2calendar(String dateStr) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLEFORMATTYPESTRING6);
         TimeZone timeZone = TimeZone.getTimeZone(TIMEZONE_CN);
