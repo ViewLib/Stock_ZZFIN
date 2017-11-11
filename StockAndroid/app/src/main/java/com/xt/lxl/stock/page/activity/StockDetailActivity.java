@@ -14,6 +14,7 @@ import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
+import com.xt.lxl.stock.model.reponse.StockDetailCompareResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailGradeResponse;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
@@ -115,6 +116,7 @@ public class StockDetailActivity extends FragmentActivity {
         sendFinanceService();
         sendImportantEvent();
         sendNewsEvent();
+        sendCompareService();
     }
 
     Runnable runnable = new Runnable() {
@@ -250,6 +252,26 @@ public class StockDetailActivity extends FragmentActivity {
             }
         }).start();
     }
+
+    private void sendCompareService() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final StockDetailCompareResponse compareResponse = StockSender.getInstance().requestStockCompare(mCacheBean.mStockViewModel.getRequestStockCode());
+                if (compareResponse.resultCode != 200) {
+                    return;
+                }
+                mCacheBean.compareResponse = compareResponse;
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        compareModule.bindData();
+                    }
+                });
+            }
+        }).start();
+    }
+
 
     public void refreshAllData(StockDetailCacheBean cacheBean) {
         infoModule.bindData();

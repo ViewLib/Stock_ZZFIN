@@ -7,6 +7,7 @@ import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
+import com.xt.lxl.stock.model.reponse.StockDetailCompareResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailGradeResponse;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
@@ -19,6 +20,7 @@ import com.xt.lxl.stock.model.reponse.StockRankListResponse;
 import com.xt.lxl.stock.model.reponse.StockSyncResponse;
 import com.xt.lxl.stock.model.reponse.StockUserRegisterResponse;
 import com.xt.lxl.stock.model.request.StockDetailCompanyInfoRequest;
+import com.xt.lxl.stock.model.request.StockDetailCompareRequest;
 import com.xt.lxl.stock.model.request.StockDetailFinanceRequest;
 import com.xt.lxl.stock.model.request.StockDetailGradeRequest;
 import com.xt.lxl.stock.model.request.StockEventsDataRequest;
@@ -295,7 +297,7 @@ public class StockSender {
      * @param requestStockCode
      * @return
      */
-    public StockEventsDataResponse requestStockEventImportant(String requestStockCode,int type) {
+    public StockEventsDataResponse requestStockEventImportant(String requestStockCode, int type) {
         StockEventsDataRequest reqeust = new StockEventsDataRequest();
         reqeust.stockCode = requestStockCode;
         reqeust.type = type;
@@ -306,6 +308,28 @@ public class StockSender {
             eventsDataResponse = JSON.parseObject(s, StockEventsDataResponse.class);
         } catch (Exception e) {
             eventsDataResponse = new StockEventsDataResponse();
+            eventsDataResponse.resultCode = 500;
+            eventsDataResponse.resultMessage = "序列化失败";
+        }
+        return eventsDataResponse;
+    }
+
+    /**
+     * 横向比较
+     *
+     * @param requestStockCode
+     * @return
+     */
+    public StockDetailCompareResponse requestStockCompare(String requestStockCode) {
+        StockDetailCompareRequest reqeust = new StockDetailCompareRequest();
+        reqeust.stockCode = requestStockCode;
+        String requestJsonStr = JSON.toJSONString(reqeust);
+        String s = requestGet(mBaseAPIUrl + "stock_compare?", requestJsonStr, "utf-8");
+        StockDetailCompareResponse eventsDataResponse;
+        try {
+            eventsDataResponse = JSON.parseObject(s, StockDetailCompareResponse.class);
+        } catch (Exception e) {
+            eventsDataResponse = new StockDetailCompareResponse();
             eventsDataResponse.resultCode = 500;
             eventsDataResponse.resultMessage = "序列化失败";
         }
