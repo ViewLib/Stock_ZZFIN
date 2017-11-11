@@ -103,6 +103,9 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
             public void run() {
                 final List<StockViewModel> stockList = new ArrayList<>();
                 List<String> saveStockCodeList = DataSource.getSaveStockCodeList(getActivity());
+                if (saveStockCodeList.size() == 0) {
+                    saveStockCodeList = DataSource.getDefaultStockCodeList();
+                }
                 List<List<String>> lists = DataShowUtil.divisionList(saveStockCodeList, 60);
                 for (List<String> list : lists) {
                     stockList.addAll(StockSender.getInstance().requestStockModelByCode(list));
@@ -133,6 +136,9 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         StockViewModel stockViewModel = (StockViewModel) parent.getItemAtPosition(position);
+        if ("上证指数".equals(stockViewModel.stockName) || "深证成指".equals(stockViewModel.stockName) || "创业板指".equals(stockViewModel.stockName)) {
+            return;
+        }
         if (stockViewModel.showType == StockViewModel.STOCK_SHOW_TYPE_NORMAL) {
             Intent intent = new Intent(getActivity(), StockDetailActivity.class);
             intent.putExtra(StockDetailActivity.STOCK_DETAIL, stockViewModel);

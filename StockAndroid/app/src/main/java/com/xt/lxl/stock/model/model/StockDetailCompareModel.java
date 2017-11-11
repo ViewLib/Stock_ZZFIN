@@ -5,6 +5,7 @@ package com.xt.lxl.stock.model.model;
  */
 public class StockDetailCompareModel {
     public String stockCode;
+    public String stockName;
     public float ratio;//市盈率
     public float income;//收入增长
     public float pricePerfor;//股价表现

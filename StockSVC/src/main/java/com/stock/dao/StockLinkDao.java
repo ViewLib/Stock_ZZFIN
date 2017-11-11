@@ -52,4 +52,6 @@ public interface StockLinkDao {
      * 获取年度第一个交易日
      */
     public String selectFirstTradeDate(String lastTradeDate);
+
+    public Map<String, StockViewModel> selectStockByCode(List<String> stockInfoList);
 }

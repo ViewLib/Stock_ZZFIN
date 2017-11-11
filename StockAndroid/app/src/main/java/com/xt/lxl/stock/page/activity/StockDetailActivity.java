@@ -261,6 +261,9 @@ public class StockDetailActivity extends FragmentActivity {
                 if (compareResponse.resultCode != 200) {
                     return;
                 }
+                if (compareResponse.compareList.size() == 0) {
+                    return;
+                }
                 mCacheBean.compareResponse = compareResponse;
                 mHandler.post(new Runnable() {
                     @Override
