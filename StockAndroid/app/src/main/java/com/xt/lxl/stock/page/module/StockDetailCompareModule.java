@@ -85,10 +85,10 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         Map<String, Float> shareOutMap = new HashMap<>();//分红
 
         for (StockDetailCompareModel compareModel : compareModelList) {
-            ratioMap.put(compareModel.stockName, compareModel.ratio);
-            incomeMap.put(compareModel.stockName, compareModel.income);
-            priceShowMap.put(compareModel.stockName, compareModel.pricePerfor);
-            shareOutMap.put(compareModel.stockName, compareModel.shareOut);
+            ratioMap.put(compareModel.stockCode, compareModel.ratio);
+            incomeMap.put(compareModel.stockCode, compareModel.income);
+            priceShowMap.put(compareModel.stockCode, compareModel.pricePerfor);
+            shareOutMap.put(compareModel.stockCode, compareModel.shareOut);
         }
         List<View> viewList = new ArrayList<>();
 
