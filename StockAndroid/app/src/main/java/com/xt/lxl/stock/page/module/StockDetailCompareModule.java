@@ -69,6 +69,12 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         adapter = new StockViewPagerAdapter(viewList);
         mViewPager.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        mTab.setOnTabItemSelectedListener(new StockTabGroupButton.OnTabItemSelectedListener() {
+            @Override
+            public void onTabItemClicked(int whichButton) {
+                mViewPager.setCurrentItem(whichButton);
+            }
+        });
     }
 
     private List<View> createViewList(List<StockDetailCompareModel> compareModelList) {
@@ -79,10 +85,10 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         Map<String, Float> shareOutMap = new HashMap<>();//分红
 
         for (StockDetailCompareModel compareModel : compareModelList) {
-            ratioMap.put(compareModel.stockCode, compareModel.ratio);
-            ratioMap.put(compareModel.stockCode, compareModel.income);
-            ratioMap.put(compareModel.stockCode, compareModel.pricePerfor);
-            ratioMap.put(compareModel.stockCode, compareModel.shareOut);
+            ratioMap.put(compareModel.stockName, compareModel.ratio);
+            incomeMap.put(compareModel.stockName, compareModel.income);
+            priceShowMap.put(compareModel.stockName, compareModel.pricePerfor);
+            shareOutMap.put(compareModel.stockName, compareModel.shareOut);
         }
         List<View> viewList = new ArrayList<>();
 
@@ -111,14 +117,13 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         mChart.setDrawBarShadow(false);
         mChart.setMaxVisibleValueCount(60);
         mChart.setDrawValueAboveBar(false);//允许在水平以下画线
-
         //不展示比例
         Legend l = mChart.getLegend();
         l.setEnabled(false);
     }
 
 
-    private void initBarChartXY(BarChart mChart, final StockDetailFinanceGroup stockDetailFinanceGroup) {
+    private void initBarChartXY(BarChart mChart, final Map<String, Float> map) {
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(Typeface.DEFAULT);
@@ -129,7 +134,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
             @Override
             public String getFormattedValue(float value, YAxis yAxis) {
                 //大于1亿就展示为1.xx亿
-                return stockDetailFinanceGroup.getShowItemUnit(value);
+                return String.valueOf(value);
             }
         };
 
@@ -145,19 +150,16 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
     }
 
 
-    private void bindChartData(BarChart mChart, ArrayList<StockDetailFinanceItem> financeItemList) {
-
+    private void bindChartData(BarChart mChart, Map<String, Float> map) {
         ArrayList<String> xVals = new ArrayList<String>();
-        for (int i = 0; i < financeItemList.size(); i++) {
-            StockDetailFinanceItem stockDetailFinanceItem = financeItemList.get(i);
-            xVals.add(stockDetailFinanceItem.dateStr);
+        for (String stockName : map.keySet()) {
+            xVals.add(stockName);
         }
-
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-        for (int i = 0; i < financeItemList.size(); i++) {
-            StockDetailFinanceItem stockDetailFinanceItem = financeItemList.get(i);
-            float y = StringUtil.toFloat(stockDetailFinanceItem.valueStr);
-            yVals1.add(new BarEntry(y, i));//填充数据
+        int i = 0;
+        for (String stockName : map.keySet()) {
+            Float f = map.get(stockName);
+            yVals1.add(new BarEntry(f, i++));//填充数据
         }
 
         BarDataSet set1;

@@ -14,7 +14,6 @@
         android:drawableLeft="@drawable/stock_icon_sarchcontrols"
         android:gravity="center_vertical"
         android:hint="搜索"
-        android:inputType="number"
         android:maxLength="6"
         android:paddingLeft="10dp"
         android:paddingRight="30dp"
