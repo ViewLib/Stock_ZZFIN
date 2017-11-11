@@ -9,16 +9,72 @@ import java.util.Date;
  */
 public class StockUserModel {
 
-    public int userId;//用户id
-    public String moblie;//手机号
-    public String clientId;//clinetId
-    public String nickName;//用户昵称
-    public String area;//地区
-    public int age;//年龄
-    public Date createTime;//注册时间
+    private int userId;//用户id
+    private String moblie;//手机号
+    private String clientId;//clinetId
+    private String nickName;//用户昵称
+    private String area;//地区
+    private int age;//年龄
+    private Date createTime;//注册时间
 
     @Override
     public String toString() {
         return JSON.toJSONString(this);
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getMoblie() {
+        return moblie;
+    }
+
+    public void setMoblie(String moblie) {
+        this.moblie = moblie;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

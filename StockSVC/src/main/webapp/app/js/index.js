@@ -28,6 +28,14 @@ $(function() {
             });
         };
 
+        $('.js_user_query').on('click', function () {
+            $.get("/zzfin/rest/user/query",{"index":1,"size":2}, function (response,status,xhr) {
+                if(status === 'success'){
+                    $('#main-content').html(response);
+                }
+            });
+        });
+
         me.init = function() {
             me.handleMenuClick();
             me.handleSubMenuClick();

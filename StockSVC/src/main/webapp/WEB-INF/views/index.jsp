@@ -121,7 +121,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="javascript:;">
+                                    <a class="js_user_query" href="javascript:;">
                                         用户管理
                                     </a>
                                 </li>

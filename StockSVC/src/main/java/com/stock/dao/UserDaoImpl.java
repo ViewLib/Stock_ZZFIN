@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
         ResultSet rs = null;
         try {
             state = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            state.setString(1, stockUserModel.moblie);
+            state.setString(1, stockUserModel.getMoblie());
             int i = state.executeUpdate();
             if (i <= 0) {
                 return 0;
@@ -55,14 +55,14 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean updateStockUserModel(StockUserModel stockUserModel) {
         PreparedStatement pstmt = null;
-        Logger.getLogger().showMessage("updateStockUserModel area:" + stockUserModel.area);
+        Logger.getLogger().showMessage("updateStockUserModel area:" + stockUserModel.getArea());
         String sql = "UPDATE stock_user SET nickname = ?,area = ?,age = ? WHERE userid = ?";
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, stockUserModel.nickName);
-            pstmt.setString(2, stockUserModel.area);
-            pstmt.setInt(3, stockUserModel.age);
-            pstmt.setInt(4, stockUserModel.userId);
+            pstmt.setString(1, stockUserModel.getNickName());
+            pstmt.setString(2, stockUserModel.getArea());
+            pstmt.setInt(3, stockUserModel.getAge());
+            pstmt.setInt(4, stockUserModel.getUserId());
             return pstmt.executeUpdate() > 0 ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,12 +102,13 @@ public class UserDaoImpl implements UserDao {
                 int age = rs.getInt("age");
                 Timestamp createTime = rs.getTimestamp("createTime");
                 StockUserModel shopModel = new StockUserModel();
-                shopModel.userId = userId;
-                shopModel.moblie = moblie;
-                shopModel.nickName = nickName;
-                shopModel.area = area;
-                shopModel.age = age;
-                shopModel.createTime = new Date(createTime.getTime());
+                shopModel.setUserId(userId);
+                shopModel.setMoblie(moblie);
+                shopModel.setNickName(nickName);
+                shopModel.setArea(area);
+                shopModel.setAge(age);
+                shopModel.setCreateTime(new Date(createTime.getTime()));
+
                 return shopModel;
             }
         } catch (Exception e) {
@@ -134,12 +135,13 @@ public class UserDaoImpl implements UserDao {
                 Timestamp createTime = rs.getTimestamp("createTime");
 
                 StockUserModel userModel = new StockUserModel();
-                userModel.userId = userid;
-                userModel.moblie = moblie;
-                userModel.nickName = nickname;
-                userModel.area = area;
-                userModel.age = age;
-                userModel.createTime = new Date(createTime.getTime());
+                userModel.setUserId(userid);
+                userModel.setMoblie(moblie);
+                userModel.setNickName(nickname);
+                userModel.setArea(area);
+                userModel.setAge(age);
+                userModel.setCreateTime(new Date(createTime.getTime()));
+
                 return userModel;
             }
         } catch (Exception e) {
@@ -169,12 +171,12 @@ public class UserDaoImpl implements UserDao {
                 Timestamp createTime = rs.getTimestamp("createTime");
 
                 StockUserModel userModel = new StockUserModel();
-                userModel.userId = userid;
-                userModel.moblie = moblie;
-                userModel.nickName = nickname;
-                userModel.area = area;
-                userModel.age = age;
-                userModel.createTime = new Date(createTime.getTime());
+                userModel.setUserId(userid);
+                userModel.setMoblie(moblie);
+                userModel.setNickName(nickname);
+                userModel.setArea(area);
+                userModel.setAge(age);
+                userModel.setCreateTime(new Date(createTime.getTime()));
                 userList.add(userModel);
             }
         } catch (Exception e) {

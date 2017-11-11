@@ -44,11 +44,11 @@ public class UserService {
             return selectModel;
         }
         selectModel = new StockUserModel();
-        selectModel.moblie = moblie;
-        selectModel.clientId = stockUserRegisterRequest.clientId;
+        selectModel.setMoblie(moblie);
+        selectModel.setClientId(stockUserRegisterRequest.clientId);
         int userId = dao.insertStockUserModel(selectModel);
         if (userId > 0) {
-            selectModel.userId = userId;
+            selectModel.setUserId(userId);
             return selectModel;
         }
         //如果插入失败的话，则抛出异常
@@ -66,11 +66,12 @@ public class UserService {
             throw new Exception("userId异常");
         }
         StockUserModel model = new StockUserModel();
-        model.userId = userId;
-        model.moblie = completionRequest.moblie;
-        model.nickName = completionRequest.nickname;
-        model.area = completionRequest.area;
-        model.age = completionRequest.age;
+        model.setUserId(userId);
+        model.setMoblie(completionRequest.moblie);
+        model.setNickName(completionRequest.nickname);
+        model.setArea(completionRequest.area);
+        model.setAge(completionRequest.age);
+
         if (dao.updateStockUserModel(model)) {
             return model;
         } else {
