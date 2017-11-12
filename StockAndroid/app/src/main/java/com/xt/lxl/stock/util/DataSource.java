@@ -102,7 +102,9 @@ public class DataSource {
             return false;
         }
         List<String> list = getSaveStockCodeList(context);
-        Iterator<String> iterator = list.iterator();
+        ArrayList<String> codeList = new ArrayList<>();
+        codeList.addAll(list);
+        Iterator<String> iterator = codeList.iterator();
         while (iterator.hasNext()) {
             String next = iterator.next();
             if (code.equals(next)) {
@@ -111,12 +113,12 @@ public class DataSource {
             }
         }
         StringBuilder builder = new StringBuilder();
-        for (String str : list) {
+        for (String str : codeList) {
             builder.append(str);
             builder.append(",");
         }
-        SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
-        return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
+        SharedPreferences codeListSP = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
+        return codeListSP.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
     }
 
     public static boolean addStockCode(Context context, String code) {
