@@ -3,6 +3,7 @@ package com.xt.lxl.stock.page.module;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -94,21 +95,21 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         }
         List<View> viewList = new ArrayList<>();
 
-        viewList.add(createBarChart(ratioMap));
-        viewList.add(createBarChart(incomeMap));
-        viewList.add(createBarChart(priceShowMap));
-        viewList.add(createBarChart(shareOutMap));
+        viewList.add(createBarChart(compareModelList, ratioMap));
+        viewList.add(createBarChart(compareModelList, incomeMap));
+        viewList.add(createBarChart(compareModelList, priceShowMap));
+        viewList.add(createBarChart(compareModelList, shareOutMap));
 
         return viewList;
     }
 
-    private View createBarChart(Map<String, Float> map) {
+    private View createBarChart(List<StockDetailCompareModel> compareModelList, Map<String, Float> map) {
         BarChart mChart = new BarChart(mContainer.getContext());
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(-1, DeviceUtil.getPixelFromDip(mContainer.getContext(), 150));
         mChart.setLayoutParams(lp);
         initBarChart(mChart);
-        initBarChartXY(mChart, map);
-        bindChartData(mChart, map);
+        initBarChartXY(mChart);
+        bindChartData(mChart, compareModelList, map);
         return mChart;
     }
 
@@ -125,7 +126,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
     }
 
 
-    private void initBarChartXY(BarChart mChart, final Map<String, Float> map) {
+    private void initBarChartXY(BarChart mChart) {
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(Typeface.DEFAULT);
@@ -152,26 +153,25 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
     }
 
 
-    private void bindChartData(BarChart mChart, Map<String, Float> map) {
+    private void bindChartData(BarChart mChart, List<StockDetailCompareModel> compareModelList, Map<String, Float> map) {
         ArrayList<String> xVals = new ArrayList<String>();
-        for (String stockName : map.keySet()) {
-            xVals.add(stockName);
+        for (int i = 0; i < compareModelList.size(); i++) {
+            StockDetailCompareModel compareModel = compareModelList.get(i);
+            xVals.add(compareModel.stockName);
         }
+        Log.i("lxltest", "bindChartData");
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-        int i = 0;
-        for (String stockName : map.keySet()) {
-            Float f = map.get(stockName);
-            yVals1.add(new BarEntry(f, i++));//填充数据
+        for (int i = 0; i < compareModelList.size(); i++) {
+            StockDetailCompareModel compareModel = compareModelList.get(i);
+            Float f = map.get(compareModel.stockName);
+            Log.i("lxltest", "compareModel.stockName:" + f);
+            yVals1.add(new BarEntry(f, i));//填充数据
         }
-
         BarDataSet set1;
-//        mChart.animateY(2000);//设置动画
         set1 = new BarDataSet(yVals1, "");
         set1.setBarSpacePercent(60);//设置矩形之间的间距，参数为百分数，可控制矩形的宽度
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(Color.parseColor("#186db7"));//设置颜色
-        set1.setColors(list);
-        set1.setDrawValues(false);
+        set1.setColors(new int[]{Color.parseColor("#FF8704"), Color.parseColor("#186db7"), Color.parseColor("#186db7"), Color.parseColor("#186db7")});
+        set1.setDrawValues(true);
 
         BarData data = new BarData(xVals, set1);
         data.setValueTextSize(10f);
