@@ -16,8 +16,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockDetailCompareModel;
-import com.xt.lxl.stock.model.model.StockDetailFinanceGroup;
-import com.xt.lxl.stock.model.model.StockDetailFinanceItem;
 import com.xt.lxl.stock.model.reponse.StockDetailCompareResponse;
 import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
 import com.xt.lxl.stock.util.DeviceUtil;
@@ -85,10 +83,14 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         Map<String, Float> shareOutMap = new HashMap<>();//分红
 
         for (StockDetailCompareModel compareModel : compareModelList) {
-            ratioMap.put(compareModel.stockCode, compareModel.ratio);
-            incomeMap.put(compareModel.stockCode, compareModel.income);
-            priceShowMap.put(compareModel.stockCode, compareModel.pricePerfor);
-            shareOutMap.put(compareModel.stockCode, compareModel.shareOut);
+            String stockName = compareModel.stockName;
+            if (StringUtil.emptyOrNull(stockName)) {
+                stockName = compareModel.stockCode;
+            }
+            ratioMap.put(stockName, compareModel.ratio);
+            incomeMap.put(stockName, compareModel.income);
+            priceShowMap.put(stockName, compareModel.pricePerfor);
+            shareOutMap.put(stockName, compareModel.shareOut);
         }
         List<View> viewList = new ArrayList<>();
 
