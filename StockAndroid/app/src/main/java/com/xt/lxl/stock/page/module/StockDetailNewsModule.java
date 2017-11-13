@@ -87,7 +87,6 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
     @Override
     public void bindData() {
         StockEventsDataResponse newsResponse = mCacheBean.newsResponse;
-        Log.i("lxltest", "eventsDataResponse:" + newsResponse.stockEventsDataLists.size());
         List<StockDateDataModel> dataList = DataSource.getDayDataPriceList();//重大事件日线图
 
         //K线图不变化

@@ -188,6 +188,9 @@ public class StockSender {
         params.put("stockCode", stockCode);
         params.put("date", date);
         String s = requestGet(mBaseUrl + "stockMinute?", params, "utf-8");
+        if (s.length() < 100) {
+            LogUtil.LogI("requestMinuteData返回结果异常：" + s);
+        }
         s = "{\"stockMinuteDataModels\":" + s + "}";
         StockGetMinuteDataResponse getMinuteDataResponse;
         try {

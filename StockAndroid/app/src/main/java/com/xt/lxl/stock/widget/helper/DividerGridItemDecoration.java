@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -27,8 +26,6 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
             mDivider = a.getDrawable(0);
             a.recycle();
         }
-        Log.i("lxltest", "width:" + mDivider.getIntrinsicWidth());
-        Log.i("lxltest", "height:" + mDivider.getIntrinsicHeight());
     }
 
     @Override
