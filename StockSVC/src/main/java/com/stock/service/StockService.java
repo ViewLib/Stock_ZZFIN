@@ -390,6 +390,9 @@ public class StockService {
         if (stockList.size() == 0) {
             throw new Exception("横向比较股票推荐为空!");
         }
+        //当前股票加入对比当中
+        stockList.add(0, selectStockCode.toUpperCase());
+
         Calendar calendar = DateUtil.dateStr2calendar(FormatUtil.forDataStr(lastTradeDate), DateUtil.SIMPLEFORMATTYPESTRING7);
         String dateStr = DateUtil.calendar2Time(calendar.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING6);
         Map<String, String> ratioMap = linkDao.selectRatioByCodeList(stockList, dateStr);//ok

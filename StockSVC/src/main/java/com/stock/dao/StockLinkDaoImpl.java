@@ -379,18 +379,19 @@ public class StockLinkDaoImpl implements StockLinkDao {
         PreparedStatement preStmt = null;
         ResultSet rs = null;
         String pssql = TransformUtil.stockCode2SQL(stockList);
-        String sql = "select ts.name from [zzfin].[dbo].[TS_SECURITY] ts where ts.ts_code in (" + pssql + ");";//横向比较的sql
-        Connection con = getConnection();
+        String sql = "select ts.name , ts.ts_code from [zzfin].[dbo].[TS_SECURITY] ts where ts.ts_code in (" + pssql + ");";//横向比较的sql
+        Connection con =dao.getConnection();
         try {
             preStmt = con.prepareStatement(sql);
             for (int i = 0; i < stockList.size(); i++) {
-                preStmt.setString(1 + i, stockList.get(i));
+                String stockCode=stockList.get(i);
+                preStmt.setString((1 + i), stockCode);
             }
             rs = preStmt.executeQuery();
             while (rs.next()) {
                 StockViewModel stockViewModel = new StockViewModel();
-                String stockCode = rs.getString("ts.ts_code");
-                String stockName = rs.getString("ts.name");
+                String stockCode = rs.getString("ts_code");
+                String stockName = rs.getString("name");
                 stockViewModel.stockName = stockName;
                 stockViewModel.stockCode = stockCode;
                 map.put(stockCode, stockViewModel);

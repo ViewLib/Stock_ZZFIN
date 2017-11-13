@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockListCallBacks;
+import com.xt.lxl.stock.listener.inter.ActionStockCallBackInter;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.page.activity.StockDetailActivity;
 import com.xt.lxl.stock.page.activity.StockSearchActivity;
@@ -24,6 +25,7 @@ import com.xt.lxl.stock.page.adapter.StockListAdapter;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.DataSource;
+import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.StockUtil;
 
 import java.util.ArrayList;
@@ -71,25 +73,27 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
                 startActivityForResult(intent, RequestCodeForSearch);
             }
         };
-        mCallBacks.mActionCallBack = new View.OnLongClickListener() {
-
+        mCallBacks.mActionCallBack = new ActionStockCallBackInter() {
             @Override
-            public boolean onLongClick(View v) {
+            public void actionStockCallBack(final View v, final StockViewModel stockViewModel) {
                 PopupWindow pop = new PopupWindow();
                 View view = View.inflate(getActivity(), R.layout.pop_menu_dialog, null);
                 pop.setContentView(view);
+                pop.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+                pop.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
                 view.findViewById(R.id.stock_delete).setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        StockViewModel item = (StockViewModel) v.getTag();
+                    public void onClick(View vv) {
+                        StockViewModel item = stockViewModel;
                         DataSource.deleteStockCode(getActivity(), item.stockCode);
                         initData();
                     }
                 });
                 pop.setOutsideTouchable(true);   //设置外部点击关闭ppw窗口
                 pop.setFocusable(true);
-                pop.showAsDropDown(v, 0, 0);
-                return false;
+                int screenWidth = DeviceUtil.getScreenWidth(getContext());
+                int pixelFromDip = DeviceUtil.getPixelFromDip(getContext(), 100);
+                pop.showAsDropDown(v, screenWidth - pixelFromDip, pixelFromDip / 10 * -1);
             }
         };
         mStockKeywordEditText.setOnClickListener(this);
@@ -150,7 +154,7 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         StockViewModel stockViewModel = (StockViewModel) parent.getItemAtPosition(position);
         if (stockViewModel.showType == StockViewModel.STOCK_SHOW_TYPE_NORMAL) {
-            DataSource.deleteStockCode(getContext(), stockViewModel.stockCode);
+            mCallBacks.mActionCallBack.actionStockCallBack(view, stockViewModel);
         }
         return false;
     }

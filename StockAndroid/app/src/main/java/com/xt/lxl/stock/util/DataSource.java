@@ -102,7 +102,9 @@ public class DataSource {
             return false;
         }
         List<String> list = getSaveStockCodeList(context);
-        Iterator<String> iterator = list.iterator();
+        ArrayList<String> codeList = new ArrayList<>();
+        codeList.addAll(list);
+        Iterator<String> iterator = codeList.iterator();
         while (iterator.hasNext()) {
             String next = iterator.next();
             if (code.equals(next)) {
@@ -111,12 +113,12 @@ public class DataSource {
             }
         }
         StringBuilder builder = new StringBuilder();
-        for (String str : list) {
+        for (String str : codeList) {
             builder.append(str);
             builder.append(",");
         }
-        SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
-        return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
+        SharedPreferences codeListSP = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
+        return codeListSP.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
     }
 
     public static boolean addStockCode(Context context, String code) {
@@ -324,7 +326,7 @@ public class DataSource {
         int closePrice = 1060;//当前股票最低价格，单位：分
 
         Calendar instance = Calendar.getInstance();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 300; i++) {
             if (instance.get(Calendar.DAY_OF_WEEK) == 7 || instance.get(Calendar.DAY_OF_WEEK) == 1) {//周六或者周天跳过
                 instance.add(Calendar.DAY_OF_MONTH, -1);
                 continue;
@@ -342,10 +344,10 @@ public class DataSource {
 
             //add value
             instance.add(Calendar.DAY_OF_MONTH, -1);
-            maxPrice += 10;
-            minPrice += 10;
-            openPrice += 10;
-            closePrice += 10;
+            maxPrice += 1;
+            minPrice += 1;
+            openPrice += 1;
+            closePrice += 1;
         }
 
         List<StockDateDataModel> list2 = new ArrayList<>();

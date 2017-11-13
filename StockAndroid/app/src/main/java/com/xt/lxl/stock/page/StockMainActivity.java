@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -18,6 +19,7 @@ import com.xt.lxl.stock.page.fragment.StockMainListFragment;
 import com.xt.lxl.stock.page.fragment.StockMainUserFragment;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.StockUser;
+import com.xt.lxl.stock.widget.dialog.HotelCustomDialog;
 
 /**
  * Created by xiangleiliu on 2017/9/1.
@@ -110,5 +112,27 @@ public class StockMainActivity extends FragmentActivity implements View.OnClickL
             transaction.replace(R.id.stock_main_fragment_container, mStockUserFragment);
         }
         transaction.commit();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            HotelCustomDialog dialog = new HotelCustomDialog();
+            dialog.setContent("是否要退出当前应用？", "退出", "取消");
+            dialog.setDialogBtnClick(new HotelCustomDialog.HotelDialogBtnClickListener() {
+                @Override
+                public void leftBtnClick(HotelCustomDialog dialog) {
+                    finish();
+                }
+
+                @Override
+                public void rightBtnClick(HotelCustomDialog dialog) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show(getSupportFragmentManager(), "back");
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
