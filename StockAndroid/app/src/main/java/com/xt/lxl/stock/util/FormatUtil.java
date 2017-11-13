@@ -34,15 +34,4 @@ public class FormatUtil {
         }
         return coordinate;
     }
-
-    public static int string2Int(String str) {
-        try {
-            int i = Integer.parseInt(str.trim());
-            return i;
-        } catch (Exception e) {
-
-        }
-        return 0;
-    }
-
 }

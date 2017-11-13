@@ -110,14 +110,24 @@ public class StockDetailActivity extends FragmentActivity {
         builder.append(mCacheBean.mStockViewModel.stockCode);
         builder.setSpan(new TextAppearanceSpan(this, R.style.text_12_ffffff), length, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         titleView.setTitle(builder);
-        sendStockDataService();
-        sendStockCompanyService();
-        sendStockGradeService();
-        sendFinanceService();
-        sendImportantEvent();
-        sendNewsEvent();
-        sendCompareService();
+        hanldeSendService();
     }
+
+    private void hanldeSendService() {
+        sendStockDataService();
+        sendImportantEvent();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendStockCompanyService();
+                sendStockGradeService();
+                sendFinanceService();
+                sendNewsEvent();
+                sendCompareService();
+            }
+        }, 3000);
+    }
+
 
     Runnable runnable = new Runnable() {
         @Override

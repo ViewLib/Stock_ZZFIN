@@ -146,7 +146,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
             //向RelativeLayout中添加view
             for (int k = 0; k < dataList.size(); k++) {
                 StockDateDataModel model = dataList.get(k);
-                StockEventsDataModel eventsDataModel = eventMap.get(model.dateStr);
+                StockEventsDataModel eventsDataModel = eventMap.get(model.date);
                 if (eventsDataModel == null) {
                     continue;
                 }
@@ -162,7 +162,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
                 }
                 //计算上下边距
                 int itemRightMargin = (int) (itemWidth * k - (iconWidth / 2));
-                int itemTopMarigin = (int) ((axisMaximum - model.closePrice) * itemHeight - iconHeight / 2);
+                int itemTopMarigin = (int) ((axisMaximum - model.close) * itemHeight - iconHeight / 2);
 
                 relp.setMargins(itemRightMargin, itemTopMarigin, 0, 0);
                 eventContainer.addView(text, relp);
@@ -248,9 +248,9 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         ArrayList<Entry> yValues = new ArrayList<Entry>();
         for (int i = 0; i < dataList.size(); i++) {
             StockDateDataModel model = dataList.get(i);
-            xValues.add(model.dateStr);
+            xValues.add(model.date);
             // y轴的数据
-            yValues.add(new Entry(((float) model.closePrice) / 100, i));
+            yValues.add(new Entry(model.close, i));
         }
 
         // y轴的数据集合

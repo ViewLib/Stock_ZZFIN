@@ -262,7 +262,7 @@ public class DateUtil {
      */
     public static String getCurrentDate() {
         Calendar currentCalendar = getCurrentCalendar();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLEFORMATTYPESTRING6);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLEFORMATTYPESTRING7);
         TimeZone timeZone = TimeZone.getTimeZone(TIMEZONE_CN);
         dateFormat.setTimeZone(timeZone);
         String str = dateFormat.format(currentCalendar.getTime());

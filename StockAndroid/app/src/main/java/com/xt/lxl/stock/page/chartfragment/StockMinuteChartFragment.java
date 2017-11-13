@@ -29,7 +29,8 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
-import com.xt.lxl.stock.util.DataSource;
+import com.xt.lxl.stock.sender.StockSender;
+import com.xt.lxl.stock.util.DateUtil;
 import com.xt.lxl.stock.widget.stockchart.bean.MinuteViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyYAxis;
@@ -185,9 +186,10 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                StockGetMinuteDataResponse minuteDataResponse = StockSender.getInstance().requestMinuteData(stockCode);
-                StockGetMinuteDataResponse minuteDataResponse = DataSource.getMinuteDataResponses();
-                minuteViewModel.initAllModel(minuteDataResponse.stockMinuteDataModels,stockViewModel.stockBasePirce);
+                String currentDate = DateUtil.getCurrentDate();
+                StockGetMinuteDataResponse minuteDataResponse = StockSender.getInstance().requestMinuteData(stockViewModel.stockCode, currentDate);
+//                StockGetMinuteDataResponse minuteDataResponse = DataSource.getMinuteDataResponses();
+                minuteViewModel.initAllModel(minuteDataResponse.stockMinuteDataModels, stockViewModel.stockBasePirce);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -242,8 +244,8 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
                     stringSparseArray.get(i).contains("/")) {
                 i++;
             }
-            lineCJEntries.add(new Entry(((float) stockMinuteData.price) / 100f, i));//成交价格
-            lineJJEntries.add(new Entry(stockMinuteData.pjprice / 100f, i));//平均价格
+            lineCJEntries.add(new Entry(((float) stockMinuteData.price), i));//成交价格
+            lineJJEntries.add(new Entry(stockMinuteData.pjprice, i));//平均价格
             barEntries.add(new BarEntry(stockMinuteData.volume, i));//成交数量
             // dateList.add(mData.getDatas().get(i).time);
         }

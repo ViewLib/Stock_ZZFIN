@@ -24,8 +24,6 @@ import com.xt.lxl.stock.model.request.StockDetailCompareRequest;
 import com.xt.lxl.stock.model.request.StockDetailFinanceRequest;
 import com.xt.lxl.stock.model.request.StockDetailGradeRequest;
 import com.xt.lxl.stock.model.request.StockEventsDataRequest;
-import com.xt.lxl.stock.model.request.StockGetDateDataRequest;
-import com.xt.lxl.stock.model.request.StockGetMinuteDataRequest;
 import com.xt.lxl.stock.model.request.StockHotSearchRequest;
 import com.xt.lxl.stock.model.request.StockRankDetailFilterlRequest;
 import com.xt.lxl.stock.model.request.StockRankDetailResquest;
@@ -34,6 +32,7 @@ import com.xt.lxl.stock.model.request.StockSyncReqeust;
 import com.xt.lxl.stock.model.request.StockUserRegisterRequest;
 import com.xt.lxl.stock.util.DataShowUtil;
 import com.xt.lxl.stock.util.IOHelper;
+import com.xt.lxl.stock.util.LogUtil;
 import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.StringUtil;
 
@@ -51,11 +50,17 @@ public class StockSender {
     private static StockSender sender;
     private static String mBaseStockUrl = "http://qt.gtimg.cn/q=";
     //    http://qt.gtimg.cn/q=sz300170,sz300171,sz300172,sz300173,sz300174,sz300170,sz300170,sz300170,sz300170,
-//    private static String mBaseAPIUrl = "http://10.32.151.30:8090/zzfin/api/";
+    private static String mBaseUrl = "http://115.159.31.128/";
     private static String mBaseAPIUrl = "http://115.159.31.128:8090/zzfin/api/";
-//    private static String mBaseAPIUrl = "http://10.32.151.17:8080/zzfin/api/";
-//    http://10.32.151.30:8090/zzfin/api/register?moblie=15601817211
-//    http://10.32.151.30:8090/zzfin/api/completion?userid=10000002&moblie=15601817296&nickname=hahahah&area=山东日照&age=28
+
+
+    /**
+     * http://115.159.31.128/stockMinute?stockCode=300170&date=2017-11-13
+     * 日线：http://115.159.31.128/stockDay?stockCode=300170
+     * 周线：http://115.159.31.128/stockWeek?stockCode=300170
+     * 月线：http://115.159.31.128/stockMonth?stockCode=300170
+     */
+
 
     private StockSender() {
     }
@@ -178,11 +183,12 @@ public class StockSender {
         return stockSyncResponse;
     }
 
-    public StockGetMinuteDataResponse requestMinuteData(String stockCode) {
-        StockGetMinuteDataRequest reqeust = new StockGetMinuteDataRequest();
-        reqeust.stockCode = stockCode;
-        String requestJsonStr = JSON.toJSONString(reqeust);
-        String s = requestGet(mBaseAPIUrl + "stock_minute?", requestJsonStr, "utf-8");
+    public StockGetMinuteDataResponse requestMinuteData(String stockCode, String date) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("stockCode", stockCode);
+        params.put("date", date);
+        String s = requestGet(mBaseUrl + "stockMinute?", params, "utf-8");
+        s = "{\"stockMinuteDataModels\":" + s + "}";
         StockGetMinuteDataResponse getMinuteDataResponse;
         try {
             getMinuteDataResponse = JSON.parseObject(s, StockGetMinuteDataResponse.class);
@@ -190,19 +196,20 @@ public class StockSender {
             getMinuteDataResponse = new StockGetMinuteDataResponse();
             getMinuteDataResponse.resultCode = 500;
             getMinuteDataResponse.resultMessage = "序列化失败";
+            LogUtil.LogE("requestMinuteData接口异常：" + e.getMessage());
         }
         return getMinuteDataResponse;
     }
 
     public StockGetDateDataResponse requestDateData(String stockCode, String getType) {
-        StockGetDateDataRequest reqeust = new StockGetDateDataRequest();
-        reqeust.stockCode = stockCode;
-        reqeust.stockKData = getType;
-        String requestJsonStr = JSON.toJSONString(reqeust);
-        String s = requestGet(mBaseAPIUrl + "stock_data?", requestJsonStr, "utf-8");
+        HashMap<String, String> params = new HashMap<>();
+        params.put("stockCode", stockCode);
+        String s = requestGet(mBaseUrl + getType + "?", params, "utf-8");
+        s = "{\"dateDataList\":" + s + "}";
         StockGetDateDataResponse getDateDataResponse;
         try {
             getDateDataResponse = JSON.parseObject(s, StockGetDateDataResponse.class);
+            getDateDataResponse.stockKDataType = getType;
         } catch (Exception e) {
             getDateDataResponse = new StockGetDateDataResponse();
             getDateDataResponse.resultCode = 500;
