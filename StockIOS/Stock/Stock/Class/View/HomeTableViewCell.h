@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "StockEntity.h"
 
+typedef void(^clickMenuBlock)(void);
+
 @interface HomeTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *baseWidth;
 
@@ -31,6 +33,8 @@
 @property (assign, nonatomic)   float       percentage;
 
 @property (strong, nonatomic)   UIView      *pView;
+
+@property (copy, nonatomic) clickMenuBlock  clickMenuBlock;
 
 - (void)updateCell:(StockEntity *)entity;
 

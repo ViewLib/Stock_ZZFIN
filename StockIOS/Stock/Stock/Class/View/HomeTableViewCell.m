@@ -14,6 +14,9 @@
     [super awakeFromNib];
     
     _baseWidth.constant = K_FRAME_BASE_WIDTH;
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressAction:)];
+    [self addGestureRecognizer:longPress];
 }
 
 - (void)updateCell:(StockEntity *)entity {
@@ -86,6 +89,52 @@
     self.upView.hidden = YES;
     self.downView.hidden = YES;
     self.stopLabel.hidden = YES;
+}
+
+- (void)longPressAction:(UILongPressGestureRecognizer *)longPress {
+    if (longPress.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"出现弹框");
+        [self becomeFirstResponder];
+        
+//        UIMenuItem * copyItem=[[UIMenuItem alloc] initWithTitle:@"置顶" action:@selector(myTop:)];
+        UIMenuItem * deleateItem=[[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(myDeleate:)];
+        
+        //   获取UIMenuController单例
+        UIMenuController * menuControl=[UIMenuController sharedMenuController];
+        //   塞进UIMenuController中
+        [menuControl setMenuItems:[NSArray arrayWithObjects:deleateItem ,nil]];
+        //   设置要显示的位置
+        [menuControl setTargetRect:CGRectMake(self.centerX, 10, 100, 100) inView:self.contentView];
+        //   显示出来
+        [menuControl setMenuVisible:YES animated:YES];
+        
+    }
+}
+
+//-(void)myTop:(id)sender
+//{
+//    NSLog(@"myCopy");
+//}
+
+-(void)myDeleate:(id)sender
+{
+    [Utils removeStock:self.code.text utilRequest:nil];
+    if (self.clickMenuBlock) {
+        self.clickMenuBlock();
+    }
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    NSLog(@"%@", NSStringFromSelector(action));
+    if (action == @selector(myDeleate:)) {//action == @selector(myTop:)||
+        return YES; // YES ->  代表我们只监听 cut: / copy: / paste:方法
+    }
+    return NO; // 除了上面的操作，都不支持
+}
+
+-(BOOL)canBecomeFirstResponder{
+    return YES;
 }
 
 @end

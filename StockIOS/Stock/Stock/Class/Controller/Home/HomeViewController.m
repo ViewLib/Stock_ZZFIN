@@ -89,36 +89,44 @@
 - (void)getTableData {
     [Utils updateStock];
     _stocks = [[DataManager shareDataMangaer] queryStockEntitys];
+    NSString *stockCodes;
     if (_stocks.count) {
         NSMutableArray *stocks = [NSMutableArray array];
         for (int i = 0; i < _stocks.count; i++) {
             StockEntity *entity = _stocks[i];
             [stocks addObject:entity.code];
         }
-        NSString *stockCodes = [stocks componentsJoinedByString:@","];
-//        if (stockCodes.length == 0) {
-//            stockCodes = @"zs000001,zs399001,zs399005";
-//        }
-        WS(self)
-        [[HttpRequestClient sharedClient] getStockInformation:stockCodes request:^(NSString *resultMsg, id dataDict, id error) {
-            if (dataDict) {
-                NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-                NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
-                if (![responseString isEqualToString:@"pv_none_match=1"]) {
-                    if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
-                        responseString = [responseString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                        NSArray *responseValues = [responseString componentsSeparatedByString:@";"];
-                        for (NSString *value in responseValues) {
-                            NSArray *ary = [value componentsSeparatedByString:@"~"];
-                            if (ary.count > 1) {
-                                [[DataManager shareDataMangaer] updateSotckEntitys:ary];
-                            }
+        stockCodes = [stocks componentsJoinedByString:@","];
+    } else {
+        stockCodes = @"sh000001,sz399001,sz399006";
+    }
+    WS(self)
+    [[HttpRequestClient sharedClient] getStockInformation:stockCodes request:^(NSString *resultMsg, id dataDict, id error) {
+        if (dataDict) {
+            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
+            if (![responseString isEqualToString:@"pv_none_match=1"]) {
+                if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
+                    responseString = [responseString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                    NSArray *responseValues = [responseString componentsSeparatedByString:@";"];
+                    for (NSString *value in responseValues) {
+                        NSArray *ary = [value componentsSeparatedByString:@"~"];
+                        if (ary.count > 1) {
+                            [[DataManager shareDataMangaer] updateSotckEntitys:ary];
                         }
-                        [selfWeak.OptionalTable reloadData];
                     }
+                    [selfWeak reloadTableView];
                 }
             }
-        }];
+        }
+    }];
+}
+
+- (void) reloadTableView {
+    [Utils updateStock];
+    _stocks = [[DataManager shareDataMangaer] queryStockEntitys];
+    if (_stocks.count > 0) {
+        [self.OptionalTable reloadData];
     }
 }
 
@@ -137,6 +145,10 @@
     HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (nil == cell) {
         cell= (HomeTableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"HomeTableViewCell" owner:self options:nil] firstObject];
+        WS(self)
+        cell.clickMenuBlock = ^{
+            [selfWeak reloadTableView];
+        };
         [cell updateCell:_stocks[indexPath.row]];
         
     }
@@ -148,7 +160,6 @@
     StockEntity *entity = _stocks[indexPath.row];
     [self jumpToStockView:entity];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
