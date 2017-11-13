@@ -16,6 +16,7 @@
         android:id="@+id/stock_holder_have"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:singleLine="true"
         android:text="持股量" />
 
@@ -23,6 +24,7 @@
         android:id="@+id/stock_holder_ratio"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:singleLine="true"
         android:text="占总股本比例" />
 

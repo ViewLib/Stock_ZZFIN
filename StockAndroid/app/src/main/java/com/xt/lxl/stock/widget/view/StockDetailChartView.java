@@ -28,7 +28,7 @@ import java.util.List;
 
 public class StockDetailChartView extends LinearLayout {
 
-    StockTabGroupButton tabGroupButton;//
+    StockTabGroupButton2 tabGroupButton;//
     FrameLayout fragmentContainer;
     FragmentActivity activity;
     StockViewModel mStockViewModel;
@@ -65,7 +65,7 @@ public class StockDetailChartView extends LinearLayout {
             base.setArguments(bundle);
         }
 
-        tabGroupButton.setOnTabItemSelectedListener(new StockTabGroupButton.OnTabItemSelectedListener() {
+        tabGroupButton.setOnTabItemSelectedListener(new StockTabGroupButton2.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {
                 FragmentManager supportFragmentManager = activity.getSupportFragmentManager();
@@ -106,7 +106,7 @@ public class StockDetailChartView extends LinearLayout {
     }
 
     private void initView() {
-        tabGroupButton = (StockTabGroupButton) findViewById(R.id.tab_group);
+        tabGroupButton = (StockTabGroupButton2) findViewById(R.id.tab_group);
         fragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
     }
 

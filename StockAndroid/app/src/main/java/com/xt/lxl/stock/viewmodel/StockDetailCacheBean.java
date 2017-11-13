@@ -4,6 +4,7 @@ import com.xt.lxl.stock.model.model.StockDetailCompanyModel;
 import com.xt.lxl.stock.model.model.StockDetailGradleModel;
 import com.xt.lxl.stock.model.model.StockDetailStockHolder;
 import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.model.reponse.StockDetailCompareResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 
@@ -27,6 +28,7 @@ public class StockDetailCacheBean {
 
     public StockEventsDataResponse eventsDataResponse = new StockEventsDataResponse();//重大事件模块
     public StockEventsDataResponse newsResponse = new StockEventsDataResponse();//重大消息模块
+    public StockDetailCompareResponse compareResponse = new StockDetailCompareResponse();//横向比较模块
 
 }
 

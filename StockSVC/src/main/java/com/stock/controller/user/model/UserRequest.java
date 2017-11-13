@@ -1,26 +1,14 @@
-package com.stock.model.model;
-
-import com.alibaba.fastjson.JSON;
-
-import java.util.Date;
+package com.stock.controller.user.model;
 
 /**
- * Created by xiangleiliu on 2017/9/6.
+ * Created by 杨蕾 on 2017/11/12.
  */
-public class StockUserModel {
-
+public class UserRequest {
     private int userId;//用户id
     private String moblie;//手机号
-    private String clientId;//clinetId
     private String nickName;//用户昵称
     private String area;//地区
     private int age;//年龄
-    private Date createTime;//注册时间
-
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
 
     public int getUserId() {
         return userId;
@@ -36,14 +24,6 @@ public class StockUserModel {
 
     public void setMoblie(String moblie) {
         this.moblie = moblie;
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
     }
 
     public String getNickName() {
@@ -68,13 +48,5 @@ public class StockUserModel {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
     }
 }

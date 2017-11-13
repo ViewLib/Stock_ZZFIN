@@ -104,7 +104,7 @@ public class DataShowUtil {
 
     //股票代码转化为sz300170这样的
     public static String code2MarketCode(String code) {
-        if (StringUtil.emptyOrNull(code) || code.length() != 6) {
+        if (StringUtil.emptyOrNull(code) || (code.length() != 6 && code.length() != 8)) {
             LogUtil.LogI("输入异常code:" + code);
             return code;
         }

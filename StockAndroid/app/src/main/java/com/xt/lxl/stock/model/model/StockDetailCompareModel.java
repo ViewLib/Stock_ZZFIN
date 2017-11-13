@@ -1,4 +1,4 @@
-package com.stock.model.model;
+package com.xt.lxl.stock.model.model;
 
 /**
  * Created by xiangleiliu on 2017/11/8.

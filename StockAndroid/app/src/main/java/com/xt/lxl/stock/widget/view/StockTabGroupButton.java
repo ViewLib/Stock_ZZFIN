@@ -19,11 +19,6 @@ import java.util.List;
 
 /**
  * 带有2个按钮的Tab Group Buttton ，切换时带有动画效果
- *
- * @author zhiwen.nan
- * @version 5.3
- * @see RadioGroup
- * @since 2013.12.16
  */
 public class StockTabGroupButton extends LinearLayout {
 
@@ -38,7 +33,7 @@ public class StockTabGroupButton extends LinearLayout {
     protected Animation mAnimation;
     protected int mIndex;
     protected OnTabItemSelectedListener mOnTabItemSelectedListener;
-    private View mBottomLine;
+//    private View mBottomLine;
 
     public StockTabGroupButton(Context context) {
         this(context, null);
@@ -53,7 +48,7 @@ public class StockTabGroupButton extends LinearLayout {
         inflate(getContext(), R.layout.hotel_common_tab_group_buttton, this);
         mRadioGroup = (RadioGroup) findViewById(R.id.radio_group_switch);
         mTabAnimView = (LinearLayout) findViewById(R.id.tab_anim_view);
-        mBottomLine = findViewById(R.id.bottom_line);
+//        mBottomLine = findViewById(R.id.bottom_line);
     }
 
     public void initView() {
@@ -172,10 +167,10 @@ public class StockTabGroupButton extends LinearLayout {
      *     youj:   2013-12-30      新建
      * </pre>
      */
-    public void hineBottomLine() {
-        if (null != mBottomLine)
-            mBottomLine.setVisibility(View.GONE);
-    }
+//    public void hineBottomLine() {
+//        if (null != mBottomLine)
+//            mBottomLine.setVisibility(View.GONE);
+//    }
 
     /**
      * 功能描述: 隐藏底部动画

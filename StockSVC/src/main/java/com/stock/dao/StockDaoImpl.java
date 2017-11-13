@@ -125,7 +125,7 @@ public class StockDaoImpl implements StockDao {
                     rank_sql = rank_sql.replace("#", "");
                 }
                 Connection con = null;
-                StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+                StockLinkDaoImpl stockLinkDao = StockLinkDaoImpl.getStockLinkDaoImpl();
                 PreparedStatement preStmt2 = null;
                 // System.out.println("2---search_relation:"+search_relation);
                 //System.out.println("3---strsql:"+strsql);
@@ -278,7 +278,7 @@ public class StockDaoImpl implements StockDao {
                 String sql_title = rs.getString("sql_title");
                 String sql_list = rs.getString("sql_list");
                 Connection con = null;
-                StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+                StockLinkDaoImpl stockLinkDao = StockLinkDaoImpl.getStockLinkDaoImpl();
                 PreparedStatement preStmt2 = null;
                 con = stockLinkDao.getConnection();
                 try {
@@ -351,7 +351,7 @@ public class StockDaoImpl implements StockDao {
         StockDetailCompanyModel stockDetailCompanyModel = new StockDetailCompanyModel();
         String sql = "SELECT [PROVINCE],[CITY],[CHAIRMAN],[FOUNDDATE],[COMPANY_DESC] FROM [zzfin].[dbo].[TS_COMPANY]  where ts_code =" + "'" + stockCode + "'";
         Connection con = null;
-        StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+        StockLinkDaoImpl stockLinkDao = StockLinkDaoImpl.getStockLinkDaoImpl();
         PreparedStatement preStmt = null;
         con = stockLinkDao.getConnection();
         try {
@@ -378,7 +378,7 @@ public class StockDaoImpl implements StockDao {
                 "where ts_code =? and end_date= (select max(end_date) from [zzfin].[dbo].[EQ_FLOAT_HOLDER] \n" +
                 "where ts_code =?) order by hold_number desc";
         Connection con = null;
-        StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+        StockLinkDaoImpl stockLinkDao = StockLinkDaoImpl.getStockLinkDaoImpl();
         PreparedStatement preStmt = null;
         con = stockLinkDao.getConnection();
         try {
@@ -442,7 +442,7 @@ public class StockDaoImpl implements StockDao {
                     "  where div.ts_code=? and div.ts_code=price.ts_code and div.EX_DIV_DATE=price.TRADE_DATE order by div.EX_DIV_DATE desc";
         }
         Connection con = null;
-        StockLinkDaoImpl stockLinkDao = new StockLinkDaoImpl();
+        StockLinkDaoImpl stockLinkDao = StockLinkDaoImpl.getStockLinkDaoImpl();
         PreparedStatement preStmt = null;
         con = stockLinkDao.getConnection();
         try {

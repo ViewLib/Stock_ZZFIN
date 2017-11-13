@@ -79,7 +79,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
                 if (mViewPager.getAdapter().getCount() <= whichButton) {
                     return;
                 }
-                mViewPager.setCurrentItem(whichButton);
+                mViewPager.setCurrentItem(whichButton, false);
             }
         });
     }

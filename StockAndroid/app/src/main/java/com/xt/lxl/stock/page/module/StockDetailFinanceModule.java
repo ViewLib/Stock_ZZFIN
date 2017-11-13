@@ -173,5 +173,4 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
         mChart.setData(data);
     }
 
-
 }

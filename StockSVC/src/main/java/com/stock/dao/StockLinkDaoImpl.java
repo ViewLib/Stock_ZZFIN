@@ -1,5 +1,6 @@
 package com.stock.dao;
 
+import com.mysql.jdbc.log.LogUtils;
 import com.stock.model.model.*;
 import com.stock.util.StringUtil;
 import com.stock.util.TransformUtil;
@@ -17,7 +18,6 @@ import java.util.Map;
  * Created by xiangleiliu on 2017/10/29.
  */
 public class StockLinkDaoImpl implements StockLinkDao {
-    Connection conn;
     private static StockLinkDaoImpl dao;
     private static Logger logger = Logger.getLogger(StockLinkDaoImpl.class);
     // 连接驱动
@@ -40,18 +40,24 @@ public class StockLinkDaoImpl implements StockLinkDao {
     }
     //获取数据库连接
 
-    public StockLinkDaoImpl() {
-        this.conn = getConnection();
+    private StockLinkDaoImpl() {
+
     }
+
+    public static synchronized StockLinkDaoImpl getStockLinkDaoImpl() {
+        if (dao == null) {
+            dao = new StockLinkDaoImpl();
+        }
+        return dao;
+    }
+
 
     public synchronized Connection getConnection() {
         logger.debug("开始连接数据库");
+        Connection conn = null;
         try {
-            if (conn == null || conn.isClosed()) {
-                conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            } else {
-                return conn;
-            }
+            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            return conn;
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error("数据库连接失败！");
@@ -99,14 +105,15 @@ public class StockLinkDaoImpl implements StockLinkDao {
         String sql = "select * from stock_rank where search_relation = ?";
         PreparedStatement preStmt = null;
         ResultSet rs = null;
+        Connection connection = getConnection();
         try {
-            preStmt = conn.prepareStatement(sql);
+            preStmt = connection.prepareStatement(sql);
             preStmt.setInt(1, search_relation);
             rs = preStmt.executeQuery();
             while (rs.next()) {
                 String rank_title = rs.getString("rank_title");
                 String rank_sql = rs.getString("rank_sql");
-                preStmt = conn.prepareStatement(rank_sql);
+                preStmt = connection.prepareStatement(rank_sql);
                 ResultSet rslist = preStmt.executeQuery();
                 while (rslist.next()) {
                     StockRankResultModel resultModel = new StockRankResultModel();
@@ -129,7 +136,7 @@ public class StockLinkDaoImpl implements StockLinkDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.close(rs, preStmt, conn);
+            this.close(rs, preStmt, connection);
         }
 
         return searchModelList;
@@ -141,8 +148,9 @@ public class StockLinkDaoImpl implements StockLinkDao {
         String sql = "SELECT top 20 [S_EST_INSTITUTE],[S_EST_LOWPRICE_INST],[S_EST_HIGHPRICE_INST],ann_dt FROM [wind].[dbo].[asharestockrating] where s_info_windcode=? order by ann_dt desc; ";
         PreparedStatement preStmt = null;
         ResultSet rs = null;
+        Connection connection = getConnection();
         try {
-            preStmt = getConnection().prepareStatement(sql);
+            preStmt = connection.prepareStatement(sql);
             preStmt.setString(1, stockCode);
             rs = preStmt.executeQuery();
             while (rs.next()) {
@@ -150,7 +158,7 @@ public class StockLinkDaoImpl implements StockLinkDao {
                 String lowPrice = rs.getString("S_EST_LOWPRICE_INST");//评级最低价
                 String highPirce = rs.getString("S_EST_HIGHPRICE_INST");//评级最高价
                 String dataStr = rs.getString("ann_dt");//评级日期
-                preStmt = conn.prepareStatement(sql);
+                preStmt = connection.prepareStatement(sql);
                 StockDetailGradleModel gradleModel = new StockDetailGradleModel();
                 gradleModel.dateStr = dataStr;
                 gradleModel.maxPrice = StringUtil.toFloat(highPirce);
@@ -162,7 +170,7 @@ public class StockLinkDaoImpl implements StockLinkDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.close(rs, preStmt, conn);
+            this.close(rs, preStmt, connection);
         }
         return gradleModelList;
     }
@@ -313,6 +321,8 @@ public class StockLinkDaoImpl implements StockLinkDao {
         String sql = "SELECT ts_code,[CLOSE] FROM [zzfin].[dbo].[MKT_D_PRICE] " +
                 " where TRADE_DATE = ? and ts_code in (" + pssql + ")";//横向比较的sql
         Connection con = getConnection();
+        logger.info("SQL:" + sql);
+        logger.info("数据:" + stockInfoList.toString());
         try {
             preStmt = con.prepareStatement(sql);
             preStmt.setString(1, tradeStr);
@@ -361,6 +371,37 @@ public class StockLinkDaoImpl implements StockLinkDao {
             this.close(rs, preStmt, con);
         }
         return ratioMap;
+    }
+
+    @Override
+    public Map<String, StockViewModel> selectStockByCode(List<String> stockList) {
+        Map<String, StockViewModel> map = new HashMap<>();
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        String pssql = TransformUtil.stockCode2SQL(stockList);
+        String sql = "select ts.name , ts.ts_code from [zzfin].[dbo].[TS_SECURITY] ts where ts.ts_code in (" + pssql + ");";//横向比较的sql
+        Connection con =dao.getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            for (int i = 0; i < stockList.size(); i++) {
+                String stockCode=stockList.get(i);
+                preStmt.setString((1 + i), stockCode);
+            }
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                StockViewModel stockViewModel = new StockViewModel();
+                String stockCode = rs.getString("ts_code");
+                String stockName = rs.getString("name");
+                stockViewModel.stockName = stockName;
+                stockViewModel.stockCode = stockCode;
+                map.put(stockCode, stockViewModel);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.close(rs, preStmt, con);
+        }
+        return map;
     }
 
     @Override

@@ -12,15 +12,17 @@ import java.util.List;
 public interface UserDao {
 
     //用户
-    public int insertStockUserModel(StockUserModel stockUserModel);
+    int insertStockUserModel(StockUserModel stockUserModel);
 
-    public boolean updateStockUserModel(StockUserModel stockUserModel);//以userId为准
+    boolean updateStockUserModel(StockUserModel stockUserModel);//以userId为准
 
-    public boolean deleteStockUserModel(int userId);
+    boolean deleteStockUserModel(int userId);
 
-    public StockUserModel selectStockUserModel(int userId);
+    StockUserModel selectStockUserModel(int userId);
 
-    public StockUserModel selectStockUserModel(String moblie);
+    StockUserModel selectStockUserModel(String moblie);
 
-    public ArrayList<StockUserModel> selectUserInfoList(int startIndex, int endIndex);
+    ArrayList<StockUserModel> selectUserInfoList(int startIndex, int endIndex);
+
+    int getUserTotalCount();
 }

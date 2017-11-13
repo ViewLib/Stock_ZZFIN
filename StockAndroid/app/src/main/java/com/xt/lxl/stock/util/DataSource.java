@@ -75,6 +75,13 @@ public class DataSource {
         return response;
     }
 
+    public static List<String> getDefaultStockCodeList() {
+        List<String> list = new ArrayList<>();
+        list.add("sh000001");
+        list.add("sz399001");
+        list.add("sz399006");
+        return list;
+    }
 
     public static List<String> getSaveStockCodeList(Context context) {
         SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
@@ -95,7 +102,9 @@ public class DataSource {
             return false;
         }
         List<String> list = getSaveStockCodeList(context);
-        Iterator<String> iterator = list.iterator();
+        ArrayList<String> codeList = new ArrayList<>();
+        codeList.addAll(list);
+        Iterator<String> iterator = codeList.iterator();
         while (iterator.hasNext()) {
             String next = iterator.next();
             if (code.equals(next)) {
@@ -104,12 +113,12 @@ public class DataSource {
             }
         }
         StringBuilder builder = new StringBuilder();
-        for (String str : list) {
+        for (String str : codeList) {
             builder.append(str);
             builder.append(",");
         }
-        SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
-        return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
+        SharedPreferences codeListSP = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
+        return codeListSP.edit().putString(StockConfig.STOCK_SAVE_DATA_NAME, builder.toString()).commit();
     }
 
     public static boolean addStockCode(Context context, String code) {
@@ -157,23 +166,6 @@ public class DataSource {
         }
         return codeList.edit().putString(StockConfig.STOCK_SAVE_DATA_HISTORY, builder.toString()).commit();
     }
-
-    /**
-     * 获取所有本地存储的股票信息
-     *
-     * @return
-     */
-    public static List<StockSyncModel> getSearchAllData() {
-        List<StockSyncModel> list = new ArrayList<>();
-        list.add(new StockSyncModel("300170", "汉得信息"));
-        list.add(new StockSyncModel("300171", "东富龙"));
-        list.add(new StockSyncModel("300172", "中电环保"));
-        list.add(new StockSyncModel("300173", "智慧松德"));
-        list.add(new StockSyncModel("300174", "原理股份"));
-        list.add(new StockSyncModel("600174", "桂东电力"));
-        return list;
-    }
-
 
 //    public static List<StockFoundRankModel> getRankList(Context context) {
 //        List<StockFoundRankModel> list = new ArrayList<>();
@@ -334,7 +326,7 @@ public class DataSource {
         int closePrice = 1060;//当前股票最低价格，单位：分
 
         Calendar instance = Calendar.getInstance();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 300; i++) {
             if (instance.get(Calendar.DAY_OF_WEEK) == 7 || instance.get(Calendar.DAY_OF_WEEK) == 1) {//周六或者周天跳过
                 instance.add(Calendar.DAY_OF_MONTH, -1);
                 continue;
@@ -352,10 +344,10 @@ public class DataSource {
 
             //add value
             instance.add(Calendar.DAY_OF_MONTH, -1);
-            maxPrice += 10;
-            minPrice += 10;
-            openPrice += 10;
-            closePrice += 10;
+            maxPrice += 1;
+            minPrice += 1;
+            openPrice += 1;
+            closePrice += 1;
         }
 
         List<StockDateDataModel> list2 = new ArrayList<>();
@@ -440,5 +432,19 @@ public class DataSource {
         response.stockEventsDataLists.add(dataList1);
         response.stockEventsDataLists.add(dataList2);
         return response;
+    }
+
+    /**
+     * 获取所有本地存储的股票信息
+     *
+     * @return
+     */
+    public static List<StockSyncModel> getSearchAllData() {
+        List<StockSyncModel> list = new ArrayList<>();
+        list.addAll(StockData.getSearchAllDataBy000());
+        list.addAll(StockData.getSearchAllDataBy002());
+        list.addAll(StockData.getSearchAllDataBy300());
+        list.addAll(StockData.getSearchAllDataBy600());
+        return list;
     }
 }

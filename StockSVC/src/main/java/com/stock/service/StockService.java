@@ -22,13 +22,13 @@ import java.util.*;
 public class StockService {
 
     StockDao dao;
-    StockLinkDao linkDao = new StockLinkDaoImpl();
+    StockLinkDao linkDao;
 
     public static StockService stockService;
 
     private StockService() {
         dao = StockDaoImpl.getDao();
-        linkDao = new StockLinkDaoImpl();
+        linkDao = StockLinkDaoImpl.getStockLinkDaoImpl();
     }
 
     public static synchronized StockService getInstance() {
@@ -387,11 +387,18 @@ public class StockService {
 
         String selectStockCode = transCode(request.stockCode);
         List<String> stockList = linkDao.selectCompareStockCodeList(selectStockCode, lastTradeDate);
+        if (stockList.size() == 0) {
+            throw new Exception("横向比较股票推荐为空!");
+        }
+        //当前股票加入对比当中
+        stockList.add(0, selectStockCode.toUpperCase());
+
         Calendar calendar = DateUtil.dateStr2calendar(FormatUtil.forDataStr(lastTradeDate), DateUtil.SIMPLEFORMATTYPESTRING7);
         String dateStr = DateUtil.calendar2Time(calendar.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING6);
         Map<String, String> ratioMap = linkDao.selectRatioByCodeList(stockList, dateStr);//ok
         Map<String, String> incomeMap = linkDao.selectIncomeGrowthByCodeList(stockList, lastTradeDate);//OK
         Map<String, String> shareOutMap = linkDao.selectShareOutByCodeList(stockList, lastTradeDate);
+        Map<String, StockViewModel> infoMap = linkDao.selectStockByCode(stockList);
 
         //股价表现
         //获取年度第一个交易日
@@ -407,6 +414,7 @@ public class StockService {
             compareModel.ratio = AmountUtil.parse2Float(ratioMap.get(stockCode));
             compareModel.income = AmountUtil.parse2Float(incomeMap.get(stockCode));
             compareModel.shareOut = AmountUtil.parse2Float(shareOutMap.get(stockCode));
+            compareModel.stockName = infoMap.get(stockCode).stockName;
             String firstPriceStr = firstPriceMap.get(stockCode);
             String lastPriceStr = lastPriceMap.get(stockCode);
             float firstPrice = AmountUtil.parse2Float(firstPriceStr);
