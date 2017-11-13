@@ -37,7 +37,6 @@
     </tr>
 
 
-
     <tr>
         <td>
             <table id="user_list" border="1" width="100%" id="table" rules="all">
@@ -66,18 +65,30 @@
         </td>
     </tr>
 
-    <tr>
-        <td>
-            <table width="100%">
-                <td align="center" width=42%>>>1 2 3 4 5 6 7 8<<</td>
-                <td>每页显示20条信息</td>
-                <td></td>
-            </table>
-        </td>
+    <%--<c:if test="${not empty pages}">--%>
+        <%--<tr>--%>
+            <%--<td>--%>
+                <%--<table width="100%">--%>
+                    <%--<td align="center" width=42%>>>--%>
+                        <%--<c:forEach items="${pages}" var="pageIndex">--%>
+                            <%--<span data-index="${pageIndex}">${pageIndex}</span>--%>
+                        <%--</c:forEach>--%>
+                    <%--</td>--%>
+                    <%--<td>每页显示20条信息</td>--%>
+                    <%--<td></td>--%>
+                <%--</table>--%>
+            <%--</td>--%>
+        <%--</tr>--%>
+    <%--</c:if>--%>
+    <tr class="js_tpl_pagecount">
     </tr>
+
     <tr>
         <td align="center">
             copyright@zzfin
         </td>
     </tr>
 </table>
+<%--<c:if test="${not empty pageCount}">--%>
+    <%--<text style="display:none;">${pageCount}</text>--%>
+<%--</c:if>--%>

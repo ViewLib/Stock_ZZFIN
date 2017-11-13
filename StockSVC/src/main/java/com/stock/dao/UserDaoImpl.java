@@ -3,6 +3,7 @@ package com.stock.dao;
 
 import com.stock.model.model.StockUserModel;
 import com.stock.util.Logger;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,13 +12,14 @@ import java.util.Date;
 /**
  * Created by xiangleiliu on 2017/5/4.
  */
+@Component
 public class UserDaoImpl implements UserDao {
     Connection conn;
 
     public UserDaoImpl() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/stock_zzfin?useUnicode=true&characterEncoding=utf-8";
+            String url = "jdbc:mysql://115.159.31.128:3306/stock_zzfin?useUnicode=true&characterEncoding=utf-8";
             String user = "lxl";
             String password = "lxl301lxl";
             conn = DriverManager.getConnection(url, user, password);
@@ -185,6 +187,24 @@ public class UserDaoImpl implements UserDao {
             closeSql(preStmt, null);
         }
         return userList;
+    }
+
+    public int getUserTotalCount() {
+        String sql = "select count(*) as totalcount from stock_user";
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                return Integer.parseInt(rs.getString("totalcount"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+
+        return 0;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {

@@ -9,6 +9,18 @@ public class StringUtil {
         return str == null || str.length() == 0;
     }
 
+    public static boolean isNotBlank(String str){
+        if(str == null || str.length() == 0){
+            return false;
+        }
+
+        if (str.trim().equals("")){
+            return false;
+        }
+
+        return true;
+    }
+
     public static int toInt(String s) {
         boolean i = false;
 
