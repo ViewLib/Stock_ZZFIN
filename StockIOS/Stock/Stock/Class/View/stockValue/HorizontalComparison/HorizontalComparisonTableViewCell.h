@@ -30,14 +30,16 @@
 
 @property (strong, nonatomic) NSMutableArray   *barY;
 
+@property (strong, nonatomic) NSMutableArray   *barIncome;
+
+@property (strong, nonatomic) NSMutableArray   *barShareOut;
+
+@property (strong, nonatomic) NSMutableArray   *barPricePerfor;
+
+@property (strong, nonatomic) NSMutableArray   *barRatio;
+
 @property (strong, nonatomic) NSString  *yType;
 
 @property (assign, nonatomic) NSInteger currentIndex;
-
-/**
- 更新cell
- @param dic 更新的内容
- */
-- (void)updateCell:(NSDictionary *)dic;
 
 @end

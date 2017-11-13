@@ -33,10 +33,5 @@
 @property (weak, nonatomic) UIView *fullScreenView;
 @property (strong, nonatomic) IBOutlet UIView *stockContainerView;
 
-/**
- 更新cell
- @param dic 更新的内容
- */
-- (void)updateCell:(NSDictionary *)dic;
 
 @end

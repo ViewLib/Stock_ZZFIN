@@ -49,6 +49,8 @@
 
 #define SERVICE                 @"http://115.159.31.128:8090"
 
+#define SERVICENEW                 @"http://115.159.31.128"
+
 #define UserLogin               @"UserLogin"
 
 #endif /* Globalconfig_h */

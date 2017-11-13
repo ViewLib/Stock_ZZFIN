@@ -21,7 +21,7 @@
     self.question.text = newModel[@"eventTitle"];
     self.answer.text = newModel[@"eventDesc"];
     
-    float width = K_FRAME_BASE_WIDTH/2+65;
+    float width = K_FRAME_BASE_WIDTH/2+55;
     
     CGRect rect = [self.question.text boundingRectWithSize:CGSizeMake(width, 0)
                                        options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin |

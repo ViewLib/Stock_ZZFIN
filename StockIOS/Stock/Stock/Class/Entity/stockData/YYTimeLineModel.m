@@ -40,7 +40,7 @@
 }
 
 - (CGFloat)Volume {
-    return [_dict[@"volume"] floatValue]/100.f;
+    return [_dict[@"volume"] floatValue];
 }
 
 - (BOOL)isShowTimeDesc {

@@ -41,10 +41,16 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 -(void)getFilterSearch:(NSDictionary *)value request:(request)request;
 
 #pragma mark - 获取分时数据
--(void)getLineData:(NSDictionary *)value request:(request)request;
+-(void)getLineData:(NSString *)value request:(request)request;
 
 #pragma mark - 获取日线数据
--(void)getKLineData:(NSDictionary *)value request:(request)request;
+-(void)getKLineDataForDay:(NSString *)value request:(request)request;
+
+#pragma mark - 获取周线数据
+-(void)getKLineDataForWeek:(NSString *)value request:(request)request;
+
+#pragma mark - 获取月线数据
+-(void)getKLineDataForMonth:(NSString *)value request:(request)request;
 
 #pragma mark - 获取公司简介
 -(void)getComputerInfo:(NSDictionary *)value request:(request)request;

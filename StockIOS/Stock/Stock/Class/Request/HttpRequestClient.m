@@ -70,16 +70,30 @@
 }
 
 #pragma mark - 获取分时数据
--(void)getLineData:(NSDictionary *)value request:(request)request {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_minute",SERVICE];
-    NSDictionary *dic = @{@"data": [value JSONString]};
-    [self httpPost:urlStr paramDict:dic completion:request];
+-(void)getLineData:(NSString *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/stockMinute",SERVICENEW];
+    NSDictionary *dic = @{@"date": [Utils contactTime],@"stockCode": value};
+    [self httpGet:urlStr paramDict:dic completion:request];
 }
 
 #pragma mark - 获取日线数据
--(void)getKLineData:(NSDictionary *)value request:(request)request {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_data",SERVICE];
-    NSDictionary *dic = @{@"data": [value JSONString]};
+-(void)getKLineDataForDay:(NSString *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/stockDay",SERVICENEW];
+    NSDictionary *dic = @{@"stockCode": value};
+    [self httpGet:urlStr paramDict:dic completion:request];
+}
+
+#pragma mark - 获取周线数据
+-(void)getKLineDataForWeek:(NSString *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/stockWeek",SERVICENEW];
+    NSDictionary *dic = @{@"stockCode": value};
+    [self httpPost:urlStr paramDict:dic completion:request];
+}
+
+#pragma mark - 获取月线数据
+-(void)getKLineDataForMonth:(NSString *)value request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/stockMonth",SERVICENEW];
+    NSDictionary *dic = @{@"stockCode": value};
     [self httpPost:urlStr paramDict:dic completion:request];
 }
 

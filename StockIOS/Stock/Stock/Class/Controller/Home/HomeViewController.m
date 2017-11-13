@@ -150,7 +150,6 @@
             [selfWeak reloadTableView];
         };
         [cell updateCell:_stocks[indexPath.row]];
-        
     }
     
     return cell;

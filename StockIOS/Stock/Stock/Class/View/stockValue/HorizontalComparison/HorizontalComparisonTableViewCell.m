@@ -14,12 +14,16 @@
     [super awakeFromNib];
     // Initialization code
     self.userInteractionEnabled = YES;
-    self.titleAry = [NSArray array];//@[@"市盈率",@"融资融券",@"收入增长",@"年度表现",@"分红比例"]
+    self.titleAry = @[@"市盈率",@"收入增长",@"年度表现",@"分红比例"];//
     [_MenuCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"meunCall"];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 5.0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     [_MenuCollection setCollectionViewLayout:layout];
+    self.barRatio = [NSMutableArray array];
+    self.barIncome = [NSMutableArray array];
+    self.barShareOut = [NSMutableArray array];
+    self.barPricePerfor = [NSMutableArray array];
 }
 
 - (void)setStockCode:(NSString *)stockCode {
@@ -31,35 +35,40 @@
 
 - (void)getStockCompare {
     WS(self)
-    [[HttpRequestClient sharedClient] getStockFinicial:@{@"stockCode": self.stockCode,@"serviceCode":@"2010",@"type":@"2",@"versionCode":@"1"} request:^(NSString *resultMsg, id dataDict, id error) {//self.stockCode
+    [[HttpRequestClient sharedClient] getStockCompare:@{@"stockCode": self.stockCode,@"serviceCode":@"2010",@"type":@"2",@"versionCode":@"1"} request:^(NSString *resultMsg, id dataDict, id error) {//self.stockCode
         if ([dataDict[@"resultCode"] intValue] == 200) {
-            selfWeak.titleAry = dataDict[@"groupList"];
-            [selfWeak.MenuCollection reloadData];
-            [selfWeak reloadBarChart];
+            selfWeak.barValueAry = dataDict[@"compareList"];
+            [selfWeak reloadBarChart:9999];
         }
     }];
 }
 
-- (void)reloadBarChart {
-    self.barX = [NSMutableArray array];
+- (void)reloadBarChart:(int)index {
     self.barY = [NSMutableArray array];
-    self.barValueAry = self.titleAry[self.currentIndex][@"financeItemList"];
-    for (NSDictionary *dic in self.barValueAry) {
-        [self.barX addObject:dic[@"dateStr"]];
-        if ([dic[@"valueStr"] floatValue] > 100000000) {
-            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]/100000000]];
-            self.yType = @"亿";
-        } else if ([dic[@"valueStr"] floatValue] > 10000) {
-            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]/10000]];
-            self.yType = @"万";
-        } else if ([dic[@"valueStr"] floatValue] < 1) {
-            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]*100]];
-            self.yType = @"%";
-        } else {
-            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]]];
-            self.yType = @"";
+    if (index == 9999) {
+        self.barX = [NSMutableArray array];
+        for (NSDictionary *dic in self.barValueAry) {
+            [self.barX addObject:dic[@"stockName"]];
+            [self.barIncome addObject:dic[@"income"]];
+            [self.barShareOut addObject:[NSNumber numberWithFloat:[dic[@"shareOut"] doubleValue]*100]];
+            [self.barRatio addObject:dic[@"ratio"]];
+            [self.barPricePerfor addObject:dic[@"pricePerfor"]];
         }
+        self.barY = self.barRatio;
+    } else if (index == 0) {
+        self.yType = @"%";
+        self.barY = self.barRatio;
+    } else if (index == 1) {
+        self.yType = @"%";
+        self.barY = self.barIncome;
+    } else if (index == 2) {
+        self.yType = @"%";
+        self.barY = self.barPricePerfor;
+    } else {
+        self.yType = @"%";
+        self.barY = self.barShareOut;
     }
+    
     if (self.barX.count > 0 && self.barY.count > 0) {
         if (!self.barChart) {
             [self initBarChartView];
@@ -138,8 +147,7 @@
     [label setTextColor:[Utils colorFromHexRGB:@"999999"]];
     [label setTextAlignment:NSTextAlignmentCenter];
     
-    NSDictionary *dic = self.titleAry[indexPath.item];
-    [label setText:dic[@"financeName"]];
+    [label setText:self.titleAry[indexPath.item]];
     [cell.contentView addSubview:label];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(cell.contentView.frame)-2, 60, 2)];
@@ -170,7 +178,7 @@
         }
     }
     self.currentIndex = indexPath.item;
-    [self reloadBarChart];
+    [self reloadBarChart:self.currentIndex];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

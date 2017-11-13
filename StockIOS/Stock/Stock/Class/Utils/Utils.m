@@ -10,6 +10,21 @@
 
 @implementation Utils
 
+#pragma mark - 获取当前日期
++ (NSString *)contactTime {
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    [formatter setDateFormat:@"YYYY-MM-dd"];
+    NSString *DateTime = [formatter stringFromDate:date];
+    return DateTime;
+}
+
 #pragma mark - 更新自选股
 + (void)updateStock {
     NSArray *stock = [[DataManager shareDataMangaer] queryStockEntitys];
@@ -76,7 +91,7 @@
 #pragma mark - 分时图数据格式转换
 + (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice {
     NSString *time = dic[@"time"];
-    NSString *price = [NSString stringWithFormat:@"%.2f",[dic[@"price"] floatValue]/100];
+    NSString *price = dic[@"price"];
     NSString *volume = dic[@"volume"];
     NSDictionary *returnDic = @{@"amount": @"",@"avgPrice": avgPrice,@"minute": time,@"price": price,@"volume": volume};
     return returnDic;
@@ -84,12 +99,12 @@
 
 #pragma mark - K线图数据格式转换
 + (NSDictionary *)KlineDicWithDic:(NSDictionary *)dic {
-    NSString *close = [NSString stringWithFormat:@"%.2f",[dic[@"closePrice"] floatValue]/100];
+    NSString *close = [NSString stringWithFormat:@"%.2f",[dic[@"close"] floatValue]];
     NSString *volume = [NSString stringWithFormat:@"%.2f",[dic[@"volume"] floatValue]];
-    NSString *open = [NSString stringWithFormat:@"%.2f",[dic[@"openPrice"] floatValue]/100];
-    NSString *high = [NSString stringWithFormat:@"%.2f",[dic[@"maxPrice"] floatValue]/100];
-    NSString *low = [NSString stringWithFormat:@"%.2f",[dic[@"minPrice"] floatValue]/100];
-    NSString *day = dic[@"dateStr"];
+    NSString *open = [NSString stringWithFormat:@"%.2f",[dic[@"open"] floatValue]];
+    NSString *high = [NSString stringWithFormat:@"%.2f",[dic[@"high"] floatValue]];
+    NSString *low = [NSString stringWithFormat:@"%.2f",[dic[@"low"] floatValue]];
+    NSString *day = dic[@"date"];
     day = [day componentsSeparatedByString:@" "].firstObject;
     day = [day stringByReplacingOccurrencesOfString:@"-" withString:@""];
     NSDictionary *returnDic = @{@"close": close,@"open": open,@"high": high,@"low": low,@"volume": volume,@"day":day};
@@ -137,6 +152,8 @@
     
     return img;
 }
+
+
 
 #pragma mark - 颜色变特定尺寸的图片
 + (UIImage*)GetImageWithColor:(UIColor*)color andSize:(CGSize)size

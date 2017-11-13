@@ -13,6 +13,9 @@ typedef void(^utilRequest)(BOOL value);
 
 @interface Utils : NSObject
 
+#pragma mark - 获取当前日期
++ (NSString *)contactTime;
+
 #pragma mark - 更新自选股
 + (void)updateStock;
 

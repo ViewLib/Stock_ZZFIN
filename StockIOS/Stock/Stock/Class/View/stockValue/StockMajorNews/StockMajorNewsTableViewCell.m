@@ -44,18 +44,29 @@
 }
 
 - (void)addQAView:(NSArray *) array {
-    float viewY = 0;
-    for (NSDictionary *dic in array) {
+    __block float viewY = 0;
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         QAView *qa = [[NSBundle mainBundle] loadNibNamed:@"QAView" owner:nil options:nil].firstObject;
-        [qa updateView:dic];
+        [qa updateView:obj];
         qa.frame = CGRectMake(0, viewY, K_FRAME_BASE_WIDTH-24, qa.viewHigh);
         viewY += qa.viewHigh + 20;
+        NSLog(@"ddddssss%f",qa.frame.size.height);
         [self.valueView addSubview:qa];
-    }
+    }];
+    
+    self.valueView.clipsToBounds = YES;
     self.valueViewHigh.constant = viewY;
+    [self.valueView setBackgroundColor:[UIColor redColor]];
     if (self.reloadTable) {
         self.reloadTable();
     }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    CGRect new = self.contentView.frame;
+    new.size.height = self.valueViewHigh.constant + 38 + 10;
+    self.contentView.frame = new;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
