@@ -2,19 +2,15 @@ package com.xt.lxl.stock.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockEventsDataList;
 import com.xt.lxl.stock.model.model.StockEventsDataModel;
-import com.xt.lxl.stock.model.model.StockMinuteDataModel;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockSyncModel;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
-import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
-import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 
@@ -30,50 +26,50 @@ import java.util.List;
 public class DataSource {
 
 
-    public static StockGetMinuteDataResponse getMinuteDataResponses() {
-        StockGetMinuteDataResponse response = new StockGetMinuteDataResponse();
-        response.stockCode = "300170";
-        response.stockName = "汉得信息";
-        Calendar instance = Calendar.getInstance();
-        instance.set(Calendar.YEAR, 2017);
-        instance.set(Calendar.DAY_OF_MONTH, 15);
-        instance.set(Calendar.HOUR_OF_DAY, 8);
-        instance.set(Calendar.MINUTE, 29);
-        List<StockMinuteDataModel> minuteDataList = response.stockMinuteDataModels;
-        for (int i = 0; i < 100; i++) {
-            int v = (int) (Math.random() * 10 - 5) * 10 + 1107;
-            Log.i("lxltest", "v:" + v);
-            StockMinuteDataModel stockMinuteData = new StockMinuteDataModel(DateUtil.calendar2Time(instance.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING12), v, 10, 1290);
-            minuteDataList.add(stockMinuteData);
-            instance.add(Calendar.MINUTE, 1);
-        }
-        return response;
-    }
+//    public static StockGetMinuteDataResponse getMinuteDataResponses() {
+//        StockGetMinuteDataResponse response = new StockGetMinuteDataResponse();
+//        response.stockCode = "300170";
+//        response.stockName = "汉得信息";
+//        Calendar instance = Calendar.getInstance();
+//        instance.set(Calendar.YEAR, 2017);
+//        instance.set(Calendar.DAY_OF_MONTH, 15);
+//        instance.set(Calendar.HOUR_OF_DAY, 8);
+//        instance.set(Calendar.MINUTE, 29);
+//        List<StockMinuteDataModel> minuteDataList = response.stockMinuteDataModels;
+//        for (int i = 0; i < 100; i++) {
+//            int v = (int) (Math.random() * 10 - 5) * 10 + 1107;
+//            Log.i("lxltest", "v:" + v);
+//            StockMinuteDataModel stockMinuteData = new StockMinuteDataModel(DateUtil.calendar2Time(instance.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING12), v, 10, 1290);
+//            minuteDataList.add(stockMinuteData);
+//            instance.add(Calendar.MINUTE, 1);
+//        }
+//        return response;
+//    }
 
-    public static StockGetDateDataResponse getDataResponses(String type) {
-        StockGetDateDataResponse response = new StockGetDateDataResponse();
-        response.stockCode = "300170";
-        response.stockName = "汉得信息";
-        response.stockKData = type;
-        Calendar instance = Calendar.getInstance();
-        instance.set(Calendar.YEAR, 2017);
-        instance.set(Calendar.MONTH, 0);
-        instance.set(Calendar.DAY_OF_MONTH, 0);
-        List<StockDateDataModel> dateDataList = response.dateDataList;
-        for (int i = 0; i < 100; i++) {
-            int basePrice = (int) (Math.random() * 10 - 5) * 10 + 1290;
-            int maxprice = basePrice + 30;
-            int minPrice = basePrice - 30;
-            int openPrice = basePrice + (int) (Math.random() * 10 - 5) * 5;
-            int closePrice = basePrice + (int) (Math.random() * 10 - 5) * 5;
-
-            String dateStr = DateUtil.calendar2Time(instance, DateUtil.SIMPLEFORMATTYPESTRING7);
-            StockDateDataModel stockDateData = new StockDateDataModel(dateStr, maxprice, minPrice, openPrice, closePrice, (int) (100000 * Math.random()));
-            dateDataList.add(stockDateData);
-            instance.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        return response;
-    }
+//    public static StockGetDateDataResponse getDataResponses(String type) {
+//        StockGetDateDataResponse response = new StockGetDateDataResponse();
+//        response.stockCode = "300170";
+//        response.stockName = "汉得信息";
+//        response.stockKDataType = type;
+//        Calendar instance = Calendar.getInstance();
+//        instance.set(Calendar.YEAR, 2017);
+//        instance.set(Calendar.MONTH, 0);
+//        instance.set(Calendar.DAY_OF_MONTH, 0);
+//        List<StockDateDataModel> dateDataList = response.dateDataList;
+//        for (int i = 0; i < 100; i++) {
+//            int basePrice = (int) (Math.random() * 10 - 5) * 10 + 1290;
+//            int maxprice = basePrice + 30;
+//            int minPrice = basePrice - 30;
+//            int openPrice = basePrice + (int) (Math.random() * 10 - 5) * 5;
+//            int closePrice = basePrice + (int) (Math.random() * 10 - 5) * 5;
+//
+//            String dateStr = DateUtil.calendar2Time(instance, DateUtil.SIMPLEFORMATTYPESTRING7);
+//            StockDateDataModel stockDateData = new StockDateDataModel(dateStr, maxprice, minPrice, openPrice, closePrice, (int) (100000 * Math.random()));
+//            dateDataList.add(stockDateData);
+//            instance.add(Calendar.DAY_OF_MONTH, 1);
+//        }
+//        return response;
+//    }
 
     public static List<String> getDefaultStockCodeList() {
         List<String> list = new ArrayList<>();
@@ -320,10 +316,10 @@ public class DataSource {
     public static List<StockDateDataModel> getDayDataPriceList() {
         List<StockDateDataModel> list = new ArrayList<>();
 
-        int maxPrice = 1100;//当前股票最高价格，单位：分
-        int minPrice = 1000;//当前股票最低价格，单位：分
-        int openPrice = 1040;//当前股票最低价格，单位：分
-        int closePrice = 1060;//当前股票最低价格，单位：分
+        float maxPrice = 11.00f;//当前股票最高价格，单位：分
+        float minPrice = 10.00f;//当前股票最低价格，单位：分
+        float openPrice = 10.40f;//当前股票最低价格，单位：分
+        float closePrice = 10.60f;//当前股票最低价格，单位：分
 
         Calendar instance = Calendar.getInstance();
         for (int i = 0; i < 300; i++) {
@@ -334,12 +330,12 @@ public class DataSource {
             StockDateDataModel model = new StockDateDataModel();
             String s = DateUtil.calendar2String(instance, DateUtil.SIMPLEFORMATTYPESTRING7);
 
-            model.dateStr = s;
-            model.maxPrice = maxPrice;
-            model.minPrice = minPrice;
-            model.openPrice = openPrice;
-            model.closePrice = closePrice;
-            model.volume = (int) (Math.random() * 1000);
+            model.date = s;
+            model.high = maxPrice;
+            model.low = minPrice;
+            model.open = openPrice;
+            model.close = closePrice;
+            model.volume = (float) (Math.random() * 1000);
             list.add(model);
 
             //add value

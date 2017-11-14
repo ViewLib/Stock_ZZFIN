@@ -159,12 +159,10 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
             StockDetailCompareModel compareModel = compareModelList.get(i);
             xVals.add(compareModel.stockName);
         }
-        Log.i("lxltest", "bindChartData");
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
         for (int i = 0; i < compareModelList.size(); i++) {
             StockDetailCompareModel compareModel = compareModelList.get(i);
             Float f = map.get(compareModel.stockName);
-            Log.i("lxltest", "compareModel.stockName:" + f);
             yVals1.add(new BarEntry(f, i));//填充数据
         }
         BarDataSet set1;

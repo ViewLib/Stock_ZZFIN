@@ -38,15 +38,12 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
-import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.sender.StockSender;
-import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.VolFormatter;
 import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.CoupleChartGestureListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +108,6 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                StockGetDateDataResponse dataResponses = DataSource.getDataResponses(StockGetDateDataResponse.TYPE_DAY);
                 StockGetDateDataResponse dataResponses = StockSender.getInstance().requestDateData(stockCode, StockGetDateDataResponse.TYPE_DAY);
                 final DayViewModel dayViewModel = calculationData(dataResponses);
                 mHandler.post(new Runnable() {
@@ -144,9 +140,9 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         ArrayList<Entry> line30Entries = new ArrayList<>();//30日均线
         for (int i = 0, j = 0; i < dateDataList.size(); i++, j++) {
             StockDateDataModel stockDateData = dateDataList.get(i);
-            xVals.add(stockDateData.dateStr);
+            xVals.add(stockDateData.date);
             barEntries.add(new BarEntry(stockDateData.volume, i));
-            candleEntries.add(new CandleEntry(i, stockDateData.maxPrice / 100f, stockDateData.minPrice / 100f, stockDateData.openPrice / 100f, stockDateData.closePrice / 100f));
+            candleEntries.add(new CandleEntry(i, stockDateData.high, stockDateData.low, stockDateData.open, stockDateData.close));
             if (i >= 4) {
                 sum = 0;
                 line5Entries.add(new Entry(getSum(dateDataList, i - 4, i) / 5, i));
@@ -235,16 +231,15 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         }
 
         for (StockDateDataModel dateDataModel : dayViewModel.dateDataList) {
-            if (dateDataModel.dateStr.contains(" ")) {
-                dateDataModel.dateStr = dateDataModel.dateStr.split(" ")[0];
+            if (dateDataModel.date.contains(" ")) {
+                dateDataModel.date = dateDataModel.date.split(" ")[0];
             }
         }
-
-        dayViewModel.maxVolum = dayViewModel.dateDataList.get(0).volume;
-        for (int i = 0; i < dayViewModel.dateDataList.size(); i++) {
-            StockDateDataModel stockDateData = dayViewModel.dateDataList.get(i);
-            dayViewModel.maxVolum = stockDateData.volume > dayViewModel.maxVolum ? stockDateData.volume : dayViewModel.maxVolum;
-        }
+//        dayViewModel.maxVolum = dayViewModel.dateDataList.get(0).volume;
+//        for (int i = 0; i < dayViewModel.dateDataList.size(); i++) {
+//            StockDateDataModel stockDateData = dayViewModel.dateDataList.get(i);
+//            dayViewModel.maxVolum = stockDateData.volume > dayViewModel.maxVolum ? stockDateData.volume : dayViewModel.maxVolum;
+//        }
         return dayViewModel;
     }
 
@@ -306,7 +301,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
 
     private float getSum(List<StockDateDataModel> dateDataList, Integer a, Integer b) {
         for (int i = a; i <= b; i++) {
-            sum += dateDataList.get(i).closePrice / 100;
+            sum += dateDataList.get(i).close;
         }
         return sum;
     }

@@ -1,8 +1,7 @@
 package com.xt.lxl.stock.widget.stockchart.bean;
 
-import android.util.Log;
-
 import com.xt.lxl.stock.model.model.StockMinuteDataModel;
+import com.xt.lxl.stock.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,20 +28,27 @@ public class MinuteViewModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        minPrice = basePrice;
         maxPrice = basePrice;
+        minPrice = basePrice;
         for (int i = 0; i < list.size(); i++) {
             StockMinuteDataModel stockMinuteData = list.get(i);
             stockMinuteData.state = 1;//lxltest
             //最高价格
-            if (stockMinuteData.basePrice == 0) {
-                Log.i("lxltest", "lxl");
-                continue;
-            }
             addModel(stockMinuteData);
+            if (stockMinuteData.price > maxPrice) {
+                maxPrice = stockMinuteData.price;
+            }
+            if (stockMinuteData.price < minPrice) {
+                minPrice = stockMinuteData.price;
+            }
         }
         //计算最大涨幅和最大跌幅
-        float i = ((maxPrice - basePrice)) / basePrice;
+        float maxRise = ((maxPrice - basePrice)) / basePrice;
+        //最大跌幅
+        float maxFall = ((minPrice - basePrice)) / basePrice;
+
+        float i = Math.abs(maxRise) > Math.abs(maxFall) ? Math.abs(maxRise) : Math.abs(maxFall);
+
         if (i > 0) {
             maxRiseChange = i;
             maxFallChange = -i;
@@ -68,17 +74,10 @@ public class MinuteViewModel {
 
     private void addModel(StockMinuteDataModel stockMinuteData) {
         minuteList.add(stockMinuteData);
-        float priceF = stockMinuteData.price / 100f;
-        if (priceF > maxPrice) {
-            maxPrice = priceF;
-        }
-        //最低价格
-        if (priceF < minPrice) {
-            minPrice = priceF;
-        }
         priceSum += stockMinuteData.price;
         stockMinuteData.pjprice = priceSum / minuteList.size();//计算平均价格
-        stockMinuteData.priceSpread = stockMinuteData.basePrice - stockMinuteData.price;
+        stockMinuteData.priceSpread = StringUtil.toFloat(stockMinuteData.change);
+        stockMinuteData.basePrice = stockMinuteData.price + stockMinuteData.priceSpread;
         stockMinuteData.spreadPer = stockMinuteData.priceSpread / stockMinuteData.basePrice;
     }
 

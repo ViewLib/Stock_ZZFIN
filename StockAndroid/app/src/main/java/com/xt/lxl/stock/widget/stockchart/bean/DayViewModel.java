@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class DayViewModel {
 
-
     public int maxVolum;//最大换手量
     public List<StockDateDataModel> dateDataList = new ArrayList<>();//分时数据
 

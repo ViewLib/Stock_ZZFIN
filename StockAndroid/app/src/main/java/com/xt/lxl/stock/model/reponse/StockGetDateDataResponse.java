@@ -12,14 +12,14 @@ import java.util.List;
  */
 public class StockGetDateDataResponse extends ServiceResponse {
 
-    public static final String TYPE_DAY = "day";//天
-    public static final String TYPE_WEEK = "week";//周
-    public static final String TYPE_MONTH = "month";//月
+    public static final String TYPE_DAY = "stockDay";//天
+    public static final String TYPE_WEEK = "stockWeek";//周
+    public static final String TYPE_MONTH = "stockMonth";//月
 
     public int serviceCode = 5001;//服务号
     public String stockCode = "";//股票代码
     public String stockName = "";//股票名称
-    public String stockKData = "";//坐标系类型
+    public String stockKDataType = "";//坐标系类型 天/周/月
     public List<StockDateDataModel> dateDataList = new ArrayList<>();//分时数据
 
 }

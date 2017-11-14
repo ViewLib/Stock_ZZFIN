@@ -110,7 +110,7 @@ public class MyLineChart extends LineChart {
                     continue;
 
                 StockMinuteDataModel stockMinuteData = minuteDateList.get(mIndicesToHighlight[i].getXIndex());
-                float yValForXIndex1 = stockMinuteData.price / 100;
+                float yValForXIndex1 = stockMinuteData.price;
                 float yValForXIndex2 = stockMinuteData.spreadPer;
                 String time = stockMinuteData.time;
                 myMarkerViewLeft.setData(yValForXIndex1);
