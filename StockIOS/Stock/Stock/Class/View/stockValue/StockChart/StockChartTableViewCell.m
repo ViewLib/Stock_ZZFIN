@@ -71,11 +71,26 @@
 
 - (void)getKlineWith:(NSString *)type {
     WS(self)
-    [[HttpRequestClient sharedClient] getKLineDataForDay:self.stockCode request:^(NSString *resultMsg, id dataDict, id error) {
-        if (dataDict) {
-            [selfWeak createWithData:dataDict andType:type];
-        }
-    }];
+    if ([type isEqual:@"dayhqs"]) {
+        [[HttpRequestClient sharedClient] getKLineDataForDay:self.stockCode request:^(NSString *resultMsg, id dataDict, id error) {
+            if (dataDict) {
+                [selfWeak createWithData:dataDict andType:@"dayhqs"];
+            }
+        }];
+    } else if ([type isEqual:@"weekhqs"]) {
+        [[HttpRequestClient sharedClient] getKLineDataForWeek:self.stockCode request:^(NSString *resultMsg, id dataDict, id error) {
+            if (dataDict) {
+                [selfWeak createWithData:dataDict andType:@"weekhqs"];
+            }
+        }];
+    } else if ([type isEqual:@"monthhqs"]) {
+        [[HttpRequestClient sharedClient] getKLineDataForMonth:self.stockCode request:^(NSString *resultMsg, id dataDict, id error) {
+            if (dataDict) {
+                [selfWeak createWithData:dataDict andType:@"monthhqs"];
+            }
+        }];
+    }
+    
 }
 
 - (void)createWithData:(NSArray *)dataDict andType:(NSString *)type {

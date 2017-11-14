@@ -56,7 +56,6 @@
     
     self.valueView.clipsToBounds = YES;
     self.valueViewHigh.constant = viewY;
-    [self.valueView setBackgroundColor:[UIColor redColor]];
     if (self.reloadTable) {
         self.reloadTable();
     }

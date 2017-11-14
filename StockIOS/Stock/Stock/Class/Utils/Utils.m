@@ -90,10 +90,11 @@
 
 #pragma mark - 分时图数据格式转换
 + (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice {
-    NSString *time = dic[@"time"];
-    NSString *price = dic[@"price"];
-    NSString *volume = dic[@"volume"];
-    NSDictionary *returnDic = @{@"amount": @"",@"avgPrice": avgPrice,@"minute": time,@"price": price,@"volume": volume};
+    NSString *time = [dic[@"time"] isKindOfClass:[NSNull class]]?@"":dic[@"time"];
+    NSString *price = [dic[@"price"] isKindOfClass:[NSNull class]]?@"":dic[@"price"];
+    NSString *volume = [dic[@"volume"] isKindOfClass:[NSNull class]]?@"":dic[@"volume"];
+    NSString *amount = [dic[@"amount"] isKindOfClass:[NSNull class]]?@"":dic[@"amount"];
+    NSDictionary *returnDic = @{@"amount": amount,@"avgPrice": avgPrice,@"minute": time,@"price": price,@"volume": volume};
     return returnDic;
 }
 

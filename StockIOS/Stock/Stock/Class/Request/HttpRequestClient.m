@@ -87,14 +87,14 @@
 -(void)getKLineDataForWeek:(NSString *)value request:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/stockWeek",SERVICENEW];
     NSDictionary *dic = @{@"stockCode": value};
-    [self httpPost:urlStr paramDict:dic completion:request];
+    [self httpGet:urlStr paramDict:dic completion:request];
 }
 
 #pragma mark - 获取月线数据
 -(void)getKLineDataForMonth:(NSString *)value request:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/stockMonth",SERVICENEW];
     NSDictionary *dic = @{@"stockCode": value};
-    [self httpPost:urlStr paramDict:dic completion:request];
+    [self httpGet:urlStr paramDict:dic completion:request];
 }
 
 #pragma mark - 获取公司信息数据

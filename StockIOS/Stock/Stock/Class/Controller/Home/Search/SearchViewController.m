@@ -110,6 +110,7 @@
         cell.addOptionalBlock = ^(NSInteger row) {
             [self insertCoreData:dic[@"code"] isJoinCoreData:YES request:nil];
             [[DataManager shareDataMangaer] insertHistoryStock:@{@"title":dic[@"title"],@"code":dic[@"code"]}];
+            [self reloadTableView];
         };
     }
     return cell;
@@ -131,8 +132,11 @@
             [self junpToStockValueViewController:entity];
         }];
     }
-    
-    
+}
+
+- (void)reloadTableView {
+    _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
+    [self.searchTable reloadData];
 }
 
 - (void)junpToStockValueViewController:(StockEntity *)entity {
