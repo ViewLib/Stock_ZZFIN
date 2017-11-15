@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StockChartTableViewCell" id="KGk-i7-Jjw" customClass="StockChartTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="252"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="280"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="251.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="279.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Dd-8T-c5y">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="243"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="270"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apA-Po-3Xv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="243"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="270"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -30,13 +30,13 @@
                         <constraints>
                             <constraint firstItem="apA-Po-3Xv" firstAttribute="top" secondItem="1Dd-8T-c5y" secondAttribute="top" id="5i9-WY-TXg"/>
                             <constraint firstItem="apA-Po-3Xv" firstAttribute="leading" secondItem="1Dd-8T-c5y" secondAttribute="leading" id="D4Y-Ll-tRg"/>
+                            <constraint firstAttribute="height" constant="270" id="Keb-2l-nhO"/>
                             <constraint firstAttribute="trailing" secondItem="apA-Po-3Xv" secondAttribute="trailing" id="fuD-al-i4m"/>
                             <constraint firstAttribute="bottom" secondItem="apA-Po-3Xv" secondAttribute="bottom" id="gdZ-vw-MfH"/>
-                            <constraint firstAttribute="height" constant="243" id="z4C-KF-cCl"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVE-TN-H0y">
-                        <rect key="frame" x="0.0" y="243" width="375" height="9"/>
+                        <rect key="frame" x="0.0" y="270" width="375" height="9"/>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="9" id="jYn-SH-O1t"/>

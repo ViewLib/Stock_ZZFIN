@@ -67,7 +67,7 @@
         CGFloat gap = 2.f;
         
         if ([strokeColor isEqual:[UIColor YYStock_increaseColor]] && ABS(pModel.StartPoint.y - pModel.EndPoint.y) > gap) {
-            CGContextSetStrokeColorWithColor(ctx, [UIColor YYStock_bgColor].CGColor);
+            CGContextSetStrokeColorWithColor(ctx, [UIColor YYStock_increaseColor].CGColor);
             CGContextSetLineWidth(ctx, [YYStockVariable lineWidth] - gap);
             const CGPoint solidPoints[] = {CGPointMake(pModel.StartPoint.x, pModel.StartPoint.y + gap/2),CGPointMake(pModel.StartPoint.x, pModel.EndPoint.y - gap/2)};
             CGContextStrokeLineSegments(ctx, solidPoints, 2);
@@ -80,7 +80,7 @@
     [[[self.drawPositionModels reverseObjectEnumerator] allObjects] enumerateObjectsUsingBlock:^(YYVolumePositionModel  *_Nonnull pModel, NSUInteger idx, BOOL * _Nonnull stop) {
         //绘制日期
         if (pModel.DayDesc.length > 0) {
-            NSDictionary *attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:10],NSForegroundColorAttributeName:[UIColor YYStock_topBarNormalTextColor]};
+            NSDictionary *attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:8],NSForegroundColorAttributeName:[UIColor YYStock_topBarNormalTextColor]};
             CGRect rect1 = [pModel.DayDesc boundingRectWithSize:CGSizeMake(MAXFLOAT, 0)
                                                         options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin |
                             NSStringDrawingUsesFontLeading

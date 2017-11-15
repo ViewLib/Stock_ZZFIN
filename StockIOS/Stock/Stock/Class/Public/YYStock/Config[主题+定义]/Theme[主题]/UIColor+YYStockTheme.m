@@ -121,7 +121,7 @@
  *  涨的颜色
  */
 +(UIColor *)YYStock_increaseColor {
-    return [UIColor colorWithHex:0xE74C3C];
+    return [UIColor colorWithHex:0xFF0000];
 }
 
 /**

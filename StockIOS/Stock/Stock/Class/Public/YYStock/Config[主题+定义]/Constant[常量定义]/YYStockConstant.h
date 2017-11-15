@@ -36,12 +36,12 @@
 /**
  *  上下影线宽度
  */
-#define YYStockShadowLineWidth 1.2
+#define YYStockShadowLineWidth 0.6
 
 /**
  *  MA线宽度
  */
-#define YYStockMALineLineWidth 1.2
+#define YYStockMALineLineWidth 0.6
 
 /**
  * 圆点的半径
@@ -98,7 +98,7 @@
 /**
  *  分时图成交量线的间距
  */
-#define YYStockTimeLineViewVolumeGap 0.1
+#define YYStockTimeLineViewVolumeGap 0.2
 
 /**
  *  五档图宽度

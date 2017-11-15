@@ -121,7 +121,7 @@
 
 - (void)getHotStock {
     [[HttpRequestClient sharedClient] getHotStocksRequest:^(NSString *resultMsg, id dataDict, id error) {
-        if ([dataDict[@"resultCode"] floatValue] == 200) {
+        if ([dataDict isKindOfClass:[NSDictionary class]] && [dataDict[@"resultCode"] floatValue] == 200) {
             [[Config shareInstance] setHotStocks:dataDict[@"hotSearchList"]];
         }
     }];
@@ -129,15 +129,22 @@
 
 - (void)getTop10 {
     [[HttpRequestClient sharedClient] getRankListStocksRequest:^(NSString *resultMsg, id dataDict, id error) {
-        if ([dataDict[@"resultCode"] floatValue] == 200) {
-            [[Config shareInstance] setTop10List:dataDict[@"rankSearchList"]];
+        if ([dataDict isKindOfClass:[NSDictionary class]] && [dataDict[@"resultCode"] floatValue] == 200) {
+            NSArray *rankList = dataDict[@"rankSearchList"];
+            NSMutableArray *newRankList = [NSMutableArray array];
+            [rankList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (![obj[@"rankModel"][@"title"] isEqual:@""]) {
+                    [newRankList addObject:obj];
+                }
+            }];
+            [[Config shareInstance] setTop10List:newRankList];
         }
     }];
 }
 
 - (void)getRankfilter {
     [[HttpRequestClient sharedClient] getStockRankfilter:nil request:^(NSString *resultMsg, id dataDict, id error) {
-        if ([dataDict[@"resultCode"] floatValue] == 200) {
+        if ([dataDict isKindOfClass:[NSDictionary class]] && [dataDict[@"resultCode"] floatValue] == 200) {
             [[Config shareInstance] setRankSearchList:dataDict[@"rankFilterList"]];
         }
     }];

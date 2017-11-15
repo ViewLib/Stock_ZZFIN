@@ -45,6 +45,7 @@
 
 - (void)reloadBarChart:(int)index {
     self.barY = [NSMutableArray array];
+    self.yType = @"%";
     if (index == 9999) {
         self.barX = [NSMutableArray array];
         for (NSDictionary *dic in self.barValueAry) {
@@ -56,16 +57,16 @@
         }
         self.barY = self.barRatio;
     } else if (index == 0) {
-        self.yType = @"%";
+//        self.yType = @"%";
         self.barY = self.barRatio;
     } else if (index == 1) {
-        self.yType = @"%";
+//        self.yType = @"%";
         self.barY = self.barIncome;
     } else if (index == 2) {
-        self.yType = @"%";
+//        self.yType = @"%";
         self.barY = self.barPricePerfor;
     } else {
-        self.yType = @"%";
+//        self.yType = @"%";
         self.barY = self.barShareOut;
     }
     

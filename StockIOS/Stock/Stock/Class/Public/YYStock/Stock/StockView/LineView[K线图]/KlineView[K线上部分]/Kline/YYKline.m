@@ -73,7 +73,7 @@
         //绘制红色空心线
         CGFloat gap = 2.f;
         if ([[self.drawLineModels[idx] Open] floatValue] <= [[self.drawLineModels[idx] Close] floatValue] && ABS(linePositionModel.OpenPoint.y - linePositionModel.ClosePoint.y) > gap) {
-            CGContextSetStrokeColorWithColor(ctx, [UIColor YYStock_bgColor].CGColor);
+            CGContextSetStrokeColorWithColor(ctx, [UIColor YYStock_increaseColor].CGColor);
             CGContextSetLineWidth(ctx, [YYStockVariable lineWidth] - gap);
             const CGPoint solidPoints[] = {CGPointMake(linePositionModel.OpenPoint.x, linePositionModel.OpenPoint.y - gap/2.f),CGPointMake(linePositionModel.ClosePoint.x, linePositionModel.ClosePoint.y + gap/2.f)};
             CGContextStrokeLineSegments(ctx, solidPoints, 2);

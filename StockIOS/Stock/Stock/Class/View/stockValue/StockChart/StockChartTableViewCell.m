@@ -28,7 +28,7 @@
 }
 
 - (void)initStockView {
-    [YYStockVariable setStockLineWidthArray:@[@6,@6,@6,@6]];
+    [YYStockVariable setStockLineWidthArray:@[@4,@4,@4,@4]];
     
     YYStock *stock = [[YYStock alloc]initWithFrame:self.stockContainerView.frame dataSource:self];
     _stock = stock;
@@ -117,11 +117,24 @@
         [model updateMA:news index:idx];
         
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:obj];
-        
+        int x = 15;
+        if ([type isEqual:@"weekhqs"]) {
+            x = 26;
+        } else if ([type isEqual:@"monthhqs"]) {
+            x = 24;
+        }
         NSString *day = [NSString stringWithFormat:@"%@",obj[@"day"]];
-        if ([news count] % 18 == ([news indexOfObject:obj] + 1 )%18 ) {
-            model.showDay = [NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]];
-            [dic setValue:[NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]] forKey:@"showDay"];
+        if ([news count] % x == ([news indexOfObject:obj] + 1 ) % x ) {
+            
+            NSString *showDay = [NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]];
+            if ([type isEqual:@"dayhqs"]) {
+                model.showDay = showDay;
+                [dic setValue:showDay forKey:@"showDay"];
+            } else {
+                showDay = [NSString stringWithFormat:@"%@/%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)]];
+                model.showDay = showDay;
+                [dic setValue:showDay forKey:@"showDay"];
+            } 
         }
         [newAry addObject: model];
         [configKNew addObject:dic];

@@ -196,11 +196,6 @@ scrollView滑动重绘页面
 
 - (void)reloadNewView:(NSArray *)news {
     
-//    NSDictionary *dic1 = @{@"eventDate": @"1999-03-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
-//    NSDictionary *dic2 = @{@"eventDate": @"2014-04-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
-//    NSDictionary *dic3 = @{@"eventDate": @"2016-03-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
-//    NSDictionary *dic4 = @{@"eventDate": @"2015-03-24", @"eventDesc": @"11111111", @"eventTitle": @"2222222"};
-//    news = [NSArray arrayWithObjects:dic1,dic2,dic3,dic4, nil];
     self.listNews = news;
     if (self.listNews.count > 0) {
         WS(self)
@@ -217,6 +212,7 @@ scrollView滑动重绘页面
             return isHave;
         };
     }
+    [self reDrawWithLineModels];
 }
 
 - (CGFloat)updateScrollViewContentWidth {
@@ -264,10 +260,12 @@ scrollView滑动重绘页面
         return;
     }
     NSArray *ary;
-    if (startIndex+3 < self.drawLineModels.count) {
-        ary = [self.drawLineModels subarrayWithRange:NSMakeRange(startIndex-3, 6)];
+    if (startIndex+1 < self.drawLineModels.count && startIndex > 1) {
+        ary = [self.drawLineModels subarrayWithRange:NSMakeRange(startIndex-1, 2)];
+    } else if (startIndex > 1) {
+        ary = [self.drawLineModels subarrayWithRange:NSMakeRange(startIndex-1, 2)];
     } else {
-        ary = [self.drawLineModels subarrayWithRange:NSMakeRange(startIndex-3, self.drawLineModels.count-startIndex-6)];
+        ary = [self.drawLineModels subarrayWithRange:NSMakeRange(0, 1)];
     }
     
     NSMutableArray *dayStrs = [NSMutableArray array];
