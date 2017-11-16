@@ -40,9 +40,6 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fHJ-MG-dbu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="uF4-RS-a5S"/>
-                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3wk-xm-rHh">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -59,6 +56,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fHJ-MG-dbu" secondAttribute="trailing" id="CCH-ql-fUp"/>
                             <constraint firstAttribute="bottom" secondItem="fHJ-MG-dbu" secondAttribute="bottom" constant="1" id="KzR-hU-vcR"/>
+                            <constraint firstAttribute="height" constant="34" id="atd-4b-Gyn"/>
                             <constraint firstItem="fHJ-MG-dbu" firstAttribute="leading" secondItem="iSt-sA-0Y5" secondAttribute="leading" id="n7p-1H-nPw"/>
                             <constraint firstItem="fHJ-MG-dbu" firstAttribute="top" secondItem="iSt-sA-0Y5" secondAttribute="top" id="ygd-pb-Puz"/>
                         </constraints>

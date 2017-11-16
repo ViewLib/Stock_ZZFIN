@@ -58,6 +58,7 @@ static int num = 60;
     _verificationLabs = @[_Verification1,_Verification2,_Verification3,_Verification4];
     [self.phoneCode ImgRightTextLeft];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    self.key = @"86";
     [self racOneNextBtn];
 }
 
@@ -114,15 +115,16 @@ static int num = 60;
 
 - (IBAction)clickNextBtn:(UIButton *)sender {
     if (_phoneText.text.length > 0 && [Utils validateNum:_phoneText.text]) {
-//        [self showSecondView];
-        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:self.key result:^(NSError *error) {
-            if (!error) {
-                [self showHint:@"验证码发送成功"];
-                [self showSecondView];
-            } else {
-                [self showHint:@"验证码发送失败"];
-            }
-        }];
+        [self showSecondView];
+        //打包注意，放开注释
+//        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:self.key result:^(NSError *error) {
+//            if (!error) {
+//                [self showHint:@"验证码发送成功"];
+//                [self showSecondView];
+//            } else {
+//                [self showHint:@"验证码发送失败"];
+//            }
+//        }];
     }
 }
 
@@ -175,12 +177,19 @@ static int num = 60;
 }
 
 #pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    for (UILabel *label in _verificationLabs) {
+        [label setText:@""];
+    }
+    return YES;
+}
 
 - (void)textFieldDidChange:(UITextField *)textField {
     
     if (textField.text.length > 4) {
         textField.text = [textField.text substringToIndex:4];
     }
+    
     for (UILabel *label in _verificationLabs) {
         [label setText:@""];
     }
@@ -190,12 +199,20 @@ static int num = 60;
         lab.text = value;
     }
     textField.alpha = 0;
+    
+    if (textField.text.length == 4)  {
+        [self login];
+        [self.view endEditing:YES];
+    }
+    
     NSLog(@"ShouldBegin = %@",textField.text);
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (textField.text.length == 4) {
-        [self commitCode:textField.text];
+        [self login];
+        [self.view endEditing:YES];
+//        [self commitCode:textField.text];//打包注意，放开注释
     }
     textField.text = @"";
     textField.alpha = 1;
@@ -226,7 +243,11 @@ static int num = 60;
             [self showHint:@"注册/登录成功"];
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            [self showHint:resultMsg];
+            if (resultMsg.length == 0) {
+                [self showHint:@"登录失败"];
+            } else {
+                [self showHint:resultMsg];
+            }
         }
     }];
 }

@@ -27,6 +27,7 @@
 #import "RACSignal.h"
 #import "RACSignal+CCPRAC.h"
 #import "NSArray+CCPArray.h"
+#import "IQKeyboardManager.h"
 
 
 #endif /* Stock_pch */

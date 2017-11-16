@@ -18,6 +18,13 @@
 - (void)tipsForLoginSuccess:(void(^)(void))sc;
 
 /**
+ 性别选择
+ 
+ @param sc 选择以后的Block回调
+ */
+- (void)sexChangeActionSheet:(void(^)(NSString *sex))sc;
+
+/**
  初始化一个alertView
  
  @param message alertView的title
