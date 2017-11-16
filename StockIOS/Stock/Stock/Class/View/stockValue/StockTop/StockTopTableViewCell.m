@@ -56,7 +56,6 @@
             }
         }];
     }
-    sender.selected = !sender.selected;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

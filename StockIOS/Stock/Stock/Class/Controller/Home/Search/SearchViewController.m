@@ -107,10 +107,12 @@
     if (nil == cell) {
         cell= (SearchHistoryTableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"SearchHistoryTableViewCell" owner:nil options:nil] firstObject];
         [cell updateCell:dic];
+        WS(self)
         cell.addOptionalBlock = ^(NSInteger row) {
-            [self insertCoreData:dic[@"code"] isJoinCoreData:YES request:nil];
+            [selfWeak.view endEditing:YES];
+            [selfWeak insertCoreData:dic[@"code"] isJoinCoreData:YES request:nil];
             [[DataManager shareDataMangaer] insertHistoryStock:@{@"title":dic[@"title"],@"code":dic[@"code"]}];
-            [self reloadTableView];
+            [selfWeak reloadTableView];
         };
     }
     return cell;

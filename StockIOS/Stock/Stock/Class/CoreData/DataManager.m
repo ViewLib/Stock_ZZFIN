@@ -107,7 +107,12 @@
 //获取stockEntity对象
 -(StockEntity *)getStockWithAry:(NSArray *)ary withEntity:(StockEntity *)entity {
     if (!entity) {
-        entity = (StockEntity *)[NSEntityDescription insertNewObjectForEntityForName:@"StockEntity" inManagedObjectContext:self.mManagerContent];
+        NSArray *entitys = [self queryStockWithName:ary[1]];
+        if (entitys.count > 0) {
+            entity = [entitys firstObject];
+        } else {
+            entity = (StockEntity *)[NSEntityDescription insertNewObjectForEntityForName:@"StockEntity" inManagedObjectContext:self.mManagerContent];
+        }
     }
     //名字
     entity.name = ary[1];

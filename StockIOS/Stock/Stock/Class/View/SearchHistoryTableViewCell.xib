@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -47,9 +47,9 @@
                             <action selector="clickAddBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="05Q-GS-pnU"/>
                         </connections>
                     </button>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已添加" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmP-Xh-itS">
-                        <rect key="frame" x="311" y="0.0" width="52" height="49"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已添加" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmP-Xh-itS">
+                        <rect key="frame" x="313" y="0.0" width="50" height="49"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -59,6 +59,7 @@
                     <constraint firstItem="S2i-Ws-i2s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="3at-D2-MY9"/>
                     <constraint firstItem="WQq-vR-xED" firstAttribute="top" secondItem="Obd-3Y-vEz" secondAttribute="bottom" constant="3" id="4Yo-gy-N7d"/>
                     <constraint firstAttribute="bottom" secondItem="S2i-Ws-i2s" secondAttribute="bottom" id="7s5-dN-nbl"/>
+                    <constraint firstItem="mmP-Xh-itS" firstAttribute="height" secondItem="m3i-5q-rCA" secondAttribute="height" id="A6Z-mK-drH"/>
                     <constraint firstItem="WQq-vR-xED" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="Hkb-sF-vDE"/>
                     <constraint firstItem="Obd-3Y-vEz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="TOn-hc-T8l"/>
                     <constraint firstItem="m3i-5q-rCA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VTS-cm-c1e"/>
@@ -67,6 +68,7 @@
                     <constraint firstItem="S2i-Ws-i2s" firstAttribute="top" secondItem="mmP-Xh-itS" secondAttribute="bottom" id="kdg-b2-hoq"/>
                     <constraint firstAttribute="trailing" secondItem="mmP-Xh-itS" secondAttribute="trailing" constant="12" id="nDK-rv-6gi"/>
                     <constraint firstItem="S2i-Ws-i2s" firstAttribute="top" secondItem="m3i-5q-rCA" secondAttribute="bottom" id="nb0-Mi-9A0"/>
+                    <constraint firstItem="mmP-Xh-itS" firstAttribute="width" secondItem="m3i-5q-rCA" secondAttribute="width" id="omH-0y-jVU"/>
                     <constraint firstAttribute="trailing" secondItem="m3i-5q-rCA" secondAttribute="trailing" constant="12" id="z90-Mt-ydy"/>
                 </constraints>
             </tableViewCellContentView>
