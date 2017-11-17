@@ -14,7 +14,7 @@
     [super awakeFromNib];
 }
 
-- (void)updateCell:(StockEntity *)dic {
+- (void)updateCell:(StockObjEntity *)dic {
     _stockLast.text = dic.currentprice;
     _Change.text = dic.upsdowns;
     _Chg.text = [NSString stringWithFormat:@"%@%@",dic.pricefluctuation,@"%"];

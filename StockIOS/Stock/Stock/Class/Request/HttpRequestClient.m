@@ -37,7 +37,7 @@
 
 #pragma mark - 获取股票信息
 -(void)getStockInformation:(NSString *)stocks request:(request)request{
-    NSString *urlStr = [NSString stringWithFormat:@"http://qt.gtimg.cn/q=%@",stocks];
+    NSString *urlStr = [NSString stringWithFormat:@"http://qt.gtimg.cn/q=%@",unified(stocks)];
     self.responseIsNotJson = YES;
     [self httpGet:urlStr paramDict:nil completion:request];
 }

@@ -12,7 +12,7 @@
 #import "StockValueViewController.h"
 
 
-@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchControllerDelegate,UISearchResultsUpdating>
+@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchControllerDelegate>
 
 //@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -34,6 +34,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:nil];
+    [self createSearchBar];
     [self getTableData];
 }
 
@@ -41,13 +43,10 @@
     [super viewDidLoad];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    
-    [self createSearchBar];
 }
 
 - (void)createSearchBar {
-    
-    SearchViewController *search = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Search"];
+    __block SearchViewController *search = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Search"];
     WS(self)
     search.searchViewCancelBlock = ^{
         [selfWeak getTableData];
@@ -79,21 +78,21 @@
     [self jumpToStockView:VC];
 }
 
-- (void)jumpToStockView:(StockEntity *)stock {
+- (void)jumpToStockView:(StockObjEntity *)stock {
     StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
     viewController.stock = stock;
+    [self.navigationController setNavigationBarHidden:YES animated:nil];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - getOptionalStocks
 - (void)getTableData {
-    [Utils updateStock];
-    _stocks = [[DataManager shareDataMangaer] queryStockEntitys];
+    _stocks = [Utils getStock];
     NSString *stockCodes;
     if (_stocks.count) {
         NSMutableArray *stocks = [NSMutableArray array];
         for (int i = 0; i < _stocks.count; i++) {
-            StockEntity *entity = _stocks[i];
+            StockObjEntity *entity = _stocks[i];
             [stocks addObject:entity.code];
         }
         stockCodes = [stocks componentsJoinedByString:@","];
@@ -105,7 +104,7 @@
         if (dataDict) {
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
             NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
-            if (![responseString isEqualToString:@"pv_none_match=1"]) {
+            if (![responseString hasPrefix:@"pv_none_match=1"]) {
                 if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
                     responseString = [responseString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
                     NSArray *responseValues = [responseString componentsSeparatedByString:@";"];
@@ -123,8 +122,7 @@
 }
 
 - (void) reloadTableView {
-    [Utils updateStock];
-    _stocks = [[DataManager shareDataMangaer] queryStockEntitys];
+    _stocks = [Utils getStock];;
     if (_stocks.count > 0) {
         [self.OptionalTable reloadData];
     }
@@ -156,7 +154,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockEntity *entity = _stocks[indexPath.row];
+    StockObjEntity *entity = _stocks[indexPath.row];
     [self jumpToStockView:entity];
 }
 
@@ -165,62 +163,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
- /- (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
- <#code#>
- }
- 
- - (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
- <#code#>
- }
- 
- - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
- <#code#>
- }
- 
- - (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
- <#code#>
- }
- 
- - (CGSize)sizeForChildContentContainer:(nonnull id<UIContentContainer>)container withParentContainerSize:(CGSize)parentSize {
- <#code#>
- }
- 
- - (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
- <#code#>
- }
- 
- - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
- <#code#>
- }
- 
- - (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
- <#code#>
- }
- 
- - (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
- <#code#>
- }
- 
- - (void)setNeedsFocusUpdate {
- <#code#>
- }
- 
- - (BOOL)shouldUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context {
- <#code#>
- }
- 
- - (void)updateFocusIfNeeded {
- <#code#>
- }
- 
- / Pass the selected object to the new view controller.
-}
-*/
 
 @end

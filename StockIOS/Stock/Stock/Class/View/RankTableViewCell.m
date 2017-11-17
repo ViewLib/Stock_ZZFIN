@@ -15,6 +15,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.userInteractionEnabled = YES;
 }
 
 /**
@@ -41,7 +42,7 @@
         if (dataDict) {
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
             NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
-            if (![responseString isEqualToString:@"pv_none_match=1"]) {
+            if (![responseString hasPrefix:@"pv_none_match=1"]) {
                 if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
                     NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
                     [[DataManager shareDataMangaer] updateSotckEntitys:responseValues];

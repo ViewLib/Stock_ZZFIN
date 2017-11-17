@@ -220,7 +220,7 @@
 }
 
 //保存stockEntity对象
--(BOOL)updateSotckEntity:(StockEntity *)stock {
+-(BOOL)updateSotckEntity:(StockObjEntity *)stock {
     StockEntity *entity;
     NSArray *entitys = [self queryStockWithName:stock.name];
     if (entitys.count > 0) {
@@ -228,9 +228,104 @@
     } else {
         entity = (StockEntity *)[NSEntityDescription insertNewObjectForEntityForName:@"StockEntity" inManagedObjectContext:self.mManagerContent];
     }
-    entity = stock;
+    
+    //名字
+    entity.name = stock.name;
+    //代码
+    entity.code = stock.code;
+    //当前价格
+    entity.currentprice = stock.currentprice;
+    //昨收
+    entity.zsprice = stock.zsprice;
+    //今开
+    entity.jkprice = stock.jkprice;
+    //成交量（手）
+    entity.volume = stock.volume;
+    //外盘
+    entity.odisc = stock.odisc;
+    //内盘
+    entity.invol = stock.invol;
+    //买1
+    entity.buy1 = stock.buy1;
+    //买1量
+    entity.buy1num = stock.buy1num;
+    //买2
+    entity.buy2 = stock.buy2;
+    //买2量
+    entity.buy2num = stock.buy2num;
+    //买3
+    entity.buy3 = stock.buy3;
+    //买3量
+    entity.buy3num = stock.buy3num;
+    //买4
+    entity.buy4 = stock.buy4;
+    //买4量
+    entity.buy4num = stock.buy4num;
+    //买5
+    entity.buy5 = stock.buy5;
+    //买5量
+    entity.buy5num = stock.buy5num;
+    //卖1
+    entity.sell1 = stock.sell1;
+    //卖1量
+    entity.sell1num = stock.sell1num;
+    //卖2
+    entity.sell2 = stock.sell2;
+    //卖2量
+    entity.sell2num = stock.sell2num;
+    //卖3
+    entity.sell3 = stock.sell3;
+    //卖3量
+    entity.sell3num = stock.sell3num;
+    //卖4
+    entity.sell4 = stock.sell4;
+    //卖4量
+    entity.sell4num = stock.sell4num;
+    //卖5
+    entity.sell5 = stock.sell5;
+    //卖5量
+    entity.sell5num = stock.sell5num;
+    //最近逐笔成交
+    entity.recentTransaction = stock.recentTransaction;
+    //时间
+    entity.time = stock.time;
+    //涨跌
+    entity.upsdowns = stock.upsdowns;
+    //涨跌%
+    entity.pricefluctuation = stock.pricefluctuation;
+    //最高
+    entity.highest = stock.highest;
+    //最低
+    entity.lowest = stock.lowest;
+    //价格/成交量（手）/成交额
+    entity.price = stock.price;
+    //成交额（万）
+    entity.transactions = stock.transactions;
+    //换手率
+    entity.turnoverrate = stock.turnoverrate;
+    //市盈率
+    entity.peratios = stock.peratios;
+    //振幅
+    entity.amplitude = stock.amplitude;
+    //流通市值
+    entity.famc = stock.famc;
+    //总市值
+    entity.totalmarketcapitalization = stock.totalmarketcapitalization;
+    //市净率
+    entity.pbratio = stock.pbratio;
+    //涨停价
+    entity.highlimit = stock.highlimit;
+    //跌停价
+    entity.limit = stock.limit;
+    //排序
+    entity.iD = [NSString stringWithFormat:@"%lu",(unsigned long)[self queryStockEntitys].count];
+    //置顶
+    entity.isTop = @"NO";
+    
     return [self.mManagerContent save:nil];
 }
+
+
 
 //通过stockCode获取stockEntity对象
 -(StockEntity *)getStockEntityWithStockCode:(NSString *)stockCode {

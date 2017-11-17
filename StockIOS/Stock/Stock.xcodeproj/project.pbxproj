@@ -25,6 +25,7 @@
 		041187DE1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041187DC1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.m */; };
 		041187DF1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041187DD1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib */; };
 		041EB6D21FA8AAF600967D14 /* EventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EB6D11FA8AAF600967D14 /* EventView.m */; };
+		0424EC511FBF19B4009E965F /* StockObjEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0424EC501FBF19B4009E965F /* StockObjEntity.m */; };
 		043702591F755F6C0070A807 /* HistoryStockEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 043702581F755F6C0070A807 /* HistoryStockEntity.m */; };
 		0437025D1F756E810070A807 /* StockValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437025C1F756E810070A807 /* StockValueViewController.m */; };
 		043702611F76175D0070A807 /* hotStockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 043702601F76175D0070A807 /* hotStockView.m */; };
@@ -308,6 +309,8 @@
 		041187DD1F94FAB200DE4BC9 /* BrokersRatingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrokersRatingTableViewCell.xib; sourceTree = "<group>"; };
 		041EB6D01FA8AAF600967D14 /* EventView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
 		041EB6D11FA8AAF600967D14 /* EventView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventView.m; sourceTree = "<group>"; };
+		0424EC4F1FBF19B4009E965F /* StockObjEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockObjEntity.h; sourceTree = "<group>"; };
+		0424EC501FBF19B4009E965F /* StockObjEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StockObjEntity.m; sourceTree = "<group>"; };
 		043702571F755F6C0070A807 /* HistoryStockEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryStockEntity.h; sourceTree = "<group>"; };
 		043702581F755F6C0070A807 /* HistoryStockEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryStockEntity.m; sourceTree = "<group>"; };
 		0437025B1F756E810070A807 /* StockValueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockValueViewController.h; sourceTree = "<group>"; };
@@ -1104,6 +1107,8 @@
 				04B6BAEE1F97818F00870F15 /* stockData */,
 				0465E5F51F65771B006F7F9C /* loginEntity.h */,
 				0465E5F61F65771B006F7F9C /* loginEntity.m */,
+				0424EC4F1FBF19B4009E965F /* StockObjEntity.h */,
+				0424EC501FBF19B4009E965F /* StockObjEntity.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2330,6 +2335,7 @@
 				847077D11F4EF73600974772 /* UIControl+RACSignalSupport.m in Sources */,
 				04BC26F81F98E52E008285B2 /* PNRadarChartDataItem.m in Sources */,
 				04BC26F31F98E52E008285B2 /* PNLineChartData.m in Sources */,
+				0424EC511FBF19B4009E965F /* StockObjEntity.m in Sources */,
 				847077AF1F4EF73600974772 /* RACKVOChannel.m in Sources */,
 				847077DD1F4EF73600974772 /* UITextField+RACSignalSupport.m in Sources */,
 				847077D31F4EF73600974772 /* UIDatePicker+RACSignalSupport.m in Sources */,

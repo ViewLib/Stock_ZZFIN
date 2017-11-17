@@ -48,6 +48,12 @@
 
 @implementation SearchViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:nil];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
@@ -97,7 +103,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dic = _tableDate[indexPath.row];
-    if (!self.isSearch) {
+    if (!self.isSearch ||![dic isKindOfClass:[NSDictionary class]]) {
         HistoryStockEntity *entity = (HistoryStockEntity *)_tableDate[indexPath.row];
         dic = @{@"title": entity.name,@"code":entity.code};
     }
@@ -124,13 +130,13 @@
     if ([obj isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dic = (NSDictionary *)obj;
         [[DataManager shareDataMangaer] insertHistoryStock:dic];
-        [self insertCoreData:dic[@"code"] isJoinCoreData:NO request:^(StockEntity *entity) {
+        [self insertCoreData:dic[@"code"] isJoinCoreData:NO request:^(StockObjEntity *entity) {
             [self junpToStockValueViewController:entity];
         }];
     } else {
         HistoryStockEntity *entity = (HistoryStockEntity *)obj;
         [[DataManager shareDataMangaer] insertHistoryStock:@{@"title": entity.name,@"code":entity.code}];
-        [self insertCoreData:entity.code isJoinCoreData:NO request:^(StockEntity *entity) {
+        [self insertCoreData:entity.code isJoinCoreData:NO request:^(StockObjEntity *entity) {
             [self junpToStockValueViewController:entity];
         }];
     }
@@ -141,7 +147,8 @@
     [self.searchTable reloadData];
 }
 
-- (void)junpToStockValueViewController:(StockEntity *)entity {
+- (void)junpToStockValueViewController:(StockObjEntity *)entity {
+
     StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
     
     viewController.stock = entity;
@@ -168,15 +175,15 @@
 /**
  搜索结果获取网络数据并写入coreData
 */
-- (void)insertCoreData:(NSString *)code isJoinCoreData:(BOOL)isJoin request:(void(^)(StockEntity *entity))request {
+- (void)insertCoreData:(NSString *)code isJoinCoreData:(BOOL)isJoin request:(void(^)(StockObjEntity *entity))request {
     [[HttpRequestClient sharedClient] getStockInformation:code request:^(NSString *resultMsg, id dataDict, id error) {
         if (dataDict) {
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
             NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
-            if (![responseString isEqualToString:@"pv_none_match=1"]) {
+            if (![responseString hasPrefix:@"pv_none_match=1"]) {
                 if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
                     NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
-                    StockEntity *entity = [[DataManager shareDataMangaer] getStockWithAry:responseValues withEntity:nil];
+                    StockObjEntity *entity = [[StockObjEntity alloc] initWithArray:responseValues];
                     if (isJoin) {
                         [[DataManager shareDataMangaer] updateSotckEntity:entity];
                         [self showHint:@"已添加自选"];

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "StockEntity.h"
 #import "HistoryStockEntity.h"
+#import "StockObjEntity.h"
 
 @interface DataManager : NSObject
 
@@ -36,7 +37,7 @@
 -(StockEntity *)getStockWithAry:(NSArray *)ary withEntity:(StockEntity *)entity;
 
 //保存stockEntity对象
--(BOOL)updateSotckEntity:(StockEntity *)stock;
+-(BOOL)updateSotckEntity:(StockObjEntity *)stock;
 
 //根据stockCode获取stockEntity对象
 -(StockEntity *)getStockEntityWithStockCode:(NSString *)stockCode;

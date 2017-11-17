@@ -16,6 +16,9 @@ typedef void(^utilRequest)(BOOL value);
 #pragma mark - 获取当前日期
 + (NSString *)contactTime;
 
+#pragma mark - 处理不同的股票代码格式
++ (NSString *)unifiedStockCode:(NSString *)code;
+
 #pragma mark - 更新自选股
 + (void)updateStock;
 
@@ -27,6 +30,9 @@ typedef void(^utilRequest)(BOOL value);
 
 #pragma mark - 删除自选股
 + (void)removeStock:(NSString *)stockCode utilRequest:(utilRequest)utilRequest;
+
+#pragma mark - 获取当前所有的自选股
++ (NSArray *)getStock;
 
 #pragma mark - 分时图数据格式转换
 + (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice;

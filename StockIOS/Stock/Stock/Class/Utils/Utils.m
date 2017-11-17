@@ -25,6 +25,29 @@
     return DateTime;
 }
 
+#pragma mark - 处理不同的股票代码格式
++ (NSString *)unifiedStockCode:(NSString *)code {
+    NSArray *codes = [code componentsSeparatedByString:@"."];
+    if (codes.count > 1) {
+        NSString *newCode = [NSString stringWithFormat:@"%@%@",[[codes lastObject] lowercaseString],[codes firstObject]];
+        return newCode;
+    } else {
+        return code;
+    }
+}
+
+#pragma mark - 获取当前所有的自选股
++ (NSArray *)getStock {
+    [Utils updateStock];
+    NSArray *stocks = [[DataManager shareDataMangaer] queryStockEntitys];
+    NSMutableArray *newStocks = [NSMutableArray array];
+    [stocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        StockObjEntity *entity = [[StockObjEntity alloc] initWithStockEntity:obj];
+        [newStocks addObject:entity];
+    }];
+    return newStocks;
+}
+
 #pragma mark - 更新自选股
 + (void)updateStock {
     NSArray *stock = [[DataManager shareDataMangaer] queryStockEntitys];

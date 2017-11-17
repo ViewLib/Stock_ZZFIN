@@ -41,6 +41,8 @@
 
 #define isLogin                 [Config shareInstance].islogin
 
+#define unified(obj)            [Utils unifiedStockCode:obj]
+
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height

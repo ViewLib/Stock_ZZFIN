@@ -30,7 +30,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     TabBarViewController *root =  [[TabBarViewController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:root];
-    navi.navigationBarHidden = YES;
+    [navi setNavigationBarHidden:YES animated:nil];
     self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
     

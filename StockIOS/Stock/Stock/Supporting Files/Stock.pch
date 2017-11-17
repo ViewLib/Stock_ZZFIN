@@ -25,6 +25,7 @@
 #import "UIView+AICategory.h"
 #include "BuglyHotfixConfuse_pch.h"
 #import "RACSignal.h"
+#import "StockObjEntity.h"
 #import "RACSignal+CCPRAC.h"
 #import "NSArray+CCPArray.h"
 #import "IQKeyboardManager.h"

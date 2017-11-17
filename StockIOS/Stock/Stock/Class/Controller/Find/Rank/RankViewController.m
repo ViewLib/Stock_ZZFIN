@@ -57,7 +57,6 @@
     
     [_collectionBtn ImgTopTextButtom];
     NSString *titleStr = self.valueDic[@"rankModel"][@"title"];
-//    NSString *titleStr = self.valueDic[@"stockViewModel"][@"stockCode"];
     [_topLabel setText:titleStr];
     NSArray *btns = @[_filterOne,_filterTwo,_filterThr,_filterFor];
     
@@ -69,6 +68,9 @@
             [btn ImgRightTextLeft];
         }
     }];
+    
+    _valueTable.delegate = self;
+    _valueTable.dataSource = self;
     
     [self initSearchView];
     
@@ -176,7 +178,7 @@
 
 //获取数据方法
 - (void)getData {
-    [self showHudInView:self.view hint:@"请稍后，正在获取数据"];
+//    [self showHudInView:self.view hint:@"请稍后，正在获取数据"];
     NSDictionary *dic = @{@"title":self.valueDic[@"rankModel"][@"title"],@"search_relation":self.valueDic[@"rankModel"][@"searchRelation"]};
     WS(self)
     [[HttpRequestClient sharedClient] getRankDetail:dic request:^(NSString *resultMsg, id dataDict, id error) {
@@ -226,9 +228,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self showHint:@"正在请求数据..."];
-    NSDictionary *dic = self.tableValue[indexPath.row];
-    [self insertCoreData:dic[@"stockCode"] isJoinCoreData:NO request:^(StockEntity *entity) {
+    
+    NSDictionary *dic = self.tableValue[indexPath.row + 1];
+    [self insertCoreData:dic[@"stockCode"] isJoinCoreData:NO request:^(StockObjEntity *entity) {
         [self junpToStockValueViewController:entity];
     }];
 }
@@ -236,35 +238,39 @@
 /**
  搜索结果获取网络数据并写入coreData
  */
-- (void)insertCoreData:(NSString *)code isJoinCoreData:(BOOL)isJoin request:(void(^)(StockEntity *entity))request {
+- (void)insertCoreData:(NSString *)code isJoinCoreData:(BOOL)isJoin request:(void(^)(StockObjEntity *entity))request {
+    [self showHint:@"正在请求数据..."];
     [[HttpRequestClient sharedClient] getStockInformation:code request:^(NSString *resultMsg, id dataDict, id error) {
+        [self hideHud];
         if (dataDict) {
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
             NSString *responseString = [[NSString alloc] initWithData:dataDict encoding:enc];
-            if (![responseString isEqualToString:@"pv_none_match=1"]) {
+            if (![responseString hasPrefix:@"pv_none_match=1"]) {
                 if ([responseString rangeOfString:@"退市"].location == NSNotFound) {
                     NSArray *responseValues = [responseString componentsSeparatedByString:@"~"];
-                    StockEntity *entity = [[DataManager shareDataMangaer] getStockWithAry:responseValues withEntity:nil];
-                    if (request) {
-                        request(entity);
+                    StockObjEntity *entity = [[StockObjEntity alloc] initWithArray:responseValues];
+                    if (isJoin) {
+                        [[DataManager shareDataMangaer] updateSotckEntity:entity];
+                        [self showHint:@"已添加自选"];
+                    } else {
+                        if (request) {
+                            request(entity);
+                        }
                     }
                 } else {
-                    [self hideHud];
                     [self showHint:@"您选的股票已退市"];
                 }
             } else {
-                [self hideHud];
-                [self showHint:@"服务器访问失败，请重试"];
+                [self showHint:@"股票代码格式有误，需要后端处理"];
             }
         }
     }];
 }
 
-- (void)junpToStockValueViewController:(StockEntity *)entity {
+- (void)junpToStockValueViewController:(StockObjEntity *)entity {
     StockValueViewController *viewController = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"value"];
     
     viewController.stock = entity;
-    [self hideHud];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
