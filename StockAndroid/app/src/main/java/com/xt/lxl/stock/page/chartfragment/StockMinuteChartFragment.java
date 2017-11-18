@@ -127,7 +127,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         //左边y
         axisLeftLine = lineChart.getAxisLeft();
         /*折线图y轴左没有basevalue，调用系统的*/
-        axisLeftLine.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        axisLeftLine.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         axisLeftLine.setStartAtZero(false);//设置Y轴的数据不是从0开始
         axisLeftLine.setLabelCount(5, true);
         axisLeftLine.setDrawLabels(true);
@@ -138,6 +138,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 
         //右边y
         axisRightLine = lineChart.getAxisRight();
+        axisRightLine.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         axisRightLine.setLabelCount(2, true);
         axisRightLine.setDrawLabels(true);
         axisRightLine.setValueFormatter(new YAxisValueFormatter() {
@@ -147,7 +148,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
                 return mFormat.format(value);
             }
         });
-
+//        axisRightLine.setEnabled(false);
         axisRightLine.setStartAtZero(false);
         axisRightLine.setDrawGridLines(false);
         axisRightLine.setDrawAxisLine(false);

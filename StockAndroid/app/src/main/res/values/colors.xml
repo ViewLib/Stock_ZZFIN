@@ -22,7 +22,8 @@
     <color name="tab_item_selected_color">#1491C5</color>
 
     <color name="minute_grayLine">#186DB7</color>
-    <color name="minute_blue">#00D0FC</color>
+    <color name="minute_blue">#186DB7</color>
+    <color name="minute_blue_bg">#19186DB7</color>
     <color name="minute_yellow">#FFC669</color>
     <color name="minute_black">#101419</color>
     <color name="minute_jizhun">#7F9976</color>

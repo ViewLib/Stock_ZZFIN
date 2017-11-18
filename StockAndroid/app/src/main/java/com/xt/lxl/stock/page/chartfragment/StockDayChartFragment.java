@@ -122,6 +122,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         }).start();
     }
 
+    //拆成复用和不复用的两种
     private void bindDate(DayViewModel dayViewModel) {
         List<StockDateDataModel> dateDataList = dayViewModel.dateDataList;
         int size = dateDataList.size();   //点的个数

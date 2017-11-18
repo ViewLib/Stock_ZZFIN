@@ -25,10 +25,4 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp" />
 
-    <View
-        android:id="@+id/bottom_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e4e4e4" />
-
 </LinearLayout>
