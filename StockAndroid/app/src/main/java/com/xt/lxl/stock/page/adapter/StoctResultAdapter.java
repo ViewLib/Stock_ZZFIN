@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
+import com.xt.lxl.stock.model.model.StockFoundRankModel;
+import com.xt.lxl.stock.model.model.StockSearchModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.util.HotelViewHolder;
 
@@ -20,7 +22,7 @@ import java.util.List;
  */
 public class StoctResultAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private List<StockViewModel> mStockList = new ArrayList<>();
+    private List<StockSearchModel> mStockList = new ArrayList<>();
     private List<String> mSaveList = new ArrayList<>();
     private StockItemEditCallBacks mCallBacks;
 
@@ -30,7 +32,7 @@ public class StoctResultAdapter extends BaseAdapter {
         this.mCallBacks = callBacks;
     }
 
-    public void setData(List<StockViewModel> stockList) {
+    public void setData(List<StockSearchModel> stockList) {
         mStockList = stockList;
     }
 
@@ -44,7 +46,7 @@ public class StoctResultAdapter extends BaseAdapter {
     }
 
     @Override
-    public StockViewModel getItem(int position) {
+    public StockSearchModel getItem(int position) {
         return mStockList.get(position);
     }
 
@@ -54,16 +56,42 @@ public class StoctResultAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public int getViewTypeCount() {
+        return 2;
+    }
 
-        if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.stock_item_edit_item, parent, false);
+    @Override
+    public int getItemViewType(int position) {
+        StockSearchModel stockSearchModel = mStockList.get(position);
+        if (stockSearchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
+            return 2;
+        } else if (stockSearchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
+            return 1;
         }
-        bindData(convertView, getItem(position));
+        return 1;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        int itemViewType = getItemViewType(position);
+        if (convertView == null) {
+            if (itemViewType == 2) {
+                convertView = mInflater.inflate(R.layout.stock_item_edit_event_item, parent, false);
+            } else {
+                convertView = mInflater.inflate(R.layout.stock_item_edit_stock_item, parent, false);
+
+            }
+        }
+        StockSearchModel item = getItem(position);
+        if (itemViewType == 2) {
+            bindDataByEvent(convertView, item.rankModel);
+        } else {
+            bindDataByStock(convertView, item.stockViewModel);
+        }
         return convertView;
     }
 
-    private void bindData(View convertView, StockViewModel stockViewModel) {
+    private void bindDataByStock(View convertView, StockViewModel stockViewModel) {
         final TextView stockName = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_name);
         final TextView stockCode = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_code);
         final TextView stockAction = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_action);
@@ -79,4 +107,10 @@ public class StoctResultAdapter extends BaseAdapter {
         HotelViewHolder.showTextOrDefault(stockName, stockViewModel.stockName, defaultStr);
         HotelViewHolder.showTextOrDefault(stockCode, stockViewModel.stockCode, defaultStr);
     }
+
+    private void bindDataByEvent(View convertView, StockFoundRankModel rankModel) {
+        TextView eventText = (TextView) convertView.findViewById(R.id.stock_item_event_text);
+        eventText.setText(rankModel.title);
+    }
+
 }

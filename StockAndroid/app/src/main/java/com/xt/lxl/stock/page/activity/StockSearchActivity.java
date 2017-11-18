@@ -1,15 +1,18 @@
 package com.xt.lxl.stock.page.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
+import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.model.model.StockSearchModel;
 import com.xt.lxl.stock.model.model.StockSyncModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
@@ -52,9 +55,9 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
     List<StockViewModel> mSearchAllDataList = new ArrayList<>();//缓存的全部股票
     Map<String, StockViewModel> mSearchAllDataMap = new HashMap<>();//缓存的全部股票
     List<String> mSaveList = new ArrayList<>();
-    List<StockViewModel> mResultList = new ArrayList<>();//搜索结果
+    List<StockSearchModel> mResultList = new ArrayList<>();//搜索结果
     List<StockSearchModel> mHotList = new ArrayList<>();//热门搜索结果集
-    List<StockViewModel> mHistoryList = new ArrayList<>();//历史搜索结果集
+    List<StockSearchModel> mHistoryList = new ArrayList<>();//历史搜索结果集
 
     Handler mHandler = new Handler();
     StockItemEditCallBacks mCallBacks = new StockItemEditCallBacks();
@@ -82,24 +85,29 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         mHistoryAdapter.setSaveList(mSaveList);
         mHistoryAdapter.setData(mHistoryList);
         mHistoryListView.setAdapter(mHistoryAdapter);
+        mResultListView.setOnItemClickListener(mCallBacks.mSearchResultItemCallBack);
+        mHistoryListView.setOnItemClickListener(mCallBacks.mSearchHistoryItemCallBack);
     }
 
     public void bindHotSearch() {
         mHotContainer.removeAllViews();
         for (StockSearchModel stockSearchViewModel : mHotList) {
             View inflate = null;
+            TextView textView = null;
             if (stockSearchViewModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
                 inflate = View.inflate(this, R.layout.stock_search_hot_item, null);
-                TextView textView = (TextView) inflate.findViewById(R.id.hot_search_text);
+                textView = (TextView) inflate.findViewById(R.id.hot_search_text);
                 textView.setText(stockSearchViewModel.rankModel.title);
             } else if (stockSearchViewModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
                 inflate = View.inflate(this, R.layout.stock_search_hot_item, null);
-                TextView textView = (TextView) inflate.findViewById(R.id.hot_search_text);
+                textView = (TextView) inflate.findViewById(R.id.hot_search_text);
                 textView.setText(stockSearchViewModel.stockViewModel.stockName + " " + stockSearchViewModel.stockViewModel.stockCode);
             }
             if (inflate == null) {
                 continue;
             }
+            textView.setTag(stockSearchViewModel);
+            textView.setOnClickListener(mCallBacks.mHotSearchCallBack);
             mHotContainer.addView(inflate);
         }
     }
@@ -160,6 +168,56 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
                 }
             }
         };
+        mCallBacks.mHotSearchCallBack = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                StockSearchModel searchModel = (StockSearchModel) v.getTag();
+                gotoStockInfoPage(searchModel);
+            }
+        };
+
+        mCallBacks.mSearchHistoryItemCallBack = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                StockSearchModel searchModel = mHistoryList.get(position);
+                gotoStockInfoPage(searchModel);
+            }
+        };
+        mCallBacks.mSearchResultItemCallBack = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                StockSearchModel searchModel = mResultList.get(position);
+                gotoStockInfoPage(searchModel);
+            }
+        };
+    }
+
+    private void gotoStockInfoPage(StockSearchModel searchModel) {
+        if (searchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
+            gotoStockDetailPage(searchModel.stockViewModel);
+        } else if (searchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
+            StockFoundRankModel rankModel = searchModel.rankModel;
+            gotoStockRankPage(rankModel);
+        }
+    }
+
+    /**
+     * 跳转股票详情界面
+     */
+    private void gotoStockDetailPage(StockViewModel stockViewModel) {
+        Intent intent = new Intent(StockSearchActivity.this, StockDetailActivity.class);
+        intent.putExtra(StockDetailActivity.STOCK_DETAIL, stockViewModel);
+        startActivity(intent);
+    }
+
+    /**
+     * 跳转股票排行界面
+     */
+    private void gotoStockRankPage(StockFoundRankModel rankModel) {
+        Intent intent = new Intent(this, StockRankActivity.class);
+        intent.putExtra(StockRankActivity.STOCK_FOUND_RANK_MODEL, rankModel);
+        startActivity(intent);
     }
 
     private void initView() {
@@ -209,11 +267,27 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         mHistoryList.clear();
         List<String> historyStockCodeList = DataSource.getHistoryStockCodeList(this);//这里记录的都是code
         for (String code : historyStockCodeList) {
-            StockViewModel stockViewModel = mSearchAllDataMap.get(code);
-            if (stockViewModel == null) {
+            //股票类型
+            StockSearchModel searchModel = new StockSearchModel();
+            if (MatchUtil.matchAllNumber(code)) {
+                StockViewModel stockViewModel = mSearchAllDataMap.get(code);
+                if (stockViewModel == null) {
+                    continue;
+                }
+                searchModel.searchType = StockSearchModel.STOCK_FOUND_TYPE_STOCK;
+                searchModel.stockViewModel = stockViewModel;
+            } else if (code.contains("_")) {
+                //事件
+                String[] split = code.split("_");
+                String eventCode = split[0];
+                String eventDesc = split[1];
+                StockFoundRankModel foundRankModel = new StockFoundRankModel();
+                foundRankModel.searchRelation = StringUtil.toInt(eventCode);
+                foundRankModel.title = eventDesc;
+            } else {
                 continue;
             }
-            mHistoryList.add(stockViewModel);
+            mHistoryList.add(searchModel);
         }
     }
 
@@ -226,15 +300,18 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
         }
 
         //如果纯数字进行联想
-        List<StockViewModel> searchResultList = new ArrayList<>();
+        List<StockSearchModel> searchResultList = new ArrayList<>();
         for (StockViewModel stockViewModel : mSearchAllDataList) {
+            StockSearchModel stockSearchModel = new StockSearchModel();
             if (isAllNumber) {
                 if (stockViewModel.stockCode.startsWith(searchKey)) {
-                    searchResultList.add(stockViewModel);
+                    stockSearchModel.stockViewModel = stockViewModel;
+                    searchResultList.add(stockSearchModel);
                 }
             } else {
                 if (stockViewModel.stockName.startsWith(searchKey)) {
-                    searchResultList.add(stockViewModel);
+                    stockSearchModel.stockViewModel = stockViewModel;
+                    searchResultList.add(stockSearchModel);
                 }
             }
         }
@@ -252,12 +329,17 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
             public void run() {
                 List<StockViewModel> stockViewModels = StockSender.getInstance().requestStockModelByCode(code);
                 mResultList.clear();
-                mResultList.addAll(stockViewModels);
+                List<StockSearchModel> searchResultList = new ArrayList<>();
+                for (StockViewModel stockViewModel : stockViewModels) {
+                    StockSearchModel stockSearchModel = new StockSearchModel();
+                    stockSearchModel.stockViewModel = stockViewModel;
+                    searchResultList.add(stockSearchModel);
+                }
+                mResultList.addAll(searchResultList);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         bindResultData();
-//                        mResultAdapter.notifyDataSetChanged();
                     }
                 });
             }

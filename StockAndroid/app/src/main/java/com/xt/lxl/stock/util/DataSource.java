@@ -155,6 +155,9 @@ public class DataSource {
         if (list.size() > 10) {
             list.remove(0);
         }
+        if (list.contains(searchKey)) {
+            list.remove(searchKey);
+        }
         list.add(searchKey);
         for (String str : list) {
             builder.append(str);

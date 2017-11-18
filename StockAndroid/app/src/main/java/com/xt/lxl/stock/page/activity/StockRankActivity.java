@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.listener.StockItemEditCallBacks;
+import com.xt.lxl.stock.listener.StockRankCallBacks;
 import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
@@ -49,7 +49,7 @@ public class StockRankActivity extends FragmentActivity {
     LinearLayout mStockFilterHeaderContainer;
     FrameLayout mStockDetailFilterFragment;
     ListView mStockRankListView;
-    StockItemEditCallBacks mCallBacks = new StockItemEditCallBacks();
+    StockRankCallBacks mCallBacks = new StockRankCallBacks();
 
     StockRankAdapter mRankAdapter;
 
