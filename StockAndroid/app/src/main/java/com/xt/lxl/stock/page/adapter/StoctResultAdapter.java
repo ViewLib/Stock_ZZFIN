@@ -63,30 +63,29 @@ public class StoctResultAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         StockSearchModel stockSearchModel = mStockList.get(position);
-        if (stockSearchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
-            return 2;
-        } else if (stockSearchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
+        if (stockSearchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
+            return 0;
+        } else if (stockSearchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
             return 1;
         }
-        return 1;
+        return 0;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         int itemViewType = getItemViewType(position);
         if (convertView == null) {
-            if (itemViewType == 2) {
-                convertView = mInflater.inflate(R.layout.stock_item_edit_event_item, parent, false);
-            } else {
+            if (itemViewType == 0) {
                 convertView = mInflater.inflate(R.layout.stock_item_edit_stock_item, parent, false);
-
+            } else {
+                convertView = mInflater.inflate(R.layout.stock_item_edit_event_item, parent, false);
             }
         }
         StockSearchModel item = getItem(position);
-        if (itemViewType == 2) {
-            bindDataByEvent(convertView, item.rankModel);
-        } else {
+        if (itemViewType == 0) {
             bindDataByStock(convertView, item.stockViewModel);
+        } else {
+            bindDataByEvent(convertView, item.rankModel);
         }
         return convertView;
     }

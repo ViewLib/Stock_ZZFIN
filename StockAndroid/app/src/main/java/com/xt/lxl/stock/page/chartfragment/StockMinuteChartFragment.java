@@ -15,7 +15,6 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
@@ -60,6 +59,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 //    MyYAxis axisRightBar;
     SparseArray<String> stringSparseArray;
     private MinuteViewModel minuteViewModel = new MinuteViewModel();
+    private LineData cd;
 
     Handler mHandler = new Handler();
 
@@ -212,7 +212,11 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         axisLeftLine.setAxisMaxValue(minuteViewModel.maxPrice);
         axisRightLine.setAxisMinValue(minuteViewModel.maxFallChange);
         axisRightLine.setAxisMaxValue(minuteViewModel.maxRiseChange);
-
+        ArrayList<ILineDataSet> sets = new ArrayList<>();
+        if (cd == null) {
+            cd = new LineData(getMinutesCount(), sets);
+            lineChart.setData(cd);
+        }
         //基准线
         LimitLine ll = new LimitLine(0);
         ll.setLineWidth(1f);
@@ -277,16 +281,12 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         //谁为基准
         d1.setAxisDependency(YAxis.AxisDependency.LEFT);
         // d2.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        ArrayList<ILineDataSet> sets = new ArrayList<>();
         sets.add(d1);
         sets.add(d2);
-        /*注老版本LineData参数可以为空，最新版本会报错，修改进入ChartData加入if判断*/
-        LineData cd = new LineData(getMinutesCount(), sets);
-        lineChart.setData(cd);
-        BarData barData = new BarData(getMinutesCount(), barDataSet);
+//        BarData barData = new BarData(getMinutesCount(), barDataSet);
 //        barChart.setData(barData);
-
         setOffset();
+        lineChart.notifyDataSetChanged();
         lineChart.invalidate();//刷新图
 //        barChart.invalidate();
     }

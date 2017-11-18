@@ -56,8 +56,8 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
     Map<String, StockViewModel> mSearchAllDataMap = new HashMap<>();//缓存的全部股票
     List<String> mSaveList = new ArrayList<>();
     List<StockSearchModel> mResultList = new ArrayList<>();//搜索结果
-    List<StockSearchModel> mHotList = new ArrayList<>();//热门搜索结果集
     List<StockSearchModel> mHistoryList = new ArrayList<>();//历史搜索结果集
+    List<StockSearchModel> mHotList = new ArrayList<>();//热门搜索结果集
 
     Handler mHandler = new Handler();
     StockItemEditCallBacks mCallBacks = new StockItemEditCallBacks();
@@ -315,6 +315,12 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
                 }
             }
         }
+        for (StockSearchModel searchModel : mHotList) {
+            if (searchModel.rankModel.title.startsWith(searchKey)) {
+                searchResultList.add(searchModel);
+            }
+        }
+
         if (searchResultList.size() > 0) {
             //这里构造数据，外部刷新
             mResultList.clear();

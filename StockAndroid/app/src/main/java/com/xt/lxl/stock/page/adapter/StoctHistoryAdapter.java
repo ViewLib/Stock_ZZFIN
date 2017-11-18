@@ -61,11 +61,11 @@ public class StoctHistoryAdapter extends BaseAdapter {
     public int getItemViewType(int position) {
         StockSearchModel stockSearchModel = mStockList.get(position);
         if (stockSearchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
-            return 2;
-        } else if (stockSearchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
             return 1;
+        } else if (stockSearchModel.searchType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
+            return 0;
         }
-        return 1;
+        return 0;
     }
 
     @Override
@@ -78,9 +78,9 @@ public class StoctHistoryAdapter extends BaseAdapter {
 
         if (convertView == null) {
             int itemViewType = getItemViewType(position);
-            if (itemViewType == StockSearchModel.STOCK_FOUND_TYPE_STOCK) {
+            if (itemViewType == 0) {
                 convertView = mInflater.inflate(R.layout.stock_item_history_stock_item, parent, false);
-            } else if (itemViewType == StockSearchModel.STOCK_FOUND_TYPE_RNAK) {
+            } else if (itemViewType == 1) {
                 convertView = mInflater.inflate(R.layout.stock_item_history_event_item, parent, false);
             }
         }
