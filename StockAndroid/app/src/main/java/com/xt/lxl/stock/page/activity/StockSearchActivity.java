@@ -320,12 +320,8 @@ public class StockSearchActivity extends Activity implements View.OnClickListene
                 searchResultList.add(searchModel);
             }
         }
-
-        if (searchResultList.size() > 0) {
-            //这里构造数据，外部刷新
-            mResultList.clear();
-            mResultList.addAll(searchResultList);
-        }
+        mResultList.clear();
+        mResultList.addAll(searchResultList);
         return true;
     }
 

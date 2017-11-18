@@ -139,6 +139,7 @@ public class StockRankActivity extends FragmentActivity {
         mTitleTv = (StockTitleView) findViewById(R.id.stock_title_view);
         mStockRankFilterContainer = (LinearLayout) findViewById(R.id.stock_rank_filter);
         mStockFilterHeaderContainer = (LinearLayout) findViewById(R.id.stock_filter_header);
+        mStockFilterHeaderContainer.setVisibility(View.GONE);
         mStockRankListView = (ListView) findViewById(R.id.stock_rank_list);
         mStockDetailFilterFragment = (FrameLayout) findViewById(R.id.stock_detail_filter_fragment);
     }
@@ -184,7 +185,7 @@ public class StockRankActivity extends FragmentActivity {
 
     private void bindRankData() {
         mTitleTv.setTitle(mRankModel.title, R.style.text_18_ffffff);
-
+        mStockFilterHeaderContainer.setVisibility(View.VISIBLE);
         TextView name = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_name);
         TextView add = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_add);
         TextView attr1 = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_attr1);
