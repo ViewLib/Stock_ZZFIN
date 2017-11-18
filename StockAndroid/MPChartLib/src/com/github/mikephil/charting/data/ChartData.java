@@ -151,9 +151,7 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
             mXValMaximumLength = 1;
             return;
         }
-
         int max = 1;
-
         for (int i = 0; i < mXVals.size(); i++) {
             if (mXVals.get(i) != null) {
                 int length = mXVals.get(i).length();
@@ -162,7 +160,6 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
                     max = length;
             }
         }
-
         mXValMaximumLength = max;
     }
 
@@ -379,7 +376,6 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
 
     /**
      * sets the x-values the chart represents
-     *
      */
     public void setXVals(List<String> xVals) {
         mXVals = xVals;
@@ -480,9 +476,9 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
             List<?> entries = mDataSets.get(highlight.getDataSetIndex())
                     .getEntriesForXIndex(highlight.getXIndex());
             for (Object entry : entries)
-                if (((Entry)entry).getVal() == highlight.getValue() ||
+                if (((Entry) entry).getVal() == highlight.getValue() ||
                         Float.isNaN(highlight.getValue()))
-                    return (Entry)entry;
+                    return (Entry) entry;
 
             return null;
         }

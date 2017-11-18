@@ -110,7 +110,7 @@ public class StockDetailActivity extends FragmentActivity {
         builder.append(mCacheBean.mStockViewModel.stockCode);
         builder.setSpan(new TextAppearanceSpan(this, R.style.text_12_ffffff), length, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         titleView.setTitle(builder);
-        hanldeSendService();
+//        hanldeSendService();
     }
 
     private void hanldeSendService() {

@@ -2,6 +2,7 @@ package com.xt.lxl.stock.page.chartfragment;
 
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,6 +29,7 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.BarLineChartTouchListener;
@@ -44,6 +46,7 @@ import com.xt.lxl.stock.util.VolFormatter;
 import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.CoupleChartGestureListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,7 +98,6 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         super.onViewCreated(view, savedInstanceState);
         combinedchart = (CombinedChart) view.findViewById(R.id.kline_day_chart);
         barChart = (BarChart) view.findViewById(R.id.kline_day_bar);
-        StockViewModel stockViewModel = (StockViewModel) getArguments().getSerializable(StockViewModel_TAG);
         initChart();
     }
 
@@ -141,8 +143,9 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         for (int i = 0, j = 0; i < dateDataList.size(); i++, j++) {
             StockDateDataModel stockDateData = dateDataList.get(i);
             xVals.add(stockDateData.date);
-            barEntries.add(new BarEntry(stockDateData.volume, i));
-            candleEntries.add(new CandleEntry(i, stockDateData.high, stockDateData.low, stockDateData.open, stockDateData.close));
+            boolean showRed = stockDateData.close > stockDateData.open;
+            barEntries.add(new BarEntry(stockDateData.volume, i, showRed));
+            candleEntries.add(new CandleEntry(i, stockDateData.high, stockDateData.low, stockDateData.open, stockDateData.close, showRed));
             if (i >= 4) {
                 sum = 0;
                 line5Entries.add(new Entry(getSum(dateDataList, i - 4, i) / 5, i));
@@ -158,14 +161,16 @@ public class StockDayChartFragment extends StockBaseChartFragment {
 
         }
         barDataSet = new BarDataSet(barEntries, "成交量");
-        barDataSet.setBarSpacePercent(50); //bar空隙
+        barDataSet.setBarSpacePercent(30); //bar空隙
         barDataSet.setHighlightEnabled(true);
         barDataSet.setHighLightAlpha(255);
         barDataSet.setHighLightColor(Color.WHITE);
         barDataSet.setDrawValues(false);
-        barDataSet.setColor(Color.RED);
+        barDataSet.setColors(new int[]{Color.RED, Color.parseColor("#41CB47")});
+        barDataSet.setDrawUpAndDown(true);
         BarData barData = new BarData(xVals, barDataSet);
         barChart.setData(barData);
+        barChart.setDrawBorders(false);
         final ViewPortHandler viewPortHandlerBar = barChart.getViewPortHandler();
         viewPortHandlerBar.setMaximumScaleX(StockUtil.culcMaxscale(xVals.size()));
         Matrix touchmatrix = viewPortHandlerBar.getMatrixTouch();
@@ -179,8 +184,13 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         candleDataSet.setHighLightColor(Color.WHITE);
         candleDataSet.setValueTextSize(10f);
         candleDataSet.setDrawValues(false);
-        candleDataSet.setColor(Color.RED);
+        candleDataSet.setColors(new int[]{Color.RED, Color.parseColor("#41CB47")});
+        candleDataSet.setDrawUpAndDown(true);
         candleDataSet.setShadowWidth(1f);
+        candleDataSet.setShadowColorSameAsCandle(true);
+        candleDataSet.setIncreasingPaintStyle(Paint.Style.FILL);
+        candleDataSet.setIncreasingColor(Color.RED);
+        candleDataSet.setDecreasingColor(Color.parseColor("#41CB47"));
         candleDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         CandleData candleData = new CandleData(xVals, candleDataSet);
 
@@ -204,6 +214,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         LineData lineData = new LineData(xVals, sets);
         combinedData.setData(candleData);
         combinedData.setData(lineData);
+        combinedData.setDrawValues(false);
         combinedchart.setData(combinedData);
         combinedchart.moveViewToX(dateDataList.size() - 1);
         final ViewPortHandler viewPortHandlerCombin = combinedchart.getViewPortHandler();
@@ -235,11 +246,11 @@ public class StockDayChartFragment extends StockBaseChartFragment {
                 dateDataModel.date = dateDataModel.date.split(" ")[0];
             }
         }
-//        dayViewModel.maxVolum = dayViewModel.dateDataList.get(0).volume;
-//        for (int i = 0; i < dayViewModel.dateDataList.size(); i++) {
-//            StockDateDataModel stockDateData = dayViewModel.dateDataList.get(i);
-//            dayViewModel.maxVolum = stockDateData.volume > dayViewModel.maxVolum ? stockDateData.volume : dayViewModel.maxVolum;
-//        }
+        dayViewModel.maxVolum = dayViewModel.dateDataList.get(0).volume;
+        for (int i = 0; i < dayViewModel.dateDataList.size(); i++) {
+            StockDateDataModel stockDateData = dayViewModel.dateDataList.get(i);
+            dayViewModel.maxVolum = stockDateData.volume > dayViewModel.maxVolum ? stockDateData.volume : dayViewModel.maxVolum;
+        }
         return dayViewModel;
     }
 
@@ -287,11 +298,11 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         }
         lineDataSetMa.setDrawValues(false);
         if (ma == 5) {
-            lineDataSetMa.setColor(Color.GREEN);
+            lineDataSetMa.setColor(Color.parseColor("#FEB911"));
         } else if (ma == 10) {
-            lineDataSetMa.setColor(Color.GRAY);
+            lineDataSetMa.setColor(Color.parseColor("#60CFFF"));
         } else {
-            lineDataSetMa.setColor(Color.YELLOW);
+            lineDataSetMa.setColor(Color.parseColor("#F184F5"));
         }
         lineDataSetMa.setLineWidth(1f);
         lineDataSetMa.setDrawCircles(false);
@@ -336,12 +347,19 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         axisLeftBar.setDrawLabels(true);
         axisLeftBar.setSpaceTop(0);
         axisLeftBar.setShowOnlyMinMax(true);
+        axisLeftBar.setValueFormatter(new YAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, YAxis yAxis) {
+                DecimalFormat mFormat = new DecimalFormat("#0.00%");
+                return mFormat.format(value);
+            }
+        });
         axisRightBar = barChart.getAxisRight();
         axisRightBar.setDrawLabels(false);
         axisRightBar.setDrawGridLines(false);
         axisRightBar.setDrawAxisLine(false);
         /****************************************************************/
-        combinedchart.setDrawBorders(true);
+        combinedchart.setDrawBorders(false);
         combinedchart.setBorderWidth(1);
         combinedchart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
         combinedchart.setDescription("");

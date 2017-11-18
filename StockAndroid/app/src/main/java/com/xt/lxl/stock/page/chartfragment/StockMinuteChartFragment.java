@@ -101,9 +101,9 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 
     private void initChart() {
         lineChart.setScaleEnabled(false);
-        lineChart.setDrawBorders(true);
+        lineChart.setDrawBorders(false);
         lineChart.setBorderWidth(1);
-        lineChart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
+//        lineChart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
         lineChart.setDescription("");
         Legend lineChartLegend = lineChart.getLegend();
         lineChartLegend.setEnabled(false);
@@ -215,6 +215,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         ArrayList<ILineDataSet> sets = new ArrayList<>();
         if (cd == null) {
             cd = new LineData(getMinutesCount(), sets);
+            cd.setDrawValues(false);
             lineChart.setData(cd);
         }
         //基准线

@@ -26,6 +26,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      */
     protected List<Integer> mColors = null;
 
+
+    protected boolean mDrawUpAndDown = false;
+
     /**
      * List representing all colors that are used for drawing the actual values for this DataSet
      */
@@ -110,7 +113,14 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         return mColors;
     }
 
-    public List<Integer> getValueColors() { return mValueColors; }
+    @Override
+    public boolean getDrawUpAndDown() {
+        return mDrawUpAndDown;
+    }
+
+    public List<Integer> getValueColors() {
+        return mValueColors;
+    }
 
     @Override
     public int getColor() {
@@ -184,6 +194,10 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         mColors.add(color);
     }
 
+    public void setDrawUpAndDown(boolean drawUpAndDown) {
+        mDrawUpAndDown = drawUpAndDown;
+    }
+
     /**
      * Sets the one and ONLY color that should be used for this DataSet.
      * Internally, this recreates the colors array and adds the specified color.
@@ -225,7 +239,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         mColors = new ArrayList<>();
     }
 
-    /** ###### ###### OTHER STYLING RELATED METHODS ##### ###### */
+    /**
+     * ###### ###### OTHER STYLING RELATED METHODS ##### ######
+     */
 
     @Override
     public void setLabel(String label) {
@@ -335,7 +351,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     }
 
 
-    /** ###### ###### DATA RELATED METHODS ###### ###### */
+    /**
+     * ###### ###### DATA RELATED METHODS ###### ######
+     */
 
     @Override
     public int getIndexInEntries(int xIndex) {
@@ -372,8 +390,8 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     @Override
     public boolean contains(T e) {
 
-        for(int i = 0; i < getEntryCount(); i++) {
-            if(getEntryForIndex(i).equals(e))
+        for (int i = 0; i < getEntryCount(); i++) {
+            if (getEntryForIndex(i).equals(e))
                 return true;
         }
 
