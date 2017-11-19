@@ -36,6 +36,10 @@ public class MinuteViewModel {
         for (int i = 0; i < list.size(); i++) {
             StockMinuteDataModel stockMinuteData = list.get(i);
             stockMinuteData.state = 1;//lxltest
+            //如果是9点25分的过滤掉
+            if (stockMinuteData.time.equals("09:25")) {
+                continue;
+            }
             //最高价格
             addModel(stockMinuteData);
             if (stockMinuteData.price > mMaxPrice) {
