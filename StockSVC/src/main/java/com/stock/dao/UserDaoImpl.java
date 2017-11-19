@@ -157,7 +157,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public ArrayList<StockUserModel> selectUserInfoList(int startIndex, int count) {
         ArrayList<StockUserModel> userList = new ArrayList<>();
-        String sql = "select * from stock_user";
+        String sql = "select * from stock_user limit " + (startIndex - 1) * count + "," + count;
         PreparedStatement preStmt = null;
         try {
             preStmt = conn.prepareStatement(sql);

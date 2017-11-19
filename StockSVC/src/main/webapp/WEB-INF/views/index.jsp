@@ -291,7 +291,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                     <!-- END PAGE HEADER-->
 
                     <!-- BEGIN DASHBOARD STATS -->
-                    <div id="main-content"></div>
+                    <div id="main-content">
+                        <table id="user_table"></table>
+                    </div>
 
                     <!-- END PORTLET-->
                 </div>
@@ -308,6 +310,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                 <span class="go-top"><i class="fa fa-angle-up"></i></span>
             </div>
         </div>
+
+
         <!--[if lt IE 9]>
         <script src="assets/plugins/respond.min.js"></script>
         <script src="assets/plugins/excanvas.min.js"></script>

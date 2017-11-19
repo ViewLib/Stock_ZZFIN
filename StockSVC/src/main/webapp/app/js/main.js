@@ -9,6 +9,22 @@ require.config({
         'backbone' : {
             deps : [ 'underscore', 'jquery' ],
             exports : 'Backbone'
+        },
+        'bootstrap':{deps: ['jquery','css!../../assets/plugins/bootstrap/css/bootstrap.min.css']},
+        'bootstrap_modal':{
+            deps: [
+                'bootstrap',
+                'bootstrap_modalmanager',
+                'css!../../assets/plugins/bootstrap-modal/css/bootstrap-modal.css',
+                'css!../../assets/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css'
+            ]
+        },
+        'bootstrap_table':{
+            deps:[
+                'bootstrap',
+                '../../assets/plugins/bootstrap-table/js/local/bootstrap-table-zh-CN',
+                'css!../../assets/plugins/bootstrap-table/css/bootstrap-table.css'
+            ]
         }
     },
     paths : {
@@ -16,7 +32,16 @@ require.config({
         underscore : '../lib/underscore/underscore',
         backbone : '../lib/backbone/backbone',
         text : '../lib/requirejs/text',
-        templates : 'templates'
+        templates : 'templates',
+        bootstrap : '../../assets/plugins/bootstrap/js/bootstrap.min',
+        bootstrap_modal : '../../assets/plugins/bootstrap-modal/js/bootstrap-modal',
+        bootstrap_modalmanager : '../../assets/plugins/bootstrap-modal/js/bootstrap-modalmanager',
+        bootstrap_table:'../../assets/plugins/bootstrap-table/js/bootstrap-table'
+    },
+    map: {
+        '*': {
+            'css': '../lib/requirejs/css'
+        }
     }
 });
 
