@@ -24,12 +24,22 @@ import java.util.List;
 public class StockListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private StockListCallBacks mCallBacks;
-    private List<StockViewModel> mStockList = new ArrayList<>();
+    private ArrayList<StockViewModel> mStockList = new ArrayList<>();
 
     public StockListAdapter(Context context, StockListCallBacks callBacks) {
         mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mCallBacks = callBacks;
+    }
+
+    public ArrayList<StockViewModel> getStockList() {
+        ArrayList<StockViewModel> stockList = new ArrayList<>();
+        for (StockViewModel stockViewModel : mStockList) {
+            if (stockViewModel.showType == StockViewModel.STOCK_SHOW_TYPE_NORMAL) {
+                stockList.add(stockViewModel);
+            }
+        }
+        return stockList;
     }
 
     @Override
@@ -140,4 +150,6 @@ public class StockListAdapter extends BaseAdapter {
     public void addOneStockViewModel(StockViewModel model) {
         mStockList.add(mStockList.size() - 1, model);
     }
+
+
 }
