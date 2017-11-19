@@ -15,6 +15,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
@@ -31,6 +32,7 @@ import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DateUtil;
 import com.xt.lxl.stock.widget.stockchart.bean.MinuteViewModel;
+import com.xt.lxl.stock.widget.stockchart.mychart.MyBarChart;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyYAxis;
 import com.xt.lxl.stock.widget.stockchart.view.MyBottomMarkerView;
@@ -47,7 +49,7 @@ import java.util.List;
  */
 public class StockMinuteChartFragment extends StockBaseChartFragment {
 
-    //    MyBarChart barChart;
+    MyBarChart barChart;
     MyLineChart lineChart;
     private LineDataSet d1, d2;//均价，成交价
     MyXAxis xAxisLine;
@@ -77,10 +79,12 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        lineChart = (MyLineChart) view.findViewById(R.id.kline_minute_chart);
-        lineChart.setMaxVisibleValueCount(12);
-        initChart();
+        lineChart = (MyLineChart) view.findViewById(R.id.kline_minute_price_chart);
+//        lineChart.setMaxVisibleValueCount(12);
+        barChart = (MyBarChart) view.findViewById(R.id.kline_minute_volumn_chart);
         stringSparseArray = setXLabels();
+        initLineChart();
+        initBarChart();
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
@@ -99,69 +103,27 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         sendServiceGetMinuteDataResponse(stockViewModel);
     }
 
-    private void initChart() {
+    private void initLineChart() {
         lineChart.setScaleEnabled(false);
         lineChart.setDrawBorders(false);
-        lineChart.setBorderWidth(1);
-//        lineChart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
+        lineChart.setBorderWidth(0);
         lineChart.setDescription("");
+        lineChart.setMinOffset(10);
         Legend lineChartLegend = lineChart.getLegend();
         lineChartLegend.setEnabled(false);
-
-//        barChart.setScaleEnabled(false);
-//        barChart.setDrawBorders(true);
-//        barChart.setBorderWidth(1);
-//        barChart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
-//        barChart.setDescription("");
-
-
-//        Legend barChartLegend = barChart.getLegend();
-//        barChartLegend.setEnabled(false);
-        //x轴
-        xAxisLine = lineChart.getXAxis();
-        xAxisLine.setDrawLabels(true);
-        xAxisLine.setPosition(XAxis.XAxisPosition.BOTTOM);
-        // xAxisLine.setLabelsToSkip(59);
-
-
         //左边y
         axisLeftLine = lineChart.getAxisLeft();
         /*折线图y轴左没有basevalue，调用系统的*/
         axisLeftLine.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         axisLeftLine.setStartAtZero(false);//设置Y轴的数据不是从0开始
         axisLeftLine.setLabelCount(5, true);
+        axisLeftLine.setTextColor(Color.GRAY);
         axisLeftLine.setDrawLabels(true);
         axisLeftLine.setDrawGridLines(false);
         /*轴不显示 避免和border冲突*/
         axisLeftLine.setDrawAxisLine(false);
-
-
-        //右边y
-        axisRightLine = lineChart.getAxisRight();
-        axisRightLine.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-        axisRightLine.setLabelCount(2, true);
-        axisRightLine.setDrawLabels(true);
-        axisRightLine.setValueFormatter(new YAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, YAxis yAxis) {
-                DecimalFormat mFormat = new DecimalFormat("#0.00%");
-                return mFormat.format(value);
-            }
-        });
-//        axisRightLine.setEnabled(false);
-        axisRightLine.setStartAtZero(false);
-        axisRightLine.setDrawGridLines(false);
-        axisRightLine.setDrawAxisLine(false);
-        //背景线
-        xAxisLine.setGridColor(getResources().getColor(R.color.minute_grayLine));
-        xAxisLine.enableGridDashedLine(10f, 5f, 0f);
-        xAxisLine.setAxisLineColor(getResources().getColor(R.color.minute_grayLine));
-        xAxisLine.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         axisLeftLine.setGridColor(getResources().getColor(R.color.minute_grayLine));
         axisLeftLine.setTextColor(getResources().getColor(R.color.minute_zhoutv));
-        axisRightLine.setAxisLineColor(getResources().getColor(R.color.minute_grayLine));
-        axisRightLine.setTextColor(getResources().getColor(R.color.minute_zhoutv));
-
         //y轴样式
         this.axisLeftLine.setValueFormatter(new YAxisValueFormatter() {
             @Override
@@ -171,6 +133,75 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
             }
         });
 
+        //右边y
+        axisRightLine = lineChart.getAxisRight();
+        axisRightLine.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        axisRightLine.setLabelCount(2, true);
+        axisRightLine.setTextColor(Color.GRAY);
+        axisRightLine.setDrawLabels(true);
+        axisRightLine.setValueFormatter(new YAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, YAxis yAxis) {
+                DecimalFormat mFormat = new DecimalFormat("#0.00%");
+                return mFormat.format(value);
+            }
+        });
+        axisRightLine.setStartAtZero(false);
+        axisRightLine.setDrawGridLines(false);
+        axisRightLine.setDrawAxisLine(false);
+        axisRightLine.setAxisLineColor(getResources().getColor(R.color.minute_grayLine));
+        axisRightLine.setTextColor(getResources().getColor(R.color.minute_zhoutv));
+
+
+        //背景线
+        //x轴
+        xAxisLine = lineChart.getXAxis();
+        xAxisLine.setDrawLabels(false);
+        xAxisLine.setGridColor(getResources().getColor(R.color.minute_grayLine));
+        xAxisLine.enableGridDashedLine(10f, 5f, 0f);
+        xAxisLine.setAxisLineColor(getResources().getColor(R.color.minute_grayLine));
+        xAxisLine.setTextColor(getResources().getColor(R.color.minute_zhoutv));
+        xAxisLine.setDrawLabels(false);
+        xAxisLine.setPosition(XAxis.XAxisPosition.BOTTOM);
+    }
+
+    private void initBarChart() {
+        barChart.setScaleEnabled(false);
+        barChart.setDrawBorders(false);
+        barChart.setBorderWidth(0);
+//        barChart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
+        barChart.setDescription("");
+        barChart.setMinOffset(10);
+
+        MyXAxis xAxis = barChart.getXAxis();
+        xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setXLabels(stringSparseArray);
+        xAxis.setTextColor(Color.GRAY);
+        xAxis.setDrawAxisLine(false);
+
+
+        MyYAxis axisRight = barChart.getAxisRight();
+        axisRight.setDrawLabels(false);
+        axisRight.setDrawGridLines(false);
+        axisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        axisRight.setDrawZeroLine(false);
+        axisRight.setAxisLineWidth(0);
+        axisRight.setDrawAxisLine(false);
+
+
+        MyYAxis axisLeft = barChart.getAxisLeft();
+        axisLeft.setDrawLabels(true);
+        axisLeft.setDrawGridLines(false);
+        axisLeft.setLabelCount(1, true);
+        axisLeft.setTextColor(Color.GRAY);
+        axisLeft.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        axisLeft.setDrawZeroLine(false);
+        axisLeft.setAxisLineWidth(0);
+        axisLeft.setDrawAxisLine(false);
+
+        Legend barChartLegend = barChart.getLegend();
+        barChartLegend.setEnabled(false);
     }
 
     private SparseArray<String> setXLabels() {
@@ -209,10 +240,10 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
             return;
         }
         //设置y左右两轴最大最小值
-        axisLeftLine.setAxisMinValue(minuteViewModel.minPrice);
-        axisLeftLine.setAxisMaxValue(minuteViewModel.maxPrice);
-        axisRightLine.setAxisMinValue(minuteViewModel.maxFallChange);
-        axisRightLine.setAxisMaxValue(minuteViewModel.maxRiseChange);
+        axisLeftLine.setAxisMinValue(minuteViewModel.mBasePrice + minuteViewModel.mMaxDownChange);
+        axisLeftLine.setAxisMaxValue(minuteViewModel.mBasePrice + minuteViewModel.mMaxUpChange);
+        axisRightLine.setAxisMinValue(minuteViewModel.mMaxDownChangeRatio);
+        axisRightLine.setAxisMaxValue(minuteViewModel.mMaxUpChangeRatio);
         ArrayList<ILineDataSet> sets = new ArrayList<>();
         if (cd == null) {
             cd = new LineData(getMinutesCount(), sets);
@@ -230,7 +261,6 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 
         ArrayList<Entry> lineCJEntries = new ArrayList<>();
         ArrayList<Entry> lineJJEntries = new ArrayList<>();
-        ArrayList<String> dateList = new ArrayList<>();
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         ArrayList<String> xVals = new ArrayList<>();
         Log.e("##", Integer.toString(xVals.size()));
@@ -253,13 +283,12 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
             lineCJEntries.add(new Entry(((float) stockMinuteData.price), i));//成交价格
             lineJJEntries.add(new Entry(stockMinuteData.pjprice, i));//平均价格
             barEntries.add(new BarEntry(stockMinuteData.volume, i));//成交数量
-            // dateList.add(mData.getDatas().get(i).time);
+            xVals.add(stockMinuteData.time);
         }
         d1 = new LineDataSet(lineCJEntries, "成交价");
         d2 = new LineDataSet(lineJJEntries, "均价");
         d1.setDrawValues(false);
         d2.setDrawValues(false);
-        barDataSet = new BarDataSet(barEntries, "成交量");
 
         d1.setCircleRadius(0);
         d2.setCircleRadius(0);
@@ -268,29 +297,29 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         d1.setHighLightColor(Color.WHITE);
         d2.setHighlightEnabled(false);
         d1.setDrawFilled(true);
-
-
-        barDataSet.setBarSpacePercent(50); //bar空隙
-        barDataSet.setHighLightColor(Color.WHITE);
-        barDataSet.setHighLightAlpha(255);
-        barDataSet.setDrawValues(false);
-        barDataSet.setHighlightEnabled(true);
-        barDataSet.setColor(Color.RED);
-        List<Integer> list = new ArrayList<>();
-        list.add(Color.RED);
-        list.add(Color.GREEN);
-        barDataSet.setColors(list);
         //谁为基准
         d1.setAxisDependency(YAxis.AxisDependency.LEFT);
-        // d2.setAxisDependency(YAxis.AxisDependency.RIGHT);
         sets.add(d1);
         sets.add(d2);
-//        BarData barData = new BarData(getMinutesCount(), barDataSet);
-//        barChart.setData(barData);
         setOffset();
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();//刷新图
-//        barChart.invalidate();
+
+        barDataSet = new BarDataSet(barEntries, "成交量");
+        barDataSet.setBarSpacePercent(30); //bar空隙
+        barDataSet.setHighLightColor(Color.WHITE);
+        barDataSet.setDrawValues(false);
+        barDataSet.setHighlightEnabled(true);
+        barDataSet.setHighLightAlpha(255);
+        barDataSet.setColor(Color.parseColor("#186DB7"));
+        BarData barData = new BarData(xVals, barDataSet);
+        barChart.setData(barData);
+        barChart.invalidate();
+//        final ViewPortHandler viewPortHandlerBar = barChart.getViewPortHandler();
+//        viewPortHandlerBar.setMaximumScaleX(StockUtil.culcMaxscale(xVals.size()));
+//        Matrix touchmatrix = viewPortHandlerBar.getMatrixTouch();
+//        final float xscale = 3;
+//        touchmatrix.postScale(xscale, 1f);
     }
 
     private void setMarkerView(List<StockMinuteDataModel> minuteDateList) {
@@ -298,7 +327,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         MyRightMarkerView rightMarkerView = new MyRightMarkerView(getContext(), R.layout.mymarkerview);
         MyBottomMarkerView bottomMarkerView = new MyBottomMarkerView(getContext(), R.layout.mymarkerview);
         lineChart.setMarker(leftMarkerView, rightMarkerView, bottomMarkerView, minuteDateList);
-//        barChart.setMarker(leftMarkerView, rightMarkerView, bottomMarkerView, mData);
+        barChart.setMarker(leftMarkerView, rightMarkerView, bottomMarkerView, minuteDateList);
     }
 
 
@@ -340,7 +369,6 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 
     public void setShowLabels(SparseArray<String> labels) {
         xAxisLine.setXLabels(labels);
-//        xAxisBar.setXLabels(labels);
     }
 
     @Override
