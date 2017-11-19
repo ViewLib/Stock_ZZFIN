@@ -33,6 +33,7 @@ public class MinuteViewModel {
         }
         mMaxPrice = mBasePrice;
         mMinPrice = mBasePrice;
+        minuteList.clear();
         for (int i = 0; i < list.size(); i++) {
             StockMinuteDataModel stockMinuteData = list.get(i);
             stockMinuteData.state = 1;//lxltest
