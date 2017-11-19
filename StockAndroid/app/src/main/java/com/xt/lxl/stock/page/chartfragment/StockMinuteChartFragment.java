@@ -30,6 +30,7 @@ import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DateUtil;
+import com.xt.lxl.stock.util.VolFormatter;
 import com.xt.lxl.stock.widget.stockchart.bean.MinuteViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyBarChart;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyXAxis;
@@ -126,13 +127,9 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         axisLeftLine.setGridColor(getResources().getColor(R.color.minute_grayLine));
         axisLeftLine.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         //y轴样式
-        this.axisLeftLine.setValueFormatter(new YAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, YAxis yAxis) {
-                DecimalFormat mFormat = new DecimalFormat("#0.00");
-                return mFormat.format(value);
-            }
-        });
+
+        int u = 1;
+        axisLeftLine.setValueFormatter(new VolFormatter((int) Math.pow(10, u)));
 
         //右边y
         axisRightLine = lineChart.getAxisRight();

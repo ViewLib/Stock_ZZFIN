@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +29,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.BarLineChartTouchListener;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xt.lxl.stock.R;
@@ -60,16 +57,26 @@ public class StockDayChartFragment extends StockBaseChartFragment {
     XAxis xAxisBar, xAxisK;
     YAxis axisLeftBar, axisLeftK;
     YAxis axisRightBar, axisRightK;
-    BarDataSet barDataSet;
     private BarLineChartTouchListener mChartTouchListener;
     private CoupleChartGestureListener coupleChartGestureListener;
     float sum = 0;
     Handler mHandler = new Handler();
 
+    BarData mBarData;
+    CombinedData mCombinedData;
+    ArrayList<String> xVals = new ArrayList<>();
+    ArrayList<BarEntry> barEntries = new ArrayList<>();
+    ArrayList<CandleEntry> candleEntries = new ArrayList<>();
+    ArrayList<Entry> line5Entries = new ArrayList<>();//5日均线
+    ArrayList<Entry> line10Entries = new ArrayList<>();//10日均线
+    ArrayList<Entry> line30Entries = new ArrayList<>();//30日均线
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            if (true) {
+                return;
+            }
             barChart.setAutoScaleMinMaxEnabled(true);
             combinedchart.setAutoScaleMinMaxEnabled(true);
 
@@ -103,7 +110,9 @@ public class StockDayChartFragment extends StockBaseChartFragment {
 
     @Override
     public void refreshAllData(StockViewModel stockViewModel) {
-        sendServiceGetDayDataService(stockViewModel.getRequestStockCode());
+        if (mBarData == null) {
+            sendServiceGetDayDataService(stockViewModel.getRequestStockCode());
+        }
     }
 
     private void sendServiceGetDayDataService(final String stockCode) {
@@ -134,13 +143,13 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         } else if ("亿手".equals(unit)) {
             u = 8;
         }
+        xVals.clear();
+        barEntries.clear();
+        candleEntries.clear();
+        line5Entries.clear();
+        line10Entries.clear();
+        line30Entries.clear();
         axisLeftBar.setValueFormatter(new VolFormatter((int) Math.pow(10, u)));
-        ArrayList<String> xVals = new ArrayList<>();
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        ArrayList<CandleEntry> candleEntries = new ArrayList<>();
-        ArrayList<Entry> line5Entries = new ArrayList<>();//5日均线
-        ArrayList<Entry> line10Entries = new ArrayList<>();//10日均线
-        ArrayList<Entry> line30Entries = new ArrayList<>();//30日均线
         for (int i = 0, j = 0; i < dateDataList.size(); i++, j++) {
             StockDateDataModel stockDateData = dateDataList.get(i);
             xVals.add(stockDateData.date);
@@ -159,76 +168,86 @@ public class StockDayChartFragment extends StockBaseChartFragment {
                 sum = 0;
                 line30Entries.add(new Entry(getSum(dateDataList, i - 29, i) / 30, i));
             }
-
         }
-        barDataSet = new BarDataSet(barEntries, "成交量");
-        barDataSet.setBarSpacePercent(30); //bar空隙
-        barDataSet.setHighlightEnabled(true);
-        barDataSet.setHighLightAlpha(255);
-        barDataSet.setHighLightColor(Color.WHITE);
-        barDataSet.setDrawValues(false);
-        barDataSet.setColors(new int[]{Color.RED, Color.parseColor("#41CB47")});
-        barDataSet.setDrawUpAndDown(true);
-        BarData barData = new BarData(xVals, barDataSet);
-        barChart.setData(barData);
-        barChart.setDrawBorders(false);
+
+        if (mBarData == null) {
+            //成交量的bar
+            BarDataSet barDataSet = new BarDataSet(barEntries, "成交量");
+            barDataSet.setBarSpacePercent(30); //bar空隙
+            barDataSet.setHighlightEnabled(true);
+            barDataSet.setHighLightAlpha(255);
+            barDataSet.setHighLightColor(Color.WHITE);
+            barDataSet.setDrawValues(false);
+            barDataSet.setColors(new int[]{Color.RED, Color.parseColor("#41CB47")});
+            barDataSet.setDrawUpAndDown(true);
+            mBarData = new BarData(xVals, barDataSet);
+            barChart.setData(mBarData);
+            barChart.moveViewToX(dateDataList.size() - 1);
+            barChart.invalidate();
+        } else {
+//            mBarData.setXVals(xVals);
+            mBarData.notifyDataChanged();
+            return;
+        }
+
         final ViewPortHandler viewPortHandlerBar = barChart.getViewPortHandler();
         viewPortHandlerBar.setMaximumScaleX(StockUtil.culcMaxscale(xVals.size()));
         Matrix touchmatrix = viewPortHandlerBar.getMatrixTouch();
         final float xscale = 3;
         touchmatrix.postScale(xscale, 1f);
 
-
-        CandleDataSet candleDataSet = new CandleDataSet(candleEntries, "KLine");
-        candleDataSet.setDrawHorizontalHighlightIndicator(false);
-        candleDataSet.setHighlightEnabled(true);
-        candleDataSet.setHighLightColor(Color.WHITE);
-        candleDataSet.setValueTextSize(10f);
-        candleDataSet.setDrawValues(false);
-        candleDataSet.setColors(new int[]{Color.RED, Color.parseColor("#41CB47")});
-        candleDataSet.setDrawUpAndDown(true);
-        candleDataSet.setShadowWidth(1f);
-        candleDataSet.setShadowColorSameAsCandle(true);
-        candleDataSet.setIncreasingPaintStyle(Paint.Style.FILL);
-        candleDataSet.setIncreasingColor(Color.RED);
-        candleDataSet.setDecreasingColor(Color.parseColor("#41CB47"));
-        candleDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        CandleData candleData = new CandleData(xVals, candleDataSet);
-
-
-        ArrayList<ILineDataSet> sets = new ArrayList<>();
-
         /******此处修复如果显示的点的个数达不到MA均线的位置所有的点都从0开始计算最小值的问题******************************/
-        if (size >= 30) {
-            sets.add(setMaLine(5, xVals, line5Entries));
-            sets.add(setMaLine(10, xVals, line10Entries));
-            sets.add(setMaLine(30, xVals, line30Entries));
-        } else if (size >= 10 && size < 30) {
-            sets.add(setMaLine(5, xVals, line5Entries));
-            sets.add(setMaLine(10, xVals, line10Entries));
-        } else if (size >= 5 && size < 10) {
-            sets.add(setMaLine(5, xVals, line5Entries));
+
+        if (mCombinedData == null) {
+            mCombinedData = new CombinedData(xVals);
+
+            ArrayList<ILineDataSet> sets = new ArrayList<>();
+            if (size >= 30) {
+                sets.add(setMaLine(5, xVals, line5Entries));
+                sets.add(setMaLine(10, xVals, line10Entries));
+                sets.add(setMaLine(30, xVals, line30Entries));
+            } else if (size >= 10 && size < 30) {
+                sets.add(setMaLine(5, xVals, line5Entries));
+                sets.add(setMaLine(10, xVals, line10Entries));
+            } else if (size >= 5 && size < 10) {
+                sets.add(setMaLine(5, xVals, line5Entries));
+            }
+            //蜡烛图
+            CandleDataSet candleDataSet = new CandleDataSet(candleEntries, "KLine");
+            candleDataSet.setDrawHorizontalHighlightIndicator(false);
+            candleDataSet.setHighlightEnabled(true);
+            candleDataSet.setHighLightColor(Color.WHITE);
+            candleDataSet.setValueTextSize(10f);
+            candleDataSet.setDrawValues(false);
+            candleDataSet.setColors(new int[]{Color.RED, Color.parseColor("#41CB47")});
+            candleDataSet.setDrawUpAndDown(true);
+            candleDataSet.setShadowWidth(1f);
+            candleDataSet.setShadowColorSameAsCandle(true);
+            candleDataSet.setIncreasingPaintStyle(Paint.Style.FILL);
+            candleDataSet.setIncreasingColor(Color.RED);
+            candleDataSet.setDecreasingColor(Color.parseColor("#41CB47"));
+            candleDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            CandleData candleData = new CandleData(xVals, candleDataSet);
+            mCombinedData.setData(candleData);
+
+            //均线图
+            LineData lineData = new LineData(xVals, sets);
+            mCombinedData.setData(lineData);
+            mCombinedData.setDrawValues(false);
+            combinedchart.setData(mCombinedData);
+        } else {
+            mCombinedData.notifyDataChanged();
         }
-
-
-        CombinedData combinedData = new CombinedData(xVals);
-        LineData lineData = new LineData(xVals, sets);
-        combinedData.setData(candleData);
-        combinedData.setData(lineData);
-        combinedData.setDrawValues(false);
-        combinedchart.setData(combinedData);
         combinedchart.moveViewToX(dateDataList.size() - 1);
+        combinedchart.invalidate();
+
         final ViewPortHandler viewPortHandlerCombin = combinedchart.getViewPortHandler();
         viewPortHandlerCombin.setMaximumScaleX(StockUtil.culcMaxscale(xVals.size()));
         Matrix matrixCombin = viewPortHandlerCombin.getMatrixTouch();
         final float xscaleCombin = 3;
         matrixCombin.postScale(xscaleCombin, 1f);
-
-        combinedchart.moveViewToX(dateDataList.size() - 1);
-        barChart.moveViewToX(dateDataList.size() - 1);
         setOffset();
         handler.sendEmptyMessageDelayed(0, 300);
-
     }
 
     private DayViewModel calculationData(StockGetDateDataResponse dataResponses) {
@@ -325,6 +344,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         barChart.setDescription("");
         barChart.setDragEnabled(true);
         barChart.setScaleYEnabled(false);
+        barChart.setDrawBorders(false);
         barChart.setMaxVisibleValueCount(60);
 
         Legend barChartLegend = barChart.getLegend();
@@ -371,7 +391,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         combinedchartLegend.setEnabled(false);
         //bar x y轴
         xAxisK = combinedchart.getXAxis();
-        xAxisK.setDrawLabels(true);
+        xAxisK.setDrawLabels(false);
         xAxisK.setDrawGridLines(false);
         xAxisK.setDrawAxisLine(false);
         xAxisK.setTextColor(getResources().getColor(R.color.minute_zhoutv));
@@ -400,30 +420,30 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         combinedchart.setOnChartGestureListener(new CoupleChartGestureListener(combinedchart, new Chart[]{barChart}));
         // 将交易量控件的滑动事件传递给K线控件
         barChart.setOnChartGestureListener(new CoupleChartGestureListener(barChart, new Chart[]{combinedchart}));
-        barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                Log.e("%%%%", h.getXIndex() + "");
-                combinedchart.highlightValues(new Highlight[]{h});
-            }
-
-            @Override
-            public void onNothingSelected() {
-                combinedchart.highlightValue(null);
-            }
-        });
-        combinedchart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-
-                barChart.highlightValues(new Highlight[]{h});
-            }
-
-            @Override
-            public void onNothingSelected() {
-                barChart.highlightValue(null);
-            }
-        });
+//        barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//            @Override
+//            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+//                Log.e("%%%%", h.getXIndex() + "");
+//                combinedchart.highlightValues(new Highlight[]{h});
+//            }
+//
+//            @Override
+//            public void onNothingSelected() {
+//                combinedchart.highlightValue(null);
+//            }
+//        });
+//        combinedchart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//            @Override
+//            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+//
+//                barChart.highlightValues(new Highlight[]{h});
+//            }
+//
+//            @Override
+//            public void onNothingSelected() {
+//                barChart.highlightValue(null);
+//            }
+//        });
     }
 
 }
