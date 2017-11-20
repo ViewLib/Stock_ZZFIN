@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BrokersRatingTableViewCell" rowHeight="300" id="KGk-i7-Jjw" customClass="BrokersRatingTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="280"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="244"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="279.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="243.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_business" translatesAutoresizingMaskIntoConstraints="NO" id="YAA-1a-boO">
-                        <rect key="frame" x="12" y="12" width="12" height="12"/>
+                        <rect key="frame" x="12" y="12" width="12" height="10"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="券商评级" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRH-0Y-PcV">
-                        <rect key="frame" x="27" y="10" width="57.5" height="17"/>
+                        <rect key="frame" x="27" y="9" width="57.5" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c80-Vt-kMe">
-                        <rect key="frame" x="0.0" y="36" width="375" height="1"/>
+                        <rect key="frame" x="0.0" y="34" width="375" height="1"/>
                         <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Dhr-8h-9RW"/>
@@ -71,14 +71,14 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0w-I0-hIG">
-                        <rect key="frame" x="0.0" y="71" width="375" height="200"/>
+                        <rect key="frame" x="0.0" y="35" width="375" height="200"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="200" id="5YB-Yo-c5e"/>
+                            <constraint firstAttribute="height" constant="200" id="Up7-nW-3K5"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWX-OV-Fnl">
-                        <rect key="frame" x="0.0" y="270.5" width="375" height="9"/>
+                        <rect key="frame" x="0.0" y="234.5" width="375" height="9"/>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="9" id="umA-9b-crb"/>
@@ -108,14 +108,21 @@
                     <constraint firstItem="aWX-OV-Fnl" firstAttribute="top" secondItem="s0w-I0-hIG" secondAttribute="bottom" id="sN8-DB-rrZ"/>
                     <constraint firstItem="c80-Vt-kMe" firstAttribute="top" secondItem="YAA-1a-boO" secondAttribute="bottom" constant="12" id="scO-HC-2d2"/>
                     <constraint firstItem="gWK-Hu-h57" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="sz0-fn-e26"/>
+                    <constraint firstItem="s0w-I0-hIG" firstAttribute="top" secondItem="c80-Vt-kMe" secondAttribute="bottom" id="ut0-m0-iVf"/>
                     <constraint firstItem="OI1-6Q-oqh" firstAttribute="top" secondItem="gWK-Hu-h57" secondAttribute="bottom" id="vkt-01-zad"/>
                     <constraint firstAttribute="trailing" secondItem="s0w-I0-hIG" secondAttribute="trailing" id="xkw-q0-YrP"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="subviews">
+                        <exclude reference="gWK-Hu-h57"/>
+                        <exclude reference="OI1-6Q-oqh"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="menuCollection" destination="T9h-hM-Chu" id="dUZ-YK-Wwu"/>
                 <outlet property="valueView" destination="s0w-I0-hIG" id="LzQ-9U-vmZ"/>
-                <outlet property="valueViewHigh" destination="5YB-Yo-c5e" id="AlT-gF-BkS"/>
+                <outlet property="valueViewHigh" destination="Up7-nW-3K5" id="ez1-BZ-6qL"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="80"/>
         </tableViewCell>

@@ -43,6 +43,9 @@
     [ary addObjectsFromArray:dicAry];
     self.stockGradeAry = ary;
     [self pjbhView];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self layoutIfNeeded];
+    }];
 }
 
 - (ValueCollection *)pjbhView{

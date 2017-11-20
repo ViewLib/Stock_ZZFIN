@@ -246,7 +246,7 @@
 
             //Change Bar Radius
             bar.barRadius = _barRadius;
-            
+            bar.textSuffix = _yLabelSuffix;
             //Set Bar Animation
             bar.displayAnimated = self.displayAnimated;
 
@@ -289,11 +289,11 @@
         NSString *currentNumber =  [NSString stringWithFormat:@"%f",value];
 
         if ([[currentNumber substringToIndex:1] isEqualToString:@"-"] && self.showLevelLine) {
-        CGAffineTransform transform =CGAffineTransformMakeRotation(M_PI);
-        [bar setTransform:transform];
-        originalFrame.origin.y = bar.frame.origin.y + bar.frame.size.height;
-        bar.frame = originalFrame;
-        bar.isNegative = YES;
+            CGAffineTransform transform =CGAffineTransformMakeRotation(M_PI);
+            [bar setTransform:transform];
+            originalFrame.origin.y = bar.frame.origin.y + bar.frame.size.height;
+            bar.frame = originalFrame;
+            bar.isNegative = YES;
 
       }
       index += 1;

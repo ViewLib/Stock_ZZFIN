@@ -95,6 +95,9 @@
     
     [self.barChart setYValues:self.barY];
     
+    //设置Y轴text的单位以及柱状图顶部数据的单位
+    self.barChart.yLabelSuffix = self.yType;
+    
     [self.barChart setStrokeColor:MAIN_COLOR];
     self.barChart.isGradientShow = NO;
     self.barChart.isShowNumbers = YES;
