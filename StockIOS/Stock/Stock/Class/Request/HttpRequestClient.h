@@ -25,6 +25,9 @@ typedef void(^request)(NSString *resultMsg,id dataDict,id error);
 #pragma mark - 获取股票信息
 -(void)getStockInformation:(NSString *)stocks request:(request)request;
 
+#pragma mark - 获取当年第一天股票价格
+-(void)getYearPrice:(NSString *)stocks request:(request)request;
+
 #pragma mark - 获取热门
 -(void)getHotStocksRequest:(request)request;
 

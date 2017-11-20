@@ -24,9 +24,17 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *OptionalTable;
 
-@property (strong, nonatomic)       NSArray    *stocks;
+@property (strong, nonatomic) NSMutableArray    *stocks;
 
-@property (strong, nonatomic)       UISearchController  *searchController;
+@property (strong, nonatomic) UISearchController  *searchController;
+
+@property (strong, nonatomic) UIView            *editingView;
+
+@property (strong, nonatomic) UIView            *editTopView;
+
+@property (strong, nonatomic) UIButton          *delegateBtn;
+
+@property (strong, nonatomic) UIButton          *selectAllBtn;
 
 @end
 
@@ -41,6 +49,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view addSubview:self.editingView];
+    [self.view addSubview:self.editTopView];
+    [self.editingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.equalTo(@45);
+        make.bottom.equalTo(self.view).offset(45);
+    }];
+    [self.editTopView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.equalTo(@64);
+        make.top.equalTo(self.view).offset(-64);
+    }];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
@@ -122,10 +142,38 @@
 }
 
 - (void) reloadTableView {
-    _stocks = [Utils getStock];;
+    _stocks = [Utils getStock].mutableCopy;
     if (_stocks.count > 0) {
         [self.OptionalTable reloadData];
     }
+}
+
+//编辑按钮点击
+- (IBAction)clickEditBtn:(UIButton *)sender {
+    if (!sender.selected) {
+        [self.OptionalTable setEditing:YES animated:YES];
+        self.tabBarController.tabBar.hidden = YES;
+        [self showEitingView:YES];
+        sender.hidden = YES;
+    } else {
+        [self.OptionalTable setEditing:NO animated:YES];
+        self.tabBarController.tabBar.hidden = NO;
+        [self showEitingView:NO];
+        sender.hidden = NO;
+    }
+    sender.selected = !sender.selected;
+}
+
+- (void)showEitingView:(BOOL)isShow{
+    [self.editingView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(isShow?0:45);
+    }];
+    [self.editTopView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(isShow?10:-64);
+    }];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 #pragma mark - TableViewDelegateAndDataSource
@@ -135,6 +183,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _stocks.count;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [[UIView alloc] init];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -148,14 +204,118 @@
             [selfWeak reloadTableView];
         };
         [cell updateCell:_stocks[indexPath.row]];
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
+        cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+        
     }
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.isEditing) {
+        if (tableView.indexPathsForSelectedRows.count == _stocks.count) {
+            [_selectAllBtn setTitle:@"全不选" forState:UIControlStateNormal];
+        }
+        return;
+    }
     StockObjEntity *entity = _stocks[indexPath.row];
     [self jumpToStockView:entity];
+}
+
+//editingView懒加载
+- (UIView *)editingView{
+    if (!_editingView) {
+        _editingView = [[UIView alloc] init];
+        [_editingView setBackgroundColor:[Utils colorFromHexRGB:@"EDF3F8"]];
+        
+        _delegateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_delegateBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_delegateBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [_delegateBtn setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
+        [_delegateBtn addTarget:self action:@selector(p__buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_editingView addSubview:_delegateBtn];
+        [_delegateBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(_editingView);
+            make.right.equalTo(@-10);
+            make.width.equalTo(_editingView).multipliedBy(0.5);
+        }];
+        
+        _selectAllBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
+        [_selectAllBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [_selectAllBtn setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
+        [_selectAllBtn addTarget:self action:@selector(p__buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_editingView addSubview:_selectAllBtn];
+        [_selectAllBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(_editingView);
+            make.left.equalTo(@10);
+            make.width.equalTo(_editingView).multipliedBy(0.5);
+        }];
+    }
+    return _editingView;
+}
+
+- (UIView *)editTopView {
+    if (!_editTopView) {
+        _editTopView = [[UIView alloc] init];
+        [_editTopView setBackgroundColor:MAIN_COLOR];
+        UILabel *lab = [[UILabel alloc] init];
+        [lab setTextColor:[UIColor whiteColor]];
+        [lab setTextAlignment:NSTextAlignmentCenter];
+        [lab setText:@"编辑自选"];
+        [_editTopView addSubview:lab];
+        [lab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(_editTopView);
+            make.height.equalTo(@44);
+        }];
+        
+        UIButton *successBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [successBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [successBtn addTarget:self action:@selector(clickSuccessBtn) forControlEvents:UIControlEventTouchUpInside];
+        [_editTopView addSubview:successBtn];
+        [successBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(_editTopView);
+            make.left.equalTo(@10);
+            make.width.height.equalTo(@44);
+        }];
+    }
+    return _editTopView;
+}
+
+#pragma mark -- event response
+
+- (void)p__buttonClick:(UIButton *)sender{
+    if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"删除"]) {
+        NSMutableIndexSet *insets = [[NSMutableIndexSet alloc] init];
+        [[self.OptionalTable indexPathsForSelectedRows] enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [insets addIndex:obj.row];
+            StockObjEntity *entity = self.stocks[obj.row];
+            [Utils removeStock:entity.code utilRequest:nil];
+        }];
+        [self.stocks removeObjectsAtIndexes:insets];
+        [self.OptionalTable deleteRowsAtIndexPaths:[self.OptionalTable indexPathsForSelectedRows] withRowAnimation:UITableViewRowAnimationFade];
+        
+        /** 数据清空情况下取消编辑状态*/
+        if (self.stocks.count == 0) {
+            [self clickSuccessBtn];
+        }
+    } else if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"全选"]) {
+        [self.stocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.OptionalTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        }];
+        
+        [sender setTitle:@"全不选" forState:UIControlStateNormal];
+    } else if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"全不选"]){
+        [self.OptionalTable reloadData];
+        
+        [sender setTitle:@"全选" forState:UIControlStateNormal];
+        
+    }
+}
+
+- (void)clickSuccessBtn {
+    [self clickEditBtn:self.EditBtn];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^viewLoadBlock)(void);
+
 @interface ValueCollection : UIView<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic, strong)   UICollectionView    *valueView;
@@ -15,6 +17,7 @@
 @property (strong, nonatomic) NSArray   *valueAry;
 @property (strong, nonatomic) NSString   *valType;
 
+@property (nonatomic, copy) viewLoadBlock  viewLoadBlock;
 
 //初始化ValueCollection
 - (id)initWithType:(NSString *)valueType Value:(NSArray *)values;

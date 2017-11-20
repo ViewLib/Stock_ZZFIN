@@ -91,7 +91,12 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize frame = CGSizeMake(60, 33);
+    CGSize size = [self valueSize:self.titleAry[indexPath.item] FontSize:12];
+    float width = 60;
+    if (size.width > 60) {
+        width = size.width + 10;
+    }
+    CGSize frame = CGSizeMake(width, 33);
     return frame;
 }
 
@@ -101,15 +106,21 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"meunCall" forIndexPath:indexPath];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 33)];
+    NSString *value = self.titleAry[indexPath.item];
+    CGSize size = [self valueSize:value FontSize:12];
+    float width = 60;
+    if (size.width > 60) {
+        width = size.width + 10;
+    }
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 33)];
     [label setFont:[UIFont systemFontOfSize:12]];
     [label setTag:999000];
     [label setTextColor:[Utils colorFromHexRGB:@"999999"]];
     [label setTextAlignment:NSTextAlignmentCenter];
-    [label setText:self.titleAry[indexPath.item]];
+    [label setText:value];
     [cell.contentView addSubview:label];
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(cell.contentView.frame)-2, 60, 2)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(cell.contentView.frame)-2, CGRectGetWidth(label.frame), 2)];
     [line setBackgroundColor:MAIN_COLOR];
     [line setCenterX:label.centerX];
     [line setTag:999001];
@@ -140,6 +151,12 @@
         }
     }
     [self reloadLineView];
+}
+
+
+- (CGSize)valueSize:(NSString *)value FontSize:(float)stringSize {
+    CGSize size = [value boundingRectWithSize:CGSizeMake(1000, 33) options: NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:stringSize]} context:nil].size;
+    return size;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

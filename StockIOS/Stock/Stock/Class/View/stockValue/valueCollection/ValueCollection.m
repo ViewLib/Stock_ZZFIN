@@ -20,6 +20,9 @@
         self.valType = valueType;
         [self registerClass];
         [self valueView];
+        if (self.viewLoadBlock) {
+            self.viewLoadBlock();
+        }
     }
     return self;
 }

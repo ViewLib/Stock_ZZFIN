@@ -12,7 +12,6 @@
 @interface StockValueViewController : UIViewController
 
 @property (nonatomic, strong)   StockObjEntity  *stock;
-@property (nonatomic, strong)   StockEntity  *stockEntity;
 @property (nonatomic, strong)   NSString     *stockNameStr;
 @property (nonatomic, strong)   NSString     *stockCodeStr;
 

@@ -42,6 +42,13 @@
     [self httpGet:urlStr paramDict:nil completion:request];
 }
 
+#pragma mark - 获取当年第一天股票价格
+-(void)getYearPrice:(NSString *)stocks request:(request)request {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/yearPrice",SERVICENEW];
+    NSDictionary *dic = @{@"stockCode":stocks};
+    [self httpGet:urlStr paramDict:dic completion:request];
+}
+
 #pragma mark - 获取热门
 -(void)getHotStocksRequest:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_hotsearch",SERVICE];
