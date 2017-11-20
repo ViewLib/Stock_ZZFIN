@@ -5,7 +5,7 @@ package com.stock.controller.user.model;
  */
 public class UserRequest {
     private int userId;//用户id
-    private String moblie;//手机号
+    private String mobile;//手机号
     private String nickName;//用户昵称
     private String area;//地区
     private int age;//年龄
@@ -18,12 +18,12 @@ public class UserRequest {
         this.userId = userId;
     }
 
-    public String getMoblie() {
-        return moblie;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setMoblie(String moblie) {
-        this.moblie = moblie;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getNickName() {

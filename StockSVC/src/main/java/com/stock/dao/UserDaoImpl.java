@@ -90,8 +90,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public StockUserModel selectStockUserModel(int shopId) {
-        String sql = "select * from trading where shopid = " + shopId;
+    public StockUserModel selectStockUserModel(int userid) {
+        String sql = "select * from stock_user where userid = " + userid;
         PreparedStatement preStmt = null;
         try {
             preStmt = conn.prepareStatement(sql);

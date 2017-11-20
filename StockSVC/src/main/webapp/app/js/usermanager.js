@@ -25,6 +25,8 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'text!temp
                 cardView: false,                    //是否显示详细视图
                 detailView: false,                   //是否显示父子表
                 columns: [{
+                    checkbox: true
+                }, {
                     field: 'userId',
                     title: 'userId',
                 }, {
@@ -54,7 +56,9 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'text!temp
                 limit: params.limit,    //页面大小
                 offset: params.offset,  //页码
                 maxrows: params.limit,
-                pageindex:params.pageNumber
+                pageindex:params.pageNumber,
+                userid:$("#txt_search_userid").val(),
+                mobile:$("#txt_search_mobile").val()
             };
             return temp;
         };
@@ -92,9 +96,65 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'text!temp
         var initialize = function () {
             $('.js_user_query').on('click', function () {
                 //promise(1, defaultPageSize);
+                $('#user_toolbar').html( _.template(pageCountTpl, {}));
                 init(1);
+                $("#btn_edit").click(function () {
+                    var arrselections = $("#user_table").bootstrapTable('getSelections');
+                    if (arrselections.length > 1) {
+                        alert('只能选择一行进行编辑');
+                        return;
+                    }
+                    if (arrselections.length <= 0) {
+                        alert('请选择有效数据');
+                        return;
+                    }
+                    $("#myModalLabel").text("修改用户");
+                    $("#txt_userid").val(arrselections[0].userId);
+                    $("#txt_mobile").val(arrselections[0].moblie);
+                    $(".js_status").data("status","update");
+
+                    //    postdata.DEPARTMENT_ID = arrselections[0].DEPARTMENT_ID;
+                    $('#modal').modal({});
+                });
+
+                $("#btn_query").click(function () {
+                    $("#user_table").bootstrapTable('refresh');
+                });
+            });
+            
+            $('.js_status').on('click', function (e) {
+                var status = $(e.currentTarget).data("status");
+                if(status === "update"){
+                    $.ajax({
+                        type: 'POST',
+                        url: '/zzfin/rest/user/update',
+                        contentType: 'application/json; charset=utf-8',
+                        datType: "JSON",
+                        data: JSON.stringify(getPostData()),
+                        traditional: true,
+                        success:function (data) {
+                            if(data.resultCode === 200){
+                                $('#modal').modal('hide');
+                                $("#user_table").bootstrapTable('refresh');
+                                alert("修改成功");
+                            }
+
+                            console.log(data);
+                        }
+                    });
+                }
             });
         };
+
+        var getPostData = function () {
+          var postdata = {
+              userId:$("#txt_userid").val(),
+              mobile:$("#txt_mobile").val()
+          };
+
+          return postdata;
+        };
+
         return {initialize: initialize};
     }
 );
