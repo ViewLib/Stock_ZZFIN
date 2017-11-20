@@ -253,6 +253,9 @@ public interface IDataSet<T extends Entry> {
      */
     List<Integer> getColors();
 
+
+    boolean getDrawUpAndDown();
+
     /**
      * Returns the first color (index 0) of the colors-array this DataSet
      * contains. This is only used for performance reasons when only one color is in the colors array (size == 1)
@@ -262,6 +265,13 @@ public interface IDataSet<T extends Entry> {
     int getColor();
 
     /**
+     * returns true if highlighting of values is enabled, false if not
+     *
+     * @return
+     */
+    boolean isHighlightEnabled();
+
+    /**
      * Returns the color at the given index of the DataSet's color array.
      * Performs a IndexOutOfBounds check by modulus.
      *
@@ -269,13 +279,6 @@ public interface IDataSet<T extends Entry> {
      * @return
      */
     int getColor(int index);
-
-    /**
-     * returns true if highlighting of values is enabled, false if not
-     *
-     * @return
-     */
-    boolean isHighlightEnabled();
 
     /**
      * If set to true, value highlighting is enabled which means that values can

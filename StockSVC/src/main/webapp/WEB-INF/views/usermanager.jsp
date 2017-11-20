@@ -58,7 +58,9 @@
                         <td>${user.area}</td>
                         <td>${user.age}</td>
                         <td>${user.createTime}</td>
-                        <td><span><a href="###">编辑</a></span></td>
+                        <td>
+                            <span><button class="demo btn btn-primary btn-lg" data-toggle="modal" href="#updateModal">编辑</button></span>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
@@ -80,14 +82,14 @@
             <%--</td>--%>
         <%--</tr>--%>
     <%--</c:if>--%>
-    <tr class="js_tpl_pagecount">
-    </tr>
+    <%--<tr class="js_tpl_pagecount">--%>
+    <%--</tr>--%>
 
-    <tr>
-        <td align="center">
-            copyright@zzfin
-        </td>
-    </tr>
+    <%--<tr>--%>
+        <%--<td align="center">--%>
+            <%--copyright@zzfin--%>
+        <%--</td>--%>
+    <%--</tr>--%>
 </table>
 <%--<c:if test="${not empty pageCount}">--%>
     <%--<text style="display:none;">${pageCount}</text>--%>

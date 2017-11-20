@@ -20,7 +20,9 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
     /**
      * the color that is used for filling the line surface
      */
-    private int mFillColor = Color.rgb(140, 234, 255);
+//    private int mFillColor = Color.RED;
+    private int mFillColor = Color.parseColor("#186DB7");
+//    private int mFillColor = Color.rgb(140, 234, 255);
 
     /**
      * the drawable to be used for filling the line surface
@@ -30,7 +32,7 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
     /**
      * transparency used for filling line surface
      */
-    private int mFillAlpha = 85;
+    private int mFillAlpha = 20;
 
     /**
      * the width of the drawn data lines

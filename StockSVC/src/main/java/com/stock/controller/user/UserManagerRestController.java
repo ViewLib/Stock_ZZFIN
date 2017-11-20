@@ -1,18 +1,16 @@
 package com.stock.controller.user;
 
-import com.stock.controller.user.model.PageCountRequest;
-import com.stock.controller.user.model.UserRequest;
-import com.stock.controller.user.model.UserResponse;
+import com.stock.controller.user.model.*;
 import com.stock.dao.UserDao;
 import com.stock.model.model.StockUserModel;
+import com.stock.service.UserService;
 import com.stock.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by 杨蕾 on 2017/11/12.
@@ -25,6 +23,18 @@ public class UserManagerRestController {
     @Autowired
     private UserDao userDao;
 
+    @RequestMapping({"/search"})
+    @ResponseBody
+    public SearchUserResponse searchUserPost(@RequestBody SearchUserRequest request) {
+        SearchUserResponse result = new SearchUserResponse();
+        int pageIndex = request.getOffset() / request.getLimit() + 1;
+
+        List<StockUserModel> users = this.userDao.selectUserInfoList(pageIndex, request.getLimit());
+        result.setRows(users);
+        result.setTotal(this.userDao.getUserTotalCount());
+        return result;
+    }
+
     @RequestMapping({"/update"})
     @ResponseBody
     public Object updateUser(@RequestBody UserRequest request) {
@@ -32,7 +42,7 @@ public class UserManagerRestController {
         response.setResultCode(500);
         response.setShowMessage("更新失败，请稍后重试");
 
-        if(request == null || request.getUserId() <= 0){
+        if (request == null || request.getUserId() <= 0) {
             response.setResultCode(400);
             response.setShowMessage("请求不合法,UserId不正确");
             return response;
@@ -60,7 +70,7 @@ public class UserManagerRestController {
         response.setResultCode(500);
         response.setShowMessage("新增失败，请稍后重试");
 
-        if(request == null || !StringUtil.isNotBlank(request.getNickName()) || !StringUtil.isNotBlank(request.getMoblie())){
+        if (request == null || !StringUtil.isNotBlank(request.getNickName()) || !StringUtil.isNotBlank(request.getMoblie())) {
             response.setResultCode(400);
             response.setShowMessage("请求不合法，请填写必要的用户信息");
             return response;
@@ -89,7 +99,7 @@ public class UserManagerRestController {
         response.setResultCode(500);
         response.setShowMessage("删除失败，请稍后重试");
 
-        if(request == null || request.getUserId() <= 0){
+        if (request == null || request.getUserId() <= 0) {
             response.setResultCode(400);
             response.setShowMessage("请求不合法，UserId不正确");
             return response;
@@ -111,8 +121,8 @@ public class UserManagerRestController {
 
     @RequestMapping({"/getpagecount"})
     @ResponseBody
-    public Object getPageCount(@RequestBody PageCountRequest request){
-        if(request == null){
+    public Object getPageCount(@RequestBody PageCountRequest request) {
+        if (request == null) {
             return 0;
         }
 

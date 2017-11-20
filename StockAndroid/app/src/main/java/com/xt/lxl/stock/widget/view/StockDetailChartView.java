@@ -45,9 +45,9 @@ public class StockDetailChartView extends LinearLayout {
     private void bindData() {
         List<String> list = new ArrayList<>();
         list.add("分时");
-        list.add("日");
-        list.add("周");
-        list.add("月");
+        list.add("日K");
+        list.add("周K");
+        list.add("月K");
         tabGroupButton.setTabItemArrayText(list);
         tabGroupButton.initView();
 

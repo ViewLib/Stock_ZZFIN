@@ -104,10 +104,15 @@ public class DataShowUtil {
 
     //股票代码转化为sz300170这样的
     public static String code2MarketCode(String code) {
-        if (StringUtil.emptyOrNull(code) || (code.length() != 6 && code.length() != 8)) {
+        if (StringUtil.emptyOrNull(code)) {
             return code;
         }
-
+        if (code.length() == 8) {
+            return code;
+        }
+        if (code.length() != 6) {
+            return code;
+        }
         if (code.startsWith("6")) {
             return "sh" + code;
         }

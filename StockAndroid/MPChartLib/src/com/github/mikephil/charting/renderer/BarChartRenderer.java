@@ -123,7 +123,8 @@ public class BarChartRenderer extends DataRenderer {
         }
 
         // if multiple colors
-        if (dataSet.getColors().size() > 1) {
+        List<Integer> colors = dataSet.getColors();
+        if (colors.size() > 1) {
             for (int j = 0; j < buffer.size(); j += 4) {
 
                 if (!mViewPortHandler.isInBoundsLeft(buffer.buffer[j + 2]))
@@ -131,21 +132,23 @@ public class BarChartRenderer extends DataRenderer {
 
                 if (!mViewPortHandler.isInBoundsRight(buffer.buffer[j]))
                     break;
-
-                // Set the color for the currently drawn value. If the index
-                // is out of bounds, reuse colors.
-                   /*应网友要求，柱状图加颜色，博主不知道颜色规则，但是代码逻辑上是如此，这里给出的规则是假如成交量上涨，则为红，下跌则为绿*/
-//                int i = j / 4;
-//                if (i > 0) {
-//                    Integer colorInteger = dataSet.getColors().get(i);
-//                    if (dataSet.getEntryForIndex(i).getVal() > dataSet.getEntryForIndex(i - 1).getVal()) {
-//                        mRenderPaint.setColor(Color.RED);
-//                    } else {
-//                        mRenderPaint.setColor(Color.GREEN);
-//                    }
-//                    mRenderPaint.setColor(colorInteger);
-//                }
-                mRenderPaint.setColor(dataSet.getColor(j / 4));
+                if (dataSet.getDrawUpAndDown()) {
+                    // Set the color for the currently drawn value. If the index
+                    // is out of bounds, reuse colors.
+                    /**
+                     *  价格上涨红色，价格下跌绿色
+                     */
+                    int i = j / 4;
+                    if (i > 0) {
+                        Object data = dataSet.getEntryForIndex(i).getData();
+                        if (data instanceof Boolean) {
+                            Integer integer = ((boolean) data) ? colors.get(0) : colors.get(1);
+                            mRenderPaint.setColor(integer);
+                        }
+                    }
+                } else {
+                    mRenderPaint.setColor(dataSet.getColor(0));
+                }
                 c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
                         buffer.buffer[j + 3], mRenderPaint);
 

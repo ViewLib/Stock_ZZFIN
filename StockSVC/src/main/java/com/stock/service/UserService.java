@@ -81,9 +81,9 @@ public class UserService {
 
     public ArrayList<StockUserModel> selectUserInfo(String pageStr) {
         //每页20条
-//        int page = Integer.parseInt(pageStr);
-//        int startIndex = (page - 1) * 20;
-        ArrayList<StockUserModel> stockUserModels = dao.selectUserInfoList(0, 20);
+        int page = Integer.parseInt(pageStr);
+        //int startIndex = (page - 1) * 20;
+        ArrayList<StockUserModel> stockUserModels = dao.selectUserInfoList(page, 5);
         return stockUserModels;
     }
 }

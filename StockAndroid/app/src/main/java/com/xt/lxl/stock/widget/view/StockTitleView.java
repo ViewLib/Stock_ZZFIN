@@ -19,7 +19,7 @@ public class StockTitleView extends RelativeLayout {
     Context mContext;
     TextView mTitle;
     ImageView mBackBtn;
-    ImageView mActionBtn;
+    TextView mActionBtn;
 
 
     public StockTitleView(Context context, AttributeSet attrs) {
@@ -61,7 +61,7 @@ public class StockTitleView extends RelativeLayout {
     private void initView() {
         mTitle = (TextView) findViewById(R.id.title_view);
         mBackBtn = (ImageView) findViewById(R.id.back_btn);
-        mActionBtn = (ImageView) findViewById(R.id.action_btn);
+        mActionBtn = (TextView) findViewById(R.id.action_btn);
     }
 
     public void setTitle(CharSequence title) {
@@ -78,7 +78,7 @@ public class StockTitleView extends RelativeLayout {
         mTitle.setText(title);
     }
 
-    public View getActionBtn() {
+    public TextView getActionBtn() {
         return mActionBtn;
     }
 

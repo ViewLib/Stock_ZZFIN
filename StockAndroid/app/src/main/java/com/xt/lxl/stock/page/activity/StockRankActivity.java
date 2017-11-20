@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.listener.StockItemEditCallBacks;
+import com.xt.lxl.stock.listener.StockRankCallBacks;
 import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
@@ -49,7 +49,7 @@ public class StockRankActivity extends FragmentActivity {
     LinearLayout mStockFilterHeaderContainer;
     FrameLayout mStockDetailFilterFragment;
     ListView mStockRankListView;
-    StockItemEditCallBacks mCallBacks = new StockItemEditCallBacks();
+    StockRankCallBacks mCallBacks = new StockRankCallBacks();
 
     StockRankAdapter mRankAdapter;
 
@@ -139,6 +139,7 @@ public class StockRankActivity extends FragmentActivity {
         mTitleTv = (StockTitleView) findViewById(R.id.stock_title_view);
         mStockRankFilterContainer = (LinearLayout) findViewById(R.id.stock_rank_filter);
         mStockFilterHeaderContainer = (LinearLayout) findViewById(R.id.stock_filter_header);
+        mStockFilterHeaderContainer.setVisibility(View.GONE);
         mStockRankListView = (ListView) findViewById(R.id.stock_rank_list);
         mStockDetailFilterFragment = (FrameLayout) findViewById(R.id.stock_detail_filter_fragment);
     }
@@ -184,7 +185,7 @@ public class StockRankActivity extends FragmentActivity {
 
     private void bindRankData() {
         mTitleTv.setTitle(mRankModel.title, R.style.text_18_ffffff);
-
+        mStockFilterHeaderContainer.setVisibility(View.VISIBLE);
         TextView name = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_name);
         TextView add = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_add);
         TextView attr1 = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_attr1);

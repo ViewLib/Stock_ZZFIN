@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockItemEditCallBacks;
+import com.xt.lxl.stock.listener.StockRankCallBacks;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.HotelViewHolder;
@@ -25,16 +26,16 @@ import java.util.Map;
  */
 public class StockRankAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private StockItemEditCallBacks mCallBacks;
+    private StockRankCallBacks mCallBacks;
     private int mColum = 5;//行数
     private List<StockRankResultModel> mStockList = new ArrayList<>();
     private List<String> mSaveList = new ArrayList<>();
     private Map<Integer, Integer> mWidthMap = new HashMap<>();
 
-    public StockRankAdapter(Context context, StockItemEditCallBacks callBacks) {
+    public StockRankAdapter(Context context,  StockRankCallBacks mCallBacks) {
         mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.mCallBacks = callBacks;
+        this.mCallBacks = mCallBacks;
     }
 
     @Override

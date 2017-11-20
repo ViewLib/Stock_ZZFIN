@@ -20,6 +20,7 @@ import com.xt.lxl.stock.listener.StockListCallBacks;
 import com.xt.lxl.stock.listener.inter.ActionStockCallBackInter;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.page.activity.StockDetailActivity;
+import com.xt.lxl.stock.page.activity.StockEditActivity;
 import com.xt.lxl.stock.page.activity.StockSearchActivity;
 import com.xt.lxl.stock.page.adapter.StockListAdapter;
 import com.xt.lxl.stock.sender.StockSender;
@@ -37,8 +38,9 @@ import java.util.List;
 public class StockMainListFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     public static final int RequestCodeForSearch = 1;
+    public static final int RequestCodeForEdit = 2;
     StockListCallBacks mCallBacks = new StockListCallBacks();
-    TextView mStockKeywordEditText;//编辑按钮
+    TextView mStockKeywordEditText, mEditBtn;
     ListView mStockListView;
     StockListAdapter mAdapter;
     Handler mHander = new Handler();
@@ -99,6 +101,7 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
         mStockKeywordEditText.setOnClickListener(this);
         mStockListView.setOnItemClickListener(this);
         mStockListView.setOnItemLongClickListener(this);
+        mEditBtn.setOnClickListener(this);
     }
 
     private void initData() {
@@ -128,6 +131,7 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
     private void initView(View view) {
         mStockKeywordEditText = (TextView) view.findViewById(R.id.stock_keyword_edit_text);
         mStockListView = (ListView) view.findViewById(R.id.stock_list);
+        mEditBtn = (TextView) view.findViewById(R.id.stock_list_top_edit);
     }
 
     private void bindData() {
@@ -175,13 +179,18 @@ public class StockMainListFragment extends Fragment implements View.OnClickListe
             if (activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
                 activity.getWindow().getDecorView().dispatchKeyEvent(keyEvent);
             }
+        } else if (id == R.id.stock_list_top_edit) {
+            Intent intent = new Intent();
+            intent.setClass(getContext(), StockEditActivity.class);
+            intent.putExtra(StockEditActivity.StockListTag, mAdapter.getStockList());
+            startActivityForResult(intent, RequestCodeForEdit);
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RequestCodeForSearch) {
+        if (requestCode == RequestCodeForSearch || requestCode == RequestCodeForEdit) {
             initData();
         }
     }

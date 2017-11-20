@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.xt.lxl.stock.widget.view.StockTitleView
+        android:id="@+id/stock_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:stock_title_text_msg="编辑自选" />
+
+    <RelativeLayout
+        android:id="@+id/stock_edit_header"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@id/stock_title_view"
+        android:background="#ffffff">
+
+        <TextView
+            style="@style/text_13_888888"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="45dp"
+            android:text="证券" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="#979797" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/stock_edit_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/stock_edit_header" />
+
+
+    <RelativeLayout
+        android:id="@+id/stock_edit_footer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="#EDF3F8">
+
+        <TextView
+            android:id="@+id/stock_edit_select_all"
+            style="@style/text_16_186DB7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="全选" />
+
+        <TextView
+            android:id="@+id/stock_edit_select_delete"
+            style="@style/text_16_186DB7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:text="删除" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

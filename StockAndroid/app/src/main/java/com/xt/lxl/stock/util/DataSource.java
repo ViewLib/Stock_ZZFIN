@@ -153,9 +153,12 @@ public class DataSource {
         SharedPreferences codeList = context.getSharedPreferences(StockConfig.STOCK_SAVE_DB_NAME, 0);
         StringBuilder builder = new StringBuilder();
         if (list.size() > 10) {
-            list.remove(0);
+            list.remove(list.size() - 1);
         }
-        list.add(searchKey);
+        if (list.contains(searchKey)) {
+            list.remove(searchKey);
+        }
+        list.add(0, searchKey);
         for (String str : list) {
             builder.append(str);
             builder.append(",");

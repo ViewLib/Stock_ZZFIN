@@ -45,7 +45,7 @@ public class StockTabGroupButton2 extends LinearLayout {
     }
 
     protected void setUpViews(Context context, AttributeSet attrs) {
-        inflate(getContext(), R.layout.hotel_common_tab_group_buttton, this);
+        inflate(getContext(), R.layout.hotel_common_tab2_group_buttton, this);
         mRadioGroup = (RadioGroup) findViewById(R.id.radio_group_switch);
         mTabAnimView = (LinearLayout) findViewById(R.id.tab_anim_view);
 //        mBottomLine = findViewById(R.id.bottom_line);
@@ -53,13 +53,13 @@ public class StockTabGroupButton2 extends LinearLayout {
 
     public void initView() {
         mPadding = getPaddingLeft();//这里pidding为空，所以有问题
-        mWidth = DeviceUtil.getScreenWidth(getContext()) - mPadding - getPaddingRight();
+        mWidth = DeviceUtil.getScreenWidth(getContext()) - mPadding - getPaddingRight() - mTabAnimView.getPaddingRight() - mTabAnimView.getPaddingLeft();
         mTabAnimView.removeAllViews();
         //添加animView
         if (mTabAnimView.getVisibility() == View.VISIBLE) {
             int childCount = mRadioGroup.getChildCount();
             for (int i = 0; i < childCount; i++) {
-                View inflate = View.inflate(getContext(), R.layout.hotel_common_tab_group_button_anim_item2, null);
+                View inflate = View.inflate(getContext(), R.layout.hotel_common_tab2_group_button_anim_item, null);
                 mTabAnimView.addView(inflate, getLinearLayoutLayoutParams());
             }
         }
@@ -80,10 +80,10 @@ public class StockTabGroupButton2 extends LinearLayout {
                         if (mOnTabItemSelectedListener != null) {
                             mOnTabItemSelectedListener.onTabItemClicked(i);
                         }
-                        int fromDelata = mWidth / childCount * mIndex;
+                        int fromXDelata = mWidth / childCount * mIndex;
                         mIndex = i;
                         int toXDelta = mWidth / childCount * i;
-                        mAnimation = new TranslateAnimation(fromDelata, toXDelta, 0, 0);
+                        mAnimation = new TranslateAnimation(fromXDelata, toXDelta, 0, 0);
                         startAnimation();
                     }
                 }
@@ -94,8 +94,8 @@ public class StockTabGroupButton2 extends LinearLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mPadding = getPaddingLeft();//这里pidding为空，所以有问题
-        mWidth = getMeasuredWidth();
+//        mPadding = getPaddingLeft();
+//        mWidth = getMeasuredWidth();
     }
 
     /**
