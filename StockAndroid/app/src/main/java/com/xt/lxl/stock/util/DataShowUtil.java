@@ -49,7 +49,7 @@ public class DataShowUtil {
             rightModel.mShowIndex = viewModel.stockChangeD * 10;
             rightModel.mShowIndex = rightModel.mShowIndex > 1 ? 1 : rightModel.mShowIndex;
             rightModel.mBgColor = "#FA5259";
-            if (viewModel.stockChangeD > 0.03) {
+            if (viewModel.stockChangeD > 0.04) {
                 rightModel.mTextColor = "#ffffff";
                 rightModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_CENTER;
             } else {

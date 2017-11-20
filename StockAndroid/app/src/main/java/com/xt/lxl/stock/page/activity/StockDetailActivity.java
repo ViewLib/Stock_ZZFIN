@@ -18,6 +18,8 @@ import com.xt.lxl.stock.model.reponse.StockDetailCompareResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailGradeResponse;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
+import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
+import com.xt.lxl.stock.page.chartfragment.StockDayChartFragment;
 import com.xt.lxl.stock.page.module.StockDetailChartModule;
 import com.xt.lxl.stock.page.module.StockDetailCompareModule;
 import com.xt.lxl.stock.page.module.StockDetailDescModule;
@@ -29,6 +31,7 @@ import com.xt.lxl.stock.page.module.StockDetailNewsModule;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
+import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
 import com.xt.lxl.stock.widget.view.StockTitleView;
 
 import java.util.List;
@@ -110,7 +113,7 @@ public class StockDetailActivity extends FragmentActivity {
         builder.append(mCacheBean.mStockViewModel.stockCode);
         builder.setSpan(new TextAppearanceSpan(this, R.style.text_12_ffffff), length, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         titleView.setTitle(builder);
-//        hanldeSendService();
+        hanldeSendService();
     }
 
     private void hanldeSendService() {
@@ -122,8 +125,8 @@ public class StockDetailActivity extends FragmentActivity {
                 sendStockCompanyService();
                 sendStockGradeService();
                 sendFinanceService();
-                sendNewsEvent();
                 sendCompareService();
+                handleNewModule();
             }
         }, 3000);
     }
@@ -193,7 +196,6 @@ public class StockDetailActivity extends FragmentActivity {
             @Override
             public void run() {
                 StockDetailFinanceResponse financeResponse = StockSender.getInstance().requestFinanceService("300170.SZ");
-//                StockDetailFinanceResponse financeResponse = StockSender.getInstance().requestFinanceService(mCacheBean.mStockViewModel.getRequestStockCode());
                 if (financeResponse.resultCode == 200) {
                     mCacheBean.financeResponse = financeResponse;
                 }
@@ -244,14 +246,20 @@ public class StockDetailActivity extends FragmentActivity {
         }).start();
     }
 
-    private void sendNewsEvent() {
+
+    private void handleNewModule() {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                StockGetDateDataResponse dataResponses = StockSender.getInstance().requestDateData(mCacheBean.mStockViewModel.getRequestStockCode(), StockGetDateDataResponse.TYPE_DAY);
+//                StockGetDateDataResponse dataResponses = new StockGetDateDataResponse();
+//                dataResponses.dateDataList = DataSource.getDayDataPriceList();
+                final DayViewModel dayViewModel = StockDayChartFragment.calculationData(dataResponses);
                 final StockEventsDataResponse eventsDataResponse = StockSender.getInstance().requestStockEventImportant(mCacheBean.mStockViewModel.getRequestStockCode(), 3);
                 if (eventsDataResponse.resultCode != 200) {
                     return;
                 }
+                mCacheBean.dayViewModel = dayViewModel;
                 mCacheBean.newsResponse = eventsDataResponse;
                 mHandler.post(new Runnable() {
                     @Override

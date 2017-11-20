@@ -2,7 +2,6 @@ package com.xt.lxl.stock.page.module;
 
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -22,9 +21,9 @@ import com.xt.lxl.stock.model.model.StockEventsDataList;
 import com.xt.lxl.stock.model.model.StockEventsDataModel;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
-import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
+import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
 import com.xt.lxl.stock.widget.view.StockTabGroupButton;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
@@ -87,7 +86,8 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
     @Override
     public void bindData() {
         StockEventsDataResponse newsResponse = mCacheBean.newsResponse;
-        List<StockDateDataModel> dataList = DataSource.getDayDataPriceList();//重大事件日线图
+        DayViewModel dayViewModel = mCacheBean.dayViewModel;
+        List<StockDateDataModel> dataList = dayViewModel.dateDataList;//重大事件日线图
 
         //K线图不变化
         initBarChart(mLineChart);
@@ -110,9 +110,8 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         }
         int showNum = dataList.size();//一屏内展示的数量
         YAxis leftAxis = lineChart.getAxisLeft();
-        float axisMaximum = leftAxis.getAxisMaximum() * 100;
-        float axisMinimum = leftAxis.getAxisMinimum() * 100;
-        Log.i("test", "max:" + axisMaximum + ",min:" + axisMinimum);
+        float axisMaximum = leftAxis.getAxisMaximum();
+        float axisMinimum = leftAxis.getAxisMinimum();
 
         int leftPadding = DeviceUtil.getPixelFromDip(mContext, 29);
         int rigntPadding = DeviceUtil.getPixelFromDip(mContext, 15);

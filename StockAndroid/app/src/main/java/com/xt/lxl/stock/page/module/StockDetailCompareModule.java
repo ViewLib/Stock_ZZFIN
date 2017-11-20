@@ -3,7 +3,6 @@ package com.xt.lxl.stock.page.module;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -170,6 +169,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         set1.setBarSpacePercent(60);//设置矩形之间的间距，参数为百分数，可控制矩形的宽度
         set1.setColors(new int[]{Color.parseColor("#FF8704"), Color.parseColor("#186db7"), Color.parseColor("#186db7"), Color.parseColor("#186db7")});
         set1.setDrawValues(true);
+        set1.setDrawUpAndDown(false);
 
         BarData data = new BarData(xVals, set1);
         data.setValueTextSize(10f);
