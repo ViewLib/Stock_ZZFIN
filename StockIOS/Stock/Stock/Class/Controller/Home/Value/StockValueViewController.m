@@ -139,9 +139,12 @@
         }
         return cell;
     } else {
-        StockTopTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"StockTopTableViewCell" owner:nil options:nil] firstObject];
-        [cell updateCell:_stock];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        StockTopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockTopTableViewCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"StockTopTableViewCell" owner:nil options:nil] firstObject];
+            [cell updateCell:_stock];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
         return cell;
     }
 }

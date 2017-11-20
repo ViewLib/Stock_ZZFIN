@@ -30,12 +30,16 @@ typedef void(^clickMenuBlock)(void);
 
 @property (weak, nonatomic) IBOutlet UILabel *downValue;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *upWidth;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *downWidth;
+
 @property (assign, nonatomic)   float       percentage;
 
 @property (strong, nonatomic)   UIView      *pView;
 
 @property (copy, nonatomic) clickMenuBlock  clickMenuBlock;
 
-- (void)updateCell:(StockEntity *)entity;
+- (void)updateCell:(StockObjEntity *)entity;
 
 @end

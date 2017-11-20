@@ -140,7 +140,11 @@
         [configKNew addObject:dic];
         preModel = model;
     }];
-    [[Config shareInstance] setKlineDate:configKNew];
+    
+    if ([type isEqualToString:@"dayhqs"]) {
+        [[Config shareInstance] setKlineDate:configKNew];
+    }
+    
     [self.stockDatadict setObject:newAry forKey:type];
 }
 

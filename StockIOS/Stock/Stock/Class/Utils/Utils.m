@@ -117,7 +117,7 @@
     NSString *price = [dic[@"price"] isKindOfClass:[NSNull class]]?@"":dic[@"price"];
     NSString *volume = [dic[@"volume"] isKindOfClass:[NSNull class]]?@"":dic[@"volume"];
     NSString *amount = [dic[@"amount"] isKindOfClass:[NSNull class]]?@"":dic[@"amount"];
-    NSDictionary *returnDic = @{@"amount": amount,@"avgPrice": avgPrice,@"minute": time,@"price": price,@"volume": volume};
+    NSDictionary *returnDic = @{@"amount": amount,@"avgPrice": avgPrice?avgPrice:@"0",@"minute": time,@"price": price,@"volume": volume};
     return returnDic;
 }
 

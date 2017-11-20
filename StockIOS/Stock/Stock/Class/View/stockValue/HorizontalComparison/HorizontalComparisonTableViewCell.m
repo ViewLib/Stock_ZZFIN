@@ -90,7 +90,7 @@
     }
     
     self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 230.0)];
-    self.barChart.showLabel = YES;
+    self.barChart.showYLabel = NO;
     
     self.barChart.yLabelFormatter = ^(CGFloat yValue) {
         return [barChartFormatter stringFromNumber:@(yValue)];

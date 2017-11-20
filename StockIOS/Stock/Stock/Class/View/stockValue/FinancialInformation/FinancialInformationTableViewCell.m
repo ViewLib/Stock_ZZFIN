@@ -78,24 +78,27 @@
     }
     
     self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 230.0)];
-    self.barChart.showLabel = YES;
     
     self.barChart.yLabelFormatter = ^(CGFloat yValue) {
         return [barChartFormatter stringFromNumber:@(yValue)];
     };
     
     self.barChart.yChartLabelWidth = 30.0;
-    self.barChart.chartMarginLeft = 40.0;
+    self.barChart.chartMarginLeft = 20.0;
     self.barChart.chartMarginTop = 25.0;//
     self.barChart.chartMarginBottom = 10.0;
-    self.barChart.yLabelSuffix = self.yType;
     self.barChart.showChartBorder = YES;
+    //是否显示Y轴坐标
+    self.barChart.showYLabel = NO;
+    
     [self.barChart setXLabels:self.barX];
     
     [self.barChart setYValues:self.barY];
+    
     [self.barChart setStrokeColor:MAIN_COLOR];
     self.barChart.isGradientShow = NO;
-    self.barChart.isShowNumbers = NO;
+    self.barChart.isShowNumbers = YES;
+    self.barChart.showLevelLine = NO;
     
     [self.barChart strokeChart];
     

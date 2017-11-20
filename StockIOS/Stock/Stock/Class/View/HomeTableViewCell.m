@@ -19,7 +19,7 @@
     [self addGestureRecognizer:longPress];
 }
 
-- (void)updateCell:(StockEntity *)entity {
+- (void)updateCell:(StockObjEntity *)entity {
     self.name.text = entity.name;
     self.code.text = entity.code;
     self.price.text = entity.currentprice;
@@ -57,32 +57,81 @@
         if (rect.size.width < _percentage * [self viewx]) {
             self.downValue.textColor = [UIColor whiteColor];
         }
-    } else {
+    }
+    
+    if ([entity.zsprice floatValue] == 0) {
         self.stopLabel.hidden = NO;
     }
 }
 
 - (float)viewx {
-    _baseWidth.constant = K_FRAME_BASE_WIDTH;
-    float rightViewWidth = _baseWidth.constant/2 + 40;
+    float rightViewWidth = CGRectGetWidth(self.stopLabel.frame);
     float viewX = rightViewWidth/2;
     return viewX;
 }
 
 - (void)layoutSubviews {
+    for (UIControl *control in self.subviews){
+        if ([control isMemberOfClass:NSClassFromString(@"UITableViewCellEditControl")]){
+            for (UIView *v in control.subviews)
+            {
+                if ([v isKindOfClass: [UIImageView class]]) {
+                    UIImageView *img=(UIImageView *)v;
+                    if (self.selected) {
+                        img.image=[UIImage imageNamed:@"icon_pitch on"];
+                    }else {
+                        img.image=[UIImage imageNamed:@"icon_pitch off"];
+                    }
+                }
+            }
+        }
+        if ([control isMemberOfClass:NSClassFromString(@"UITableViewCellContentView")]) {
+            for (UIView *v in control.subviews)
+            {
+                if ([v isKindOfClass: [UIView class]]) {
+                    v.backgroundColor = [UIColor clearColor];
+                    if (v.subviews.count > 0) {
+                        [v.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            if (obj.tag == 32133) {
+                                obj.backgroundColor = [UIColor whiteColor];
+                            } else if (obj.tag == 32134) {
+                                obj.backgroundColor = [UIColor whiteColor];
+                                [obj.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subobj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                    if (subobj.tag == 32145 || subobj.tag == 32146) {
+                                        subobj.backgroundColor = [UIColor whiteColor];
+                                        [subobj.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull objsub, NSUInteger idx, BOOL * _Nonnull stop) {
+                                            if (objsub.tag == 32154) {
+                                                objsub.backgroundColor = UP_COLOR;
+                                            }
+                                            if (objsub.tag == 32155) {
+                                                objsub.backgroundColor = DOWN_COLOR;
+                                            }
+                                        }];
+                                    }
+                                }];
+                            } else if (obj.tag == 32135) {
+                                obj.backgroundColor = [Utils colorFromHexRGB:@"D8D8D8"];
+                            }
+                        }];
+                    }
+                }
+            }
+        }
+        if ([control isMemberOfClass:NSClassFromString(@"_UITableViewCellSeparatorView")]) {
+            control.backgroundColor = [UIColor clearColor];
+        }
+    }
+    
     [super layoutSubviews];
     
-    float viewX = [self viewx];
-    
     if (!self.upView.hidden) {
-        self.pView.frame = CGRectMake(viewX, 0, _percentage * viewX, 25);
+        self.upWidth.constant = _percentage * CGRectGetWidth(self.upValue.frame);
         [self.upView addSubview:self.pView];
-        [self.upView bringSubviewToFront:self.upValue];
     } else {
-        self.pView.frame = CGRectMake((1-_percentage) * viewX, 0, _percentage * viewX, 25);
+        self.downWidth.constant = _percentage * CGRectGetWidth(self.downValue.frame);
         [self.downView addSubview:self.pView];
-        [self.downView bringSubviewToFront:self.downValue];
     }
+    
 }
 
 - (void)reloadright {
@@ -135,6 +184,28 @@
 
 -(BOOL)canBecomeFirstResponder{
     return YES;
+}
+
+//适配第一次图片为空的情况
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    for (UIControl *control in self.subviews){
+        if ([control isMemberOfClass:NSClassFromString(@"UITableViewCellEditControl")]){
+            for (UIView *v in control.subviews)
+            {
+                if ([v isKindOfClass: [UIImageView class]]) {
+                    UIImageView *img=(UIImageView *)v;
+                    if (!self.selected) {
+                        img.image=[UIImage imageNamed:@"icon_pitch off"];
+                    } else {
+                        img.image=[UIImage imageNamed:@"icon_pitch on"];
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 @end

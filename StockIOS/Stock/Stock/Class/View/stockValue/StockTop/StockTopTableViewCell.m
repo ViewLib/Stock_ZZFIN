@@ -20,10 +20,9 @@
     _Chg.text = [NSString stringWithFormat:@"%@%@",dic.pricefluctuation,@"%"];
     _highest.text = dic.highest;
     _lowest.text = dic.lowest;
-//    _ChgOfYear.text = dic;
-    _turnoverRate.text = dic.turnoverrate;
-    _turnover.text = dic.transactions;
-    _marketValue.text = dic.totalmarketcapitalization;
+    _turnoverRate.text = [NSString stringWithFormat:@"%@%@",dic.turnoverrate,@"%"];
+    _turnover.text = [NSString stringWithFormat:@"%.0f 亿",[dic.transactions floatValue]/10000];
+    _marketValue.text =[NSString stringWithFormat:@"%.0f 亿",[dic.totalmarketcapitalization floatValue]];
     self.code = dic.code;
     if ([dic.upsdowns hasPrefix:@"-"]) {
         _stockLast.textColor = DOWN_COLOR;
@@ -37,6 +36,19 @@
         [_isSelect setSelected:YES];
     }
     [_isSelect ImgTopTextButtom];
+    [self getCurrentYear];
+}
+
+- (void)getCurrentYear {
+    WS(self)
+    [[HttpRequestClient sharedClient] getYearPrice:self.code request:^(NSString *resultMsg, id dataDict, id error) {
+        if (dataDict) {
+            NSDictionary *value = [dataDict firstObject];
+            float close = [value[@"close"] floatValue];
+            float current = [_stockLast.text floatValue];
+            selfWeak.ChgOfYear.text = [NSString stringWithFormat:@"%.0f%@",(current-close)/current*100,@"%"];
+        }
+    }];
 }
 
 - (IBAction)clickSelectBtn:(UIButton *)sender {

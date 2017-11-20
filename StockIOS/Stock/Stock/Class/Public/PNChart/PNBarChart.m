@@ -47,8 +47,9 @@
     [super setupDefaultValues];
     self.backgroundColor = [UIColor whiteColor];
     self.clipsToBounds   = YES;
-    _showLabel           = YES;
-    _barBackgroundColor  = PNLightGrey;
+    _showXLabel           = YES;
+    _showYLabel           = YES;
+    _barBackgroundColor  = [UIColor whiteColor];
     _labelTextColor      = [UIColor grayColor];
     _labelFont           = [UIFont systemFontOfSize:12.0f];
     _xChartLabels        = [NSMutableArray array];
@@ -81,7 +82,7 @@
     _yValues = yValues;
   //make the _yLabelSum value dependant of the distinct values of yValues to avoid duplicates on yAxis
 
-  if (_showLabel) {
+  if (_showYLabel) {
     [self __addYCoordinateLabelsValues];
   } else {
     [self processYMaxValue];
@@ -168,7 +169,7 @@
 
 	_xLabelWidth = (self.frame.size.width - _chartMarginLeft - _chartMarginRight) / [xLabels count];
 
-    if (_showLabel) {
+    if (_showXLabel) {
         int labelAddCount = 0;
         for (int index = 0; index < _xLabels.count; index++) {
             labelAddCount += 1;
@@ -229,9 +230,8 @@
                 barXPosition = index *  _xLabelWidth + _chartMarginLeft + _xLabelWidth /2.0 - _barWidth /2.0;
             }else{
                 barXPosition = index *  _xLabelWidth + _chartMarginLeft + _xLabelWidth * 0.25;
-                if (_showLabel) {
+                if (_showXLabel) {
                     barWidth = _xLabelWidth * 0.5;
-
                 }
                 else {
                     barWidth = _xLabelWidth * 0.6;

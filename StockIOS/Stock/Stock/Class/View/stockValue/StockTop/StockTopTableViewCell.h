@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StockEntity.h"
+#import "StockObjEntity.h"
 
 @interface StockTopTableViewCell : UITableViewCell
 //当前价格
@@ -37,6 +37,6 @@
  更新cell
  @param dic 更新的内容
  */
-- (void)updateCell:(StockEntity *)dic;
+- (void)updateCell:(StockObjEntity *)dic;
 
 @end
