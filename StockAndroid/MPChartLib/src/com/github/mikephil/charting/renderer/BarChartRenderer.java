@@ -147,7 +147,8 @@ public class BarChartRenderer extends DataRenderer {
                         }
                     }
                 } else {
-                    mRenderPaint.setColor(dataSet.getColor(0));
+                    mRenderPaint.setColor(dataSet.getColor(j / 4));
+//                    mRenderPaint.setColor(dataSet.getColor(0));
                 }
                 c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
                         buffer.buffer[j + 3], mRenderPaint);

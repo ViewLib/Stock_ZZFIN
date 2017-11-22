@@ -292,6 +292,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
                     <!-- BEGIN DASHBOARD STATS -->
                     <div id="main-content">
+                        <div id="user_toolbar"></div>
                         <table id="user_table"></table>
                     </div>
 
@@ -311,6 +312,20 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
             </div>
         </div>
 
+        <div id="modal" class="modal fade modal-dialog" tabindex="-1" style="display: none;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <p>user id&nbsp; :&nbsp;&nbsp; <input name="userid" id="txt_userid" value=""/></p>
+                <p>mobile&nbsp; :&nbsp;&nbsp; <input name="mobile" id="txt_mobile" value=""/></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                <button type="button" class="btn btn-primary js_status" data-status="">Save changes</button>
+            </div>
+        </div>
 
         <!--[if lt IE 9]>
         <script src="assets/plugins/respond.min.js"></script>

@@ -250,7 +250,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         handler.sendEmptyMessageDelayed(0, 300);
     }
 
-    private DayViewModel calculationData(StockGetDateDataResponse dataResponses) {
+    public static DayViewModel calculationData(StockGetDateDataResponse dataResponses) {
         DayViewModel dayViewModel = new DayViewModel();
         if (dataResponses.dateDataList.size() == 0) {
             return dayViewModel;

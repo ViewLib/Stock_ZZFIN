@@ -7,6 +7,7 @@ import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompareResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
+import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +31,6 @@ public class StockDetailCacheBean {
     public StockEventsDataResponse newsResponse = new StockEventsDataResponse();//重大消息模块
     public StockDetailCompareResponse compareResponse = new StockDetailCompareResponse();//横向比较模块
 
+    public DayViewModel dayViewModel = new DayViewModel();//日线数据
 }
 

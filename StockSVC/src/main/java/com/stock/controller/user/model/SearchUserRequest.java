@@ -8,6 +8,8 @@ public class SearchUserRequest {
     private int offset;
     private int maxrows;
     private int pageindex;
+    private String userid;
+    private String mobile;
 
     public int getLimit() {
         return limit;
@@ -39,5 +41,21 @@ public class SearchUserRequest {
 
     public void setPageindex(int pageindex) {
         this.pageindex = pageindex;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

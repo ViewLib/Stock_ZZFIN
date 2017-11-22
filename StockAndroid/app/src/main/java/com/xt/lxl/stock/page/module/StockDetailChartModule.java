@@ -26,6 +26,7 @@ public class StockDetailChartModule extends StockDetailBaseModule {
     @Override
     public void bindData() {
 
+
     }
 
 }

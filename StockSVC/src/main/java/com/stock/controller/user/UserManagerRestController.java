@@ -3,13 +3,16 @@ package com.stock.controller.user;
 import com.stock.controller.user.model.*;
 import com.stock.dao.UserDao;
 import com.stock.model.model.StockUserModel;
-import com.stock.service.UserService;
 import com.stock.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,9 +30,24 @@ public class UserManagerRestController {
     @ResponseBody
     public SearchUserResponse searchUserPost(@RequestBody SearchUserRequest request) {
         SearchUserResponse result = new SearchUserResponse();
-        int pageIndex = request.getOffset() / request.getLimit() + 1;
+        List<StockUserModel> users = new ArrayList<>();
+        if(StringUtil.isNotBlank(request.getUserid())){
+            int userId = Integer.parseInt(request.getUserid());
+            users.add(this.userDao.selectStockUserModel(userId));
+            result.setRows(users);
+            result.setTotal(1);
+            return result;
+        }
 
-        List<StockUserModel> users = this.userDao.selectUserInfoList(pageIndex, request.getLimit());
+        if(StringUtil.isNotBlank(request.getMobile())){
+            users.add(this.userDao.selectStockUserModel(request.getMobile()));
+            result.setRows(users);
+            result.setTotal(1);
+            return result;
+        }
+
+        int pageIndex = request.getOffset() / request.getLimit() + 1;
+        users = this.userDao.selectUserInfoList(pageIndex, request.getLimit());
         result.setRows(users);
         result.setTotal(this.userDao.getUserTotalCount());
         return result;
@@ -70,7 +88,7 @@ public class UserManagerRestController {
         response.setResultCode(500);
         response.setShowMessage("新增失败，请稍后重试");
 
-        if (request == null || !StringUtil.isNotBlank(request.getNickName()) || !StringUtil.isNotBlank(request.getMoblie())) {
+        if (request == null || !StringUtil.isNotBlank(request.getNickName()) || !StringUtil.isNotBlank(request.getMobile())) {
             response.setResultCode(400);
             response.setShowMessage("请求不合法，请填写必要的用户信息");
             return response;
@@ -135,7 +153,7 @@ public class UserManagerRestController {
         stockUserModel.setUserId(request.getUserId());
         stockUserModel.setAge(request.getAge());
         stockUserModel.setArea(request.getArea());
-        stockUserModel.setMoblie(request.getMoblie());
+        stockUserModel.setMoblie(request.getMobile());
         stockUserModel.setNickName(request.getNickName());
 
         return stockUserModel;
