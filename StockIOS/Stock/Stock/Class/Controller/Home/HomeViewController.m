@@ -76,6 +76,10 @@
         [selfWeak pushViewController:VC];
     };
     
+    search.searchViewClickBlock = ^{
+        [selfWeak.searchController.searchBar resignFirstResponder];
+    };
+    
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:search];
     self.searchController.definesPresentationContext = YES;
     self.searchController.searchResultsUpdater = search;
@@ -107,7 +111,7 @@
 
 #pragma mark - getOptionalStocks
 - (void)getTableData {
-    _stocks = [Utils getStock];
+    _stocks = [Utils getStock].mutableCopy;
     NSString *stockCodes;
     if (_stocks.count) {
         NSMutableArray *stocks = [NSMutableArray array];

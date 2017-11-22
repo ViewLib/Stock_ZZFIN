@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^searchViewClickBlock)(void);
+
 typedef void(^searchViewCancelBlock)(void);
 
 typedef void(^clickSearchViewCancelBlock)(id VC);
 
 @interface SearchViewController : UIViewController<UISearchResultsUpdating,UISearchBarDelegate,UISearchControllerDelegate>
+
+@property (nonatomic, copy) searchViewClickBlock searchViewClickBlock;
 
 @property (nonatomic, copy) searchViewCancelBlock searchViewCancelBlock;
 
