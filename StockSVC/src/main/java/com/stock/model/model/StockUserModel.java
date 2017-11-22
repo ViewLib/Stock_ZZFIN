@@ -15,7 +15,7 @@ public class StockUserModel {
     private String nickName;//用户昵称
     private String area;//地区
     private int age;//年龄
-    private Date createTime;//注册时间
+    private String createTime;//注册时间
 
     @Override
     public String toString() {
@@ -70,11 +70,11 @@ public class StockUserModel {
         this.age = age;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }

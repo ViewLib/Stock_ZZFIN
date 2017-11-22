@@ -318,8 +318,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
-                <p>user id&nbsp; :&nbsp;&nbsp; <input name="userid" id="txt_userid" value=""/></p>
+                <p class="js_userid">user id&nbsp; :&nbsp;&nbsp; <input name="userid" id="txt_userid" value=""/></p>
                 <p>mobile&nbsp; :&nbsp;&nbsp; <input name="mobile" id="txt_mobile" value=""/></p>
+                <p>nickName&nbsp; :&nbsp;&nbsp; <input name="nickName" id="txt_nickName" value=""/></p>
+                <p>area&nbsp; :&nbsp;&nbsp; <input name="area" id="txt_area" value=""/></p>
+                <p>age&nbsp; :&nbsp;&nbsp; <input name="age" id="txt_age" value=""/></p>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>

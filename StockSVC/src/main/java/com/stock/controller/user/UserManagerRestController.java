@@ -40,7 +40,11 @@ public class UserManagerRestController {
         }
 
         if(StringUtil.isNotBlank(request.getMobile())){
-            users.add(this.userDao.selectStockUserModel(request.getMobile()));
+            StockUserModel user = this.userDao.selectStockUserModel(request.getMobile());
+            if(user != null){
+                users.add(user);
+            }
+
             result.setRows(users);
             result.setTotal(1);
             return result;

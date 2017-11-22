@@ -2,11 +2,13 @@ package com.stock.dao;
 
 
 import com.stock.model.model.StockUserModel;
+import com.stock.util.DateUtil;
 import com.stock.util.Logger;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -110,7 +112,10 @@ public class UserDaoImpl implements UserDao {
                 shopModel.setNickName(nickName);
                 shopModel.setArea(area);
                 shopModel.setAge(age);
-                shopModel.setCreateTime(new Date(createTime.getTime()));
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date(createTime.getTime()));
+                shopModel.setCreateTime(DateUtil.calendar2Time(cal, "yyyy-MM-dd hh:mm:ss"));
 
                 return shopModel;
             }
@@ -143,7 +148,10 @@ public class UserDaoImpl implements UserDao {
                 userModel.setNickName(nickname);
                 userModel.setArea(area);
                 userModel.setAge(age);
-                userModel.setCreateTime(new Date(createTime.getTime()));
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date(createTime.getTime()));
+                userModel.setCreateTime(DateUtil.calendar2Time(cal, "yyyy-MM-dd hh:mm:ss"));
 
                 return userModel;
             }
@@ -179,7 +187,10 @@ public class UserDaoImpl implements UserDao {
                 userModel.setNickName(nickname);
                 userModel.setArea(area);
                 userModel.setAge(age);
-                userModel.setCreateTime(new Date(createTime.getTime()));
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date(createTime.getTime()));
+                userModel.setCreateTime(DateUtil.calendar2Time(cal, "yyyy-MM-dd hh:mm:ss"));
                 userList.add(userModel);
             }
         } catch (Exception e) {

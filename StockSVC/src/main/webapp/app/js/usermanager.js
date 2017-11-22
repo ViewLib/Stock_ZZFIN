@@ -16,7 +16,7 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'text!temp
                 sortOrder: "asc",                   //排序方式
                 queryParams: queryParams,           //传递参数（*）
                 sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
                 pageSize: defaultPageSize,                       //每页的记录行数（*）
                 pageList: [5, 10, 15, 20],        //可供选择的每页的行数（*）
                 strictSearch: true,
@@ -56,103 +56,138 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'text!temp
                 limit: params.limit,    //页面大小
                 offset: params.offset,  //页码
                 maxrows: params.limit,
-                pageindex:params.pageNumber,
-                userid:$("#txt_search_userid").val(),
-                mobile:$("#txt_search_mobile").val()
+                pageindex: params.pageNumber,
+                userid: $("#txt_search_userid").val(),
+                mobile: $("#txt_search_mobile").val()
             };
             return temp;
         };
 
-        // var request1 = function (pageIndex, pageSize) {
-        //     return $.get("/zzfin/rest/user/query", {"index": pageIndex, "size": pageSize});
-        // };
-        //
-        // var request2 = function () {
-        //     return $.ajax({
-        //         type: 'POST',
-        //         url: '/zzfin/rest/user/getpagecount',
-        //         contentType: 'application/json; charset=utf-8',
-        //         data: '{"pageSize":' + defaultPageSize + '}',
-        //         traditional: true
-        //     });
-        // };
-        //
-        // var promise = function (pageIndex, pageSize) {
-        //     $.when(request1(1, defaultPageSize), request2()).done(function (data1, data2) {
-        //         var pagetemplate = _.template(pageCountTpl, {pagecontent: data1 && data1[0], pagecount: data2 && data2[0]});
-        //         $('#main-content').html(pagetemplate).find('a').click(function (e) {
-        //             clickPageIndex(e);
-        //         });
-        //     });
-        // };
-
-        // var clickPageIndex = function (e) {
-        //     e.preventDefault();
-        //     request1($(e.currentTarget).html(), defaultPageSize).done(function (data) {
-        //         $('.js_tpl_pagecontent').html(data);
-        //     });
-        // };
-
         var initialize = function () {
             $('.js_user_query').on('click', function () {
                 //promise(1, defaultPageSize);
-                $('#user_toolbar').html( _.template(pageCountTpl, {}));
+                $('#user_toolbar').html(_.template(pageCountTpl, {}));
                 init(1);
-                $("#btn_edit").click(function () {
-                    var arrselections = $("#user_table").bootstrapTable('getSelections');
-                    if (arrselections.length > 1) {
-                        alert('只能选择一行进行编辑');
-                        return;
-                    }
-                    if (arrselections.length <= 0) {
-                        alert('请选择有效数据');
-                        return;
-                    }
-                    $("#myModalLabel").text("修改用户");
-                    $("#txt_userid").val(arrselections[0].userId);
-                    $("#txt_mobile").val(arrselections[0].moblie);
-                    $(".js_status").data("status","update");
-
-                    //    postdata.DEPARTMENT_ID = arrselections[0].DEPARTMENT_ID;
-                    $('#modal').modal({});
-                });
 
                 $("#btn_query").click(function () {
                     $("#user_table").bootstrapTable('refresh');
                 });
+
+                $("#btn_edit").click(function () {
+                    showModal("修改用户", "update");
+                });
+
+                $("#btn_add").click(function () {
+                    showModal("新增用户", "insert")
+                });
+
+                $("#btn_delete").click(function () {
+                    deleteUsers();
+                });
             });
-            
+
             $('.js_status').on('click', function (e) {
                 var status = $(e.currentTarget).data("status");
-                if(status === "update"){
-                    $.ajax({
-                        type: 'POST',
-                        url: '/zzfin/rest/user/update',
-                        contentType: 'application/json; charset=utf-8',
-                        datType: "JSON",
-                        data: JSON.stringify(getPostData()),
-                        traditional: true,
-                        success:function (data) {
-                            if(data.resultCode === 200){
-                                $('#modal').modal('hide');
-                                $("#user_table").bootstrapTable('refresh');
-                                alert("修改成功");
-                            }
+                postData(status, getPostData(), editOrAddUserSuccess);
+            });
+        };
 
-                            console.log(data);
-                        }
-                    });
+        var showModal = function (title, status) {
+            if (status === "update") {
+                var arrselections = $("#user_table").bootstrapTable('getSelections');
+                if (arrselections.length > 1) {
+                    alert('只能选择一行进行编辑');
+                    return;
                 }
+                if (arrselections.length <= 0) {
+                    alert('请选择一个要修改的用户');
+                    return;
+                }
+
+                $("#txt_userid").val(arrselections[0].userId);
+                $("#txt_userid").attr("readonly","readonly");
+                $(".js_userid").show();
+
+                $("#txt_mobile").val(arrselections[0].moblie);
+                $("#txt_nickName").val(arrselections[0].nickName);
+                $("#txt_area").val(arrselections[0].area);
+                $("#txt_age").val(arrselections[0].age);
+            }
+
+            if(status === "insert"){
+                $(".js_userid").hide();
+                $("#txt_mobile").val('');
+                $("#txt_nickName").val('');
+                $("#txt_area").val('');
+                $("#txt_age").val('');
+            }
+
+            $("#myModalLabel").text(title);
+            $(".js_status").data("status", status);
+            $('#modal').modal({});
+        };
+
+        var postData = function (status, data, successFun) {
+            $.ajax({
+                type: 'POST',
+                url: '/zzfin/rest/user/' + status,
+                contentType: 'application/json; charset=utf-8',
+                datType: "JSON",
+                data: JSON.stringify(data),
+                traditional: true,
+                success: successFun
             });
         };
 
         var getPostData = function () {
-          var postdata = {
-              userId:$("#txt_userid").val(),
-              mobile:$("#txt_mobile").val()
-          };
+            var postdata = {
+                userId: $("#txt_userid").val(),
+                mobile: $("#txt_mobile").val(),
+                nickName:$("#txt_nickName").val(),
+                area:$("#txt_area").val(),
+                age:$("#txt_age").val()
+            };
 
-          return postdata;
+            return postdata;
+        };
+
+        var editOrAddUserSuccess = function (data) {
+            if (data.resultCode === 200) {
+                $('#modal').modal('hide');
+                $("#user_table").bootstrapTable('refresh');
+                alert("操作成功");
+            }
+
+            console.log(data);
+        };
+
+        var deleteUsers = function () {
+            var arrselections = $("#user_table").bootstrapTable('getSelections');
+            if (arrselections.length > 1) {
+                alert('一次只能删除一个用户');
+                return;
+            }
+
+            if (arrselections.length <= 0) {
+                alert('请选择一个要删除的用户');
+                return;
+            }
+
+            postData("delete", getDeleteUserData(arrselections), deleteUserSuccess);
+        };
+
+        var getDeleteUserData = function (arrselections) {
+            var user = { userId:arrselections[0].userId};
+            return user;
+        };
+
+        var deleteUserSuccess = function (data) {
+            if (data.resultCode === 200) {
+                $("#user_table").bootstrapTable('refresh');
+                alert("操作成功");
+            }
+
+            console.log(data);
         };
 
         return {initialize: initialize};
