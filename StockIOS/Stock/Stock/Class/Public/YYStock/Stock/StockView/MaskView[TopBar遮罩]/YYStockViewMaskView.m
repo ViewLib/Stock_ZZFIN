@@ -68,7 +68,7 @@
     
     attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor YYStock_textColor]};
     
-    CGFloat gap = 90;
+    CGFloat gap = 80;
     [self.drawTimeLineDescTexts enumerateObjectsUsingBlock:^(NSString *  _Nonnull drawText, NSUInteger idx, BOOL * _Nonnull stop) {
         CGRect textRect = [self rectOfNSString:drawText attribute:attribute];
         CGRect drawRect = CGRectMake(50 + gap * idx , (rect.size.height - textRect.size.height)/2.f, textRect.size.width, textRect.size.height);
@@ -86,7 +86,7 @@
     drawText = @"成交量：";
     attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor YYStock_textColor]};
     textRect = [self rectOfNSString:drawText attribute:attribute];
-    drawRect = CGRectMake(30 + 290 , (rect.size.height - textRect.size.height)/2.f, textRect.size.width, textRect.size.height);
+    drawRect = CGRectMake(30 + 260 , (rect.size.height - textRect.size.height)/2.f, textRect.size.width, textRect.size.height);
     [drawText drawInRect:drawRect withAttributes:attribute];
     
     
@@ -106,7 +106,7 @@
         drawText = [NSString stringWithFormat:@"%.2f  手",volume];
     }
     textRect = [self rectOfNSString:drawText attribute:attribute];
-    drawRect = CGRectMake(30 + 340 , (rect.size.height - textRect.size.height)/2.f, textRect.size.width, textRect.size.height);
+    drawRect = CGRectMake(30 + 310 , (rect.size.height - textRect.size.height)/2.f, textRect.size.width, textRect.size.height);
     [drawText drawInRect:drawRect withAttributes:attribute];
 }
 

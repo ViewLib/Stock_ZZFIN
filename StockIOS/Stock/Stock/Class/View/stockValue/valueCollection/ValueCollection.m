@@ -108,7 +108,7 @@
             [cell valueType];
             NSDictionary *dic = self.valueAry[indexPath.item];
             cell.name.text = dic[@"stockHolderName"];
-            cell.num.text = [NSString stringWithFormat:@"%.0f",[dic[@"stockHolderAmount"] floatValue]];
+            cell.num.text = dic[@"stockHolderAmount"];
             cell.proportion.text = [NSString stringWithFormat:@"%@",dic[@"stockHolderRatio"]];
             if (indexPath.item%2==1) {
                 cell.backgroundColor = [UIColor whiteColor];
