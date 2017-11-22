@@ -46,7 +46,7 @@
             NSDictionary *value = [dataDict firstObject];
             float close = [value[@"close"] floatValue];
             float current = [_stockLast.text floatValue];
-            selfWeak.ChgOfYear.text = [NSString stringWithFormat:@"%.0f%@",(current-close)/current*100,@"%"];
+            selfWeak.ChgOfYear.text = [NSString stringWithFormat:@"%.0f%@",(current/close -1)*100,@"%"];
         }
     }];
 }

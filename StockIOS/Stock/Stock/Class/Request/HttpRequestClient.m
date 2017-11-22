@@ -79,7 +79,7 @@
 #pragma mark - 获取分时数据
 -(void)getLineData:(NSString *)value request:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/stockMinute",SERVICENEW];
-    NSDictionary *dic = @{@"date": [Utils contactTime],@"stockCode": value};
+    NSDictionary *dic = @{@"date":[Utils contactTime] ,@"stockCode": value};//@"2017-11-20"
     [self httpGet:urlStr paramDict:dic completion:request];
 }
 

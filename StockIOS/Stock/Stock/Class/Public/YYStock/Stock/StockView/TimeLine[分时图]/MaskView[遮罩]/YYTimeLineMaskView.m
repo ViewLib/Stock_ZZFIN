@@ -68,7 +68,7 @@
     CGRect priceRect = [self rectOfNSString:priceText attribute:attribute];
     CGContextSetFillColorWithColor(ctx, [UIColor YYStock_selectedRectBgColor].CGColor);
     CGContextFillRect(ctx, CGRectMake(YYStockScrollViewLeftGap - priceRect.size.width - 4, self.stockScrollView.frame.origin.y + self.selectedPoint.y - priceRect.size.height/2.f - 2, priceRect.size.width + 4, priceRect.size.height + 4));
-    [priceText drawInRect:CGRectMake(YYStockScrollViewLeftGap - priceRect.size.width - 4 + 2, self.stockScrollView.frame.origin.y + self.selectedPoint.y - priceRect.size.height/2.f, priceRect.size.width, priceRect.size.height) withAttributes:attribute];
+    [priceText drawInRect:CGRectMake(YYStockScrollViewLeftGap - priceRect.size.width - 4 + 2 , self.stockScrollView.frame.origin.y + self.selectedPoint.y - priceRect.size.height/2.f, priceRect.size.width, priceRect.size.height) withAttributes:attribute];
     
     //绘制选中增幅
     NSString *text2 = [NSString stringWithFormat:@"%.2f%%",([[self.selectedModel Price] floatValue] - [self.selectedModel AvgPrice])*100/[self.selectedModel AvgPrice]];

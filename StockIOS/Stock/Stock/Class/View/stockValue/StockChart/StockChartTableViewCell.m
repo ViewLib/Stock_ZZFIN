@@ -53,18 +53,23 @@
     WS(self)
     [[HttpRequestClient sharedClient] getLineData:self.stockCode request:^(NSString *resultMsg, id dataDict, id error) {
         if (dataDict) {
-            
-            NSMutableArray *array = [NSMutableArray array];
-            [dataDict enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (![obj[@"time"] isEqual:@"13:00"]) {
-                    NSDictionary *new = [Utils lineDicWithDic:obj avgPrice:selfWeak.zrPrice];
-                    YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:new];
-                    [array addObject: model];
-                }
-            }];
-            
-            [selfWeak.stockDatadict setObject:array forKey:@"minutes"];
-            [selfWeak.stock draw];
+            NSDictionary *dic = [dataDict firstObject];
+            if ([dic[@"time"] rangeOfString:@"当天没数据"].location == NSNotFound) {
+                NSMutableArray *array = [NSMutableArray array];
+                
+                [dataDict enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (![obj[@"time"] isEqual:@"13:00"]) {
+                        NSDictionary *new = [Utils lineDicWithDic:obj avgPrice:selfWeak.zrPrice];
+                        YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:new];
+                        [array addObject: model];
+                    }
+                }];
+                
+                [selfWeak.stockDatadict setObject:array forKey:@"minutes"];
+                [selfWeak.stock draw];
+            } else {
+                [self showMessageHud:@"当天没数据" hideAfter:1];
+            }
         }
     }];
 }

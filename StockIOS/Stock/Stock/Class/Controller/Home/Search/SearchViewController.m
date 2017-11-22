@@ -143,7 +143,10 @@
 }
 
 - (void)reloadTableView {
-    _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
+    if (!self.isSearch) {
+        _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
+    }
+    [self.view endEditing:YES];
     [self.searchTable reloadData];
 }
 
