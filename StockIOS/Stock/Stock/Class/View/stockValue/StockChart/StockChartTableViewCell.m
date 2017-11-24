@@ -70,6 +70,8 @@
             } else {
                 [self showMessageHud:@"当天没数据" hideAfter:1];
             }
+        } else {
+            [self showMessageHud:@"接口挂了" hideAfter:1];
         }
     }];
 }

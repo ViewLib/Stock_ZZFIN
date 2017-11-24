@@ -70,6 +70,14 @@
         [self.timer invalidate];
         self.timer = nil;
         NSArray *value = [NSArray array];
+        
+        NSString *str = [NSString stringWithFormat:@"总消息数%lu",(unsigned long)self.events.count];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:str message:[NSString stringWithFormat:@"%@",self.events] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *act1 = [UIAlertAction actionWithTitle:@"数据" style:0 handler:nil];
+        [alert addAction:act1];
+        
+//        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        
         for (NSDictionary *dic in self.events) {
             if ([self.titleNews isEqual:dic[@"eventName"]] && self.line) {
                 value = dic[@"stockEventsDataModels"];
@@ -77,6 +85,8 @@
         }
         if (value.count > 0) {
             [self.line reloadNewView:value];
+        } else {
+            [self.line reloadNewView:nil];
         }
     }
     

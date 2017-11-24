@@ -43,6 +43,18 @@
 
 #define unified(obj)            [Utils unifiedStockCode:obj]
 
+//两个点之间的间距
+#define LINEGAP    10
+
+//每一个价格点的宽度
+#define LINE       1
+
+//线图占比
+#define LINERADIO       0.8
+
+//线图占比
+#define BUTTOMRADIO       0.2
+
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height

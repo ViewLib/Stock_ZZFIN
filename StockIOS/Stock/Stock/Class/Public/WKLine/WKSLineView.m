@@ -64,7 +64,7 @@
     if (unitValue == 0) unitValue = 0.01f;
     WS(self)
     [drawLineModels enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGFloat xPosition = startX + idx * (6);
+        CGFloat xPosition = startX + idx * (LINEGAP + LINE);
         float price = [obj[@"close"] floatValue];
         [selfWeak.Positions addObject: [NSValue valueWithCGPoint:CGPointMake(xPosition, ABS(maxY - (price - minValue)/unitValue))]];
         if (selfWeak.getNewsData) {

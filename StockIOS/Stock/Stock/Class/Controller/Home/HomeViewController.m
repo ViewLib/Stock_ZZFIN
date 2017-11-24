@@ -42,7 +42,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:nil];
+    [Config shareInstance].KlineDate = [NSMutableArray array];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self createSearchBar];
     [self getTableData];
 }
