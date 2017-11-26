@@ -108,7 +108,7 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
         mChart.setDragEnabled(false);//是否可以拖拽
         mChart.setDrawBarShadow(false);
         mChart.setMaxVisibleValueCount(60);
-        mChart.setDrawValueAboveBar(false);//允许在水平以下画线
+        mChart.setDrawValueAboveBar(true);//允许在水平以下画线
 
         //不展示比例
         Legend l = mChart.getLegend();
@@ -165,7 +165,7 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
         List<Integer> list = new ArrayList<Integer>();
         list.add(Color.parseColor("#186db7"));//设置颜色
         set1.setColors(list);
-        set1.setDrawValues(false);
+        set1.setDrawValues(true);
 
         BarData data = new BarData(xVals, set1);
         data.setValueTextSize(10f);

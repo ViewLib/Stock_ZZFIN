@@ -119,7 +119,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         mChart.setDragEnabled(false);//是否可以拖拽
         mChart.setDrawBarShadow(false);
         mChart.setMaxVisibleValueCount(60);
-        mChart.setDrawValueAboveBar(false);//允许在水平以下画线
+        mChart.setDrawValueAboveBar(true);
         //不展示比例
         Legend l = mChart.getLegend();
         l.setEnabled(false);
@@ -157,22 +157,22 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(20f);
         leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
-
         mChart.getAxisRight().setEnabled(false);//隐藏右边的坐标轴
     }
 
 
     private void bindChartData(BarChart mChart, List<StockDetailCompareModel> compareModelList, Map<String, Float> map) {
         ArrayList<String> xVals = new ArrayList<String>();
-        for (int i = 0; i < compareModelList.size(); i++) {
-            StockDetailCompareModel compareModel = compareModelList.get(i);
-            xVals.add(compareModel.stockName);
-        }
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
+
         for (int i = 0; i < compareModelList.size(); i++) {
             StockDetailCompareModel compareModel = compareModelList.get(i);
             Float f = map.get(compareModel.stockName);
+            if (f == 0) {
+                continue;
+            }
             yVals1.add(new BarEntry(f, i));//填充数据
+            xVals.add(compareModel.stockName);
         }
         BarDataSet set1;
         set1 = new BarDataSet(yVals1, "");
