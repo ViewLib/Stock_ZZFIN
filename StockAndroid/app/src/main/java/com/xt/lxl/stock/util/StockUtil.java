@@ -6,6 +6,8 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
+
 /**
  * author：ajiang
  * mail：1025065158@qq.com
@@ -23,6 +25,13 @@ public class StockUtil {
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static Float roundedFor(Float value, int rounded) {
+        BigDecimal b = new BigDecimal(value);
+        value = b.setScale(rounded, BigDecimal.ROUND_HALF_UP).floatValue();//小数点后保留4位
+        //异常情况
+        return value;
     }
 
     public static String getVolUnit(float num) {
@@ -44,4 +53,8 @@ public class StockUtil {
         return max;
     }
 
+    public static String calculationValue(String baseStr, String addStr) {
+        float v = StringUtil.toFloat(baseStr) + StringUtil.toFloat(addStr);
+        return String.valueOf(roundedFor(v, 2));
+    }
 }

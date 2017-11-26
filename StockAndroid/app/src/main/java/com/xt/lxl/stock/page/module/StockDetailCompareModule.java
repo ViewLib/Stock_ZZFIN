@@ -94,20 +94,20 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         }
         List<View> viewList = new ArrayList<>();
 
-        viewList.add(createBarChart(compareModelList, ratioMap));
-        viewList.add(createBarChart(compareModelList, incomeMap));
-        viewList.add(createBarChart(compareModelList, priceShowMap));
-        viewList.add(createBarChart(compareModelList, shareOutMap));
+        viewList.add(createBarChart(compareModelList, ratioMap, 1));
+        viewList.add(createBarChart(compareModelList, incomeMap, 2));
+        viewList.add(createBarChart(compareModelList, priceShowMap, 3));
+        viewList.add(createBarChart(compareModelList, shareOutMap, 4));
 
         return viewList;
     }
 
-    private View createBarChart(List<StockDetailCompareModel> compareModelList, Map<String, Float> map) {
+    private View createBarChart(List<StockDetailCompareModel> compareModelList, Map<String, Float> map, int type) {
         BarChart mChart = new BarChart(mContainer.getContext());
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(-1, DeviceUtil.getPixelFromDip(mContainer.getContext(), 150));
         mChart.setLayoutParams(lp);
         initBarChart(mChart);
-        initBarChartXY(mChart);
+        initBarChartXY(mChart, type);
         bindChartData(mChart, compareModelList, map);
         return mChart;
     }
@@ -125,7 +125,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
     }
 
 
-    private void initBarChartXY(BarChart mChart) {
+    private void initBarChartXY(BarChart mChart, final int type) {
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(Typeface.DEFAULT);
@@ -136,6 +136,15 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
             @Override
             public String getFormattedValue(float value, YAxis yAxis) {
                 //大于1亿就展示为1.xx亿
+                if (type == 1) {
+                    return String.valueOf(value) + "x";
+                } else if (type == 2) {
+                    return String.valueOf(value) + "%";
+                } else if (type == 3) {
+                    return String.valueOf(value) + "%";
+                } else if (type == 4) {
+                    return String.valueOf(value) + "元";
+                }
                 return String.valueOf(value);
             }
         };
