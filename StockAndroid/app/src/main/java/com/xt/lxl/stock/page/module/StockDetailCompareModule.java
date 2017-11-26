@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockDetailCompareModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompareResponse;
 import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
@@ -42,8 +43,8 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
     StockViewPagerAdapter adapter;
 
 
-    public StockDetailCompareModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean);
+    public StockDetailCompareModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
+        super(cacheBean, listener);
     }
 
     @Override

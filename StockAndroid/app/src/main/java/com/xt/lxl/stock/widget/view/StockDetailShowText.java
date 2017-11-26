@@ -20,12 +20,14 @@ public class StockDetailShowText extends LinearLayout {
     TextView tv2;
 
     int mTitleWidth = 0;
+    int mValueWidth = 0;
     boolean canMulti = false;
 
     public StockDetailShowText(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StockDetailShowText);
         mTitleWidth = a.getDimensionPixelSize(R.styleable.StockDetailShowText_stock_title_width, 60);
+        mValueWidth = a.getDimensionPixelSize(R.styleable.StockDetailShowText_stock_value_width, 0);
         canMulti = a.getBoolean(R.styleable.StockDetailShowText_stock_detail_show_canMulti, false);
         a.recycle();
 
@@ -38,6 +40,9 @@ public class StockDetailShowText extends LinearLayout {
         tv2 = (TextView) findViewById(R.id.stock_detail_tv2);
         tv2.setSingleLine(!canMulti);
         tv1.getLayoutParams().width = mTitleWidth;
+        if (mValueWidth != 0) {
+            tv2.getLayoutParams().width = mValueWidth;
+        }
     }
 
     public void setTextValue(String text1, String text2) {

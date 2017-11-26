@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockEventsDataList;
 import com.xt.lxl.stock.model.model.StockEventsDataModel;
@@ -47,8 +48,8 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
     private StockViewPagerAdapter adapter;
 
 
-    public StockDetailNewsModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean);
+    public StockDetailNewsModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
+        super(cacheBean, listener);
     }
 
     @Override

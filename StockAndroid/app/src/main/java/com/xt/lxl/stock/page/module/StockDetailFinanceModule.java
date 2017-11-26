@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockDetailFinanceGroup;
 import com.xt.lxl.stock.model.model.StockDetailFinanceItem;
 import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
@@ -40,9 +41,8 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
     private ViewPager mViewPager;//问题列表
     private StockViewPagerAdapter adapter;
 
-
-    public StockDetailFinanceModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean);
+    public StockDetailFinanceModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
+        super(cacheBean, listener);
     }
 
     @Override

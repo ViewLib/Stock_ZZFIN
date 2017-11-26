@@ -8,6 +8,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockDetailCompanyModel;
 import com.xt.lxl.stock.model.model.StockDetailStockHolder;
 import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
@@ -32,8 +33,8 @@ public class StockDetailDescModule extends StockDetailBaseModule {
     private List<View> mViewList = new ArrayList<>();
     private StockViewPagerAdapter pagerAdapter;
 
-    public StockDetailDescModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean);
+    public StockDetailDescModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
+        super(cacheBean, listener);
     }
 
     @Override

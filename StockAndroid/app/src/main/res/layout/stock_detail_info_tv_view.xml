@@ -7,7 +7,7 @@
     <TextView
         android:id="@+id/stock_detail_tv1"
         style="@style/text_12_333333"
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:text="暂无" />
@@ -17,6 +17,7 @@
         style="@style/text_12_000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:singleLine="true"
         android:text="暂无" />
 

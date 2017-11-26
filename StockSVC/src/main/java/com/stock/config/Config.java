@@ -87,4 +87,7 @@ public class Config {
      * 同行比较
      */
     public String COMPARE_API = "http://127.0.0.1:8080/zzfin/api/stock_compare?data=%7B%22serviceCode%22%3A2010%2C%22stockCode%22%3A%22sz300170%22%2C%22type%22%3A2%2C%22versionCode%22%3A1%7D";
+
+
+    
 }

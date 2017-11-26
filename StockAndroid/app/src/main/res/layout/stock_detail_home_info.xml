@@ -80,14 +80,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:stock_detail_show_canMulti="false"
-                app:stock_title_width="60dp" />
+                app:stock_title_width="50dp"
+                app:stock_value_width="50dp" />
 
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_price_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:stock_detail_show_canMulti="false"
-                app:stock_title_width="60dp" />
+                app:stock_title_width="50dp"
+                app:stock_value_width="50dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,14 +103,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:stock_detail_show_canMulti="false"
-                app:stock_title_width="60dp" />
+                app:stock_title_width="50dp"
+                app:stock_value_width="50dp" />
 
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:stock_detail_show_canMulti="false"
-                app:stock_title_width="60dp" />
+                app:stock_title_width="50dp"
+                app:stock_value_width="50dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,14 +126,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:stock_detail_show_canMulti="false"
-                app:stock_title_width="50dp" />
+                app:stock_title_width="50dp"
+                app:stock_value_width="50dp" />
 
             <com.xt.lxl.stock.widget.view.StockDetailShowText
                 android:id="@+id/stock_detail_marketvalue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:stock_detail_show_canMulti="false"
-                app:stock_title_width="50dp" />
+                app:stock_title_width="50dp"
+                app:stock_value_width="50dp" />
         </LinearLayout>
 
 
