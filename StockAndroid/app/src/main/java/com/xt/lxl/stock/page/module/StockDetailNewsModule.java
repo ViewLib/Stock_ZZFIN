@@ -25,7 +25,7 @@ import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
 import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
-import com.xt.lxl.stock.widget.view.StockTabGroupButton;
+import com.xt.lxl.stock.widget.view.StockTabGroupButton2;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
@@ -41,26 +41,21 @@ import java.util.Map;
 public class StockDetailNewsModule extends StockDetailBaseModule implements View.OnClickListener {
 
     private StockTextView mTitle;
-    private StockTabGroupButton mTab;//查看更多
+    private StockTabGroupButton2 mTab;//查看更多
     private ViewPager mViewPager;//问题列表
     private RelativeLayout mStockNewDetail;
     private LineChart mLineChart;
     private StockViewPagerAdapter adapter;
 
 
-<<<<<<< HEAD
     public StockDetailNewsModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         super(cacheBean, listener);
-=======
-    public StockDetailNewsModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean, null);
->>>>>>> 详情页删除股票功能
     }
 
     @Override
     public void initModuleView(View view) {
         mTitle = (StockTextView) view.findViewById(R.id.stock_news_title);
-        mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_news_tab);
+        mTab = (StockTabGroupButton2) view.findViewById(R.id.stock_detail_news_tab);
         mLineChart = (LineChart) view.findViewById(R.id.stock_detail_linechart);
         mStockNewDetail = (RelativeLayout) view.findViewById(R.id.stock_detail_news_detail);
         mViewPager = (ViewPager) view.findViewById(R.id.stock_detail_news_view_pager);
@@ -74,7 +69,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         list.add("投资");
         mTab.setTabItemArrayText(list);
         mTab.initView();
-        mTab.setOnTabItemSelectedListener(new StockTabGroupButton.OnTabItemSelectedListener() {
+        mTab.setOnTabItemSelectedListener(new StockTabGroupButton2.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {
                 //选中

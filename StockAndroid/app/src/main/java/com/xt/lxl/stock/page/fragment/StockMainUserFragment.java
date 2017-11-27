@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.page.activity.StockAboutUsActivity;
 import com.xt.lxl.stock.page.activity.StockRegisterActivity;
 import com.xt.lxl.stock.page.activity.StockSettingActivity;
 import com.xt.lxl.stock.util.FormatUtil;
@@ -92,6 +93,7 @@ public class StockMainUserFragment extends Fragment implements View.OnClickListe
         mStockUserExitLoginBtn.setOnClickListener(this);
         mUserRegisterBtn.setOnClickListener(this);
         mStockUserFeedbackBtn.setOnClickListener(this);
+        mStockUserAboutUsBtn.setOnClickListener(this);
     }
 
     @Override
@@ -123,6 +125,10 @@ public class StockMainUserFragment extends Fragment implements View.OnClickListe
         } else if (id == R.id.stock_user_setting_btn) {
             Intent intent = new Intent();
             intent.setClass(getContext(), StockSettingActivity.class);
+            getActivity().startActivity(intent);
+        }else if(id == R.id.stock_user_aboutus_btn){
+            Intent intent = new Intent();
+            intent.setClass(getContext(), StockAboutUsActivity.class);
             getActivity().startActivity(intent);
         }
     }

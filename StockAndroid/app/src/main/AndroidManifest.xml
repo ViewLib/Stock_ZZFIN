@@ -70,6 +70,10 @@
             android:name=".page.activity.StockEditActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".page.activity.StockAboutUsActivity"
+            android:screenOrientation="portrait" />
+
         <!--Mob-->
         <activity
             android:name="com.mob.tools.MobUIShell"

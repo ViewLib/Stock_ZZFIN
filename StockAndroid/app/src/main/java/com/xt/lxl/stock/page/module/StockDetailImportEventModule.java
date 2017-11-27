@@ -24,13 +24,8 @@ public class StockDetailImportEventModule extends StockDetailBaseModule implemen
     private LinearLayout mEventContainer;//问题列表
 
 
-<<<<<<< HEAD
     public StockDetailImportEventModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         super(cacheBean, listener);
-=======
-    public StockDetailImportEventModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean, null);
->>>>>>> 详情页删除股票功能
     }
 
     @Override

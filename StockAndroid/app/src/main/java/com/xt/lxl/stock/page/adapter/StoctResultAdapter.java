@@ -12,7 +12,9 @@ import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.model.model.StockSearchModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
+import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.HotelViewHolder;
+import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,13 +95,17 @@ public class StoctResultAdapter extends BaseAdapter {
     private void bindDataByStock(View convertView, StockViewModel stockViewModel) {
         final TextView stockName = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_name);
         final TextView stockCode = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_code);
-        final TextView stockAction = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_action);
+        final StockTextView stockAction = HotelViewHolder.requestView(convertView, R.id.stock_item_list_item_action);
         String defaultStr = "数据缺失";
 
         if (mSaveList.contains(stockViewModel.stockCode)) {
             stockAction.setText("已添加");
+            stockAction.setCompoundDrawable(null, 0, 0, 0);
         } else {
-            stockAction.setText("+ 自选");
+            int pixelFromDip = DeviceUtil.getPixelFromDip(convertView.getContext(), 15);
+            stockAction.setText("");
+            stockAction.setCompoundDrawable(convertView.getResources().getDrawable(R.drawable.stock_history_item_add), 0, pixelFromDip, pixelFromDip);
+            stockAction.setOnClickListener(mCallBacks.mActionCallBack);
         }
         stockAction.setOnClickListener(mCallBacks.mActionCallBack);
         stockAction.setTag(stockViewModel);

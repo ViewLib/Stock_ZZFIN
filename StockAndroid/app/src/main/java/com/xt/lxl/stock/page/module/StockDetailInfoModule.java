@@ -7,10 +7,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.util.DeviceUtil;
-<<<<<<< HEAD
 import com.xt.lxl.stock.util.StockUtil;
-=======
->>>>>>> 详情页删除股票功能
 import com.xt.lxl.stock.util.StringUtil;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockDetailShowText;
@@ -65,9 +62,9 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
             marketvalue.setTextValue("市值", "暂无");
         } else {
             privceTv.setText(stockViewModel.stockPirce);
-            changePriceValueTv.setText(stockViewModel.stockChangeValue);
             changePriceRatioTv.setText(stockViewModel.stockChange + "%");//需要颜色的
             if (stockViewModel.stockChangeValue.startsWith("-")) {
+                changePriceValueTv.setText(stockViewModel.stockChangeValue);
                 privceTv.setTextAppearance(mContainer.getContext(), R.style.text_22_006400);
                 changePriceValueTv.setTextAppearance(mContainer.getContext(), R.style.text_14_006400);
                 changePriceRatioTv.setTextAppearance(mContainer.getContext(), R.style.text_14_006400);
@@ -75,6 +72,7 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
                 privceTv.setTextAppearance(mContainer.getContext(), R.style.text_22_fe2a32);
                 changePriceValueTv.setTextAppearance(mContainer.getContext(), R.style.text_14_fe2a32);
                 changePriceRatioTv.setTextAppearance(mContainer.getContext(), R.style.text_14_fe2a32);
+                changePriceValueTv.setText("+" + stockViewModel.stockChangeValue);
             }
 
             priceTop.setTextValue("今日最高", stockViewModel.maxPrice);
@@ -83,32 +81,18 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
             float v = (currenyPrice - mCacheBean.forwardPirce) / currenyPrice;
             upAndDown.setTextValue("今年涨幅", StockUtil.roundedFor(v, 2) + "%");
             rate.setTextValue("换手率", stockViewModel.turnover + "%");
-            turnover.setTextValue("成交量", stockViewModel.volume + "手");
+            turnover.setTextValue("成交值", StockUtil.getDealValue(stockViewModel.dealValue));
             marketvalue.setTextValue("市值", stockViewModel.valueAll + "亿");
         }
-<<<<<<< HEAD
-        if (mCacheBean.isAdd) {
-            stockAdd.setEnabled(false);
-            stockAdd.setText("已添加");
-            stockAdd.setCompoundDrawable(null, 1, 0, 0);
-        } else {
-            stockAdd.setEnabled(true);
-            stockAdd.setText("添加");
-            int pixelFromDip = DeviceUtil.getPixelFromDip(mContext, 15);
-            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_add), 1, pixelFromDip, pixelFromDip);
-        }
         stockAdd.setOnClickListener(mListener.addClickListener);
-=======
         int pixelFromDip = DeviceUtil.getPixelFromDip(mContext, 15);
         if (mCacheBean.isAdd) {
             stockAdd.setText("删除");
-            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_add),1,pixelFromDip,pixelFromDip);
+            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_add), 1, pixelFromDip, pixelFromDip);
         } else {
             stockAdd.setText("添加");
-            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_delete),1,pixelFromDip,pixelFromDip);
+            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_delete), 1, pixelFromDip, pixelFromDip);
         }
         stockAdd.setOnClickListener(mListener.addClickListener);
-
->>>>>>> 详情页删除股票功能
     }
 }

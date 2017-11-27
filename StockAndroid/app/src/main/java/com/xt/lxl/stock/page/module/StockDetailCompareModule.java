@@ -22,7 +22,7 @@ import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
 import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.util.StringUtil;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
-import com.xt.lxl.stock.widget.view.StockTabGroupButton;
+import com.xt.lxl.stock.widget.view.StockTabGroupButton2;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
@@ -38,24 +38,19 @@ import java.util.Map;
 public class StockDetailCompareModule extends StockDetailBaseModule {
 
     private StockTextView mTitle;
-    private StockTabGroupButton mTab;//
+    private StockTabGroupButton2 mTab;//
     private ViewPager mViewPager;//横向比较内容
     StockViewPagerAdapter adapter;
 
 
-<<<<<<< HEAD
     public StockDetailCompareModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         super(cacheBean, listener);
-=======
-    public StockDetailCompareModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean, null);
->>>>>>> 详情页删除股票功能
     }
 
     @Override
     public void initModuleView(View view) {
         mTitle = (StockTextView) view.findViewById(R.id.stock_detail_compare_title);
-        mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_compare_tab);
+        mTab = (StockTabGroupButton2) view.findViewById(R.id.stock_detail_compare_tab);
         mViewPager = (ViewPager) view.findViewById(R.id.stock_detail_compare_pager);
         List<String> list = new ArrayList<>();
         list.add("市盈率");
@@ -73,7 +68,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         adapter = new StockViewPagerAdapter(viewList);
         mViewPager.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        mTab.setOnTabItemSelectedListener(new StockTabGroupButton.OnTabItemSelectedListener() {
+        mTab.setOnTabItemSelectedListener(new StockTabGroupButton2.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {
                 mViewPager.setCurrentItem(whichButton);
@@ -155,14 +150,15 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
             }
         };
 
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setTypeface(Typeface.DEFAULT);
-        leftAxis.setLabelCount(6, false);
-        leftAxis.setValueFormatter(custom);
-        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        leftAxis.setSpaceTop(20f);
-        leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
+//        YAxis leftAxis = mChart.getAxisLeft();
+//        leftAxis.setTypeface(Typeface.DEFAULT);
+//        leftAxis.setLabelCount(6, false);
+//        leftAxis.setValueFormatter(custom);
+//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+//        leftAxis.setSpaceTop(20f);
+//        leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
         mChart.getAxisRight().setEnabled(false);//隐藏右边的坐标轴
+        mChart.getAxisLeft().setEnabled(false);
     }
 
 

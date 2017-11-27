@@ -7,7 +7,7 @@
     <RadioGroup
         android:id="@+id/radio_group_switch"
         android:layout_width="fill_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@color/stock_main_white_bg"
         android:gravity="center_vertical"

@@ -18,14 +18,10 @@ public abstract class StockDetailBaseModule {
 
     public StockDetailBaseModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         mCacheBean = cacheBean;
-<<<<<<< HEAD
-        this.mListener = listener;
-=======
         mListener = listener;
         if (mListener == null) {
             mListener = new StockDetailListener();
         }
->>>>>>> 详情页删除股票功能
     }
 
     public void setModuleView(View view) {

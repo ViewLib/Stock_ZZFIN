@@ -25,13 +25,8 @@ public class StockDetailGradeModule extends StockDetailBaseModule {
     private LinearLayout mContainer;
 
 
-<<<<<<< HEAD
     public StockDetailGradeModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         super(cacheBean, listener);
-=======
-    public StockDetailGradeModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean, null);
->>>>>>> 详情页删除股票功能
     }
 
     @Override

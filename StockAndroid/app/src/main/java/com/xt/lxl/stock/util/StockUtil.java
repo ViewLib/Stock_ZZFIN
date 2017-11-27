@@ -35,9 +35,7 @@ public class StockUtil {
     }
 
     public static String getVolUnit(float num) {
-
         int e = (int) Math.floor(Math.log10(num));
-
         if (e >= 8) {
             return "亿手";
         } else if (e >= 4) {
@@ -45,6 +43,25 @@ public class StockUtil {
         } else {
             return "手";
         }
+    }
+
+    /**
+     * 输入单位万
+     *
+     * @param value
+     * @return
+     */
+    public static String getDealValue(String value) {
+        try {
+            float i = Float.parseFloat(value);
+            if (i > 9999) {
+                return roundedFor((i / 10000f), 2) + "亿";
+            }
+            return value + "万";
+        } catch (Exception e) {
+
+        }
+        return value + "万";
     }
 
     public static float culcMaxscale(float count) {

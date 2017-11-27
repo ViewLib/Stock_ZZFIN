@@ -190,7 +190,7 @@ public class DataShowUtil {
         stockViewModel.minPrice = split[34];//最低
 //        stockViewModel.stockCode = split[35];//价格/成交量（手）/成交额
         stockViewModel.volume = split[36];//成交量（手）
-//        stockViewModel.stockCode = split[37];//成交额（万）
+        stockViewModel.dealValue = split[37];//成交额（万）
         stockViewModel.turnover = split[38];//换手率
         stockViewModel.ratio = split[39];//市盈率
 //        stockViewModel.stockCode = split[40];//无

@@ -14,7 +14,7 @@ import com.xt.lxl.stock.model.model.StockDetailStockHolder;
 import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockDetailShowText;
-import com.xt.lxl.stock.widget.view.StockTabGroupButton;
+import com.xt.lxl.stock.widget.view.StockTabGroupButton2;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
@@ -28,24 +28,19 @@ import java.util.List;
 public class StockDetailDescModule extends StockDetailBaseModule {
 
     private StockTextView mTitle;
-    private StockTabGroupButton mTab;//查看更多
+    private StockTabGroupButton2 mTab;//查看更多
     private ViewPager mPager;//
     private List<View> mViewList = new ArrayList<>();
     private StockViewPagerAdapter pagerAdapter;
 
-<<<<<<< HEAD
     public StockDetailDescModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         super(cacheBean, listener);
-=======
-    public StockDetailDescModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean, null);
->>>>>>> 详情页删除股票功能
     }
 
     @Override
     public void initModuleView(View view) {
         mTitle = (StockTextView) view.findViewById(R.id.stock_detail_desc_title);
-        mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_desc_tab);
+        mTab = (StockTabGroupButton2) view.findViewById(R.id.stock_detail_desc_tab);
         mPager = (ViewPager) view.findViewById(R.id.stock_detail_desc_container);
         List<String> list = new ArrayList<>();
         list.add("公司简介");
@@ -61,7 +56,7 @@ public class StockDetailDescModule extends StockDetailBaseModule {
         pagerAdapter = new StockViewPagerAdapter(mViewList);
         mPager.setAdapter(pagerAdapter);
         pagerAdapter.notifyDataSetChanged();
-        mTab.setOnTabItemSelectedListener(new StockTabGroupButton.OnTabItemSelectedListener() {
+        mTab.setOnTabItemSelectedListener(new StockTabGroupButton2.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {
                 mPager.setCurrentItem(whichButton);
