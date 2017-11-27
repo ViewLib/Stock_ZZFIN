@@ -316,9 +316,19 @@ public class StockDetailActivity extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
+                if(mCacheBean.isAdd ){
+                    mCacheBean.isAdd = false;
+                    DataSource.deleteStockCode(StockDetailActivity.this, mCacheBean.mStockViewModel.stockCode);
+                }else{
+                    mCacheBean.isAdd = true;
+                    DataSource.addStockCode(StockDetailActivity.this, mCacheBean.mStockViewModel.stockCode);
+                }
                 //添加操作
+<<<<<<< HEAD
                 mCacheBean.isAdd = true;
                 DataSource.addStockCode(StockDetailActivity.this, mCacheBean.mStockViewModel.stockCode);
+=======
+>>>>>>> 详情页删除股票功能
                 infoModule.bindData();
             }
         };

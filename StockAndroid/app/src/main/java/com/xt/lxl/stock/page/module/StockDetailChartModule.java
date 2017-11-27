@@ -14,8 +14,13 @@ import com.xt.lxl.stock.widget.view.StockDetailChartView;
 public class StockDetailChartModule extends StockDetailBaseModule {
     StockDetailChartView detailChartView;
 
+<<<<<<< HEAD
     public StockDetailChartModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         super(cacheBean,listener);
+=======
+    public StockDetailChartModule(StockDetailCacheBean cacheBean) {
+        super(cacheBean, null);
+>>>>>>> 详情页删除股票功能
     }
 
     @Override

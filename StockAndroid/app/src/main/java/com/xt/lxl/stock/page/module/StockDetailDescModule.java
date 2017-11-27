@@ -33,8 +33,13 @@ public class StockDetailDescModule extends StockDetailBaseModule {
     private List<View> mViewList = new ArrayList<>();
     private StockViewPagerAdapter pagerAdapter;
 
+<<<<<<< HEAD
     public StockDetailDescModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         super(cacheBean, listener);
+=======
+    public StockDetailDescModule(StockDetailCacheBean cacheBean) {
+        super(cacheBean, null);
+>>>>>>> 详情页删除股票功能
     }
 
     @Override

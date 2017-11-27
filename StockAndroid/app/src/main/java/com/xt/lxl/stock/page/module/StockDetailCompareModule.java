@@ -43,8 +43,13 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
     StockViewPagerAdapter adapter;
 
 
+<<<<<<< HEAD
     public StockDetailCompareModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         super(cacheBean, listener);
+=======
+    public StockDetailCompareModule(StockDetailCacheBean cacheBean) {
+        super(cacheBean, null);
+>>>>>>> 详情页删除股票功能
     }
 
     @Override

@@ -7,7 +7,10 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.util.DeviceUtil;
+<<<<<<< HEAD
 import com.xt.lxl.stock.util.StockUtil;
+=======
+>>>>>>> 详情页删除股票功能
 import com.xt.lxl.stock.util.StringUtil;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockDetailShowText;
@@ -83,6 +86,7 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
             turnover.setTextValue("成交量", stockViewModel.volume + "手");
             marketvalue.setTextValue("市值", stockViewModel.valueAll + "亿");
         }
+<<<<<<< HEAD
         if (mCacheBean.isAdd) {
             stockAdd.setEnabled(false);
             stockAdd.setText("已添加");
@@ -94,5 +98,17 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
             stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_add), 1, pixelFromDip, pixelFromDip);
         }
         stockAdd.setOnClickListener(mListener.addClickListener);
+=======
+        int pixelFromDip = DeviceUtil.getPixelFromDip(mContext, 15);
+        if (mCacheBean.isAdd) {
+            stockAdd.setText("删除");
+            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_add),1,pixelFromDip,pixelFromDip);
+        } else {
+            stockAdd.setText("添加");
+            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_delete),1,pixelFromDip,pixelFromDip);
+        }
+        stockAdd.setOnClickListener(mListener.addClickListener);
+
+>>>>>>> 详情页删除股票功能
     }
 }

@@ -48,8 +48,13 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
     private StockViewPagerAdapter adapter;
 
 
+<<<<<<< HEAD
     public StockDetailNewsModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         super(cacheBean, listener);
+=======
+    public StockDetailNewsModule(StockDetailCacheBean cacheBean) {
+        super(cacheBean, null);
+>>>>>>> 详情页删除股票功能
     }
 
     @Override

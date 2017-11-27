@@ -41,8 +41,14 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
     private ViewPager mViewPager;//问题列表
     private StockViewPagerAdapter adapter;
 
+<<<<<<< HEAD
     public StockDetailFinanceModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         super(cacheBean, listener);
+=======
+
+    public StockDetailFinanceModule(StockDetailCacheBean cacheBean) {
+        super(cacheBean, null);
+>>>>>>> 详情页删除股票功能
     }
 
     @Override
