@@ -19,6 +19,7 @@ import java.util.List;
 public class StockDetailCacheBean {
 
     public StockViewModel mStockViewModel = new StockViewModel();
+    public float forwardPirce = 0;
     public boolean isAdd;//是否添加过该股票
     public StockDetailCompanyModel stockDetailCompanyModel = new StockDetailCompanyModel();//是否添加过该股票
     public List<StockDetailStockHolder> stockHolderList = new ArrayList<>();//十大股东

@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
-import com.xt.lxl.stock.listener.StockItemEditCallBacks;
 import com.xt.lxl.stock.listener.StockRankCallBacks;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.util.DeviceUtil;
@@ -76,7 +75,7 @@ public class StockRankAdapter extends BaseAdapter {
             }
         } else {
             if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.stock_rank_history_item, parent, false);
+                convertView = mInflater.inflate(R.layout.stock_rank_list_item, parent, false);
             }
             bindData(convertView, getItem(position), position);
         }
@@ -84,6 +83,7 @@ public class StockRankAdapter extends BaseAdapter {
     }
 
     private void bindData(View convertView, StockRankResultModel stockViewModel, int position) {
+        boolean isHightLight = position<=3;
 
         final TextView stockPosition = HotelViewHolder.requestView(convertView, R.id.stock_rank_position);
         final LinearLayout stockInfoView = HotelViewHolder.requestView(convertView, R.id.stock_rank_view);
@@ -101,6 +101,7 @@ public class StockRankAdapter extends BaseAdapter {
         }
         stockPosition.setText(positionStr);
         stockName.setText(stockViewModel.stockName);
+        stockName.setTextAppearance(convertView.getContext(),isHightLight?R.style.text_14_186db7:R.style.text_14_090909);
         stockCode.setText(stockViewModel.stockCode);
         setChildWidth(stockInfoView, mWidthMap.get(0));
 
@@ -112,6 +113,7 @@ public class StockRankAdapter extends BaseAdapter {
             int pixelFromDip = DeviceUtil.getPixelFromDip(convertView.getContext(), 20);
             stockAction.setCompoundDrawable(convertView.getResources().getDrawable(R.drawable.stock_history_item_add), 0, pixelFromDip, pixelFromDip);
             stockAction.setOnClickListener(mCallBacks.mActionCallBack);
+            stockAction.setTag(stockViewModel);
         }
         setChildWidth(stockActionView, mWidthMap.get(1));
 

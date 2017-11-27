@@ -346,6 +346,16 @@ public class StockSender {
         return eventsDataResponse;
     }
 
+    /**
+     * 横向比较
+     *
+     * @param requestStockCode
+     * @return
+     */
+    public float requestForwadPrice(String requestStockCode) {
+        return 10.0f;
+    }
+
     private static String requestGet(String baseUrl, String requestJsonStr, String code) {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("data", requestJsonStr);

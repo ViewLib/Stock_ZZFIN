@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockEventsDataList;
 import com.xt.lxl.stock.model.model.StockEventsDataModel;
@@ -24,7 +25,7 @@ import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
 import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
-import com.xt.lxl.stock.widget.view.StockTabGroupButton;
+import com.xt.lxl.stock.widget.view.StockTabGroupButton2;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
@@ -40,21 +41,21 @@ import java.util.Map;
 public class StockDetailNewsModule extends StockDetailBaseModule implements View.OnClickListener {
 
     private StockTextView mTitle;
-    private StockTabGroupButton mTab;//查看更多
+    private StockTabGroupButton2 mTab;//查看更多
     private ViewPager mViewPager;//问题列表
     private RelativeLayout mStockNewDetail;
     private LineChart mLineChart;
     private StockViewPagerAdapter adapter;
 
 
-    public StockDetailNewsModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean);
+    public StockDetailNewsModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
+        super(cacheBean, listener);
     }
 
     @Override
     public void initModuleView(View view) {
         mTitle = (StockTextView) view.findViewById(R.id.stock_news_title);
-        mTab = (StockTabGroupButton) view.findViewById(R.id.stock_detail_news_tab);
+        mTab = (StockTabGroupButton2) view.findViewById(R.id.stock_detail_news_tab);
         mLineChart = (LineChart) view.findViewById(R.id.stock_detail_linechart);
         mStockNewDetail = (RelativeLayout) view.findViewById(R.id.stock_detail_news_detail);
         mViewPager = (ViewPager) view.findViewById(R.id.stock_detail_news_view_pager);
@@ -68,7 +69,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         list.add("投资");
         mTab.setTabItemArrayText(list);
         mTab.initView();
-        mTab.setOnTabItemSelectedListener(new StockTabGroupButton.OnTabItemSelectedListener() {
+        mTab.setOnTabItemSelectedListener(new StockTabGroupButton2.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {
                 //选中
@@ -186,7 +187,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
     }
 
     private void initBarChart(LineChart lineChart) {
-        lineChart.setDrawBorders(true); // 是否在折线图上添加边框
+        lineChart.setDrawBorders(false); // 是否在折线图上添加边框
         lineChart.setDescription("");// 隐藏描述
 //        lineChart.setDescriptionPosition(550, 60);//设置表格描述
 //        lineChart.setDescriptionColor(Color.BLACK);//设置颜色

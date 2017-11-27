@@ -5,6 +5,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockEventsDataList;
 import com.xt.lxl.stock.model.model.StockEventsDataModel;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
@@ -23,8 +24,8 @@ public class StockDetailImportEventModule extends StockDetailBaseModule implemen
     private LinearLayout mEventContainer;//问题列表
 
 
-    public StockDetailImportEventModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean);
+    public StockDetailImportEventModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
+        super(cacheBean, listener);
     }
 
     @Override

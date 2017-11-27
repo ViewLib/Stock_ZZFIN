@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="300170"
-            android:textAppearance="@style/text_14_62696f" />
+            android:textAppearance="@style/text_11_999999" />
 
     </LinearLayout>
 

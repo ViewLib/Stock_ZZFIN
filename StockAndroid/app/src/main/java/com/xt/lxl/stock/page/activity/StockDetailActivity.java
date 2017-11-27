@@ -19,6 +19,7 @@ import com.xt.lxl.stock.model.reponse.StockDetailFinanceResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailGradeResponse;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
+import com.xt.lxl.stock.model.reponse.StockSyncResponse;
 import com.xt.lxl.stock.page.chartfragment.StockDayChartFragment;
 import com.xt.lxl.stock.page.module.StockDetailChartModule;
 import com.xt.lxl.stock.page.module.StockDetailCompareModule;
@@ -78,30 +79,30 @@ public class StockDetailActivity extends FragmentActivity {
     private void initView() {
         titleView = (StockTitleView) findViewById(R.id.stock_title_view);
 
-        infoModule = new StockDetailInfoModule(mCacheBean);
+        infoModule = new StockDetailInfoModule(mCacheBean, listener);
         infoModule.setModuleView(findViewById(R.id.stock_detail_home_info));
 
-        chartModule = new StockDetailChartModule(mCacheBean);
+        chartModule = new StockDetailChartModule(mCacheBean, listener);
         chartModule.setModuleView(findViewById(R.id.stock_kline));
 
-        importEventModule = new StockDetailImportEventModule(mCacheBean);
+        importEventModule = new StockDetailImportEventModule(mCacheBean, listener);
         importEventModule.setModuleView(findViewById(R.id.stock_detail_home_event));
 
-        newsModule = new StockDetailNewsModule(mCacheBean);
+        newsModule = new StockDetailNewsModule(mCacheBean, listener);
         newsModule.setModuleView(findViewById(R.id.stock_detail_home_news));
 
 
-        descModule = new StockDetailDescModule(mCacheBean);
+        descModule = new StockDetailDescModule(mCacheBean, listener);
         descModule.setModuleView(findViewById(R.id.stock_detail_home_desc));
 
 
-        financeModule = new StockDetailFinanceModule(mCacheBean);
+        financeModule = new StockDetailFinanceModule(mCacheBean, listener);
         financeModule.setModuleView(findViewById(R.id.stock_detail_home_finance));
 
-        compareModule = new StockDetailCompareModule(mCacheBean);
+        compareModule = new StockDetailCompareModule(mCacheBean, listener);
         compareModule.setModuleView(findViewById(R.id.stock_detail_home_compare));
 
-        gradeModule = new StockDetailGradeModule(mCacheBean);
+        gradeModule = new StockDetailGradeModule(mCacheBean, listener);
         gradeModule.setModuleView(findViewById(R.id.stock_detail_home_grade));
     }
 
@@ -147,6 +148,11 @@ public class StockDetailActivity extends FragmentActivity {
                 if (stockViewModelList.size() == 0) {
                     return;
                 }
+                if (mCacheBean.forwardPirce == 0) {
+                    float v = StockSender.getInstance().requestForwadPrice(mCacheBean.mStockViewModel.getRequestStockCode());
+                    mCacheBean.forwardPirce = v;
+                }
+
                 final StockViewModel stockViewModel = stockViewModelList.get(0);//刷新股票
                 mCacheBean.mStockViewModel.stockName = stockViewModel.stockName;
                 mCacheBean.mStockViewModel.stockPirce = stockViewModel.stockPirce;
@@ -310,9 +316,13 @@ public class StockDetailActivity extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                //添加操作
-                mCacheBean.isAdd = false;
-                DataSource.addStockCode(StockDetailActivity.this, mCacheBean.mStockViewModel.stockCode);
+                if (mCacheBean.isAdd) {
+                    mCacheBean.isAdd = false;
+                    DataSource.deleteStockCode(StockDetailActivity.this, mCacheBean.mStockViewModel.stockCode);
+                } else {
+                    mCacheBean.isAdd = true;
+                    DataSource.addStockCode(StockDetailActivity.this, mCacheBean.mStockViewModel.stockCode);
+                }
                 infoModule.bindData();
             }
         };

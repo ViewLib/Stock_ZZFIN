@@ -361,7 +361,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         xAxisBar.setGridColor(getResources().getColor(R.color.minute_grayLine));
 
         axisLeftBar = barChart.getAxisLeft();
-        axisLeftBar.setAxisMinValue(0);
+//        axisLeftBar.setAxisMinValue(0);
         axisLeftBar.setDrawGridLines(false);
         axisLeftBar.setDrawAxisLine(false);
         axisLeftBar.setTextColor(getResources().getColor(R.color.minute_zhoutv));
