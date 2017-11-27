@@ -187,7 +187,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
     }
 
     private void initBarChart(LineChart lineChart) {
-        lineChart.setDrawBorders(true); // 是否在折线图上添加边框
+        lineChart.setDrawBorders(false); // 是否在折线图上添加边框
         lineChart.setDescription("");// 隐藏描述
 //        lineChart.setDescriptionPosition(550, 60);//设置表格描述
 //        lineChart.setDescriptionColor(Color.BLACK);//设置颜色
