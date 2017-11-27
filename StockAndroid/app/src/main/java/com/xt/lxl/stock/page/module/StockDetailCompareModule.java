@@ -13,7 +13,10 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockDetailCompareModel;
@@ -109,7 +112,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         mChart.setLayoutParams(lp);
         initBarChart(mChart);
         initBarChartXY(mChart, type);
-        bindChartData(mChart, compareModelList, map);
+        bindChartData(mChart, compareModelList, map, type);
         return mChart;
     }
 
@@ -133,22 +136,22 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         xAxis.setDrawGridLines(false);
         xAxis.setSpaceBetweenLabels(2);//设置x标签的间隙
 
-        YAxisValueFormatter custom = new YAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, YAxis yAxis) {
-                //大于1亿就展示为1.xx亿
-                if (type == 1) {
-                    return String.valueOf(value) + "x";
-                } else if (type == 2) {
-                    return String.valueOf(value) + "%";
-                } else if (type == 3) {
-                    return String.valueOf(value) + "%";
-                } else if (type == 4) {
-                    return String.valueOf(value) + "元";
-                }
-                return String.valueOf(value);
-            }
-        };
+//        YAxisValueFormatter custom = new YAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value, YAxis yAxis) {
+//                //大于1亿就展示为1.xx亿
+//                if (type == 1) {
+//                    return String.valueOf(value) + "x";
+//                } else if (type == 2) {
+//                    return String.valueOf(value) + "%";
+//                } else if (type == 3) {
+//                    return String.valueOf(value) + "%";
+//                } else if (type == 4) {
+//                    return String.valueOf(value) + "元";
+//                }
+//                return String.valueOf(value);
+//            }
+//        };
 
 //        YAxis leftAxis = mChart.getAxisLeft();
 //        leftAxis.setTypeface(Typeface.DEFAULT);
@@ -162,7 +165,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
     }
 
 
-    private void bindChartData(BarChart mChart, List<StockDetailCompareModel> compareModelList, Map<String, Float> map) {
+    private void bindChartData(BarChart mChart, List<StockDetailCompareModel> compareModelList, Map<String, Float> map, final int type) {
         ArrayList<String> xVals = new ArrayList<String>();
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
@@ -186,6 +189,23 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         data.setValueTextSize(10f);
         data.setValueTypeface(Typeface.DEFAULT);
         mChart.setData(data);
+
+        ValueFormatter custom = new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                if (type == 1) {
+                    return String.valueOf(value) + "x";
+                } else if (type == 2) {
+                    return String.valueOf(value) + "%";
+                } else if (type == 3) {
+                    return String.valueOf(value) + "%";
+                } else if (type == 4) {
+                    return String.valueOf(value) + "元";
+                }
+                return String.valueOf(value);
+            }
+        };
+        mChart.getBarData().setValueFormatter(custom);
     }
 
 }

@@ -184,7 +184,6 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
                 return stockDetailFinanceGroup.getShowItemUnit(value);
             }
         };
-
         mChart.getBarData().setValueFormatter(custom);
     }
 

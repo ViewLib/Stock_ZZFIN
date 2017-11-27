@@ -1,5 +1,6 @@
 package com.xt.lxl.stock.model.model;
 
+import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.StringUtil;
 
 import java.math.BigDecimal;
@@ -33,10 +34,10 @@ public class StockDetailFinanceGroup {
 
         if (financeType == FinanceType_INCOME) {
             if (maxValue > 100000000) {
-                return value / 100000000 + "亿";
+                return StockUtil.roundedFor(value / 100000000, 2) + "亿";
             }
             if (maxValue > 10000) {
-                return value / 100000000 + "万";
+                return StockUtil.roundedFor(value / 10000, 2) + "万";
             }
             return String.valueOf(value);
         }
