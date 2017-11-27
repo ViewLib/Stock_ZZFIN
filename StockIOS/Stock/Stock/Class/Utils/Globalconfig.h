@@ -44,7 +44,7 @@
 #define unified(obj)            [Utils unifiedStockCode:obj]
 
 //两个点之间的间距
-#define LINEGAP    10
+#define LINEGAP    2
 
 //每一个价格点的宽度
 #define LINE       1

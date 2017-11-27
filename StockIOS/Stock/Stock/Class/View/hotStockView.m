@@ -17,12 +17,25 @@
     self.layer.borderColor = MAIN_COLOR.CGColor;
     self.layer.cornerRadius = self.bounds.size.height/2;
     
+    self.backgroundColor = [MAIN_COLOR colorWithAlphaComponent:0.1];
+    
     self.value = [[UILabel alloc] init];
     [self.value setFont:[UIFont systemFontOfSize:12.0f]];
     [self.value setTextColor:[Utils colorFromHexRGB:@"090909"]];
     [self.value setTextAlignment:NSTextAlignmentCenter];
     [self.value setText:@"内容"];
     [self addSubview:self.value];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:self.bounds];
+    [btn addTarget:self action:@selector(clickView) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:btn];
+}
+
+- (void)clickView {
+    if (self.clickBlock) {
+        self.clickBlock(self);
+    }
 }
 
 - (void)layoutSubviews {

@@ -48,7 +48,7 @@
     //11:30和13:00挨在一起，显示一个就够了
     //最后一个服务器返回的minute不是960,故只能特殊处理
 //    return [_dict[@"minute"] integerValue] == 570 ||  [_dict[@"minute"] integerValue] == 780 ||  [_dict[@"index"] integerValue] == 240;
-    return [_dict[@"minute"] isEqualToString:@"09:30"] ||  [_dict[@"minute"] isEqualToString:@"11:30"] ||  [_dict[@"minute"] isEqualToString:@"13:00"] || [_dict[@"minute"] isEqualToString:@"15:00"];
+    return [_dict[@"minute"] isEqualToString:@"09:30"] || [_dict[@"minute"] isEqualToString:@"10:30"] ||  [_dict[@"minute"] isEqualToString:@"11:30"] ||  [_dict[@"minute"] isEqualToString:@"13:00"] || [_dict[@"minute"] isEqualToString:@"14:00"] ||  [_dict[@"minute"] isEqualToString:@"15:00"];
 }
 
 - (instancetype)initWithDict:(NSDictionary *)dict {

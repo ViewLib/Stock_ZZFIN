@@ -13,7 +13,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.titleAry = @[@"公司简介",@"股东"];
+    self.titleAry = @[@"公司简介",@"十大股东"];
     [_MenuCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"meunCall"];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 5.0;
@@ -160,7 +160,7 @@
 
 //两个视图切换
 - (void)reloadValueView:(NSString *)string {
-    if ([string isEqual:@"股东"]) {
+    if ([string isEqual:@"十大股东"]) {
         self.gdView.hidden = NO;
         self.gsjjView.hidden = YES;
     } else {

@@ -278,7 +278,22 @@
  返回按钮点击事件
 */
 - (IBAction)clickReturnBtn:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        CATransition *animation = [CATransition animation];
+        
+        animation.duration = .5;
+        
+        animation.timingFunction = UIViewAnimationCurveEaseInOut;
+        
+        animation.type = kCATransitionPush;
+        
+        animation.subtype = kCATransitionFromLeft;
+        
+        [self.view.window.layer addAnimation:animation forKey:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

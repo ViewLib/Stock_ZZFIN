@@ -9,6 +9,7 @@
 #import "SearchViewController.h"
 #import "SearchHistoryTableViewCell.h"
 #import "StockValueViewController.h"
+#import "RankViewController.h"
 #import "hotStockView.h"
 
 @interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -94,10 +95,16 @@
         hotStockView *view = hots[i];
         if (i < [Config shareInstance].hotStocks.count) {
             NSDictionary *dic = [Config shareInstance].hotStocks[i];
+            view.valueDic = dic;
             view.value.text = dic[@"rankModel"][@"title"];
         } else {
             view.hidden = YES;
         }
+        WS(self)
+        view.clickBlock = ^(hotStockView *view) {
+            NSDictionary *dic = view.valueDic;
+            [selfWeak jumpToRankView:dic];
+        };
     }
     
     _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
@@ -111,6 +118,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _tableDate.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -128,9 +139,8 @@
         WS(self)
         cell.addOptionalBlock = ^(NSInteger row) {
             [selfWeak.view endEditing:YES];
-            [selfWeak insertCoreData:dic[@"code"] isJoinCoreData:YES request:nil];
             [[DataManager shareDataMangaer] insertHistoryStock:@{@"title":dic[@"title"],@"code":dic[@"code"]}];
-            [selfWeak reloadTableView];
+            [selfWeak insertCoreData:dic[@"code"] isJoinCoreData:YES request:nil];
         };
     }
     return cell;
@@ -168,6 +178,21 @@
     
     viewController.stock = entity;
     
+    [self hideHud];
+    
+    [self animationWithCollection:viewController];
+    
+}
+
+- (void)jumpToRankView:(NSDictionary *)dic {
+    RankViewController *rankVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Rank"];
+    
+    rankVC.valueDic = dic;
+    
+    [self animationWithCollection:rankVC];
+}
+
+- (void)animationWithCollection:(UIViewController *)viewController {
     CATransition *animation = [CATransition animation];
     
     animation.duration = .5;
@@ -179,8 +204,6 @@
     animation.subtype = kCATransitionFromRight;
     
     [self.view.window.layer addAnimation:animation forKey:nil];
-    
-    [self hideHud];
     
     [self presentViewController:viewController animated:NO completion:^{
         [self dismissViewControllerAnimated:NO completion:nil];
@@ -201,7 +224,9 @@
                     StockObjEntity *entity = [[StockObjEntity alloc] initWithArray:responseValues];
                     if (isJoin) {
                         [[DataManager shareDataMangaer] updateSotckEntity:entity];
+                        [Utils updateStock];
                         [self showHint:@"已添加自选"];
+                        [self reloadTableView];
                     } else {
                         if (request) {
                             request(entity);
@@ -257,7 +282,12 @@
     
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    [self filterBySubstring:searchText];
+    if (searchText.length == 0) {
+        self.isSearch = NO;
+        [self reloadTableView];
+    } else {
+        [self filterBySubstring:searchText];
+    }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {

@@ -14,7 +14,7 @@ typedef BOOL (^getNewsData)(NSString *string);
 
 @property (nonatomic, copy) getNewsData getNewsData;
 
-- (NSArray *)drawViewWithXPosition:(CGFloat)xPosition drawModels:(NSMutableArray*)drawLineModels  maxValue:(CGFloat)maxValue minValue:(CGFloat)minValue;
+- (NSArray *)drawViewWithXPosition:(CGFloat)xPosition drawModels:(NSMutableArray*)drawLineModels newValues:(NSMutableDictionary*)newValue maxValue:(CGFloat)maxValue minValue:(CGFloat)minValue;
 
 
 @end
