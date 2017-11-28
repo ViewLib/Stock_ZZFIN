@@ -318,11 +318,28 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
-                <p class="js_userid">user id&nbsp; :&nbsp;&nbsp; <input name="userid" id="txt_userid" value=""/></p>
-                <p>mobile&nbsp; :&nbsp;&nbsp; <input name="mobile" id="txt_mobile" value=""/></p>
-                <p>nickName&nbsp; :&nbsp;&nbsp; <input name="nickName" id="txt_nickName" value=""/></p>
-                <p>area&nbsp; :&nbsp;&nbsp; <input name="area" id="txt_area" value=""/></p>
-                <p>age&nbsp; :&nbsp;&nbsp; <input name="age" id="txt_age" value=""/></p>
+                <form id="defaultForm" class="form-horizontal">
+                    <div class="form-group js_userid">
+                        <label>User Id</label>
+                        <input id="txt_userid" type="text" class="form-control" name="userid" />
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile</label>
+                        <input id="txt_mobile" type="text" class="form-control" name="mobile" placeholder="移动电话" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>NickName</label>
+                        <input id="txt_nickName" type="text" class="form-control" name="nickName" placeholder="昵称" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>Area</label>
+                        <input id="txt_area" type="text" class="form-control" name="area" placeholder="地区" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input id="txt_age" type="text" class="form-control" name="age" placeholder="年龄" value=""/>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
