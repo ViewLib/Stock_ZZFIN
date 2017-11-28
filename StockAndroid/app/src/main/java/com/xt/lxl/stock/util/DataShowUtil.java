@@ -50,7 +50,7 @@ public class DataShowUtil {
             rightModel.mShowIndex = rightModel.mShowIndex > 1 ? 1 : rightModel.mShowIndex;
             rightModel.mBgColor = "#FA5259";
             if (viewModel.stockChangeD > 0.04) {
-                rightModel.mTextColor = "#ffffff";
+                rightModel.mTextColor = "#000000";
                 rightModel.mShowLocation = StockIndexChangeModel.SHOW_LOCATION_CENTER;
             } else {
                 rightModel.mTextColor = "#000000";
@@ -155,6 +155,9 @@ public class DataShowUtil {
         if ("0.00".equals(stockViewModel.stockPirce)) {
             //当前价格为0时代表停牌，取上一次的
             stockViewModel.stockPirce = split[4];
+            if ("0.00".equals(split[4])) {
+                stockViewModel.isDelisting = true;
+            }
             stockViewModel.isSuspension = true;
         }
         stockViewModel.stockBasePirce = split[4];//昨收价格
@@ -190,7 +193,7 @@ public class DataShowUtil {
         stockViewModel.minPrice = split[34];//最低
 //        stockViewModel.stockCode = split[35];//价格/成交量（手）/成交额
         stockViewModel.volume = split[36];//成交量（手）
-//        stockViewModel.stockCode = split[37];//成交额（万）
+        stockViewModel.dealValue = split[37];//成交额（万）
         stockViewModel.turnover = split[38];//换手率
         stockViewModel.ratio = split[39];//市盈率
 //        stockViewModel.stockCode = split[40];//无
@@ -198,7 +201,7 @@ public class DataShowUtil {
 //        stockViewModel.stockCode = split[42];//最低
         stockViewModel.amplitude = split[43];//振幅
 //        stockViewModel.stockCode = split[44];//流通市值
-        stockViewModel.valueAll = split[45];//总市值
+        stockViewModel.valueAll = split[45];//总市值 单位亿
 //        stockViewModel.stockCode = split[46];//市净率
 //        stockViewModel.stockCode = split[47];//涨停价
 //        stockViewModel.stockCode = split[48];//跌停价

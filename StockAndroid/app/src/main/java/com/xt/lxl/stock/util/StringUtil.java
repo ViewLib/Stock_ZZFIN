@@ -313,38 +313,6 @@ public class StringUtil {
         return string.replaceAll("[一-龥]*[a-z]*[A-Z]*\\d*-*_*\\s*", "").length() == 0;
     }
 
-    public static boolean isValidChineseNationality(String nationality) {
-        return "".equals(nationality)?true:"CNTWHKMO".indexOf(nationality.toUpperCase()) > -1;
-    }
-
-    public static boolean isFlightID(String flightid) {
-        Pattern p = Pattern.compile("^(CA|CZ|FM|MU|BK|JD|EU|CN|NS|HU|VD|G5|HO|KY|3U|SC|ZH|GS|PN|JR|MF|8L|KN|QF|OS)+[A-Z0-9]{3,4}");
-        Matcher m = p.matcher(flightid);
-        boolean valid = m.matches();
-        return valid;
-    }
-
-    public static int strlen(CharSequence temp) {
-        if(temp != null && temp.length() > 0) {
-            int len = 0;
-
-            for(int i = temp.length() - 1; i >= 0; --i) {
-                char c = temp.charAt(i);
-                if(c >= 48 && c <= 57 || c >= 97 && c <= 122 || c >= 65 && c <= 90) {
-                    ++len;
-                } else if(Character.isLetter(c)) {
-                    len += 2;
-                } else {
-                    ++len;
-                }
-            }
-
-            return len;
-        } else {
-            return 0;
-        }
-    }
-
     public static String formatDateString(int _year, int _month, int _day, int _hour, int _minute) {
         String value = String.valueOf(_year);
         if(_month < 10) {
@@ -502,65 +470,6 @@ public class StringUtil {
         SpannableString ss = new SpannableString(s);
         ss.setSpan(new StrikethroughSpan(), 0, s.length(), 33);
         return ss;
-    }
-
-    public static boolean stringCompare(String firstStr, String secondStr) {
-        return emptyOrNull(firstStr)?false:firstStr.compareTo(secondStr) > 0;
-    }
-
-    public static String getCraftKindStr(String craftKind) {
-        String craftKindStr = "";
-        if(craftKind.equalsIgnoreCase("M")) {
-            craftKindStr = "中机型";
-        } else if(craftKind.equalsIgnoreCase("S")) {
-            craftKindStr = "小机型";
-        } else if(craftKind.equalsIgnoreCase("L")) {
-            craftKindStr = "大机型";
-        }
-
-        return craftKindStr;
-    }
-
-    public static String getDateMessage(String[] sa) {
-        String s = "";
-        if(sa != null && sa.length >= 4) {
-            s = s + sa[0];
-            if(toInt(sa[1]) < 10) {
-                s = s + "0" + sa[1];
-            } else {
-                s = s + sa[1];
-            }
-
-            if(toInt(sa[2]) < 10) {
-                s = s + "0" + sa[2];
-            } else {
-                s = s + sa[2];
-            }
-        }
-
-        return s;
-    }
-
-    public static String processTimeStr(String str) {
-        String s = "";
-        if(str != null && str.length() >= 4) {
-            s = str.substring(0, 2) + ":" + str.substring(2, str.length());
-        }
-
-        return s;
-    }
-
-    public static int[] getDateField(String date) {
-        if(date != null && date.length() >= 8) {
-            int[] fields = new int[]{toInt(date.substring(0, 4)), 0, 0};
-            String month = date.substring(4, 6);
-            fields[1] = toInt(month) - 1;
-            String day = date.substring(6, 8);
-            fields[2] = toInt(day);
-            return fields;
-        } else {
-            return null;
-        }
     }
 
     public static String dateToString(int year, int month, int day) {

@@ -1,11 +1,13 @@
 package com.xt.lxl.stock.page.module;
 
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xt.lxl.stock.R;
+import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockDetailGradleModel;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockTextView;
@@ -23,8 +25,8 @@ public class StockDetailGradeModule extends StockDetailBaseModule {
     private LinearLayout mContainer;
 
 
-    public StockDetailGradeModule(StockDetailCacheBean cacheBean) {
-        super(cacheBean);
+    public StockDetailGradeModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
+        super(cacheBean, listener);
     }
 
     @Override

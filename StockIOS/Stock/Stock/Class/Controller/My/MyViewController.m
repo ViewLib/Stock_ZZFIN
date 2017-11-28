@@ -13,6 +13,8 @@
 #import "MyInforViewController.h"
 #import "FeedBackViewController.h"
 
+#define CELL_HIGH 60.0f
+
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIImageView *headerImg;
@@ -25,7 +27,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *messageNum;
 
-@property (weak, nonatomic) IBOutlet UILabel *collectionNum;
+@property (weak, nonatomic) IBOutlet UIView *loginBtnBg;
 
 @property (weak, nonatomic) IBOutlet UITableView *setingTable;
 
@@ -48,17 +50,26 @@
     _headerImg.layer.masksToBounds =YES;
     _headerImg.userInteractionEnabled = YES;
     
+    _nickName.text = [Config shareInstance].login.moblie;
+    
     UIButton *btn = [[UIButton alloc] initWithFrame:self.headerImg.bounds];
     [btn addTarget:self action:@selector(clickImageBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.headerImg addSubview:btn];
-
+    
+    if ([Config shareInstance].islogin) {
+        self.loginBtnBg.hidden = YES;
+    }
 }
 
 - (void)clickImageBtn {
+    MyInforViewController *myinforVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"MyInfor"];
+    [self.navigationController pushViewController:myinforVC animated:YES];
+}
+
+- (IBAction)clickLoginBtn:(UIButton *)sender {
     [self tipsForLoginSuccess:^{
+        self.loginBtnBg.hidden = YES;
         _nickName.text = [Config shareInstance].login.moblie;
-        MyInforViewController *myinforVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"MyInfor"];
-        [self.navigationController pushViewController:myinforVC animated:YES];
     }];
 }
 
@@ -80,8 +91,8 @@
     return 5;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 55.0f;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return CELL_HIGH;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -94,7 +105,7 @@
     cell.textLabel.text = _cellTitle[indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(10, cell.frame.size.height-1, CGRectGetWidth(_setingTable.frame)-10, 1)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(10, 59, CGRectGetWidth(_setingTable.frame)-10, 1)];
     [line setBackgroundColor:[Utils colorFromHexRGB:@"D8D8D8"]];
     [cell.contentView addSubview:line];
     return cell;
@@ -129,7 +140,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGRect newFrame = _setingTable.frame;
-    newFrame.size.height = 5*55;
+    newFrame.size.height = _cellTitle.count*CELL_HIGH;
     if (newFrame.size.height < _setingTable.frame.size.height) {
         _setingTable.scrollEnabled = NO;
     }

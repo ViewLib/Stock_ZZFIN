@@ -70,6 +70,8 @@
             } else {
                 [self showMessageHud:@"当天没数据" hideAfter:1];
             }
+        } else {
+            [self showMessageHud:@"接口挂了" hideAfter:1];
         }
     }];
 }
@@ -108,9 +110,6 @@
         if ([dic[@"volume"] intValue] > 0) {
             NSDictionary *new = [Utils KlineDicWithDic:dic];
             [news addObject:new];
-            if (news.count == 780) {
-                break;
-            }
         }
     }
     
@@ -130,7 +129,6 @@
         }
         NSString *day = [NSString stringWithFormat:@"%@",obj[@"day"]];
         if ([news count] % x == ([news indexOfObject:obj] + 1 ) % x ) {
-            
             NSString *showDay = [NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]];
             if ([type isEqual:@"dayhqs"]) {
                 model.showDay = showDay;
@@ -138,8 +136,7 @@
             } else {
                 showDay = [NSString stringWithFormat:@"%@/%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)]];
                 model.showDay = showDay;
-                [dic setValue:showDay forKey:@"showDay"];
-            } 
+            }
         }
         [newAry addObject: model];
         [configKNew addObject:dic];

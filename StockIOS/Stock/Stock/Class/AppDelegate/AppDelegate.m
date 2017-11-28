@@ -122,7 +122,14 @@
 - (void)getHotStock {
     [[HttpRequestClient sharedClient] getHotStocksRequest:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict isKindOfClass:[NSDictionary class]] && [dataDict[@"resultCode"] floatValue] == 200) {
-            [[Config shareInstance] setHotStocks:dataDict[@"hotSearchList"]];
+            NSArray *rankList = dataDict[@"hotSearchList"];
+            NSMutableArray *newRankList = [NSMutableArray array];
+            [rankList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (![obj[@"rankModel"][@"title"] isEqual:@""]) {
+                    [newRankList addObject:obj];
+                }
+            }];
+            [[Config shareInstance] setHotStocks:newRankList];
         }
     }];
 }

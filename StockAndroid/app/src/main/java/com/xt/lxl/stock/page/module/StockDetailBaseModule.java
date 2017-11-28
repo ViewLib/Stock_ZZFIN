@@ -3,6 +3,7 @@ package com.xt.lxl.stock.page.module;
 import android.content.Context;
 import android.view.View;
 
+import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 
 /**
@@ -13,9 +14,14 @@ public abstract class StockDetailBaseModule {
     protected View mContainer;
     protected StockDetailCacheBean mCacheBean;
     protected Context mContext;
+    protected StockDetailListener mListener;
 
-    public StockDetailBaseModule(StockDetailCacheBean cacheBean) {
+    public StockDetailBaseModule(StockDetailCacheBean cacheBean, StockDetailListener listener) {
         mCacheBean = cacheBean;
+        mListener = listener;
+        if (mListener == null) {
+            mListener = new StockDetailListener();
+        }
     }
 
     public void setModuleView(View view) {

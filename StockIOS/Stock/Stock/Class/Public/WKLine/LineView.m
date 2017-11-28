@@ -24,7 +24,7 @@
 
 @property (nonatomic, strong) WKSLineView *Line;
 
-@property (nonatomic, strong) NSArray *listNews;
+@property (nonatomic, strong) NSMutableArray *listNews;
 
 @property (nonatomic, strong) WKButtomView *ButtomView;
 
@@ -34,6 +34,8 @@
  当前绘制在屏幕上的数据源数组
  */
 @property (nonatomic, strong) NSMutableArray *drawLineModels;
+
+@property (nonatomic, strong) NSMutableDictionary *drawNewDic;
 
 /**
  当前绘制在屏幕上的处理后的数据源数组
@@ -70,7 +72,7 @@
         [self.stockScrollView setNeedsDisplay];
         //绘制K线上部分
         
-        self.drawLines = [self.Line drawViewWithXPosition:[self xPosition] drawModels:self.drawLineModels maxValue:maxValue minValue:minValue];
+        self.drawLines = [self.Line drawViewWithXPosition:[self xPosition] drawModels:self.drawLineModels newValues:self.drawNewDic maxValue:maxValue minValue:minValue];
         
         [self.ButtomView drawViewWithXPosition:[self xPosition] drawModels:self.drawLineModels linePositionModels:self.drawLines];
         
@@ -96,6 +98,23 @@ scrollView滑动重绘页面
     [self.drawLineModels removeAllObjects];
     NSInteger length = startIndex+drawLineCount < self.valueList.count ? drawLineCount+1 : self.valueList.count - startIndex;
     [self.drawLineModels addObjectsFromArray:[self.valueList subarrayWithRange:NSMakeRange(startIndex, length)]];
+    
+    if (self.listNews.count > 0) {
+        NSMutableArray *times = [NSMutableArray array];
+        self.drawNewDic = [NSMutableDictionary dictionary];
+        [self.drawLineModels enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [times addObject:obj[@"day"]];
+        }];
+        
+        [times enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            for (NSDictionary *dic in self.listNews) {
+                NSString *eventDate = [dic[@"eventDate"] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                if ([eventDate isEqualToString:obj]) {
+                    [self.drawNewDic setValue:dic forKey:obj];
+                }
+            }
+        }];
+    }
     
     //更新最大值最小值-价格
     CGFloat max =  [[[self.drawLineModels valueForKeyPath:@"close"] valueForKeyPath:@"@max.floatValue"] floatValue];
@@ -195,23 +214,8 @@ scrollView滑动重绘页面
 }
 
 - (void)reloadNewView:(NSArray *)news {
-    
-    self.listNews = news;
-    if (self.listNews.count > 0) {
-        WS(self)
-        self.Line.getNewsData = ^BOOL (NSString *string) {
-            __block BOOL isHave;
-            __block NSMutableString *time = string.mutableCopy;
-            [time insertString:@"-" atIndex:4];
-            [time insertString:@"-" atIndex:7];
-            [selfWeak.listNews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj[@"eventDate"] isEqual:time]) {
-                    isHave = YES;
-                }
-            }];
-            return isHave;
-        };
-    }
+    self.listNews = news.mutableCopy;
+
     [self reDrawWithLineModels];
 }
 

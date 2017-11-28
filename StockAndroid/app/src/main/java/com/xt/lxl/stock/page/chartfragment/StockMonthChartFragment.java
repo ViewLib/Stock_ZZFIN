@@ -30,6 +30,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.BarLineChartTouchListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xt.lxl.stock.R;
@@ -56,6 +57,8 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
     XAxis xAxisBar, xAxisK;
     YAxis axisLeftBar, axisLeftK;
     YAxis axisRightBar, axisRightK;
+    private BarLineChartTouchListener mChartTouchListener;
+    private CoupleChartGestureListener coupleChartGestureListener;
     float sum = 0;
     Handler mHandler = new Handler();
 
@@ -68,23 +71,7 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
     ArrayList<Entry> line10Entries = new ArrayList<>();//10日均线
     ArrayList<Entry> line30Entries = new ArrayList<>();//30日均线
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (true) {
-                return;
-            }
-            barChart.setAutoScaleMinMaxEnabled(true);
-            combinedchart.setAutoScaleMinMaxEnabled(true);
-
-            combinedchart.notifyDataSetChanged();
-            barChart.notifyDataSetChanged();
-
-            combinedchart.invalidate();
-            barChart.invalidate();
-
-        }
-    };
+    private Handler handler = new Handler();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,6 +89,8 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         super.onViewCreated(view, savedInstanceState);
         combinedchart = (CombinedChart) view.findViewById(R.id.kline_day_chart);
         barChart = (BarChart) view.findViewById(R.id.kline_day_bar);
+        barChart.setVisibility(View.INVISIBLE);
+        combinedchart.setVisibility(View.INVISIBLE);
         initChart();
     }
 
@@ -244,10 +233,25 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         final float xscaleCombin = 3;
         matrixCombin.postScale(xscaleCombin, 1f);
         setOffset();
-        handler.sendEmptyMessageDelayed(0, 300);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                barChart.setVisibility(View.VISIBLE);
+                combinedchart.setVisibility(View.VISIBLE);
+
+                barChart.setAutoScaleMinMaxEnabled(true);
+                combinedchart.setAutoScaleMinMaxEnabled(true);
+
+                combinedchart.notifyDataSetChanged();
+                barChart.notifyDataSetChanged();
+
+                combinedchart.invalidate();
+                barChart.invalidate();
+            }
+        }, 100);
     }
 
-    private DayViewModel calculationData(StockGetDateDataResponse dataResponses) {
+    public static DayViewModel calculationData(StockGetDateDataResponse dataResponses) {
         DayViewModel dayViewModel = new DayViewModel();
         if (dataResponses.dateDataList.size() == 0) {
             return dayViewModel;
@@ -358,13 +362,14 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         xAxisBar.setGridColor(getResources().getColor(R.color.minute_grayLine));
 
         axisLeftBar = barChart.getAxisLeft();
-        axisLeftBar.setAxisMinValue(0);
+//        axisLeftBar.setAxisMinValue(0);
         axisLeftBar.setDrawGridLines(false);
         axisLeftBar.setDrawAxisLine(false);
         axisLeftBar.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         axisLeftBar.setDrawLabels(true);
         axisLeftBar.setSpaceTop(0);
         axisLeftBar.setShowOnlyMinMax(true);
+        axisLeftBar.setAxisMinValue(0);
         axisLeftBar.setValueFormatter(new YAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, YAxis yAxis) {
@@ -402,6 +407,12 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         axisLeftK.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         axisLeftK.setGridColor(getResources().getColor(R.color.minute_grayLine));
         axisLeftK.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        axisLeftK.setValueFormatter(new YAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, YAxis yAxis) {
+                return String.valueOf(StockUtil.roundedFor(value, 2));
+            }
+        });
         axisRightK = combinedchart.getAxisRight();
         axisRightK.setDrawLabels(false);
         axisRightK.setDrawGridLines(true);

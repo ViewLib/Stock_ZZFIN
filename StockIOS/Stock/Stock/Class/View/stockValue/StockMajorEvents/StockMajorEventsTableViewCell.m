@@ -70,13 +70,25 @@
         [self.timer invalidate];
         self.timer = nil;
         NSArray *value = [NSArray array];
+        
         for (NSDictionary *dic in self.events) {
             if ([self.titleNews isEqual:dic[@"eventName"]] && self.line) {
                 value = dic[@"stockEventsDataModels"];
             }
         }
+        
+        NSSet *set = [NSSet setWithArray:value];
+        value = [set allObjects];
+        
         if (value.count > 0) {
             [self.line reloadNewView:value];
+            NSString *str = [NSString stringWithFormat:@"总消息数%lu",(unsigned long)value.count];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:str message:[NSString stringWithFormat:@"%@",value] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *act1 = [UIAlertAction actionWithTitle:@"确定" style:0 handler:nil];
+            [alert addAction:act1];
+//            [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        } else {
+            [self.line reloadNewView:nil];
         }
     }
     

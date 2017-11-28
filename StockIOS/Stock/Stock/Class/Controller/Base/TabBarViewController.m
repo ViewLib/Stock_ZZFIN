@@ -24,7 +24,7 @@
 
 - (void)addTabControllers{
     UIViewController *HomeVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"Home"];
-    HomeVC.tabBarItem.title = @"首页";
+    HomeVC.tabBarItem.title = @"自选";
     HomeVC.tabBarItem.image = [UIImage imageNamed:@"home_off"];
     HomeVC.tabBarItem.selectedImage = [UIImage imageNamed:@"home_on"];
     
@@ -34,7 +34,7 @@
     FindVC.tabBarItem.selectedImage = [UIImage imageNamed:@"find_on"];
     
     UIViewController *myVC = [[UIStoryboard storyboardWithName:@"Base" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"My"];
-    myVC.tabBarItem.title = @"我";
+    myVC.tabBarItem.title = @"我的";
     myVC.tabBarItem.image = [UIImage imageNamed:@"my_off"];
     myVC.tabBarItem.selectedImage = [UIImage imageNamed:@"my_on"];
     

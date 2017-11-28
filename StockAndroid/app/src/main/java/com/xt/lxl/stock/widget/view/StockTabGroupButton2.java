@@ -222,6 +222,10 @@ public class StockTabGroupButton2 extends LinearLayout {
         mOnTabItemSelectedListener = onTabItemSelectedListener;
     }
 
+    public int getmTabSize() {
+        return mTabSize;
+    }
+
     /**
      * Tab Group 回调接口
      */

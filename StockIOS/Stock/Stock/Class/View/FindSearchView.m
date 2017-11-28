@@ -68,6 +68,11 @@
 {
     if ([collectionView isEqual:self.contentCollection]) {
         CGSize frame = CGSizeMake(K_FRAME_BASE_WIDTH, 71);
+        NSDictionary *dic = self.contentAry[indexPath.item];
+        NSArray *filteList = dic[@"filteList"];
+        if (filteList.count > 3) {
+            frame = CGSizeMake(K_FRAME_BASE_WIDTH, 100);
+        }
         return frame;
     } else {
         CGSize frame = CGSizeMake(K_FRAME_BASE_WIDTH/2, 38);
@@ -110,6 +115,7 @@
         return cell;
     } else {
         FindSearchTwoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"content" forIndexPath:indexPath];
+        [cell.changeView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         NSDictionary *dic = self.contentAry[indexPath.item];
         cell.title.text = dic[@"groupName"];
         NSInteger num = [(NSArray *)dic[@"filteList"] count];
@@ -127,12 +133,18 @@
                     [btn.titleLabel setFont:[UIFont systemFontOfSize:13]];
                     [btn setFrame:CGRectMake(0, 0, K_FRAME_BASE_WIDTH/6, 28)];
                     if (idx == 0) {
-                        [btn setCenterX:(K_FRAME_BASE_WIDTH-24)*(idx+1)/(num+1)-30];
+                        [btn setCenterX:(K_FRAME_BASE_WIDTH-24)*(idx+1)/4-30];
                     } else if (idx == 2) {
-                        [btn setCenterX:(K_FRAME_BASE_WIDTH-24)*(idx+1)/(num+1)+30];
+                        [btn setCenterX:(K_FRAME_BASE_WIDTH-24)*(idx+1)/4+30];
                     } else {
-                        [btn setCenterX:(K_FRAME_BASE_WIDTH-24)*(idx+1)/(num+1)];
+                        [btn setCenterX:(K_FRAME_BASE_WIDTH-24)*(idx+1)/4];
                     }
+                    
+                    if (idx > 2) {
+                        cell.changeView.y = 60;
+                        [btn setCenterY:42];
+                    }
+                    
                     if ([self.changeAry containsObject:obj]) {
                         [btn setBackgroundColor:rgba(24,109,183,0.18)];
                         btn.selected = YES;

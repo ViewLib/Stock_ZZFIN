@@ -90,7 +90,7 @@
     
     [drawLineModels enumerateObjectsUsingBlock:^(id _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         if (model[@"showDay"]) {
-            CGFloat xPosition = startX + idx * (6);
+            CGFloat xPosition = startX + idx * (LINEGAP + LINE);
             CGPoint startPoint = CGPointMake(xPosition, maxY);
             CGPoint endPoint = CGPointMake(xPosition, maxY/2);
             

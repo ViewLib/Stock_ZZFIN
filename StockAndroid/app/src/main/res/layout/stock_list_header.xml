@@ -29,8 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="15dp"
-        android:layout_weight="1"
+        android:layout_marginRight="5dp"
         android:gravity="center"
         android:text="涨跌幅"
         android:textAppearance="@style/text_14_899198" />

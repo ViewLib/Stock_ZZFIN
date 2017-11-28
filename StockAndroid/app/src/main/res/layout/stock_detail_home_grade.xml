@@ -20,6 +20,15 @@
         app:stock_text_drawable_src="@drawable/stock_detail_grade"
         app:stock_text_drawable_width="12dp" />
 
+
+    <View
+        android:id="@+id/stock_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#D8D8D8" />
+
     <LinearLayout
         android:id="@+id/stock_detail_grade_container"
         android:layout_width="match_parent"
