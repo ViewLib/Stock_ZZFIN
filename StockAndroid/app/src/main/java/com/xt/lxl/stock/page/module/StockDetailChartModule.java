@@ -21,13 +21,12 @@ public class StockDetailChartModule extends StockDetailBaseModule {
     @Override
     public void initModuleView(View view) {
         detailChartView = (StockDetailChartView) view.findViewById(R.id.stock_kline);
-        detailChartView.setStockViewModel(mCacheBean.mStockViewModel);
     }
 
     @Override
     public void bindData() {
-
-
+        detailChartView.setStockViewModel(mCacheBean.mStockViewModel);
+        detailChartView.bindData();
     }
 
 }

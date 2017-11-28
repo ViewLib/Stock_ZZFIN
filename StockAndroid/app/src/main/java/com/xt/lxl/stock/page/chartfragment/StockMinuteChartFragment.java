@@ -129,7 +129,13 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         //y轴样式
 
         int u = 1;
-        axisLeftLine.setValueFormatter(new VolFormatter((int) Math.pow(10, u)));
+        axisLeftLine.setValueFormatter(new YAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, YAxis yAxis) {
+                DecimalFormat mFormat = new DecimalFormat("#0.00");
+                return mFormat.format(value);
+            }
+        });
 
         //右边y
         axisRightLine = lineChart.getAxisRight();

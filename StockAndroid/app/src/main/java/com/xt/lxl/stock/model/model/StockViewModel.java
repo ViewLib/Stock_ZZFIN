@@ -42,6 +42,7 @@ public class StockViewModel extends StockBaseModel {
     public String dealValue = "";//成交值 万
     public String stockBasePirce = "";//昨日收盘价
     public boolean isSuspension = false;//是否停牌
+    public boolean isDelisting = false;//是否退市
 
     /**
      * 以下信息init方法生成

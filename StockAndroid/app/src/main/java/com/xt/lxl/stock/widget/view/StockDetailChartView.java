@@ -42,7 +42,10 @@ public class StockDetailChartView extends LinearLayout {
         initView();
     }
 
-    private void bindData() {
+    public void bindData() {
+        if (tabGroupButton.getmTabSize() > 0) {
+            return;
+        }
         List<String> list = new ArrayList<>();
         list.add("分时");
         list.add("日K");
@@ -112,7 +115,6 @@ public class StockDetailChartView extends LinearLayout {
 
     public void setStockViewModel(StockViewModel stockViewModel) {
         this.mStockViewModel = stockViewModel;
-        bindData();
     }
 
 }

@@ -64,6 +64,19 @@ public class StockUtil {
         return value + "万";
     }
 
+    /**
+     * 输入单位万
+     *
+     * @param value
+     * @return
+     */
+    public static String getIntegerValue(String value) {
+        if (value.contains(".")) {
+            return value.split("\\.")[0];
+        }
+        return value;
+    }
+
     public static float culcMaxscale(float count) {
         float max = 1;
         max = count / 127 * 5;

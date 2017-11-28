@@ -50,7 +50,7 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
 
     public void bindData() {
         StockViewModel stockViewModel = mCacheBean.mStockViewModel;
-        if (StringUtil.emptyOrNull(stockViewModel.stockCode)) {
+        if (StringUtil.emptyOrNull(stockViewModel.stockCode) || stockViewModel.isDelisting) {
             privceTv.setText("暂无价格");
             changePriceValueTv.setText("暂无数据");
             changePriceRatioTv.setText("暂无数据");
@@ -82,16 +82,16 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
             upAndDown.setTextValue("今年涨幅", StockUtil.roundedFor(v, 2) + "%");
             rate.setTextValue("换手率", stockViewModel.turnover + "%");
             turnover.setTextValue("成交值", StockUtil.getDealValue(stockViewModel.dealValue));
-            marketvalue.setTextValue("市值", stockViewModel.valueAll + "亿");
+            marketvalue.setTextValue("市值", StockUtil.getIntegerValue(stockViewModel.valueAll) + "亿");
         }
         stockAdd.setOnClickListener(mListener.addClickListener);
         int pixelFromDip = DeviceUtil.getPixelFromDip(mContext, 15);
         if (mCacheBean.isAdd) {
             stockAdd.setText("删除");
-            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_add), 1, pixelFromDip, pixelFromDip);
+            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_delete), 1, pixelFromDip, pixelFromDip);
         } else {
             stockAdd.setText("添加");
-            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_delete), 1, pixelFromDip, pixelFromDip);
+            stockAdd.setCompoundDrawable(mContext.getResources().getDrawable(R.drawable.stock_history_item_add), 1, pixelFromDip, pixelFromDip);
         }
         stockAdd.setOnClickListener(mListener.addClickListener);
     }
