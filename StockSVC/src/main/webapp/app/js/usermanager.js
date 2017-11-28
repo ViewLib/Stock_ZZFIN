@@ -19,7 +19,6 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'bootstrap
 
                 $("#btn_add").click(function () {
                     showModal("新增用户", "insert");
-                    //setTimeout("$('#defaultForm').data('bootstrapValidator').resetForm(true)",300);
                 });
 
                 $("#btn_delete").click(function () {
@@ -128,7 +127,7 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'bootstrap
 
             $("#myModalLabel").text(title);
             $(".js_status").data("status", status);
-            $('#modal').modal('show');
+            $('#modal').modal({'show':true});
         };
 
         var postData = function (status, data, successFun) {
