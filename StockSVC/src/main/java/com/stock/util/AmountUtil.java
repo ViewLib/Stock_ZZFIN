@@ -25,6 +25,12 @@ public class AmountUtil {
 
 
     public static String transHandFromAmount(String amout) {
+        if (StringUtil.emptyOrNull(amout)) {
+            return "";
+        }
+        if (amout.contains(".")) {
+            amout = amout.split("\\.")[0];
+        }
         Long aLong = StringUtil.toLong(amout);
         if (aLong > 100000000L) {
             return aLong / 100000000 + "亿股";
