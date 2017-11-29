@@ -375,6 +375,9 @@ public class StockService {
                 StockEventDataModel eventDataModel = TransformUtil.transfor2EventDataModel(resultModel, stockEvents);//转换
                 stockEvents.stockEventsDataModels.add(eventDataModel);
             }
+            if (stockEvents.stockEventsDataModels.size() == 0) {
+                continue;
+            }
             stockEventsDataLists.add(stockEvents);
         }
         return stockEventsDataLists;
