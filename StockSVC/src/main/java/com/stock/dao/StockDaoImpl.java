@@ -426,21 +426,21 @@ public class StockDaoImpl implements StockDao {
         List<StockDetailFinanceItem> stockDetailFinanceItemList = new ArrayList<>();
         String sql = "";
         if (FinanceType == 1) {//收入
-            sql = "select top 8 report_period,cast(oper_rev as NUMERIC(15,0)) oper_rev\n" +
+            sql = "select top 8 format(cast(report_period as date),'yy/MM/dd')report_period,cast(oper_rev as NUMERIC(15,0)) oper_rev\n" +
                     "from [wind].[dbo].[ASHAREINCOME] \n" +
                     "where wind_code=? and STATEMENT_TYPE=408001000 \n" +
                     "order by report_period desc";
         }
         if (FinanceType == 2) {//净利率
-            sql = "SELECT TOP 8 report_period,s_fa_grossprofitmargin" +
+            sql = "SELECT TOP 8 format(cast(report_period as date),'yy/MM/dd')report_period,s_fa_grossprofitmargin" +
                     "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? order by report_period desc";
         }
         if (FinanceType == 3) {//毛利率
-            sql = "SELECT TOP 8 report_period,s_fa_netprofitmargin" +
+            sql = "SELECT TOP 8 format(cast(report_period as date),'yy/MM/dd')report_period,s_fa_netprofitmargin" +
                     "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? order by report_period desc";
         }
         if (FinanceType == 4) {//每股净资产
-            sql = "SELECT TOP 5 report_period,s_fa_bps\n" +
+            sql = "SELECT TOP 5 format(cast(report_period as date),'yy/MM/dd')report_period,s_fa_bps\n" +
                     "\t  FROM [wind].[dbo].[asharefinancialindicator] \n" +
                     "\t  where wind_code=? \n" +
                     "\t   order by report_period desc";
@@ -475,26 +475,26 @@ public class StockDaoImpl implements StockDao {
         List<StockDetailFinanceItem> stockDetailFinanceItemList = new ArrayList<>();
         String sql = "";
         if (FinanceType == 1) {//收入
-            sql = "select top 5 report_period,oper_rev \n" +
+            sql = "select top 5format(cast(report_period as date),'yy/MM/dd')report_period,oper_rev \n" +
                     "from [wind].[dbo].[ASHAREINCOME] \n" +
                     "where wind_code=? and STATEMENT_TYPE=408001000 \n" +
                     "and REPORT_PERIOD like '%0630'\n" +
                     "order by report_period desc";
         }
         if (FinanceType == 2) {//净利率
-            sql = "SELECT TOP 5 report_period,s_fa_grossprofitmargin" +
+            sql = "SELECT TOP 5 format(cast(report_period as date),'yy/MM/dd')report_period,s_fa_grossprofitmargin" +
                     "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? \n" +
                     "\t  and REPORT_PERIOD like '%0630'\n" +
                     "\t   order by report_period desc";
         }
         if (FinanceType == 3) {//毛利率
-            sql = "SELECT TOP 8 report_period,s_fa_netprofitmargin" +
+            sql = "SELECT TOP 8 format(cast(report_period as date),'yy/MM/dd')report_period,s_fa_netprofitmargin" +
                     "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? \n" +
                     "\t  and REPORT_PERIOD like '%0630'\n" +
                     "\t   order by report_period desc";
         }
         if (FinanceType == 4) {//每股净资产
-            sql = "SELECT TOP 5 report_period,s_fa_bps\n" +
+            sql = "SELECT TOP 5 format(cast(report_period as date),'yy/MM/dd')report_period,s_fa_bps\n" +
                     "\t  FROM [wind].[dbo].[asharefinancialindicator] \n" +
                     "\t  where wind_code=? \n" +
                     "\t  and REPORT_PERIOD like '%0630'\n" +
