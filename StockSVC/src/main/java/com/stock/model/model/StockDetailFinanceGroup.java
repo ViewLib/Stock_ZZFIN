@@ -13,5 +13,6 @@ public class StockDetailFinanceGroup {
     public String financeName = "";//收入/净利率/毛利率/分红率
     public int financeType = FinanceType_INCOME;
     public List<StockDetailFinanceItem> financeItemList = new ArrayList<>();
+    public List<StockDetailFinanceItem> yearItemList = new ArrayList<>();
 
 }

@@ -426,20 +426,24 @@ public class StockDaoImpl implements StockDao {
         List<StockDetailFinanceItem> stockDetailFinanceItemList = new ArrayList<>();
         String sql = "";
         if (FinanceType == 1) {//收入
-            sql = "select top 10 report_period,oper_rev from [wind].[dbo].[ASHAREINCOME] where wind_code=? and STATEMENT_TYPE=408001000 order by report_period desc";
+            sql = "select top 8 report_period,cast(oper_rev as NUMERIC(15,0)) oper_rev\n" +
+                    "from [wind].[dbo].[ASHAREINCOME] \n" +
+                    "where wind_code=? and STATEMENT_TYPE=408001000 \n" +
+                    "order by report_period desc";
         }
         if (FinanceType == 2) {//净利率
-            sql = "SELECT TOP 10 report_period,s_fa_grossprofitmargin" +
+            sql = "SELECT TOP 8 report_period,s_fa_grossprofitmargin" +
                     "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? order by report_period desc";
         }
         if (FinanceType == 3) {//毛利率
-            sql = "SELECT TOP 10 report_period,s_fa_netprofitmargin" +
+            sql = "SELECT TOP 8 report_period,s_fa_netprofitmargin" +
                     "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? order by report_period desc";
         }
-        if (FinanceType == 4) {//分红率
-            sql = "SELECT div.EX_DIV_DATE date, [DIV_CASH_BONUS_PRE_TAX]/(price.[PRE_CLOSE]*price.ADJ_FACTOR) div_pct\n" +
-                    "  FROM [zzfin].[dbo].[EQ_DIVIDEND]  div,[zzfin].[dbo].MKT_D_PRICE price\n" +
-                    "  where div.ts_code=? and div.ts_code=price.ts_code and div.EX_DIV_DATE=price.TRADE_DATE order by div.EX_DIV_DATE desc";
+        if (FinanceType == 4) {//每股净资产
+            sql = "SELECT TOP 5 report_period,s_fa_bps\n" +
+                    "\t  FROM [wind].[dbo].[asharefinancialindicator] \n" +
+                    "\t  where wind_code=? \n" +
+                    "\t   order by report_period desc";
         }
         Connection con = null;
         StockLinkDaoImpl stockLinkDao = StockLinkDaoImpl.getStockLinkDaoImpl();
@@ -467,7 +471,61 @@ public class StockDaoImpl implements StockDao {
         }
         return stockDetailFinanceItemList;
     }
+    public List<StockDetailFinanceItem> getYearlList(String stockCode,int  FinanceType){
+        List<StockDetailFinanceItem> stockDetailFinanceItemList = new ArrayList<>();
+        String sql = "";
+        if (FinanceType == 1) {//收入
+            sql = "select top 5 report_period,oper_rev \n" +
+                    "from [wind].[dbo].[ASHAREINCOME] \n" +
+                    "where wind_code=? and STATEMENT_TYPE=408001000 \n" +
+                    "and REPORT_PERIOD like '%0630'\n" +
+                    "order by report_period desc";
+        }
+        if (FinanceType == 2) {//净利率
+            sql = "SELECT TOP 5 report_period,s_fa_grossprofitmargin" +
+                    "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? \n" +
+                    "\t  and REPORT_PERIOD like '%0630'\n" +
+                    "\t   order by report_period desc";
+        }
+        if (FinanceType == 3) {//毛利率
+            sql = "SELECT TOP 8 report_period,s_fa_netprofitmargin" +
+                    "  FROM [wind].[dbo].[asharefinancialindicator] where wind_code=? \n" +
+                    "\t  and REPORT_PERIOD like '%0630'\n" +
+                    "\t   order by report_period desc";
+        }
+        if (FinanceType == 4) {//每股净资产
+            sql = "SELECT TOP 5 report_period,s_fa_bps\n" +
+                    "\t  FROM [wind].[dbo].[asharefinancialindicator] \n" +
+                    "\t  where wind_code=? \n" +
+                    "\t  and REPORT_PERIOD like '%0630'\n" +
+                    "\t   order by report_period desc";
+        }
+        Connection con = null;
+        StockLinkDaoImpl stockLinkDao = StockLinkDaoImpl.getStockLinkDaoImpl();
+        PreparedStatement preStmt = null;
+        con = stockLinkDao.getConnection();
+        try {
+            preStmt = con.prepareStatement(sql);
+            preStmt.setString(1, stockCode);
+            ResultSet rs = preStmt.executeQuery();
+            StockRankResultModel resultModelHeader = null;
+            while (rs.next()) {
+                StockDetailFinanceItem stockDetailFinanceItem = new StockDetailFinanceItem();
+                ResultSetMetaData metaData = rs.getMetaData();
+                String ColumnName1 = metaData.getColumnName(1);
+                String ColumnName2 = metaData.getColumnName(2);
+                stockDetailFinanceItem.dateStr = rs.getString(ColumnName1);
+                stockDetailFinanceItem.valueStr = rs.getString(ColumnName2);
+                stockDetailFinanceItemList.add(stockDetailFinanceItem);
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return stockDetailFinanceItemList;
+    }
     @Override
     public List<SQLViewModel> getStockEventSQL(int type) {
         List<SQLViewModel> sqlViewModelList = new ArrayList<>();
