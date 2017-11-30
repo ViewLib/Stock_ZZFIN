@@ -324,8 +324,10 @@ public class StockService {
         String stockCode = transCode(stockDetailFinanceRequest.stockCode);
         for (int i = 1; i < 5; i++) {
             StockDetailFinanceGroup stockDetailFinanceGroup = new StockDetailFinanceGroup();
+            stockDetailFinanceGroup.yearItemList=dao.getYearlList(stockCode,i);
             stockDetailFinanceItemList = dao.getFinalList(stockCode, i);
             stockDetailFinanceGroup.financeItemList = stockDetailFinanceItemList;
+
             if (i == 1) {
                 stockDetailFinanceGroup.financeName = "收入";
             }
@@ -336,7 +338,7 @@ public class StockService {
                 stockDetailFinanceGroup.financeName = "毛利率";
             }
             if (i == 4) {
-                stockDetailFinanceGroup.financeName = "分红率";
+                stockDetailFinanceGroup.financeName = "每股净资产";
             }
             //处理下时间格式
             for (StockDetailFinanceItem item : stockDetailFinanceGroup.financeItemList) {
@@ -374,6 +376,9 @@ public class StockService {
                 StoctEventSQLResultModel resultModel = stockEventBySQLModel.get(j);
                 StockEventDataModel eventDataModel = TransformUtil.transfor2EventDataModel(resultModel, stockEvents);//转换
                 stockEvents.stockEventsDataModels.add(eventDataModel);
+            }
+            if (stockEvents.stockEventsDataModels.size() == 0) {
+                continue;
             }
             stockEventsDataLists.add(stockEvents);
         }

@@ -1,10 +1,42 @@
 /**
  * Created by 杨蕾 on 2017/11/12.
  */
-define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'text!templates/pagecount.html'], function ($, _, bootstrap_modal, bootstrap_table, pageCountTpl) {
+define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'bootstrap_validator','text!templates/pagecount.html'], function ($, _, bootstrap_modal, bootstrap_table, bootstrap_validator, pageCountTpl) {
         const defaultPageSize = 5;
+        var initialize = function () {
+            $('.js_user_query').on('click', function () {
+                $('#user_toolbar').html(_.template(pageCountTpl, {}));
+                initTable(1);
+                formValidInit();
 
-        var init = function (pageIndex) {
+                $("#btn_query").click(function () {
+                    $("#user_table").bootstrapTable('refresh');
+                });
+
+                $("#btn_edit").click(function () {
+                    showModal("修改用户", "update");
+                });
+
+                $("#btn_add").click(function () {
+                    showModal("新增用户", "insert");
+                });
+
+                $("#btn_delete").click(function () {
+                    deleteUsers();
+                });
+            });
+
+            $('.js_status').on('click', function (e) {
+                var status = $(e.currentTarget).data("status");
+                postData(status, getPostData(), editOrAddUserSuccess);
+            });
+
+            $('#modal').on('hide', function (e) {
+                $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            });
+        };
+
+        var initTable = function (pageIndex) {
             $('#user_table').bootstrapTable({
                 url: '/zzfin/rest/user/search',
                 method: 'post',                      //请求方式（*）
@@ -63,35 +95,6 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'text!temp
             return temp;
         };
 
-        var initialize = function () {
-            $('.js_user_query').on('click', function () {
-                //promise(1, defaultPageSize);
-                $('#user_toolbar').html(_.template(pageCountTpl, {}));
-                init(1);
-
-                $("#btn_query").click(function () {
-                    $("#user_table").bootstrapTable('refresh');
-                });
-
-                $("#btn_edit").click(function () {
-                    showModal("修改用户", "update");
-                });
-
-                $("#btn_add").click(function () {
-                    showModal("新增用户", "insert")
-                });
-
-                $("#btn_delete").click(function () {
-                    deleteUsers();
-                });
-            });
-
-            $('.js_status').on('click', function (e) {
-                var status = $(e.currentTarget).data("status");
-                postData(status, getPostData(), editOrAddUserSuccess);
-            });
-        };
-
         var showModal = function (title, status) {
             if (status === "update") {
                 var arrselections = $("#user_table").bootstrapTable('getSelections');
@@ -124,19 +127,23 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'text!temp
 
             $("#myModalLabel").text(title);
             $(".js_status").data("status", status);
-            $('#modal').modal({});
+            $('#modal').modal({'show':true});
         };
 
         var postData = function (status, data, successFun) {
-            $.ajax({
-                type: 'POST',
-                url: '/zzfin/rest/user/' + status,
-                contentType: 'application/json; charset=utf-8',
-                datType: "JSON",
-                data: JSON.stringify(data),
-                traditional: true,
-                success: successFun
-            });
+            var bootstrapValidator = $('#defaultForm').data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if(bootstrapValidator.isValid()){
+                $.ajax({
+                    type: 'POST',
+                    url: '/zzfin/rest/user/' + status,
+                    contentType: 'application/json; charset=utf-8',
+                    datType: "JSON",
+                    data: JSON.stringify(data),
+                    traditional: true,
+                    success: successFun
+                });
+            }
         };
 
         var getPostData = function () {
@@ -188,6 +195,46 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'text!temp
             }
 
             console.log(data);
+        };
+
+        var formValidInit = function () {
+            $('#defaultForm').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    mobile: {
+                        validators: {
+                            notEmpty: {
+                                message: '手机号码不能为空'
+                            },
+                            regexp: {
+                                regexp: /[0-9-+]{5,20}$/,
+                                message: '请输入正确的手机号码'
+                            }
+                        }
+                    },
+                    nickName: {
+                        validators: {
+                            notEmpty: {
+                                message: '昵称不能为空'
+                            },
+                            stringLength: {
+                                min: 2,
+                                max: 30,
+                                message: '用户名长度必须在2到30位之间'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z\u4e00-\u9fa5\.\s]+$/,
+                                message: '不能包含数字和特殊字符'
+                            }
+                        }
+                    }
+                }
+            });
         };
 
         return {initialize: initialize};

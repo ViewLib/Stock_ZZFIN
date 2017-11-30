@@ -114,6 +114,10 @@ public class StockDetailActivity extends FragmentActivity {
         builder.append(mCacheBean.mStockViewModel.stockCode);
         builder.setSpan(new TextAppearanceSpan(this, R.style.text_12_ffffff), length, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         titleView.setTitle(builder);
+        if (mCacheBean.mStockViewModel.isDelisting) {
+            infoModule.bindData();
+            return;
+        }
         hanldeSendService();
     }
 
@@ -154,18 +158,22 @@ public class StockDetailActivity extends FragmentActivity {
                 }
 
                 final StockViewModel stockViewModel = stockViewModelList.get(0);//刷新股票
-                mCacheBean.mStockViewModel.stockName = stockViewModel.stockName;
-                mCacheBean.mStockViewModel.stockPirce = stockViewModel.stockPirce;
-                mCacheBean.mStockViewModel.stockChangeValue = stockViewModel.stockChangeValue;
-                mCacheBean.mStockViewModel.stockChange = stockViewModel.stockChange;
-                mCacheBean.mStockViewModel.ratio = stockViewModel.ratio;
-                mCacheBean.mStockViewModel.turnover = stockViewModel.turnover;
-                mCacheBean.mStockViewModel.valueAll = stockViewModel.valueAll;
-                mCacheBean.mStockViewModel.maxPrice = stockViewModel.maxPrice;
-                mCacheBean.mStockViewModel.minPrice = stockViewModel.minPrice;
-                mCacheBean.mStockViewModel.amplitude = stockViewModel.amplitude;
-                mCacheBean.mStockViewModel.volume = stockViewModel.volume;
-                mCacheBean.mStockViewModel.isSuspension = stockViewModel.isSuspension;
+                mCacheBean.mStockViewModel = stockViewModel;
+//                mCacheBean.mStockViewModel.stockName = stockViewModel.stockName;
+//                mCacheBean.mStockViewModel.stockPirce = stockViewModel.stockPirce;
+//                mCacheBean.mStockViewModel.stockChangeValue = stockViewModel.stockChangeValue;
+//                mCacheBean.mStockViewModel.stockChange = stockViewModel.stockChange;
+//                mCacheBean.mStockViewModel.ratio = stockViewModel.ratio;
+//                mCacheBean.mStockViewModel.turnover = stockViewModel.turnover;
+//                mCacheBean.mStockViewModel.valueAll = stockViewModel.valueAll;
+//                mCacheBean.mStockViewModel.maxPrice = stockViewModel.maxPrice;
+//                mCacheBean.mStockViewModel.minPrice = stockViewModel.minPrice;
+//                mCacheBean.mStockViewModel.amplitude = stockViewModel.amplitude;
+//                mCacheBean.mStockViewModel.volume = stockViewModel.volume;
+//                mCacheBean.mStockViewModel.isSuspension = stockViewModel.isSuspension;
+//                mCacheBean.mStockViewModel.stockBasePirce = stockViewModel.stockBasePirce;
+//                mCacheBean.mStockViewModel.isDelisting = stockViewModel.isDelisting;
+//                mCacheBean.mStockViewModel.dealValue = stockViewModel.dealValue;
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {

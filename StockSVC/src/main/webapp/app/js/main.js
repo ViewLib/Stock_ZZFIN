@@ -10,7 +10,12 @@ require.config({
             deps : [ 'underscore', 'jquery' ],
             exports : 'Backbone'
         },
-        'bootstrap':{deps: ['jquery','css!../../assets/plugins/bootstrap/css/bootstrap.min.css']},
+        'bootstrap':{
+            deps: [
+                'jquery',
+                'css!../../assets/plugins/bootstrap/css/bootstrap.min.css'
+            ]
+        },
         'bootstrap_modal':{
             deps: [
                 'bootstrap',
@@ -25,6 +30,12 @@ require.config({
                 '../../assets/plugins/bootstrap-table/js/local/bootstrap-table-zh-CN',
                 'css!../../assets/plugins/bootstrap-table/css/bootstrap-table.css'
             ]
+        },
+        'bootstrap_validator':{
+            deps:[
+                'bootstrap',
+                'css!../../assets/plugins/bootstrap-validator/css/bootstrapValidator.css'
+            ]
         }
     },
     paths : {
@@ -36,7 +47,8 @@ require.config({
         bootstrap : '../../assets/plugins/bootstrap/js/bootstrap.min',
         bootstrap_modal : '../../assets/plugins/bootstrap-modal/js/bootstrap-modal',
         bootstrap_modalmanager : '../../assets/plugins/bootstrap-modal/js/bootstrap-modalmanager',
-        bootstrap_table:'../../assets/plugins/bootstrap-table/js/bootstrap-table'
+        bootstrap_table:'../../assets/plugins/bootstrap-table/js/bootstrap-table',
+        bootstrap_validator:'../../assets/plugins/bootstrap-validator/js/bootstrapValidator'
     },
     map: {
         '*': {

@@ -35,6 +35,7 @@ public interface StockDao {
     public String getListSql(int filter_id);
 
     public List<StockDetailFinanceItem> getFinalList(String stockCode,int  FinanceType);
+    public List<StockDetailFinanceItem> getYearlList(String stockCode,int  FinanceType);
 
     public List<SQLViewModel> getStockEventSQL(int type);
 

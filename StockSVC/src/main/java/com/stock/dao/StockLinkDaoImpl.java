@@ -2,11 +2,11 @@ package com.stock.dao;
 
 import com.mysql.jdbc.log.LogUtils;
 import com.stock.model.model.*;
+import com.stock.util.Logger;
 import com.stock.util.StringUtil;
 import com.stock.util.TransformUtil;
 import com.stock.viewmodel.SQLViewModel;
 import com.stock.viewmodel.StoctEventSQLResultModel;
-import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class StockLinkDaoImpl implements StockLinkDao {
     private static StockLinkDaoImpl dao;
-    private static Logger logger = Logger.getLogger(StockLinkDaoImpl.class);
+    private static Logger logger = Logger.getLogger();
     // 连接驱动
     private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     // 连接路径
@@ -53,16 +53,16 @@ public class StockLinkDaoImpl implements StockLinkDao {
 
 
     public synchronized Connection getConnection() {
-        logger.debug("开始连接数据库");
+        logger.showMessage("开始连接数据库");
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             return conn;
         } catch (SQLException e) {
             e.printStackTrace();
-            logger.error("数据库连接失败！");
+            logger.showMessage("数据库连接失败！");
         }
-        logger.debug("数据库连接成功");
+        logger.showMessage("数据库连接成功");
         return conn;
     }
 
@@ -76,7 +76,7 @@ public class StockLinkDaoImpl implements StockLinkDao {
                 rs = null;
             } catch (SQLException e) {
                 e.printStackTrace();
-                logger.error("关闭ResultSet失败");
+                logger.showMessage("关闭ResultSet失败");
             }
         }
         if (ps != null) {
@@ -85,7 +85,7 @@ public class StockLinkDaoImpl implements StockLinkDao {
                 ps = null;
             } catch (SQLException e) {
                 e.printStackTrace();
-                logger.error("关闭PreparedStatement失败");
+                logger.showMessage("关闭PreparedStatement失败");
             }
         }
         if (conn != null) {
@@ -94,7 +94,7 @@ public class StockLinkDaoImpl implements StockLinkDao {
                 conn = null;
             } catch (SQLException e) {
                 e.printStackTrace();
-                logger.error("关闭Connection失败");
+                logger.showMessage("关闭Connection失败");
             }
         }
     }
@@ -321,8 +321,8 @@ public class StockLinkDaoImpl implements StockLinkDao {
         String sql = "SELECT ts_code,[CLOSE] FROM [zzfin].[dbo].[MKT_D_PRICE] " +
                 " where TRADE_DATE = ? and ts_code in (" + pssql + ")";//横向比较的sql
         Connection con = getConnection();
-        logger.info("SQL:" + sql);
-        logger.info("数据:" + stockInfoList.toString());
+        logger.showMessage("SQL:" + sql);
+        logger.showMessage("数据:" + stockInfoList.toString());
         try {
             preStmt = con.prepareStatement(sql);
             preStmt.setString(1, tradeStr);
@@ -380,11 +380,11 @@ public class StockLinkDaoImpl implements StockLinkDao {
         ResultSet rs = null;
         String pssql = TransformUtil.stockCode2SQL(stockList);
         String sql = "select ts.name , ts.ts_code from [zzfin].[dbo].[TS_SECURITY] ts where ts.ts_code in (" + pssql + ");";//横向比较的sql
-        Connection con =dao.getConnection();
+        Connection con = dao.getConnection();
         try {
             preStmt = con.prepareStatement(sql);
             for (int i = 0; i < stockList.size(); i++) {
-                String stockCode=stockList.get(i);
+                String stockCode = stockList.get(i);
                 preStmt.setString((1 + i), stockCode);
             }
             rs = preStmt.executeQuery();
