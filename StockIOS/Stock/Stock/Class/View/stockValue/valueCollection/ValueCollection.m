@@ -41,7 +41,7 @@
         layout.minimumLineSpacing = 0.0;
         float valueHigh = 0;
         if ([self.valType isEqual:@"GSJJ"] || [self.valType isEqual:@"GD"]) {
-            valueHigh = 230;
+            valueHigh = computerVIEWHIGH;
         } else if ([self.valType isEqual:@"PJBH"]) {
             valueHigh = 200;
         }
@@ -79,9 +79,10 @@
         frame = CGSizeMake(K_FRAME_BASE_WIDTH-24, 30);
         if (indexPath.item > 0) {
             frame = CGSizeMake(K_FRAME_BASE_WIDTH-24, 23);
-            NSDictionary *dic = self.valueAry[indexPath.item];
-            CGFloat w = (K_FRAME_BASE_WIDTH-24)*0.5;
-            CGSize size = [self valueSize:dic[@"stockHolderNmae"] ValueWidth:w FontSize:12];
+            NSDictionary *selelctDic = self.valueAry[indexPath.item];
+            CGFloat w = (K_FRAME_BASE_WIDTH-44)/3+88.5;//198.5
+            NSLog(@"%@",selelctDic[@"stockHolderName"]);
+            CGSize size = [self valueSize:selelctDic[@"stockHolderName"] ValueWidth:w FontSize:12];
             if (size.height > 20) {
                 frame = CGSizeMake(K_FRAME_BASE_WIDTH-24, size.height+10);
             }

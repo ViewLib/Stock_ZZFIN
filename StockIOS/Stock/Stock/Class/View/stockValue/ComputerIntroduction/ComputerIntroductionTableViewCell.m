@@ -68,7 +68,7 @@
         new.origin.x = 0;
         new.origin.y = 0;
         new.size.width = K_FRAME_BASE_WIDTH;
-        new.size.height = 230;
+        new.size.height = computerVIEWHIGH;
         _gsjjView.frame = new;
         [self.ValueView addSubview:_gsjjView];
     }
@@ -92,7 +92,7 @@
         new.origin.x = 0;
         new.origin.y = 0;
         new.size.width = K_FRAME_BASE_WIDTH;
-        new.size.height = 230;
+        new.size.height = computerVIEWHIGH;
         _gdView.frame = new;
         [self.ValueView addSubview:_gdView];
         _gdView.hidden = YES;

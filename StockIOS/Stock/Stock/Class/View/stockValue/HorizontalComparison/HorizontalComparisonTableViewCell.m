@@ -45,14 +45,18 @@
 
 - (void)reloadBarChart:(int)index {
     self.barY = [NSMutableArray array];
+    self.barX = [NSMutableArray array];
+    
     self.yType = @"%";
     if (index == 9999) {
-        self.barX = [NSMutableArray array];
+        self.superbarX = [NSMutableArray array];
         for (NSDictionary *dic in self.barValueAry) {
-            [self.barX addObject:dic[@"stockName"]];
+            [self.superbarX addObject:dic[@"stockName"]];
             [self.barIncome addObject:dic[@"income"]];
             [self.barShareOut addObject:[NSNumber numberWithFloat:[dic[@"shareOut"] doubleValue]*100]];
-            [self.barRatio addObject:dic[@"ratio"]];
+            if ([dic[@"ratio"] floatValue] != 0) {
+                [self.barRatio addObject:dic[@"ratio"]];
+            }
             [self.barPricePerfor addObject:dic[@"pricePerfor"]];
         }
         self.barY = self.barRatio;
@@ -68,6 +72,12 @@
     } else {
 //        self.yType = @"%";
         self.barY = self.barShareOut;
+    }
+    
+    if (self.barY.count < self.superbarX.count) {
+        self.barX = [self.superbarX subarrayWithRange:NSMakeRange(0, self.barY.count)].mutableCopy;
+    } else {
+        self.barX = self.superbarX.mutableCopy;
     }
     
     if (self.barX.count > 0 && self.barY.count > 0) {

@@ -26,6 +26,8 @@
 
 @property (strong, nonatomic) NSArray   *barValueAry;
 
+@property (strong, nonatomic) NSMutableArray   *superbarX;
+
 @property (strong, nonatomic) NSMutableArray   *barX;
 
 @property (strong, nonatomic) NSMutableArray   *barY;

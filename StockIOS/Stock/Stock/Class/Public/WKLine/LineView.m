@@ -186,7 +186,7 @@ scrollView滑动重绘页面
 
 - (void)drawLeftDesc {
     
-    NSDictionary *attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:9],NSForegroundColorAttributeName:[UIColor redColor]};
+    NSDictionary *attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:9],NSForegroundColorAttributeName:[UIColor blackColor]};
     CGSize textSize = [self rectOfNSString:[NSString stringWithFormat:@"%.2f",(maxValue + minValue)/2.f] attribute:attribute].size;
     CGFloat unit = self.stockScrollView.frame.size.height * LINERADIO / 5.f;
     CGFloat unitValue = (maxValue - minValue)/4.f;
