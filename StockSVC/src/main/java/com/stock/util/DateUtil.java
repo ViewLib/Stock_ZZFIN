@@ -105,6 +105,10 @@ public class DateUtil {
 
     public final static String SIMPLEFORMATTYPESTRING18 = "yyyy-MM";
 
+    public final static String SIMPLEFORMATTYPESTRING19 = "yy/MM/dd";
+
+    public final static String SIMPLEFORMATTYPESTRING20 = "yyyy";
+
 
     // =====================================End===================================
 

@@ -11,11 +11,13 @@ import com.stock.model.response.*;
 import com.stock.util.*;
 import com.stock.viewmodel.SQLViewModel;
 import com.stock.viewmodel.StoctEventSQLResultModel;
+import org.apache.commons.collections.comparators.ComparableComparator;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.DataUtil;
 import org.jsoup.nodes.Document;
 
 
+import javax.xml.crypto.Data;
 import java.net.URL;
 import java.util.*;
 
@@ -324,9 +326,26 @@ public class StockService {
         String stockCode = transCode(stockDetailFinanceRequest.stockCode);
         for (int i = 1; i < 5; i++) {
             StockDetailFinanceGroup stockDetailFinanceGroup = new StockDetailFinanceGroup();
-            stockDetailFinanceGroup.yearItemList=dao.getYearlList(stockCode,i);
+            stockDetailFinanceGroup.yearItemList = dao.getYearlList(stockCode, i);
             stockDetailFinanceItemList = dao.getFinalList(stockCode, i);
             stockDetailFinanceGroup.financeItemList = stockDetailFinanceItemList;
+
+            Comparator comparator = new Comparator<StockDetailFinanceItem>() {
+                @Override
+                public int compare(StockDetailFinanceItem o1, StockDetailFinanceItem o2) {
+                    Calendar calendar1 = DateUtil.dateStr2calendar(o1.dateStr, DateUtil.SIMPLEFORMATTYPESTRING19);
+                    Calendar calendar2 = DateUtil.dateStr2calendar(o2.dateStr, DateUtil.SIMPLEFORMATTYPESTRING19);
+                    return calendar1.getTimeInMillis() > calendar2.getTimeInMillis() ? 1 : -1;
+                }
+            };
+            Collections.sort(stockDetailFinanceGroup.financeItemList, comparator);
+            Collections.sort(stockDetailFinanceGroup.yearItemList, comparator);
+            //这里整理一下，年的话格式化一下，并且按照时间正序排列
+            for (StockDetailFinanceItem yearItem : stockDetailFinanceGroup.yearItemList) {
+                Calendar calendar = DateUtil.dateStr2calendar(yearItem.dateStr, DateUtil.SIMPLEFORMATTYPESTRING19);
+                String s = DateUtil.calendar2Time(calendar.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING20);
+                yearItem.dateStr = s;
+            }
 
             if (i == 1) {
                 stockDetailFinanceGroup.financeName = "收入";

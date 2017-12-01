@@ -16,13 +16,14 @@ public class StockDetailFinanceGroup {
     public String financeName = "";//收入/净利率/毛利率/分红率
     public int financeType = FinanceType_INCOME;
     public ArrayList<StockDetailFinanceItem> financeItemList = new ArrayList<>();
+    public ArrayList<StockDetailFinanceItem> yearItemList = new ArrayList<>();
 
     //以下值客户端来计算
     public float maxValue = 0;
 
     public String getShowItemUnit(float value) {
         if (maxValue == 0) {
-            for (StockDetailFinanceItem item : financeItemList) {
+            for (StockDetailFinanceItem item : yearItemList) {
                 float v = StringUtil.toFloat(item.valueStr);
                 if (v > maxValue) {
                     maxValue = v;

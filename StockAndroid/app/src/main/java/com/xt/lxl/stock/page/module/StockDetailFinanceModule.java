@@ -30,6 +30,8 @@ import com.xt.lxl.stock.widget.view.StockTabGroupButton2;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -148,11 +150,11 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
 
 
     private void bindChartData(BarChart mChart, final StockDetailFinanceGroup stockDetailFinanceGroup) {
-        ArrayList<StockDetailFinanceItem> financeItemList = stockDetailFinanceGroup.financeItemList;
+        ArrayList<StockDetailFinanceItem> financeItemList = stockDetailFinanceGroup.yearItemList;
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < financeItemList.size(); i++) {
             StockDetailFinanceItem stockDetailFinanceItem = financeItemList.get(i);
-            xVals.add(stockDetailFinanceItem.dateStr);
+            xVals.add(stockDetailFinanceItem.dateStr);//格式化成年
         }
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();

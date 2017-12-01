@@ -118,7 +118,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         /*折线图y轴左没有basevalue，调用系统的*/
         axisLeftLine.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         axisLeftLine.setStartAtZero(false);//设置Y轴的数据不是从0开始
-        axisLeftLine.setLabelCount(5, true);
+        axisLeftLine.setLabelCount(3, true);
         axisLeftLine.setTextColor(Color.GRAY);
         axisLeftLine.setDrawLabels(true);
         axisLeftLine.setDrawGridLines(false);
