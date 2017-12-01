@@ -46,11 +46,11 @@ public class TransformUtil {
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
             //范建震
-            eventDataModel.eventDesc = resultModel.attr6 + FormatUtil.forDataStr(resultModel.attr1) + "向" + resultModel.attr7 + "质押" + AmountUtil.transHandFromAmount(resultModel.attr1);
+            eventDataModel.eventDesc = resultModel.attr6 + FormatUtil.forDataStr(resultModel.attr1) + "向" + resultModel.attr7 + "质押" + AmountUtil.transHandFromAmount(resultModel.attr4);
         } else if (subType == StockEventsDataList.TYPE_EXCITATION) {
             eventDataModel.eventDate = FormatUtil.forDataStr(resultModel.eventDate);
             eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = FormatUtil.forDataStr(resultModel.eventDate) + resultModel.attr3 + "，数量：" + AmountUtil.transHandFromAmount(resultModel.attr1) + "解禁日期：" + FormatUtil.forDataStr(resultModel.attr7);
+            eventDataModel.eventDesc = FormatUtil.forDataStr(resultModel.eventDate) + resultModel.attr3 + "，数量：" + AmountUtil.transHandFromAmount(resultModel.attr4) + "解禁日期：" + FormatUtil.forDataStr(resultModel.attr7);
         } else if (subType == StockEventsDataList.TYPE_EXCHANGE) {//股票置换
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
@@ -58,7 +58,7 @@ public class TransformUtil {
         } else if (subType == StockEventsDataList.TYPE_INSTITUTIONAL_NUM) {
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.eventDate + "，机构持股数量为：" + AmountUtil.transHandFromAmount(resultModel.attr1);
+            eventDataModel.eventDesc = resultModel.attr2 + "，机构持股数量为：" + AmountUtil.transHandFromAmount(resultModel.attr1);
         } else if (subType == StockEventsDataList.TYPE_SHAREHOLDER_NUM) {
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
