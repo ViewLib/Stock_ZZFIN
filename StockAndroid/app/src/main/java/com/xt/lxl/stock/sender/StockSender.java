@@ -3,6 +3,8 @@ package com.xt.lxl.stock.sender;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
@@ -363,7 +365,16 @@ public class StockSender {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("stockCode", requestStockCode);
         String s = requestGet("http://115.159.31.128/yearPrice?", hashMap, "utf-8");
-        return 10.0f;
+
+        try {
+            JSONArray objects = JSON.parseArray(s);
+            JSONObject jsonObject = objects.getJSONObject(0);
+            Float close = jsonObject.getFloat("close");
+            return close;
+        } catch (Exception e) {
+
+        }
+        return 0f;
     }
 
     private static String requestGet(String baseUrl, String requestJsonStr, String code) {

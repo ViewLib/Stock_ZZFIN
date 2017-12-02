@@ -78,8 +78,13 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
             priceTop.setTextValue("今日最高", stockViewModel.maxPrice);
             priceBottom.setTextValue("今日最低", stockViewModel.minPrice);
             float currenyPrice = StringUtil.toFloat(stockViewModel.stockPirce);
-            float v = (currenyPrice - mCacheBean.forwardPirce) / currenyPrice;
-            upAndDown.setTextValue("今年涨幅", StockUtil.roundedFor(v, 2) + "%");
+            if (mCacheBean.forwardPirce == 0) {
+                upAndDown.setTextValue("今年涨幅", "暂无");
+            } else {
+                float v = (currenyPrice - mCacheBean.forwardPirce) / currenyPrice;
+                upAndDown.setTextValue("今年涨幅", StockUtil.roundedFor(v, 2) + "%");
+            }
+
             rate.setTextValue("换手率", stockViewModel.turnover + "%");
             turnover.setTextValue("成交值", StockUtil.getDealValue(stockViewModel.dealValue));
             marketvalue.setTextValue("市值", StockUtil.getIntegerValue(stockViewModel.valueAll) + "亿");
