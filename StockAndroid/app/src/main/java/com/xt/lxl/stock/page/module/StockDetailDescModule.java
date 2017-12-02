@@ -46,7 +46,6 @@ public class StockDetailDescModule extends StockDetailBaseModule {
         list.add("公司简介");
         list.add("十大股东");
         mTab.setTabItemArrayText(list);
-        mTab.initView();
     }
 
     @Override

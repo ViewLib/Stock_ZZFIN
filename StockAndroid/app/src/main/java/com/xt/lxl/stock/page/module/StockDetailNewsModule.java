@@ -68,7 +68,6 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         list.add("分红");
         list.add("投资");
         mTab.setTabItemArrayText(list);
-        mTab.initView();
         mTab.setOnTabItemSelectedListener(new StockTabGroupButton2.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {

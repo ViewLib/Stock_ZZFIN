@@ -204,6 +204,13 @@ public class StockSender {
         return getMinuteDataResponse;
     }
 
+    /**
+     * 日线，周线，月线数据
+     *
+     * @param stockCode
+     * @param getType
+     * @return
+     */
     public StockGetDateDataResponse requestDateData(String stockCode, String getType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("stockCode", stockCode);
@@ -347,7 +354,7 @@ public class StockSender {
     }
 
     /**
-     * 横向比较
+     * 年度涨幅的接口
      *
      * @param requestStockCode
      * @return

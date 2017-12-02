@@ -61,7 +61,6 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         list.add("年度表现");
         list.add("分红比例");
         mTab.setTabItemArrayText(list);
-        mTab.initView();
     }
 
     @Override
@@ -123,6 +122,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         mChart.setDrawBarShadow(false);
         mChart.setMaxVisibleValueCount(60);
         mChart.setDrawValueAboveBar(true);
+        mChart.setDoubleTapToZoomEnabled(false);
         //不展示比例
         Legend l = mChart.getLegend();
         l.setEnabled(false);
@@ -169,13 +169,14 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         ArrayList<String> xVals = new ArrayList<String>();
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
+        int index = 0;
         for (int i = 0; i < compareModelList.size(); i++) {
             StockDetailCompareModel compareModel = compareModelList.get(i);
             Float f = map.get(compareModel.stockName);
             if (f == 0) {
                 continue;
             }
-            yVals1.add(new BarEntry(f, i));//填充数据
+            yVals1.add(new BarEntry(f, index++));//填充数据
             xVals.add(compareModel.stockName);
         }
         BarDataSet set1;

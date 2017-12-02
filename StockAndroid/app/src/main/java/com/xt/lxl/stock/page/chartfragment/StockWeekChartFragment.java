@@ -81,7 +81,7 @@ public class StockWeekChartFragment extends StockBaseChartFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.stock_detail_chart_day_layout, null);
+        return inflater.inflate(R.layout.stock_detail_chart_week_layout, null);
     }
 
     @Override

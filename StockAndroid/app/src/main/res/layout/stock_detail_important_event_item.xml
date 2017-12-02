@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:background="@drawable/stock_deail_important_icon" />
+            android:background="@drawable/stock_deail_important_ask_icon" />
 
         <TextView
             android:id="@+id/stock_detail_important_title"
@@ -32,17 +32,32 @@
             android:layout_height="12dp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/stock_detail_important_desc"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/stock_detail_important_title_view"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/stock_detail_important_title_view"
-        android:layout_toRightOf="@id/stock_detail_important_title_view"
-        android:gravity="center_vertical"
-        android:padding="10dp"
-        android:text="大股东减持30万股，平均每股38元"
-        android:textAppearance="@style/text_12_333333" />
+        android:layout_toRightOf="@id/stock_detail_important_title_view">
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/stock_deail_important_answer_icon" />
+
+        <TextView
+            android:id="@+id/stock_detail_important_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="大股东减持30万股，平均每股38元"
+            android:textAppearance="@style/text_12_333333" />
+
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

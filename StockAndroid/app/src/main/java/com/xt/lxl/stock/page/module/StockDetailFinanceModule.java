@@ -59,9 +59,8 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
         list.add("收入");
         list.add("净利率");
         list.add("毛利率");
-        list.add("分红率");
+        list.add("每股净资产");
         mTab.setTabItemArrayText(list);
-        mTab.initView();
         mTab.setOnTabItemSelectedListener(new StockTabGroupButton2.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {
@@ -114,6 +113,7 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
         mChart.setDrawBarShadow(false);
         mChart.setMaxVisibleValueCount(60);
         mChart.setDrawValueAboveBar(true);//允许在水平以下画线
+        mChart.setDoubleTapToZoomEnabled(false);
 
         //不展示比例
         Legend l = mChart.getLegend();

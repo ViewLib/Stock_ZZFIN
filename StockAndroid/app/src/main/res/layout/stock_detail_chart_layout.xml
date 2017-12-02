@@ -8,13 +8,12 @@
     <com.xt.lxl.stock.widget.view.StockTabGroupButton2
         android:id="@+id/tab_group"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        />
+        android:layout_height="wrap_content" />
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:background="@color/stock_main_white_bg" />
 
 </LinearLayout>

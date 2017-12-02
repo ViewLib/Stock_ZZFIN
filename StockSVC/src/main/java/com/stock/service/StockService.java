@@ -435,8 +435,8 @@ public class StockService {
             String stockCode = stockList.get(i);
             StockDetailCompareModel compareModel = new StockDetailCompareModel();
             compareModel.stockCode = stockCode;
-            compareModel.ratio = AmountUtil.parse2Float(ratioMap.get(stockCode));
-            compareModel.income = AmountUtil.parse2Float(incomeMap.get(stockCode));
+            compareModel.ratio = AmountUtil.roundedFor(AmountUtil.parse2Float(ratioMap.get(stockCode)), 2);
+            compareModel.income = AmountUtil.roundedFor(AmountUtil.parse2Float(incomeMap.get(stockCode)), 2);
             compareModel.shareOut = AmountUtil.parse2Float(shareOutMap.get(stockCode));
             compareModel.stockName = infoMap.get(stockCode).stockName;
             String firstPriceStr = firstPriceMap.get(stockCode);

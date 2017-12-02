@@ -347,6 +347,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         barChart.setScaleYEnabled(false);
         barChart.setDrawBorders(false);
         barChart.setMaxVisibleValueCount(60);
+        barChart.setDoubleTapToZoomEnabled(false);
 
         Legend barChartLegend = barChart.getLegend();
         barChartLegend.setEnabled(false);
@@ -367,6 +368,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         axisLeftBar.setDrawAxisLine(false);
         axisLeftBar.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         axisLeftBar.setDrawLabels(true);
+        axisLeftBar.setLabelCount(3, true);
         axisLeftBar.setSpaceTop(0);
         axisLeftBar.setShowOnlyMinMax(true);
         axisLeftBar.setAxisMinValue(0);
@@ -382,6 +384,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         axisRightBar.setDrawGridLines(false);
         axisRightBar.setDrawAxisLine(false);
         /****************************************************************/
+        combinedchart.setDoubleTapToZoomEnabled(false);
         combinedchart.setDrawBorders(false);
         combinedchart.setBorderWidth(1);
         combinedchart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
@@ -404,6 +407,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         axisLeftK.setDrawGridLines(true);
         axisLeftK.setDrawAxisLine(false);
         axisLeftK.setDrawLabels(true);
+        axisLeftK.setDrawGridLines(false);
         axisLeftK.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         axisLeftK.setGridColor(getResources().getColor(R.color.minute_grayLine));
         axisLeftK.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
@@ -415,7 +419,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         });
         axisRightK = combinedchart.getAxisRight();
         axisRightK.setDrawLabels(false);
-        axisRightK.setDrawGridLines(true);
+        axisRightK.setDrawGridLines(false);
         axisRightK.setDrawAxisLine(false);
         axisRightK.setGridColor(getResources().getColor(R.color.minute_grayLine));
         combinedchart.setDragDecelerationEnabled(true);

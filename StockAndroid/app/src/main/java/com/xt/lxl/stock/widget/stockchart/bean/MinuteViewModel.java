@@ -50,7 +50,7 @@ public class MinuteViewModel {
                 mMinPrice = stockMinuteData.price;
             }
             //打印
-            LogUtil.LogI("time:" + stockMinuteData.time + ",price:" + stockMinuteData.price + ",volum:" + stockMinuteData.volume);
+//            LogUtil.LogI("time:" + stockMinuteData.time + ",price:" + stockMinuteData.price + ",volum:" + stockMinuteData.volume);
         }
         //计算最大涨幅和最大跌幅
         float maxUpChange = (mMaxPrice - mBasePrice);

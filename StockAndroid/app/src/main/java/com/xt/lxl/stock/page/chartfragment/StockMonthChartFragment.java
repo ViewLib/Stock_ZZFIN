@@ -81,7 +81,7 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.stock_detail_chart_day_layout, null);
+        return inflater.inflate(R.layout.stock_detail_chart_month_layout, null);
     }
 
     @Override

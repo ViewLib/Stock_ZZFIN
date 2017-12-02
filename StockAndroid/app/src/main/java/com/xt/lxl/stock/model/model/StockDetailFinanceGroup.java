@@ -11,7 +11,7 @@ public class StockDetailFinanceGroup {
     public final static int FinanceType_INCOME = 1;//收入
     public final static int FinanceType_SPLASHES = 2;//净利率
     public final static int FinanceType_GROSSMARGIN = 3;//毛利率
-    public final static int FinanceType_DIVIDERNDRATE = 4;//分红率
+    public final static int FinanceType_ASSETS = 4;//
 
     public String financeName = "";//收入/净利率/毛利率/分红率
     public int financeType = FinanceType_INCOME;
@@ -42,7 +42,10 @@ public class StockDetailFinanceGroup {
             }
             return String.valueOf(value);
         }
-        if (financeType == FinanceType_SPLASHES || financeType == FinanceType_GROSSMARGIN || financeType == FinanceType_DIVIDERNDRATE) {
+        if (financeType == FinanceType_ASSETS) {
+            return value + "元";
+        }
+        if (financeType == FinanceType_SPLASHES || financeType == FinanceType_GROSSMARGIN) {
             BigDecimal b = new BigDecimal(value);
             value = b.setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();//小数点后保留4位
             //异常情况

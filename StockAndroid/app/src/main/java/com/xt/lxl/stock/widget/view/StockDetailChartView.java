@@ -52,7 +52,6 @@ public class StockDetailChartView extends LinearLayout {
         list.add("周K");
         list.add("月K");
         tabGroupButton.setTabItemArrayText(list);
-        tabGroupButton.initView();
 
         StockBaseChartFragment minuteFragment = new StockMinuteChartFragment();
         StockBaseChartFragment dayFragment = new StockDayChartFragment();
