@@ -11,13 +11,10 @@ import com.stock.model.response.*;
 import com.stock.util.*;
 import com.stock.viewmodel.SQLViewModel;
 import com.stock.viewmodel.StoctEventSQLResultModel;
-import org.apache.commons.collections.comparators.ComparableComparator;
 import org.jsoup.Jsoup;
-import org.jsoup.helper.DataUtil;
 import org.jsoup.nodes.Document;
 
 
-import javax.xml.crypto.Data;
 import java.net.URL;
 import java.util.*;
 
@@ -421,7 +418,7 @@ public class StockService {
         String dateStr = DateUtil.calendar2Time(calendar.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING6);
         Map<String, String> ratioMap = linkDao.selectRatioByCodeList(stockList, dateStr);//ok
         Map<String, String> incomeMap = linkDao.selectIncomeGrowthByCodeList(stockList, lastTradeDate);//OK
-        Map<String, String> shareOutMap = linkDao.selectShareOutByCodeList(stockList, lastTradeDate);
+        Map<String, String> assetsMap = linkDao.selectAssetsByCodeList(stockList, lastTradeDate);
         Map<String, StockViewModel> infoMap = linkDao.selectStockByCode(stockList);
 
         //股价表现
@@ -437,7 +434,7 @@ public class StockService {
             compareModel.stockCode = stockCode;
             compareModel.ratio = AmountUtil.roundedFor(AmountUtil.parse2Float(ratioMap.get(stockCode)), 2);
             compareModel.income = AmountUtil.roundedFor(AmountUtil.parse2Float(incomeMap.get(stockCode)), 2);
-            compareModel.shareOut = AmountUtil.parse2Float(shareOutMap.get(stockCode));
+            compareModel.assets = AmountUtil.parse2Float(assetsMap.get(stockCode));
             compareModel.stockName = infoMap.get(stockCode).stockName;
             String firstPriceStr = firstPriceMap.get(stockCode);
             String lastPriceStr = lastPriceMap.get(stockCode);

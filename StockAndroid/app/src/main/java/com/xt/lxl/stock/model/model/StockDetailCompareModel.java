@@ -10,5 +10,6 @@ public class StockDetailCompareModel {
     public float income;//收入增长
     public float pricePerfor;//股价表现
     public float shareOut;//分红比例
+    public float assets;//每股净资产
 
 }

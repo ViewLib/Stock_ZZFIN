@@ -43,11 +43,10 @@ public class AmountUtil {
 
     public static String transRatioFromHave(String amout) {
         Float aFloat = StringUtil.toFloat(amout);
-        Float bFloat = roundedFor(aFloat, 4);
-        if (bFloat >= 1) {
+        if (aFloat >= 1) {
             return "100%";
         }
-        return bFloat * 100 + "%";
+        return roundedFor(aFloat * 100, 4) + "%";
     }
 
 }

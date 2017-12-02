@@ -344,7 +344,7 @@ public class StockLinkDaoImpl implements StockLinkDao {
     }
 
     @Override
-    public Map<String, String> selectShareOutByCodeList(List<String> stockInfoList, String tradeStr) {
+    public Map<String, String> selectAssetsByCodeList(List<String> stockInfoList, String tradeStr) {
         Map<String, String> ratioMap = new HashMap<>();
         PreparedStatement preStmt = null;
         ResultSet rs = null;
