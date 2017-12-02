@@ -58,7 +58,7 @@ public class TransformUtil {
         } else if (subType == StockEventsDataList.TYPE_INSTITUTIONAL_NUM) {
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.eventDate + "，机构持股数量为：" + AmountUtil.transHandFromAmount(resultModel.attr1);
+            eventDataModel.eventDesc = resultModel.eventDate + "，机构持股数量为：" + AmountUtil.transHandFromAmount(resultModel.attr1) + "，占总股本比例：" + resultModel.attr2 + "%";
         } else if (subType == StockEventsDataList.TYPE_SHAREHOLDER_NUM) {
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;

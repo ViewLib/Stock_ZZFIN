@@ -362,7 +362,7 @@ public class StockSender {
     public float requestForwadPrice(String requestStockCode) {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("stockCode", requestStockCode);
-        String s = requestGet("http://115.159.31.128/yearPrice", hashMap, "utf-8");
+        String s = requestGet("http://115.159.31.128/yearPrice?", hashMap, "utf-8");
         return 10.0f;
     }
 

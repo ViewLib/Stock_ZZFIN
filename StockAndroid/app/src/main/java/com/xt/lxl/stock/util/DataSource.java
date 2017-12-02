@@ -316,46 +316,6 @@ public class DataSource {
         return response;
     }
 
-    public static List<StockDateDataModel> getDayDataPriceList() {
-        List<StockDateDataModel> list = new ArrayList<>();
-
-        float maxPrice = 11.00f;//当前股票最高价格，单位：分
-        float minPrice = 10.00f;//当前股票最低价格，单位：分
-        float openPrice = 10.40f;//当前股票最低价格，单位：分
-        float closePrice = 10.60f;//当前股票最低价格，单位：分
-
-        Calendar instance = Calendar.getInstance();
-        for (int i = 0; i < 300; i++) {
-            if (instance.get(Calendar.DAY_OF_WEEK) == 7 || instance.get(Calendar.DAY_OF_WEEK) == 1) {//周六或者周天跳过
-                instance.add(Calendar.DAY_OF_MONTH, -1);
-                continue;
-            }
-            StockDateDataModel model = new StockDateDataModel();
-            String s = DateUtil.calendar2String(instance, DateUtil.SIMPLEFORMATTYPESTRING7);
-
-            model.date = s;
-            model.high = maxPrice;
-            model.low = minPrice;
-            model.open = openPrice;
-            model.close = closePrice;
-            model.volume = (float) (Math.random() * 1000);
-            list.add(model);
-
-            //add value
-            instance.add(Calendar.DAY_OF_MONTH, -1);
-            maxPrice += 1;
-            minPrice += 1;
-            openPrice += 1;
-            closePrice += 1;
-        }
-
-        List<StockDateDataModel> list2 = new ArrayList<>();
-        for (int i = list.size() - 1; i >= 0; i--) {
-            list2.add(list.get(i));
-        }
-        return list2;
-    }
-
     public static StockEventsDataResponse getNewsResponse() {
         StockEventsDataResponse response = new StockEventsDataResponse();
         StockEventsDataList dataList1 = new StockEventsDataList();

@@ -22,6 +22,7 @@ import com.xt.lxl.stock.model.model.StockEventsDataList;
 import com.xt.lxl.stock.model.model.StockEventsDataModel;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
+import com.xt.lxl.stock.util.DateUtil;
 import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
@@ -29,6 +30,7 @@ import com.xt.lxl.stock.widget.view.StockTabGroupButton2;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -246,7 +248,9 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         ArrayList<Entry> yValues = new ArrayList<Entry>();
         for (int i = 0; i < dataList.size(); i++) {
             StockDateDataModel model = dataList.get(i);
-            xValues.add(model.date);
+            Calendar calendar = DateUtil.dateStr2calendar(model.date, DateUtil.SIMPLEFORMATTYPESTRING7);
+            String dataStr = DateUtil.calendar2Time(calendar, DateUtil.SIMPLEFORMATTYPESTRING21);
+            xValues.add(dataStr);
             // y轴的数据
             yValues.add(new Entry(model.close, i));
         }
