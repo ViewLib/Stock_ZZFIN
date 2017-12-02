@@ -349,10 +349,13 @@ public class StockLinkDaoImpl implements StockLinkDao {
         PreparedStatement preStmt = null;
         ResultSet rs = null;
         String pssql = TransformUtil.stockCode2SQL(stockInfoList);
-        String sql = "SELECT div.ts_code ts_code, div.EX_DIV_DATE date, [DIV_CASH_BONUS_PRE_TAX]/(price.[PRE_CLOSE]*price.ADJ_FACTOR) div_pct" +
-                " FROM [zzfin].[dbo].[EQ_DIVIDEND]  div,[zzfin].[dbo].MKT_D_PRICE price" +
-                " where div.ts_code in (" + pssql + ") and div.ts_code=price.ts_code and div.EX_DIV_DATE=price.TRADE_DATE" +
-                " order by div.EX_DIV_DATE desc;";//横向比较的sql
+        String sql = "SELECT top 4  \n" +
+                " cast(s_fa_bps as NUMERIC(10,2)) as div_pct,\n" +
+                " wind_code as ts_code,\n" +
+                "format(cast(report_period as date),'yy/MM/dd')data \n" +
+                "\t  FROM [wind].[dbo].[asharefinancialindicator] \n" +
+                "\t  where wind_code in (" + pssql + ")  " +
+                "\t   order by report_period desc;";//横向比较的sql
         Connection con = getConnection();
         try {
             preStmt = con.prepareStatement(sql);
