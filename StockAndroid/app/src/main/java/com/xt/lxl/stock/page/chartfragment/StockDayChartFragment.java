@@ -248,7 +248,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
                 combinedchart.invalidate();
                 barChart.invalidate();
             }
-        }, 100);
+        }, 300);
     }
 
     public static DayViewModel calculationData(StockGetDateDataResponse dataResponses) {
@@ -363,12 +363,11 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         xAxisBar.setGridColor(getResources().getColor(R.color.minute_grayLine));
 
         axisLeftBar = barChart.getAxisLeft();
-//        axisLeftBar.setAxisMinValue(0);
+        axisLeftBar.setAxisMinValue(0);
         axisLeftBar.setDrawGridLines(false);
         axisLeftBar.setDrawAxisLine(false);
         axisLeftBar.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         axisLeftBar.setDrawLabels(true);
-        axisLeftBar.setLabelCount(3, true);
         axisLeftBar.setSpaceTop(0);
         axisLeftBar.setShowOnlyMinMax(true);
         axisLeftBar.setAxisMinValue(0);
@@ -404,6 +403,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         xAxisK.setGridColor(getResources().getColor(R.color.minute_grayLine));
 
         axisLeftK = combinedchart.getAxisLeft();
+        axisLeftK.setLabelCount(3, true);
         axisLeftK.setDrawGridLines(true);
         axisLeftK.setDrawAxisLine(false);
         axisLeftK.setDrawLabels(true);
