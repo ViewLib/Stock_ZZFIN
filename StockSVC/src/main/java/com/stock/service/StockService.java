@@ -319,13 +319,11 @@ public class StockService {
 
     public List<StockDetailFinanceGroup> getFinicilaGroup(StockDetailFinanceRequest stockDetailFinanceRequest, StockDetailFinanceResponse stockDetailFinanceResponse) throws Exception {
         List<StockDetailFinanceGroup> stockDetailFinanceGroupList = new ArrayList<>();
-        List<StockDetailFinanceItem> stockDetailFinanceItemList = new ArrayList<>();
         String stockCode = transCode(stockDetailFinanceRequest.stockCode);
         for (int i = 1; i < 5; i++) {
             StockDetailFinanceGroup stockDetailFinanceGroup = new StockDetailFinanceGroup();
             stockDetailFinanceGroup.yearItemList = dao.getYearlList(stockCode, i);
-            stockDetailFinanceItemList = dao.getFinalList(stockCode, i);
-            stockDetailFinanceGroup.financeItemList = stockDetailFinanceItemList;
+            stockDetailFinanceGroup.financeItemList = dao.getFinalList(stockCode, i);
 
             Comparator comparator = new Comparator<StockDetailFinanceItem>() {
                 @Override
@@ -342,8 +340,14 @@ public class StockService {
                 Calendar calendar = DateUtil.dateStr2calendar(yearItem.dateStr, DateUtil.SIMPLEFORMATTYPESTRING19);
                 String s = DateUtil.calendar2Time(calendar.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING20);
                 yearItem.dateStr = s;
-            }
 
+                String valueStr = yearItem.valueStr;
+                if (i == 1 || i == 2 || i == 3 || i == 4) {
+                    Float aFloat = StringUtil.toFloat(valueStr);
+                    Float aFloat1 = AmountUtil.roundedFor(aFloat, 1);
+                    yearItem.valueStr = String.valueOf(aFloat1);
+                }
+            }
             if (i == 1) {
                 stockDetailFinanceGroup.financeName = "收入";
             }
@@ -393,7 +397,7 @@ public class StockService {
                 StockEventDataModel eventDataModel = TransformUtil.transfor2EventDataModel(resultModel, stockEvents);//转换
                 stockEvents.stockEventsDataModels.add(eventDataModel);
             }
-            if (stockEvents.stockEventsDataModels.size() == 0) {
+            if (stockEventsDataRequest.type == 2 && stockEvents.stockEventsDataModels.size() == 0) {
                 continue;
             }
             stockEventsDataLists.add(stockEvents);

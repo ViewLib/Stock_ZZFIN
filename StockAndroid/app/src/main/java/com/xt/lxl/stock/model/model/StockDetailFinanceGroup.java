@@ -32,31 +32,22 @@ public class StockDetailFinanceGroup {
         }
 
         //判断一下类型，按照类型中最大值来算
-
         if (financeType == FinanceType_INCOME) {
             if (maxValue > 100000000) {
-                return StockUtil.roundedFor(value / 100000000, 2) + "亿";
+                return StockUtil.roundedFor(value / 100000000, 1) + "亿";
             }
             if (maxValue > 10000) {
-                return StockUtil.roundedFor(value / 10000, 2) + "万";
+                return StockUtil.roundedFor(value / 10000, 1) + "万";
             }
             return String.valueOf(value);
         }
         if (financeType == FinanceType_ASSETS) {
-            return value + "元";
+            Float aFloat = StockUtil.roundedFor(value, 1);
+            return aFloat + "元";
         }
         if (financeType == FinanceType_SPLASHES || financeType == FinanceType_GROSSMARGIN) {
-            BigDecimal b = new BigDecimal(value);
-            value = b.setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();//小数点后保留4位
-            //异常情况
-            if (maxValue > 100) {
-                return String.valueOf(value);
-            }
-            //
-            if (maxValue < 1) {
-                return value + "%";
-            }
-            return value + "%";
+            Float aFloat = StockUtil.roundedFor(value, 1);
+            return aFloat + "%";
         }
         return String.valueOf(value);
     }

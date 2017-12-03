@@ -19,7 +19,7 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockEventsDataList;
-import com.xt.lxl.stock.model.model.StockEventsDataModel;
+import com.xt.lxl.stock.model.model.StockEventDataModel;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
 import com.xt.lxl.stock.util.DateUtil;
@@ -134,8 +134,8 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
             eventContainer.setLayoutParams(lp);
 
             StockEventsDataList eventsDataList = stockEventsDataLists.get(i);
-            Map<String, StockEventsDataModel> eventMap = new HashMap<>();
-            for (StockEventsDataModel eventsDataModel : eventsDataList.stockEventsDataModels) {
+            Map<String, StockEventDataModel> eventMap = new HashMap<>();
+            for (StockEventDataModel eventsDataModel : eventsDataList.stockEventDataModels) {
                 if (eventMap.get(eventsDataModel.eventDate) == null) {
                     eventMap.put(eventsDataModel.eventDate, eventsDataModel);
                 }
@@ -146,7 +146,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
             //向RelativeLayout中添加view
             for (int k = 0; k < dataList.size(); k++) {
                 StockDateDataModel model = dataList.get(k);
-                StockEventsDataModel eventsDataModel = eventMap.get(model.date);
+                StockEventDataModel eventsDataModel = eventMap.get(model.date);
                 if (eventsDataModel == null) {
                     continue;
                 }
@@ -178,7 +178,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         if (id == R.id.stock_detail_news_detail) {
             mStockNewDetail.setVisibility(View.GONE);
         } else if (v instanceof TextView) {
-            StockEventsDataModel eventsDataModel = (StockEventsDataModel) v.getTag();
+            StockEventDataModel eventsDataModel = (StockEventDataModel) v.getTag();
             mStockNewDetail.setVisibility(View.VISIBLE);
             TextView newsTv = (TextView) mStockNewDetail.findViewById(R.id.stock_detail_news_detail_title);
             TextView descTv = (TextView) mStockNewDetail.findViewById(R.id.stock_detail_news_detail_desc);

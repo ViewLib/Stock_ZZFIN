@@ -4,9 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.xt.lxl.stock.config.StockConfig;
-import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockEventsDataList;
-import com.xt.lxl.stock.model.model.StockEventsDataModel;
+import com.xt.lxl.stock.model.model.StockEventDataModel;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
 import com.xt.lxl.stock.model.model.StockSyncModel;
@@ -16,7 +15,6 @@ import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -322,70 +320,70 @@ public class DataSource {
         dataList1.eventType = StockEventsDataList.TYPE_LIFTED;
         dataList1.eventName = "解禁事件";
 
-        StockEventsDataModel eventModel2 = new StockEventsDataModel();
+        StockEventDataModel eventModel2 = new StockEventDataModel();
         eventModel2.eventDate = "2017-10-18";
         eventModel2.eventTitle = "范建震解禁1851万";
         eventModel2.eventDesc = "大股东减持30万股，平均每股38元";
 
-        StockEventsDataModel eventModel3 = new StockEventsDataModel();
+        StockEventDataModel eventModel3 = new StockEventDataModel();
         eventModel3.eventDate = "2017-10-19";
         eventModel3.eventTitle = "范建震解禁1851万";
         eventModel3.eventDesc = "大股东减持30万股，平均每股38元";
 
 
-        StockEventsDataModel eventModel4 = new StockEventsDataModel();
+        StockEventDataModel eventModel4 = new StockEventDataModel();
         eventModel4.eventDate = "2017-10-20";
         eventModel4.eventTitle = "范建震解禁1851万";
         eventModel4.eventDesc = "大股东减持30万股，平均每股38元";
 
 
-        StockEventsDataModel eventModel5 = new StockEventsDataModel();
+        StockEventDataModel eventModel5 = new StockEventDataModel();
         eventModel5.eventDate = "2017-10-23";
         eventModel5.eventTitle = "范建震解禁1851万";
         eventModel5.eventDesc = "大股东减持30万股，平均每股38元";
 
 
-        StockEventsDataModel eventModel6 = new StockEventsDataModel();
+        StockEventDataModel eventModel6 = new StockEventDataModel();
         eventModel6.eventDate = "2017-10-24";
         eventModel6.eventTitle = "范建震解禁1851万";
         eventModel6.eventDesc = "大股东减持30万股，平均每股38元";
 
-        StockEventsDataModel eventModel7 = new StockEventsDataModel();
+        StockEventDataModel eventModel7 = new StockEventDataModel();
         eventModel7.eventDate = "2017-10-31";
         eventModel7.eventTitle = "范建震解禁1851万";
         eventModel7.eventDesc = "大股东减持30万股，平均每股38元";
 
 
-        StockEventsDataModel eventModel8 = new StockEventsDataModel();
+        StockEventDataModel eventModel8 = new StockEventDataModel();
         eventModel8.eventDate = "2017-11-01";
         eventModel8.eventTitle = "范建震解禁1851万";
         eventModel8.eventDesc = "大股东减持30万股，平均每股38元";
 
-        StockEventsDataModel eventModel9 = new StockEventsDataModel();
+        StockEventDataModel eventModel9 = new StockEventDataModel();
         eventModel8.eventDate = "2017-11-02";
         eventModel8.eventTitle = "范建震解禁1851万";
         eventModel8.eventDesc = "大股东减持30万股，平均每股38元";
 
-        dataList1.stockEventsDataModels.add(eventModel2);
-        dataList1.stockEventsDataModels.add(eventModel3);
-        dataList1.stockEventsDataModels.add(eventModel4);
-        dataList1.stockEventsDataModels.add(eventModel5);
-        dataList1.stockEventsDataModels.add(eventModel6);
-        dataList1.stockEventsDataModels.add(eventModel7);
-        dataList1.stockEventsDataModels.add(eventModel8);
-        dataList1.stockEventsDataModels.add(eventModel9);
+        dataList1.stockEventDataModels.add(eventModel2);
+        dataList1.stockEventDataModels.add(eventModel3);
+        dataList1.stockEventDataModels.add(eventModel4);
+        dataList1.stockEventDataModels.add(eventModel5);
+        dataList1.stockEventDataModels.add(eventModel6);
+        dataList1.stockEventDataModels.add(eventModel7);
+        dataList1.stockEventDataModels.add(eventModel8);
+        dataList1.stockEventDataModels.add(eventModel9);
 
 
         StockEventsDataList dataList2 = new StockEventsDataList();
         dataList2.eventType = StockEventsDataList.TYPE_PLEDGE;
         dataList2.eventName = "股票质押";
 
-        StockEventsDataModel eventModel21 = new StockEventsDataModel();
+        StockEventDataModel eventModel21 = new StockEventDataModel();
         eventModel21.eventDate = "2017-10-19";
         eventModel21.eventTitle = "范建震质押1851万";
         eventModel21.eventDesc = "大股东质押30万股";
 
-        dataList2.stockEventsDataModels.add(eventModel21);
+        dataList2.stockEventDataModels.add(eventModel21);
 
         response.moduleName = "重大消息";
         response.stockEventsDataLists.add(dataList1);
