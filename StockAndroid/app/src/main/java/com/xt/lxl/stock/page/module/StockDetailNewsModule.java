@@ -135,7 +135,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
 
             StockEventsDataList eventsDataList = stockEventsDataLists.get(i);
             Map<String, StockEventDataModel> eventMap = new HashMap<>();
-            for (StockEventDataModel eventsDataModel : eventsDataList.stockEventDataModels) {
+            for (StockEventDataModel eventsDataModel : eventsDataList.stockEventsDataModels) {
                 if (eventMap.get(eventsDataModel.eventDate) == null) {
                     eventMap.put(eventsDataModel.eventDate, eventsDataModel);
                 }

@@ -65,10 +65,10 @@ public class StockDetailImportEventModule extends StockDetailBaseModule implemen
     }
 
     public void bindItemEventModel(StockEventsDataList eventsDataList) {
-        if (eventsDataList.stockEventDataModels.size() == 0) {
+        if (eventsDataList.stockEventsDataModels.size() == 0) {
             return;
         }
-        StockEventDataModel eventsDataModel = eventsDataList.stockEventDataModels.get(0);
+        StockEventDataModel eventsDataModel = eventsDataList.stockEventsDataModels.get(0);
         View inflate = View.inflate(mContainer.getContext(), R.layout.stock_detail_important_event_item, null);
         TextView titleTv = (TextView) inflate.findViewById(R.id.stock_detail_important_title);
         TextView descTv = (TextView) inflate.findViewById(R.id.stock_detail_important_desc);
