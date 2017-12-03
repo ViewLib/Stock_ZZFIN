@@ -436,8 +436,8 @@ public class StockService {
             String stockCode = stockList.get(i);
             StockDetailCompareModel compareModel = new StockDetailCompareModel();
             compareModel.stockCode = stockCode;
-            compareModel.ratio = AmountUtil.roundedFor(AmountUtil.parse2Float(ratioMap.get(stockCode)), 2);
-            compareModel.income = AmountUtil.roundedFor(AmountUtil.parse2Float(incomeMap.get(stockCode)), 2);
+            compareModel.ratio = AmountUtil.roundedFor(AmountUtil.parse2Float(ratioMap.get(stockCode)), 1);
+            compareModel.income = AmountUtil.roundedFor(AmountUtil.parse2Float(incomeMap.get(stockCode)), 1);
             compareModel.assets = AmountUtil.parse2Float(assetsMap.get(stockCode));
             compareModel.stockName = infoMap.get(stockCode).stockName;
             String firstPriceStr = firstPriceMap.get(stockCode);
@@ -447,7 +447,7 @@ public class StockService {
             if (firstPrice == 0 || lastPrice == 0) {
 
             }
-            compareModel.pricePerfor = AmountUtil.roundedFor(lastPrice - firstPrice, 2);
+            compareModel.pricePerfor = AmountUtil.roundedFor(lastPrice - firstPrice, 1);
             stockViewModelList.add(compareModel);
         }
 
