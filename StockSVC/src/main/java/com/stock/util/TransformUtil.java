@@ -37,6 +37,8 @@ public class TransformUtil {
 
     public static StockEventDataModel transfor2EventDataModel(StoctEventSQLResultModel resultModel, StockEventsDataList stockEvents) {
         int subType = stockEvents.subType;
+        String attr_desc="";
+        Integer holer_div=0;
         StockEventDataModel eventDataModel = new StockEventDataModel();
         if (subType == StockEventsDataList.TYPE_LIFTED) {//解禁
             eventDataModel.eventDate = resultModel.eventDate;
@@ -50,7 +52,7 @@ public class TransformUtil {
         } else if (subType == StockEventsDataList.TYPE_EXCITATION) {
             eventDataModel.eventDate = FormatUtil.forDataStr(resultModel.eventDate);
             eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = FormatUtil.forDataStr(resultModel.eventDate) + resultModel.attr3 + "，数量：" + AmountUtil.transHandFromAmount(resultModel.attr4) + "解禁日期：" + FormatUtil.forDataStr(resultModel.attr7);
+            eventDataModel.eventDesc = FormatUtil.forDataStr(resultModel.eventDate) + resultModel.attr3 + "，数量：" + AmountUtil.transHandFromAmount(resultModel.attr4) + ",解禁日期：" + FormatUtil.forDataStr(resultModel.attr7);
         } else if (subType == StockEventsDataList.TYPE_EXCHANGE) {//股票置换
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
@@ -62,7 +64,14 @@ public class TransformUtil {
         } else if (subType == StockEventsDataList.TYPE_SHAREHOLDER_NUM) {
             eventDataModel.eventDate = resultModel.eventDate;
             eventDataModel.eventTitle = stockEvents.eventName;
-            eventDataModel.eventDesc = resultModel.eventDate + "日，股东数量为：" + FormatUtil.formatStockNum(resultModel.attr1) + "人";
+            holer_div= Integer.parseInt(resultModel.attr4);
+            if(holer_div>=0){
+                attr_desc="股东人数较上期增加："+holer_div+" 人";
+            }
+            if(holer_div<0){
+                attr_desc="股东人数较上期减少："+Math.abs(holer_div)+" 人";
+            }
+            eventDataModel.eventDesc = resultModel.eventDate + "日，股东数量为：" + FormatUtil.formatStockNum(resultModel.attr1) + "人,"+attr_desc;
         }
         //重组
         else if (subType == StockEventsDataList.TYPE_REFORM) {
