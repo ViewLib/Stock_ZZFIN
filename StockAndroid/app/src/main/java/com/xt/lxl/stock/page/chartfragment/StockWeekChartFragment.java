@@ -81,7 +81,7 @@ public class StockWeekChartFragment extends StockBaseChartFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.stock_detail_chart_day_layout, null);
+        return inflater.inflate(R.layout.stock_detail_chart_week_layout, null);
     }
 
     @Override
@@ -248,7 +248,7 @@ public class StockWeekChartFragment extends StockBaseChartFragment {
                 combinedchart.invalidate();
                 barChart.invalidate();
             }
-        }, 100);
+        }, 300);
     }
 
     public static DayViewModel calculationData(StockGetDateDataResponse dataResponses) {
@@ -347,6 +347,7 @@ public class StockWeekChartFragment extends StockBaseChartFragment {
         barChart.setScaleYEnabled(false);
         barChart.setDrawBorders(false);
         barChart.setMaxVisibleValueCount(60);
+        barChart.setDoubleTapToZoomEnabled(false);
 
         Legend barChartLegend = barChart.getLegend();
         barChartLegend.setEnabled(false);
@@ -362,7 +363,7 @@ public class StockWeekChartFragment extends StockBaseChartFragment {
         xAxisBar.setGridColor(getResources().getColor(R.color.minute_grayLine));
 
         axisLeftBar = barChart.getAxisLeft();
-//        axisLeftBar.setAxisMinValue(0);
+        axisLeftBar.setAxisMinValue(0);
         axisLeftBar.setDrawGridLines(false);
         axisLeftBar.setDrawAxisLine(false);
         axisLeftBar.setTextColor(getResources().getColor(R.color.minute_zhoutv));
@@ -382,6 +383,7 @@ public class StockWeekChartFragment extends StockBaseChartFragment {
         axisRightBar.setDrawGridLines(false);
         axisRightBar.setDrawAxisLine(false);
         /****************************************************************/
+        combinedchart.setDoubleTapToZoomEnabled(false);
         combinedchart.setDrawBorders(false);
         combinedchart.setBorderWidth(1);
         combinedchart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
@@ -401,9 +403,11 @@ public class StockWeekChartFragment extends StockBaseChartFragment {
         xAxisK.setGridColor(getResources().getColor(R.color.minute_grayLine));
 
         axisLeftK = combinedchart.getAxisLeft();
+        axisLeftK.setLabelCount(3, true);
         axisLeftK.setDrawGridLines(true);
         axisLeftK.setDrawAxisLine(false);
         axisLeftK.setDrawLabels(true);
+        axisLeftK.setDrawGridLines(false);
         axisLeftK.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         axisLeftK.setGridColor(getResources().getColor(R.color.minute_grayLine));
         axisLeftK.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
@@ -415,7 +419,7 @@ public class StockWeekChartFragment extends StockBaseChartFragment {
         });
         axisRightK = combinedchart.getAxisRight();
         axisRightK.setDrawLabels(false);
-        axisRightK.setDrawGridLines(true);
+        axisRightK.setDrawGridLines(false);
         axisRightK.setDrawAxisLine(false);
         axisRightK.setGridColor(getResources().getColor(R.color.minute_grayLine));
         combinedchart.setDragDecelerationEnabled(true);

@@ -105,6 +105,11 @@ public class DateUtil {
 
     public final static String SIMPLEFORMATTYPESTRING18 = "yyyy-MM";
 
+    public final static String SIMPLEFORMATTYPESTRING19 = "yy/MM/dd";
+
+    public final static String SIMPLEFORMATTYPESTRING20 = "yyyy";
+    public final static String SIMPLEFORMATTYPESTRING21 = "MM/YY";
+
 
     // =====================================End===================================
 
@@ -208,8 +213,8 @@ public class DateUtil {
         return s;
     }
 
-    public static Calendar YYYYMMDD2calendar(String dateStr) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLEFORMATTYPESTRING6);
+    public static Calendar dateStr2calendar(String dateStr,String type) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(type);
         TimeZone timeZone = TimeZone.getTimeZone(TIMEZONE_CN);
         dateFormat.setTimeZone(timeZone);
         try {
@@ -223,8 +228,9 @@ public class DateUtil {
         return Calendar.getInstance();
     }
 
-    public static Calendar YYYY_MM_DD2calendar(String dateStr) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLEFORMATTYPESTRING7);
+
+    public static Calendar YYYYMMDD2calendar(String dateStr) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLEFORMATTYPESTRING6);
         TimeZone timeZone = TimeZone.getTimeZone(TIMEZONE_CN);
         dateFormat.setTimeZone(timeZone);
         try {
@@ -247,14 +253,6 @@ public class DateUtil {
         return str;
     }
 
-    public static String calendar2String(Calendar calendar,String type) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(type);
-        TimeZone timeZone = TimeZone.getTimeZone(TIMEZONE_CN);
-        dateFormat.setTimeZone(timeZone);
-        String str = dateFormat.format(calendar.getTime());
-        return str;
-    }
-
     /**
      * 获取当前日期 8位
      *
@@ -262,7 +260,7 @@ public class DateUtil {
      */
     public static String getCurrentDate() {
         Calendar currentCalendar = getCurrentCalendar();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLEFORMATTYPESTRING7);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLEFORMATTYPESTRING6);
         TimeZone timeZone = TimeZone.getTimeZone(TIMEZONE_CN);
         dateFormat.setTimeZone(timeZone);
         String str = dateFormat.format(currentCalendar.getTime());

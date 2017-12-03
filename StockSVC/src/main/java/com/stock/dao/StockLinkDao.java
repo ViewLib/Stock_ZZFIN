@@ -44,9 +44,9 @@ public interface StockLinkDao {
     public Map<String, String> selectStockPriceByCodeList(List<String> stockInfoList, String tradeStr);
 
     /**
-     * 查询分红比例
+     * 查询每股净资产比例
      */
-    public Map<String, String> selectShareOutByCodeList(List<String> stockInfoList, String tradeStr);
+    public Map<String, String> selectAssetsByCodeList(List<String> stockInfoList, String tradeStr);
 
     /**
      * 获取年度第一个交易日

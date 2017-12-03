@@ -228,7 +228,7 @@
 
     <style name="text_12_186DB7">
         <item name="android:textSize">12dip</item>
-        <item name="android:textColor">#4289ff</item>
+        <item name="android:textColor">#186db7</item>
     </style>
 
     <style name="text_13_186db7">

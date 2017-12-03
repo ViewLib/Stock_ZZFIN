@@ -13,16 +13,12 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:paddingTop="5dp" />
 
     <LinearLayout
         android:id="@+id/tab_anim_view"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
+        android:orientation="horizontal" />
 
 </LinearLayout>

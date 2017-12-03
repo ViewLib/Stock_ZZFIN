@@ -59,9 +59,8 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         list.add("市盈率");
         list.add("收入增长");
         list.add("年度表现");
-        list.add("分红比例");
+        list.add("每股净资产");
         mTab.setTabItemArrayText(list);
-        mTab.initView();
     }
 
     @Override
@@ -84,7 +83,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         Map<String, Float> ratioMap = new HashMap<>();//市盈率
         Map<String, Float> incomeMap = new HashMap<>();//收入增长
         Map<String, Float> priceShowMap = new HashMap<>();//年度表现
-        Map<String, Float> shareOutMap = new HashMap<>();//分红
+        Map<String, Float> assetsMap = new HashMap<>();//分红
 
         for (StockDetailCompareModel compareModel : compareModelList) {
             String stockName = compareModel.stockName;
@@ -94,14 +93,14 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
             ratioMap.put(stockName, compareModel.ratio);
             incomeMap.put(stockName, compareModel.income);
             priceShowMap.put(stockName, compareModel.pricePerfor);
-            shareOutMap.put(stockName, compareModel.shareOut);
+            assetsMap.put(stockName, compareModel.assets);
         }
         List<View> viewList = new ArrayList<>();
 
         viewList.add(createBarChart(compareModelList, ratioMap, 1));
         viewList.add(createBarChart(compareModelList, incomeMap, 2));
         viewList.add(createBarChart(compareModelList, priceShowMap, 3));
-        viewList.add(createBarChart(compareModelList, shareOutMap, 4));
+        viewList.add(createBarChart(compareModelList, assetsMap, 4));
 
         return viewList;
     }
@@ -123,6 +122,7 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         mChart.setDrawBarShadow(false);
         mChart.setMaxVisibleValueCount(60);
         mChart.setDrawValueAboveBar(true);
+        mChart.setDoubleTapToZoomEnabled(false);
         //不展示比例
         Legend l = mChart.getLegend();
         l.setEnabled(false);
@@ -169,13 +169,14 @@ public class StockDetailCompareModule extends StockDetailBaseModule {
         ArrayList<String> xVals = new ArrayList<String>();
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
+        int index = 0;
         for (int i = 0; i < compareModelList.size(); i++) {
             StockDetailCompareModel compareModel = compareModelList.get(i);
             Float f = map.get(compareModel.stockName);
             if (f == 0) {
                 continue;
             }
-            yVals1.add(new BarEntry(f, i));//填充数据
+            yVals1.add(new BarEntry(f, index++));//填充数据
             xVals.add(compareModel.stockName);
         }
         BarDataSet set1;

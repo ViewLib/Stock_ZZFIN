@@ -19,9 +19,10 @@ import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockEventsDataList;
-import com.xt.lxl.stock.model.model.StockEventsDataModel;
+import com.xt.lxl.stock.model.model.StockEventDataModel;
 import com.xt.lxl.stock.model.reponse.StockEventsDataResponse;
 import com.xt.lxl.stock.page.adapter.StockViewPagerAdapter;
+import com.xt.lxl.stock.util.DateUtil;
 import com.xt.lxl.stock.util.DeviceUtil;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
@@ -29,6 +30,7 @@ import com.xt.lxl.stock.widget.view.StockTabGroupButton2;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +70,6 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         list.add("分红");
         list.add("投资");
         mTab.setTabItemArrayText(list);
-        mTab.initView();
         mTab.setOnTabItemSelectedListener(new StockTabGroupButton2.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {
@@ -133,8 +134,8 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
             eventContainer.setLayoutParams(lp);
 
             StockEventsDataList eventsDataList = stockEventsDataLists.get(i);
-            Map<String, StockEventsDataModel> eventMap = new HashMap<>();
-            for (StockEventsDataModel eventsDataModel : eventsDataList.stockEventsDataModels) {
+            Map<String, StockEventDataModel> eventMap = new HashMap<>();
+            for (StockEventDataModel eventsDataModel : eventsDataList.stockEventsDataModels) {
                 if (eventMap.get(eventsDataModel.eventDate) == null) {
                     eventMap.put(eventsDataModel.eventDate, eventsDataModel);
                 }
@@ -145,7 +146,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
             //向RelativeLayout中添加view
             for (int k = 0; k < dataList.size(); k++) {
                 StockDateDataModel model = dataList.get(k);
-                StockEventsDataModel eventsDataModel = eventMap.get(model.date);
+                StockEventDataModel eventsDataModel = eventMap.get(model.date);
                 if (eventsDataModel == null) {
                     continue;
                 }
@@ -177,7 +178,7 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         if (id == R.id.stock_detail_news_detail) {
             mStockNewDetail.setVisibility(View.GONE);
         } else if (v instanceof TextView) {
-            StockEventsDataModel eventsDataModel = (StockEventsDataModel) v.getTag();
+            StockEventDataModel eventsDataModel = (StockEventDataModel) v.getTag();
             mStockNewDetail.setVisibility(View.VISIBLE);
             TextView newsTv = (TextView) mStockNewDetail.findViewById(R.id.stock_detail_news_detail_title);
             TextView descTv = (TextView) mStockNewDetail.findViewById(R.id.stock_detail_news_detail_desc);
@@ -247,7 +248,9 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
         ArrayList<Entry> yValues = new ArrayList<Entry>();
         for (int i = 0; i < dataList.size(); i++) {
             StockDateDataModel model = dataList.get(i);
-            xValues.add(model.date);
+            Calendar calendar = DateUtil.dateStr2calendar(model.date, DateUtil.SIMPLEFORMATTYPESTRING7);
+            String dataStr = DateUtil.calendar2Time(calendar, DateUtil.SIMPLEFORMATTYPESTRING21);
+            xValues.add(dataStr);
             // y轴的数据
             yValues.add(new Entry(model.close, i));
         }

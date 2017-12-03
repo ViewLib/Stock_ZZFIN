@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="230dp"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
     <com.xt.lxl.stock.widget.stockchart.view.MyLineChart
         android:id="@+id/kline_minute_price_chart"
         android:layout_width="match_parent"
-        android:layout_height="130dp" />
+        android:layout_height="140dp" />
 
     <com.xt.lxl.stock.widget.stockchart.mychart.MyBarChart
         android:id="@+id/kline_minute_volumn_chart"
         android:layout_width="match_parent"
-        android:layout_height="70dp" />
+        android:layout_height="80dp" />
 
 </LinearLayout>

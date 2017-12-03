@@ -3,6 +3,8 @@ package com.xt.lxl.stock.sender;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.xt.lxl.stock.application.StockApplication;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
@@ -204,6 +206,13 @@ public class StockSender {
         return getMinuteDataResponse;
     }
 
+    /**
+     * 日线，周线，月线数据
+     *
+     * @param stockCode
+     * @param getType
+     * @return
+     */
     public StockGetDateDataResponse requestDateData(String stockCode, String getType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("stockCode", stockCode);
@@ -347,13 +356,25 @@ public class StockSender {
     }
 
     /**
-     * 横向比较
+     * 年度涨幅的接口
      *
      * @param requestStockCode
      * @return
      */
     public float requestForwadPrice(String requestStockCode) {
-        return 10.0f;
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("stockCode", requestStockCode);
+        String s = requestGet("http://115.159.31.128/yearPrice?", hashMap, "utf-8");
+
+        try {
+            JSONArray objects = JSON.parseArray(s);
+            JSONObject jsonObject = objects.getJSONObject(0);
+            Float close = jsonObject.getFloat("close");
+            return close;
+        } catch (Exception e) {
+
+        }
+        return 0f;
     }
 
     private static String requestGet(String baseUrl, String requestJsonStr, String code) {

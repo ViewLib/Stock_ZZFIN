@@ -30,6 +30,8 @@ import com.xt.lxl.stock.widget.view.StockTabGroupButton2;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -57,9 +59,8 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
         list.add("收入");
         list.add("净利率");
         list.add("毛利率");
-        list.add("分红率");
+        list.add("每股净资产");
         mTab.setTabItemArrayText(list);
-        mTab.initView();
         mTab.setOnTabItemSelectedListener(new StockTabGroupButton2.OnTabItemSelectedListener() {
             @Override
             public void onTabItemClicked(int whichButton) {
@@ -112,6 +113,7 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
         mChart.setDrawBarShadow(false);
         mChart.setMaxVisibleValueCount(60);
         mChart.setDrawValueAboveBar(true);//允许在水平以下画线
+        mChart.setDoubleTapToZoomEnabled(false);
 
         //不展示比例
         Legend l = mChart.getLegend();
@@ -148,11 +150,11 @@ public class StockDetailFinanceModule extends StockDetailBaseModule {
 
 
     private void bindChartData(BarChart mChart, final StockDetailFinanceGroup stockDetailFinanceGroup) {
-        ArrayList<StockDetailFinanceItem> financeItemList = stockDetailFinanceGroup.financeItemList;
+        ArrayList<StockDetailFinanceItem> financeItemList = stockDetailFinanceGroup.yearItemList;
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < financeItemList.size(); i++) {
             StockDetailFinanceItem stockDetailFinanceItem = financeItemList.get(i);
-            xVals.add(stockDetailFinanceItem.dateStr);
+            xVals.add(stockDetailFinanceItem.dateStr);//格式化成年
         }
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();

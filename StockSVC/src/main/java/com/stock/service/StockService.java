@@ -12,7 +12,6 @@ import com.stock.util.*;
 import com.stock.viewmodel.SQLViewModel;
 import com.stock.viewmodel.StoctEventSQLResultModel;
 import org.jsoup.Jsoup;
-import org.jsoup.helper.DataUtil;
 import org.jsoup.nodes.Document;
 
 
@@ -320,14 +319,35 @@ public class StockService {
 
     public List<StockDetailFinanceGroup> getFinicilaGroup(StockDetailFinanceRequest stockDetailFinanceRequest, StockDetailFinanceResponse stockDetailFinanceResponse) throws Exception {
         List<StockDetailFinanceGroup> stockDetailFinanceGroupList = new ArrayList<>();
-        List<StockDetailFinanceItem> stockDetailFinanceItemList = new ArrayList<>();
         String stockCode = transCode(stockDetailFinanceRequest.stockCode);
         for (int i = 1; i < 5; i++) {
             StockDetailFinanceGroup stockDetailFinanceGroup = new StockDetailFinanceGroup();
-            stockDetailFinanceGroup.yearItemList=dao.getYearlList(stockCode,i);
-            stockDetailFinanceItemList = dao.getFinalList(stockCode, i);
-            stockDetailFinanceGroup.financeItemList = stockDetailFinanceItemList;
+            stockDetailFinanceGroup.yearItemList = dao.getYearlList(stockCode, i);
+            stockDetailFinanceGroup.financeItemList = dao.getFinalList(stockCode, i);
 
+            Comparator comparator = new Comparator<StockDetailFinanceItem>() {
+                @Override
+                public int compare(StockDetailFinanceItem o1, StockDetailFinanceItem o2) {
+                    Calendar calendar1 = DateUtil.dateStr2calendar(o1.dateStr, DateUtil.SIMPLEFORMATTYPESTRING19);
+                    Calendar calendar2 = DateUtil.dateStr2calendar(o2.dateStr, DateUtil.SIMPLEFORMATTYPESTRING19);
+                    return calendar1.getTimeInMillis() > calendar2.getTimeInMillis() ? 1 : -1;
+                }
+            };
+            Collections.sort(stockDetailFinanceGroup.financeItemList, comparator);
+            Collections.sort(stockDetailFinanceGroup.yearItemList, comparator);
+            //这里整理一下，年的话格式化一下，并且按照时间正序排列
+            for (StockDetailFinanceItem yearItem : stockDetailFinanceGroup.yearItemList) {
+                Calendar calendar = DateUtil.dateStr2calendar(yearItem.dateStr, DateUtil.SIMPLEFORMATTYPESTRING19);
+                String s = DateUtil.calendar2Time(calendar.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING20);
+                yearItem.dateStr = s;
+
+                String valueStr = yearItem.valueStr;
+                if (i == 1 || i == 2 || i == 3 || i == 4) {
+                    Float aFloat = StringUtil.toFloat(valueStr);
+                    Float aFloat1 = AmountUtil.roundedFor(aFloat, 1);
+                    yearItem.valueStr = String.valueOf(aFloat1);
+                }
+            }
             if (i == 1) {
                 stockDetailFinanceGroup.financeName = "收入";
             }
@@ -377,7 +397,7 @@ public class StockService {
                 StockEventDataModel eventDataModel = TransformUtil.transfor2EventDataModel(resultModel, stockEvents);//转换
                 stockEvents.stockEventsDataModels.add(eventDataModel);
             }
-            if (stockEvents.stockEventsDataModels.size() == 0) {
+            if (stockEventsDataRequest.type == 2 && stockEvents.stockEventsDataModels.size() == 0) {
                 continue;
             }
             stockEventsDataLists.add(stockEvents);
@@ -402,7 +422,7 @@ public class StockService {
         String dateStr = DateUtil.calendar2Time(calendar.getTimeInMillis(), DateUtil.SIMPLEFORMATTYPESTRING6);
         Map<String, String> ratioMap = linkDao.selectRatioByCodeList(stockList, dateStr);//ok
         Map<String, String> incomeMap = linkDao.selectIncomeGrowthByCodeList(stockList, lastTradeDate);//OK
-        Map<String, String> shareOutMap = linkDao.selectShareOutByCodeList(stockList, lastTradeDate);
+        Map<String, String> assetsMap = linkDao.selectAssetsByCodeList(stockList, lastTradeDate);
         Map<String, StockViewModel> infoMap = linkDao.selectStockByCode(stockList);
 
         //股价表现
@@ -416,9 +436,9 @@ public class StockService {
             String stockCode = stockList.get(i);
             StockDetailCompareModel compareModel = new StockDetailCompareModel();
             compareModel.stockCode = stockCode;
-            compareModel.ratio = AmountUtil.parse2Float(ratioMap.get(stockCode));
-            compareModel.income = AmountUtil.parse2Float(incomeMap.get(stockCode));
-            compareModel.shareOut = AmountUtil.parse2Float(shareOutMap.get(stockCode));
+            compareModel.ratio = AmountUtil.roundedFor(AmountUtil.parse2Float(ratioMap.get(stockCode)), 1);
+            compareModel.income = AmountUtil.roundedFor(AmountUtil.parse2Float(incomeMap.get(stockCode)), 1);
+            compareModel.assets = AmountUtil.parse2Float(assetsMap.get(stockCode));
             compareModel.stockName = infoMap.get(stockCode).stockName;
             String firstPriceStr = firstPriceMap.get(stockCode);
             String lastPriceStr = lastPriceMap.get(stockCode);
@@ -427,7 +447,7 @@ public class StockService {
             if (firstPrice == 0 || lastPrice == 0) {
 
             }
-            compareModel.pricePerfor = AmountUtil.roundedFor(lastPrice - firstPrice, 2);
+            compareModel.pricePerfor = AmountUtil.roundedFor(lastPrice - firstPrice, 1);
             stockViewModelList.add(compareModel);
         }
 

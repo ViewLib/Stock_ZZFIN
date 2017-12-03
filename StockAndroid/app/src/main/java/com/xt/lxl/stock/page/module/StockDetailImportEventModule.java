@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.listener.StockDetailListener;
 import com.xt.lxl.stock.model.model.StockEventsDataList;
-import com.xt.lxl.stock.model.model.StockEventsDataModel;
+import com.xt.lxl.stock.model.model.StockEventDataModel;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.view.StockTextView;
 
@@ -59,7 +59,7 @@ public class StockDetailImportEventModule extends StockDetailBaseModule implemen
         for (StockEventsDataList dataList : showList) {
             bindItemEventModel(dataList);
         }
-        if (isShowMore && mEventContainer.getChildCount() <= 3) {
+        if (isShowMore && mEventContainer.getChildCount() > 3) {
             mLookMore.setVisibility(View.GONE);
         }
     }
@@ -68,7 +68,7 @@ public class StockDetailImportEventModule extends StockDetailBaseModule implemen
         if (eventsDataList.stockEventsDataModels.size() == 0) {
             return;
         }
-        StockEventsDataModel eventsDataModel = eventsDataList.stockEventsDataModels.get(0);
+        StockEventDataModel eventsDataModel = eventsDataList.stockEventsDataModels.get(0);
         View inflate = View.inflate(mContainer.getContext(), R.layout.stock_detail_important_event_item, null);
         TextView titleTv = (TextView) inflate.findViewById(R.id.stock_detail_important_title);
         TextView descTv = (TextView) inflate.findViewById(R.id.stock_detail_important_desc);

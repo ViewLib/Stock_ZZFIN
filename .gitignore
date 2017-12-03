@@ -10,3 +10,4 @@ StockAndroid/local.properties
 StockAndroid/MPChartLib/MPChartLib.iml
 StockSVC/src/main/main.iml
 StockSVC/zzfin.iml
+.idea/workspace.xml
