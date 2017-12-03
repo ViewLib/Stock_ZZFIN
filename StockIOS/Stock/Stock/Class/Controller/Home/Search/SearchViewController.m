@@ -69,7 +69,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
+    _tableDate = [self reloadTableData];
     [_searchTable reloadData];
 }
 
@@ -107,7 +107,7 @@
         };
     }
     
-    _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
+    _tableDate = [self reloadTableData];
 }
 
 #pragma mark - UITableViewDelegateAndDateSource
@@ -126,10 +126,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dic = _tableDate[indexPath.row];
-    if (!self.isSearch ||![dic isKindOfClass:[NSDictionary class]]) {
-        HistoryStockEntity *entity = (HistoryStockEntity *)_tableDate[indexPath.row];
-        dic = @{@"title": entity.name,@"code":entity.code};
-    }
+//    if (!self.isSearch ||![dic isKindOfClass:[NSDictionary class]]) {
+//        HistoryStockEntity *entity = (HistoryStockEntity *)_tableDate[indexPath.row];
+//        dic = @{@"title": entity.name,@"code":entity.code};
+//    }
     
     static NSString *cellID =@"SearchHistoryTableViewCell";
     SearchHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
@@ -149,26 +149,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self showHint:@"正在请求数据..."];
     id obj = _tableDate[indexPath.row];
-    if ([obj isKindOfClass:[NSDictionary class]]) {
+//    if ([obj isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dic = (NSDictionary *)obj;
         [[DataManager shareDataMangaer] insertHistoryStock:dic];
         [self insertCoreData:dic[@"code"] isJoinCoreData:NO request:^(StockObjEntity *entity) {
             [self junpToStockValueViewController:entity];
         }];
-    } else {
-        HistoryStockEntity *entity = (HistoryStockEntity *)obj;
-        [[DataManager shareDataMangaer] insertHistoryStock:@{@"title": entity.name,@"code":entity.code}];
-        [self insertCoreData:entity.code isJoinCoreData:NO request:^(StockObjEntity *entity) {
-            [self junpToStockValueViewController:entity];
-        }];
-    }
+//    } else {
+//        HistoryStockEntity *entity = (HistoryStockEntity *)obj;
+//        [[DataManager shareDataMangaer] insertHistoryStock:@{@"title": entity.name,@"code":entity.code}];
+//        [self insertCoreData:entity.code isJoinCoreData:NO request:^(StockObjEntity *entity) {
+//            [self junpToStockValueViewController:entity];
+//        }];
+//    }
 }
 
 - (void)reloadTableView {
     if (self.searchViewClickBlock) {
         self.searchViewClickBlock();
     }
-    _tableDate = [[DataManager shareDataMangaer] queryHistoryStockEntitys].mutableCopy;
     [self.searchTable reloadData];
 }
 
@@ -284,7 +283,13 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchText.length == 0) {
         self.isSearch = NO;
-        [self reloadTableView];
+        _hot.hidden = NO;
+        _hotHigh.constant = [Config shareInstance].defaultHotHigh;
+        _tableDate = [self reloadTableData];
+        [UIView animateWithDuration:.3 animations:^{
+            [self.view updateFocusIfNeeded];
+        }];
+        [_searchTable reloadData];
     } else {
         [self filterBySubstring:searchText];
     }
@@ -342,6 +347,18 @@
         new.size.height = K_FRAME_BASE_HEIGHT;
         self.view.frame = new;
     }];
+}
+
+- (NSMutableArray *)reloadTableData {
+    NSArray *historys = [[DataManager shareDataMangaer] queryHistoryStockEntitys];
+    NSMutableArray *newAry = [NSMutableArray array];
+    [historys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        HistoryStockEntity *entity = (HistoryStockEntity *)obj;
+        NSDictionary *dic = @{@"title": entity.name,@"code":entity.code};
+        [newAry addObject:dic];
+    }];
+    newAry = (NSMutableArray *)[[newAry reverseObjectEnumerator] allObjects];
+    return newAry;
 }
 
 - (void)dealloc {

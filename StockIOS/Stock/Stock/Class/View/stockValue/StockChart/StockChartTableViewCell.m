@@ -51,7 +51,7 @@
 
 - (void)getLine {
     WS(self)
-    [[HttpRequestClient sharedClient] getLineData:self.stockCode request:^(NSString *resultMsg, id dataDict, id error) {
+    [[HttpRequestClient sharedClient] getLineData:[self.stockCode substringFromIndex:2] request:^(NSString *resultMsg, id dataDict, id error) {
         if (dataDict) {
             NSDictionary *dic = [dataDict firstObject];
             if ([dic[@"time"] rangeOfString:@"当天没数据"].location == NSNotFound) {

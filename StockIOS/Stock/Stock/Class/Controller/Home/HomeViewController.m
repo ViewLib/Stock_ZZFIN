@@ -22,6 +22,10 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *EditBtn;
 
+@property (weak, nonatomic) IBOutlet UILabel *currentPrice;
+
+@property (weak, nonatomic) IBOutlet UILabel *currentChf;
+
 @property (weak, nonatomic) IBOutlet UITableView *OptionalTable;
 
 @property (strong, nonatomic) NSMutableArray    *stocks;
@@ -86,11 +90,20 @@
     self.searchController.searchResultsUpdater = search;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     [self.searchController.searchBar sizeToFit];
-    self.searchController.searchBar.placeholder = @"请输入搜索内容";
-    UIView *firstSubView = self.searchController.searchBar.subviews.firstObject;
-    firstSubView.backgroundColor = MAIN_COLOR;
-    UIView *backgroundImageView = [firstSubView.subviews firstObject];
-    [backgroundImageView removeFromSuperview];
+    
+    UITextField *searchField = [self.searchController.searchBar valueForKey:@"searchField"];
+    if (searchField) {
+        [searchField setBackgroundColor:[UIColor whiteColor]];
+        searchField.layer.cornerRadius = 18;
+        searchField.layer.borderWidth = 1;
+        searchField.layer.borderColor = [UIColor clearColor].CGColor;
+        searchField.layer.masksToBounds = YES;
+        searchField.placeholder = @"搜索";
+        [searchField setTintColor:MAIN_COLOR];
+    }
+    
+    self.searchController.searchBar.backgroundImage = [[UIImage alloc] init];
+    self.searchController.searchBar.barTintColor = MAIN_COLOR;
     
     self.searchController.searchBar.tintColor = [UIColor whiteColor];
     self.searchController.searchBar.delegate = search;
@@ -160,11 +173,17 @@
         self.tabBarController.tabBar.hidden = YES;
         [self showEitingView:YES];
         sender.hidden = YES;
+        [self.currentPrice setText:@"股票"];
+        [self.currentPrice setTextAlignment:NSTextAlignmentLeft];
+        self.currentChf.hidden = YES;
     } else {
         [self.OptionalTable setEditing:NO animated:YES];
         self.tabBarController.tabBar.hidden = NO;
         [self showEitingView:NO];
         sender.hidden = NO;
+        [self.currentPrice setText:@"当前价"];
+        [self.currentPrice setTextAlignment:NSTextAlignmentRight];
+        self.currentChf.hidden = NO;
     }
     sender.selected = !sender.selected;
 }

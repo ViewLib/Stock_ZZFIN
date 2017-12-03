@@ -33,6 +33,11 @@
 @property (nonatomic, readonly) CGFloat Volume;
 
 /**
+ *  均价
+ */
+@property (nonatomic, readonly) CGFloat Pjprice;
+
+/**
  *  日期
  */
 @property (nonatomic, readonly) NSString *TimeDesc;

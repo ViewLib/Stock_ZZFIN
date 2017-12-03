@@ -13,6 +13,7 @@
     NSDictionary * _dict;
     NSString *Price;
     NSString *Volume;
+    NSString *Pjprice;
 }
 
 - (NSString *)TimeDesc {
@@ -43,6 +44,10 @@
     return [_dict[@"volume"] floatValue];
 }
 
+- (CGFloat)Pjprice {
+    return [_dict[@"Pjprice"] floatValue];
+}
+
 - (BOOL)isShowTimeDesc {
     //9:30-11:30,13:00-15:00
     //11:30和13:00挨在一起，显示一个就够了
@@ -56,8 +61,10 @@
         _dict = dict;
         Price = _dict[@"price"];
         Volume = _dict[@"volume"];
+        
     }
     return self;
 }
+
 
 @end

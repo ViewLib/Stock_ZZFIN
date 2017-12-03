@@ -558,6 +558,8 @@
                     <connections>
                         <outlet property="EditBtn" destination="nOp-3o-itw" id="Ce3-Ni-QSa"/>
                         <outlet property="OptionalTable" destination="Gn2-we-OY3" id="aJC-Uz-9DO"/>
+                        <outlet property="currentChf" destination="dWf-aA-Mqz" id="QC0-xD-n9u"/>
+                        <outlet property="currentPrice" destination="ztr-BM-QDA" id="gNr-ss-kCX"/>
                         <outlet property="topHigh" destination="fKg-vG-GvA" id="BJO-v6-SBc"/>
                         <outlet property="topView" destination="W3o-N4-Fok" id="pA9-Ll-EIN"/>
                     </connections>
