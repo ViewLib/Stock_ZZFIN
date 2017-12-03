@@ -13,6 +13,8 @@
 
 @interface YYTimeLineView()
 @property (nonatomic, strong) NSMutableArray *drawPositionModels;
+
+@property (nonatomic, strong) NSMutableArray *drawPJPositionModels;
 @end
 
 @implementation YYTimeLineView
@@ -46,6 +48,15 @@
     }
     CGContextStrokePath(ctx);
     
+    //画分时线价格均线
+    CGContextSetStrokeColorWithColor(ctx, [UIColor YYStock_PJTimeLineColor].CGColor);
+    CGContextMoveToPoint(ctx, firstPoint.x, firstPoint.y);
+    for (NSInteger idx = 1; idx < self.drawPJPositionModels.count ; idx++)
+    {
+        CGPoint point = [self.drawPJPositionModels[idx] CGPointValue];
+        CGContextAddLineToPoint(ctx, point.x, point.y);
+    }
+    CGContextStrokePath(ctx);
     
     CGContextSetFillColorWithColor(ctx, [UIColor YYStock_timeLineBgColor].CGColor);
     CGPoint lastPoint = [self.drawPositionModels.lastObject CGPointValue];
@@ -87,6 +98,9 @@
         CGFloat xPosition = startX + idx * ([YYStockVariable timeLineVolumeWidth] + YYStockTimeLineViewVolumeGap);
         CGPoint pricePoint = CGPointMake(xPosition, ABS(maxY - (model.Price.floatValue - minValue)/unitValue));
         [self.drawPositionModels addObject:[NSValue valueWithCGPoint:pricePoint]];
+        
+        CGPoint pjpricePoint = CGPointMake(xPosition, ABS(maxY - (model.Pjprice - minValue)/unitValue));
+        [self.drawPJPositionModels addObject:[NSValue valueWithCGPoint:pjpricePoint]];
      }];
     
     return self.drawPositionModels ;
@@ -96,6 +110,13 @@
         _drawPositionModels = [NSMutableArray array];
     }
     return _drawPositionModels;
+}
+
+- (NSMutableArray *)drawPJPositionModels {
+    if (!_drawPJPositionModels) {
+        _drawPJPositionModels = [NSMutableArray array];
+    }
+    return _drawPJPositionModels;
 }
 
 @end

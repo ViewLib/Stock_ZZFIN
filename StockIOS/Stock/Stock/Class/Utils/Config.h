@@ -50,6 +50,9 @@
 //K线图数据
 @property (nonatomic ,strong)   NSMutableArray       *KlineDate;
 
+//价格总和
+@property (nonatomic ,assign)   float sumPrice;
+
 +(Config *) shareInstance;
 
 

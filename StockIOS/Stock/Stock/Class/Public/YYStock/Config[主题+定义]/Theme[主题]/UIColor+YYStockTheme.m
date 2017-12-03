@@ -104,6 +104,13 @@
 }
 
 /**
+ *  分时图均线颜色
+ */
++(UIColor *)YYStock_PJTimeLineColor {
+    return [UIColor orangeColor];
+}
+
+/**
  *  分时均线颜色
  */
 +(UIColor *)YYStock_averageTimeLineColor {

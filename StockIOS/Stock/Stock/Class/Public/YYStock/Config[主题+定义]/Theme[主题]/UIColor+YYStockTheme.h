@@ -70,6 +70,11 @@
 +(UIColor *)YYStock_TimeLineColor;
 
 /**
+ *  分时图均线颜色
+ */
++(UIColor *)YYStock_PJTimeLineColor;
+
+/**
  *  分时均线颜色
  */
 +(UIColor *)YYStock_averageTimeLineColor;

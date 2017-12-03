@@ -54,12 +54,13 @@
     [[HttpRequestClient sharedClient] getLineData:[self.stockCode substringFromIndex:2] request:^(NSString *resultMsg, id dataDict, id error) {
         if (dataDict) {
             NSDictionary *dic = [dataDict firstObject];
+            [Config shareInstance].sumPrice = 0;
             if ([dic[@"time"] rangeOfString:@"当天没数据"].location == NSNotFound) {
                 NSMutableArray *array = [NSMutableArray array];
                 
                 [dataDict enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if (![obj[@"time"] isEqual:@"13:00"]) {
-                        NSDictionary *new = [Utils lineDicWithDic:obj avgPrice:selfWeak.zrPrice];
+                        NSDictionary *new = [Utils lineDicWithDic:obj avgPrice:selfWeak.zrPrice num:idx];
                         YYTimeLineModel *model = [[YYTimeLineModel alloc]initWithDict:new];
                         [array addObject: model];
                     }

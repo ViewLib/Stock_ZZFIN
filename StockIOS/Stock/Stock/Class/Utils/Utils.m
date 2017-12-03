@@ -112,14 +112,13 @@
 }
 
 #pragma mark - 分时图数据格式转换
-+ (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice {
++ (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice num:(NSUInteger)num {
     NSString *time = [dic[@"time"] isKindOfClass:[NSNull class]]?@"":dic[@"time"];
     NSString *price = [dic[@"price"] isKindOfClass:[NSNull class]]?@"":dic[@"price"];
     NSString *volume = [dic[@"volume"] isKindOfClass:[NSNull class]]?@"":dic[@"volume"];
-    NSString *pjprice = @"";
-    if ([dic[@"pjprice"] isKindOfClass:[NSNull class]] && dic[@"pjprice"]) {
-        pjprice = dic[@"pjprice"];
-    }
+    [Config shareInstance].sumPrice += [price floatValue];
+    float pj = [Config shareInstance].sumPrice / (num + 1);
+    NSString *pjprice = [NSString stringWithFormat:@"%f",pj];
     NSDictionary *returnDic = @{@"avgPrice": avgPrice?avgPrice:@"0",@"minute": time,@"price": price,@"volume": volume,@"pjprice": pjprice};
     return returnDic;
 }

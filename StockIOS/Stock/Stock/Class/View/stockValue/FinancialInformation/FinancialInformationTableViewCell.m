@@ -38,10 +38,43 @@
     }];
 }
 
+- (IBAction)changeDiffData:(UIPinchGestureRecognizer *)sender {
+    CGFloat scale = 1.0 - [sender scale];
+    if (self.currentIndex == 0) {
+        if (sender.state == UIGestureRecognizerStateEnded) {
+            NSArray *firstYear = self.titleAry[0][@"yearItemList"];
+            NSArray *firstFinance = self.titleAry[0][@"financeItemList"];
+            if (self.currentIndex == 0 && self.barValueAry.count != firstFinance.count) {
+                if (scale < 0) {
+                    self.barValueAry = self.titleAry[self.currentIndex][@"financeItemList"];
+                    [self reloadBarChartView];
+                    [self endEditing:YES];
+                }
+            } else if (self.currentIndex == 0 && self.barValueAry.count != firstYear.count)  {
+                if (scale > 0) {
+                    self.barValueAry = self.titleAry[self.currentIndex][@"yearItemList"];
+                    [self reloadBarChartView];
+                    [self endEditing:YES];
+                }
+            }
+        }
+    } else
+        return;
+}
+
+
+
 - (void)reloadBarChart {
+    self.barValueAry = self.titleAry[self.currentIndex][@"financeItemList"];
+    if (self.currentIndex == 0) {
+        self.barValueAry = self.titleAry[0][@"yearItemList"];
+    }
+    [self reloadBarChartView];
+}
+
+- (void)reloadBarChartView {
     self.barX = [NSMutableArray array];
     self.barY = [NSMutableArray array];
-    self.barValueAry = self.titleAry[self.currentIndex][@"financeItemList"];
     for (NSDictionary *dic in self.barValueAry) {
         [self.barX addObject:dic[@"dateStr"]];
         if ([dic[@"valueStr"] floatValue] > 100000000) {
@@ -66,6 +99,7 @@
             [self.barChart updateChartYData:self.barY andX:self.barX];
         }
     }
+    
 }
 
 - (void)initBarChartView {
@@ -124,7 +158,12 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize frame = CGSizeMake(50, 33);
+    CGSize size = [self valueSize:self.titleAry[indexPath.item][@"financName"] FontSize:12];
+    float width = 60;
+    if (size.width > 60) {
+        width = size.width + 10;
+    }
+    CGSize frame = CGSizeMake(width, 33);
     return frame;
 }
 
@@ -134,17 +173,24 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"meunCall" forIndexPath:indexPath];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 33)];
+    
+    NSDictionary *dic = self.titleAry[indexPath.item];
+    NSString *value = dic[@"financeName"];
+    CGSize size = [self valueSize:value FontSize:12];
+    float width = 60;
+    if (size.width > 60) {
+        width = size.width + 10;
+    }
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 33)];
     [label setFont:[UIFont systemFontOfSize:12]];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setTag:999000];
     [label setTextColor:[Utils colorFromHexRGB:@"999999"]];
-
-    NSDictionary *dic = self.titleAry[indexPath.item];
-    [label setText:dic[@"financeName"]];
+    [label setText:value];
     [cell.contentView addSubview:label];
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(cell.contentView.frame)-2, 60, 2)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(cell.contentView.frame)-2, width, 2)];
     [line setBackgroundColor:MAIN_COLOR];
     [line setCenterX:label.centerX];
     [line setTag:999001];
@@ -174,6 +220,11 @@
     }
     self.currentIndex = indexPath.item;
     [self reloadBarChart];
+}
+
+- (CGSize)valueSize:(NSString *)value FontSize:(float)stringSize {
+    CGSize size = [value boundingRectWithSize:CGSizeMake(1000, 33) options: NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:stringSize]} context:nil].size;
+    return size;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

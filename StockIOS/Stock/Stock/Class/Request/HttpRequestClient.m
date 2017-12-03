@@ -129,7 +129,7 @@
 -(void)getStockgrade:(NSDictionary *)value request:(request)request {
     NSString *urlStr = [NSString stringWithFormat:@"%@/zzfin/api/stock_grade",SERVICE];
     NSDictionary *dic = @{@"data": [value JSONString]};
-    [self httpPost:urlStr paramDict:dic completion:request];
+    [self httpGet:urlStr paramDict:dic completion:request];
 }
 
 #pragma mark - 获取筛选信息

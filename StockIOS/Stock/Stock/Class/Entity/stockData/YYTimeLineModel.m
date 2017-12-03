@@ -45,7 +45,7 @@
 }
 
 - (CGFloat)Pjprice {
-    return [_dict[@"Pjprice"] floatValue];
+    return [_dict[@"pjprice"] floatValue];
 }
 
 - (BOOL)isShowTimeDesc {
@@ -61,7 +61,7 @@
         _dict = dict;
         Price = _dict[@"price"];
         Volume = _dict[@"volume"];
-        
+        Pjprice = _dict[@"pjprice"];
     }
     return self;
 }

@@ -35,7 +35,7 @@ typedef void(^utilRequest)(BOOL value);
 + (NSArray *)getStock;
 
 #pragma mark - 分时图数据格式转换
-+ (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice;
++ (NSDictionary *)lineDicWithDic:(NSDictionary *)dic avgPrice:(NSString *)avgPrice num:(NSUInteger)num;
 
 #pragma mark - K线图数据格式转换
 + (NSDictionary *)KlineDicWithDic:(NSDictionary *)dic;

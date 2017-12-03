@@ -295,7 +295,8 @@
         }];
         
         UIButton *successBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [successBtn setTitle:@"完成" forState:UIControlStateNormal];
+//        [successBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [successBtn setImage:[UIImage imageNamed:@"icon_return_white"] forState:UIControlStateNormal];
         [successBtn addTarget:self action:@selector(clickSuccessBtn) forControlEvents:UIControlEventTouchUpInside];
         [_editTopView addSubview:successBtn];
         [successBtn mas_makeConstraints:^(MASConstraintMaker *make) {

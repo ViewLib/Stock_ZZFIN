@@ -41,7 +41,7 @@
 
 - (void)getCurrentYear {
     WS(self)
-    [[HttpRequestClient sharedClient] getYearPrice:self.code request:^(NSString *resultMsg, id dataDict, id error) {
+    [[HttpRequestClient sharedClient] getYearPrice:[self.code substringFromIndex:2] request:^(NSString *resultMsg, id dataDict, id error) {
         if (dataDict) {
             NSDictionary *value = [dataDict firstObject];
             float close = [value[@"close"] floatValue];

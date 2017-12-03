@@ -123,10 +123,10 @@
         if (indexPath.item == 0) {
             cell.backgroundColor = [Utils colorFromHexRGB:@"DEEBF6"];
             cell.value1.text = @"券商名称";
-            cell.value2.text = @"当前价格";
+            cell.value2.text = @"评级";
             cell.value3.text = @"";
-            cell.value4.text = @"最高价格";
-            cell.value5.text = @"最低价格";
+            cell.value4.text = @"目标价格";
+            cell.value5.text = @"评级日期";
         } else {
             if (indexPath.item%2==1) {
                 cell.backgroundColor = [UIColor whiteColor];
@@ -135,10 +135,10 @@
             }
             NSDictionary *dic = self.valueAry[indexPath.item];
             cell.value1.text = dic[@"stockBrokerName"];
-            cell.value2.text = dic[@"showPrice"];
+            cell.value2.text = @"买入";//dic[@"showPrice"];
             cell.value3.text = @"";
-            cell.value4.text = [dic[@"maxPrice"] stringValue];
-            cell.value5.text = [dic[@"minPrice"] stringValue];
+            cell.value4.text = dic[@"showPrice"];
+            cell.value5.text = dic[@"dateStr"];
         }
         return cell;
     } else {

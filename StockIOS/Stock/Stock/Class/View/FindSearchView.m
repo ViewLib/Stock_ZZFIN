@@ -21,6 +21,17 @@
     self.contentAllChange = [NSMutableArray array];
     self.changeAry = [NSMutableArray array];
     self.changeDicAry = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
+    [@[_oneReloadBtn,_twoReloadBtn] enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.layer.borderWidth = 1.0f;
+        obj.layer.borderColor = [Utils colorFromHexRGB:@"979797"].CGColor;
+        obj.layer.cornerRadius = 3;
+        obj.layer.masksToBounds = YES;
+    }];
+    
+    [@[_oneSuccessBtn,_twoSuccessBtn] enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.layer.cornerRadius = 3;
+        obj.layer.masksToBounds = YES;
+    }];
 }
 
 - (void)updateCell:(NSDictionary *)dic {
