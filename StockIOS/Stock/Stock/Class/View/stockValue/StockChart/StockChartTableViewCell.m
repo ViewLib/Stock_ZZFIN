@@ -133,7 +133,7 @@
             NSString *showDay = [NSString stringWithFormat:@"%@-%@-%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]];
             if ([type isEqual:@"dayhqs"]) {
                 model.showDay = showDay;
-                [dic setValue:showDay forKey:@"showDay"];
+                [dic setValue:[NSString stringWithFormat:@"%@/%@",[day substringWithRange:NSMakeRange(4, 2)],[day substringWithRange:NSMakeRange(6, 2)]] forKey:@"showDay"];
             } else {
                 showDay = [NSString stringWithFormat:@"%@/%@",[day substringToIndex:4],[day substringWithRange:NSMakeRange(4, 2)]];
                 model.showDay = showDay;

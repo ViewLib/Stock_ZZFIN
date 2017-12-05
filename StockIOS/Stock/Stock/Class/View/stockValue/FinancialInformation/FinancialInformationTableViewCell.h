@@ -34,4 +34,6 @@
 
 @property (strong, nonatomic) NSString   *stockCode;
 
+@property (strong, nonatomic) UILabel   *typeLabel;
+
 @end

@@ -14,7 +14,7 @@
     [super awakeFromNib];
     // Initialization code
     self.userInteractionEnabled = YES;
-    self.titleAry = @[@"市盈率",@"收入增长",@"年度表现",@"分红比例"];//
+    self.titleAry = @[@"市盈率",@"收入增长",@"年度表现",@"净资产"];//
     [_MenuCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"meunCall"];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 5.0;
@@ -53,7 +53,7 @@
         for (NSDictionary *dic in self.barValueAry) {
             [self.superbarX addObject:dic[@"stockName"]];
             [self.barIncome addObject:dic[@"income"]];
-            [self.barShareOut addObject:[NSNumber numberWithFloat:[dic[@"shareOut"] doubleValue]*100]];
+            [self.barShareOut addObject:dic[@"assets"]];
             if ([dic[@"ratio"] floatValue] != 0) {
                 [self.barRatio addObject:dic[@"ratio"]];
             }

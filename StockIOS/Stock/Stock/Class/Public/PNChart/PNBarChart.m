@@ -286,7 +286,7 @@
         bar.grade = grade;
         bar.isShowNumber = self.isShowNumbers;
         CGRect originalFrame = bar.frame;
-        NSString *currentNumber =  [NSString stringWithFormat:@"%f",value];
+        NSString *currentNumber =  [NSString stringWithFormat:@"%.2f",value];
 
         if ([[currentNumber substringToIndex:1] isEqualToString:@"-"] && self.showLevelLine) {
             CGAffineTransform transform =CGAffineTransformMakeRotation(M_PI);

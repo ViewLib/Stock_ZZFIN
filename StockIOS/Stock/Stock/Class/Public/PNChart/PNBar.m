@@ -188,7 +188,7 @@
     [_chartLine addSublayer:self.textLayer];
     [self.textLayer setFontSize:13.0];
   
-    [self.textLayer setString:[[NSString alloc]initWithFormat:@"%0.f%@",grade*self.maxDivisor,self.textSuffix]];
+    [self.textLayer setString:[[NSString alloc]initWithFormat:@"%0.1f%@",grade*self.maxDivisor,self.textSuffix]];
   
     CGSize size = CGSizeMake(320,2000); //设置一个行高上限
     NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:18.0]};

@@ -18,6 +18,7 @@
     layout.minimumInteritemSpacing = 5.0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     [_MenuCollection setCollectionViewLayout:layout];
+    [self initTypeLabel];
 }
 
 - (void)setStockCode:(NSString *)stockCode {
@@ -75,22 +76,62 @@
 - (void)reloadBarChartView {
     self.barX = [NSMutableArray array];
     self.barY = [NSMutableArray array];
-    for (NSDictionary *dic in self.barValueAry) {
+    [self.barValueAry enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
         [self.barX addObject:dic[@"dateStr"]];
-        if ([dic[@"valueStr"] floatValue] > 100000000) {
+        if (idx == 0) {
+            switch (self.currentIndex) {
+                case 0:
+                {
+                    self.yType = @"";
+                    self.typeLabel.hidden = NO;
+                    if ([dic[@"valueStr"] floatValue] > 10000000) {
+                        self.typeLabel.text = @"单位(亿)";
+                    } else if ([dic[@"valueStr"] floatValue] > 10000) {
+                        self.typeLabel.text = @"单位(万)";
+                    }
+                }
+                    break;
+                case 1:
+                    self.yType = @"%";
+                    self.typeLabel.hidden = YES;
+                    break;
+                case 2:
+                    self.yType = @"%";
+                    self.typeLabel.hidden = YES;
+                    break;
+                case 3:
+                    self.yType = @"";
+                    self.typeLabel.hidden = NO;
+                    self.typeLabel.text = @"单位(元)";
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        if ([self.typeLabel.text isEqual:@"单位(亿)"]) {
             [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]/100000000]];
-            self.yType = @"亿";
-        } else if ([dic[@"valueStr"] floatValue] > 10000) {
+        } else if ([self.typeLabel.text isEqual:@"单位(万)"]) {
             [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]/10000]];
-            self.yType = @"万";
         } else if ([dic[@"valueStr"] floatValue] < 1) {
             [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]*100]];
-            self.yType = @"%";
         } else {
             [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]]];
-            self.yType = @"";
         }
+    }];
+    
+    if (self.currentIndex != 0) {
+        NSMutableArray *newTime = [NSMutableArray array];
+        [self.barX enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSArray *objs = [obj componentsSeparatedByString:@"/"];
+            if (objs.count == 3) {
+                NSString *timeStr = [NSString stringWithFormat:@"%@/%@",objs[1],objs[0]];
+                [newTime addObject:timeStr];
+            }
+        }];
+        self.barX = newTime.mutableCopy;
     }
+    
     if (self.barX.count > 0 && self.barY.count > 0) {
         if (!self.barChart) {
             [self initBarChartView];
@@ -99,7 +140,10 @@
             [self.barChart updateChartYData:self.barY andX:self.barX];
         }
     }
-    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self.BarChartView bringSubviewToFront:self.typeLabel];
+    });
 }
 
 - (void)initBarChartView {
@@ -143,6 +187,23 @@
     
     [self.BarChartView addSubview:self.barChart];
     self.BarChartViewHigh.constant = 250;
+}
+
+- (void)initTypeLabel {
+    if (!_typeLabel) {
+        _typeLabel = [[UILabel alloc] init];
+        [_typeLabel setTextColor:MAIN_COLOR];
+        [_typeLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        [_typeLabel setTextAlignment:NSTextAlignmentRight];
+        [_typeLabel setHidden:YES];
+        [self.BarChartView addSubview:_typeLabel];
+        [_typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(@-5);
+            make.top.equalTo(_MenuCollection.mas_bottom).equalTo(@5);
+            make.height.equalTo(@20);
+            make.width.equalTo(@50);
+        }];
+    }
 }
 
 - (void)userClickedOnBarAtIndex:(NSInteger)barIndex {
