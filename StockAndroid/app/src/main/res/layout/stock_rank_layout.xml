@@ -10,8 +10,7 @@
     <com.xt.lxl.stock.widget.view.StockTitleView
         android:id="@+id/stock_title_view"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:stock_title_text_msg="股票排行界面" />
+        android:layout_height="60dp" />
 
     <LinearLayout
         android:id="@+id/stock_rank_filter"
