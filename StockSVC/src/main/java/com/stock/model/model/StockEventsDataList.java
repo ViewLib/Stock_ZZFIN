@@ -22,7 +22,10 @@ public class StockEventsDataList {
     public final static int TYPE_EXCHANGE = 104;//股票置换
     public final static int TYPE_INSTITUTIONAL_NUM = 105;//机构持股数量
     public final static int TYPE_SHAREHOLDER_NUM = 106;//股东变化数量
-
+    public final static int TYPE_BUSINESS_DEPT = 108;//营业部买卖情况
+    public final static int TYPE_GUOJIADUI_HOLER = 109;//国家队持股情况
+    public final static int TYPE_REVENUE = 110;//营收情况
+    public final static int TYPE_MARGING = 107;//融资融券
     /**
      *  重大消息的类型
      */
