@@ -66,12 +66,36 @@ public class TransformUtil {
             eventDataModel.eventTitle = stockEvents.eventName;
             holer_div= Integer.parseInt(resultModel.attr4);
             if(holer_div>=0){
-                attr_desc="股东人数较上期增加："+holer_div+" 人";
+                attr_desc="股东人数较上期("+resultModel.attr2+")增加："+holer_div+" 人";
             }
             if(holer_div<0){
-                attr_desc="股东人数较上期减少："+Math.abs(holer_div)+" 人";
+                attr_desc="股东人数较上期("+resultModel.attr2+")减少："+Math.abs(holer_div)+" 人";
             }
             eventDataModel.eventDesc = resultModel.eventDate + "日，股东数量为：" + FormatUtil.formatStockNum(resultModel.attr1) + "人,"+attr_desc;
+        }
+        //营业部买卖情况
+        else if (subType == StockEventsDataList.TYPE_BUSINESS_DEPT) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc =  resultModel.eventDate+",买方："+resultModel.attr4+",成交价："+resultModel.attr1+"元,成交数量:"+resultModel.attr2+"万股,成交额:"+resultModel.attr3+"万元.卖方："+resultModel.attr5;
+        }
+        //国家队持股情况
+        else if (subType == StockEventsDataList.TYPE_GUOJIADUI_HOLER) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.eventDate+","+resultModel.attr2+"持股比例"+resultModel.attr3;
+        }
+        //经营情况
+        else if (subType == StockEventsDataList.TYPE_REVENUE) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.eventDate+",营业收入:"+resultModel.attr2+"亿元，净利润:"+resultModel.attr3+"亿元";
+        }
+        //融资融券
+        else if (subType == StockEventsDataList.TYPE_MARGING) {
+            eventDataModel.eventDate = resultModel.eventDate;
+            eventDataModel.eventTitle = stockEvents.eventName;
+            eventDataModel.eventDesc = resultModel.eventDate+",融资余额:"+resultModel.attr1+"亿元,融资买入额:"+resultModel.attr2+"万元.融券余额:"+resultModel.attr4+"万元,融券卖出量:"+resultModel.attr6+"股."+"融资融券余额:"+resultModel.attr8+"亿元";
         }
         //重组
         else if (subType == StockEventsDataList.TYPE_REFORM) {
