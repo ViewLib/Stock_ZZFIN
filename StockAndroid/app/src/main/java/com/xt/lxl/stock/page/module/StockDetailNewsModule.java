@@ -223,6 +223,8 @@ public class StockDetailNewsModule extends StockDetailBaseModule implements View
 //        xAxis.setDrawGridLines(true);//设置x轴上每个点对应的线
         xAxis.setSpaceBetweenLabels(2);
         xAxis.setDrawGridLines(false);
+        xAxis.setLabelsToSkip(65);
+
 
         /**
          *

@@ -105,7 +105,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
     }
 
     private void initLineChart() {
-        lineChart.setScaleEnabled(false);
+        lineChart.setScaleEnabled(true);
         lineChart.setDrawBorders(false);
         lineChart.setBorderWidth(0);
         lineChart.setDescription("");
@@ -204,6 +204,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         axisLeft.setDrawZeroLine(false);
         axisLeft.setAxisLineWidth(0);
         axisLeft.setDrawAxisLine(false);
+        axisLeft.setDrawZeroLine(true);
 
         Legend barChartLegend = barChart.getLegend();
         barChartLegend.setEnabled(false);

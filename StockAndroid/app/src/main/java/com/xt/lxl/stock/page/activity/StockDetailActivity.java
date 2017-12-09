@@ -153,7 +153,7 @@ public class StockDetailActivity extends FragmentActivity {
                     return;
                 }
                 if (mCacheBean.forwardPirce == 0) {
-                    float v = StockSender.getInstance().requestForwadPrice(mCacheBean.mStockViewModel.getRequestStockCode());
+                    float v = StockSender.getInstance().requestForwadPrice(mCacheBean.mStockViewModel.stockCode);
                     mCacheBean.forwardPirce = v;
                 }
 

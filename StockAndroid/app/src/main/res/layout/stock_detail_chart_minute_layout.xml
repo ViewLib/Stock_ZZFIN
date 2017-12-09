@@ -4,18 +4,15 @@
     android:layout_height="230dp"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
 
     <com.xt.lxl.stock.widget.stockchart.view.MyLineChart
         android:id="@+id/kline_minute_price_chart"
         android:layout_width="match_parent"
-        android:layout_height="140dp" />
+        android:layout_height="160dp" />
 
     <com.xt.lxl.stock.widget.stockchart.mychart.MyBarChart
         android:id="@+id/kline_minute_volumn_chart"
         android:layout_width="match_parent"
-        android:layout_height="80dp" />
+        android:layout_height="70dp" />
 
 </LinearLayout>
