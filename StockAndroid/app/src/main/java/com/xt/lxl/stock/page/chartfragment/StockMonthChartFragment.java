@@ -5,7 +5,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -28,6 +27,7 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.XAxisValueFormatter;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.BarLineChartTouchListener;
@@ -42,6 +42,7 @@ import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.VolFormatter;
 import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.CoupleChartGestureListener;
+import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -57,9 +58,9 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
     XAxis xAxisBar, xAxisK;
     YAxis axisLeftBar, axisLeftK;
     YAxis axisRightBar, axisRightK;
+    //    StockTextView max5Text, max10Text, max30Text;
     private BarLineChartTouchListener mChartTouchListener;
     private CoupleChartGestureListener coupleChartGestureListener;
-    float sum = 0;
     Handler mHandler = new Handler();
 
     BarData mBarData;
@@ -81,7 +82,7 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.stock_detail_chart_month_layout, null);
+        return inflater.inflate(R.layout.stock_detail_chart_day_layout, null);
     }
 
     @Override
@@ -89,6 +90,9 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         super.onViewCreated(view, savedInstanceState);
         combinedchart = (CombinedChart) view.findViewById(R.id.kline_day_chart);
         barChart = (BarChart) view.findViewById(R.id.kline_day_bar);
+//        max5Text = (StockTextView) view.findViewById(R.id.max5_text);
+//        max10Text = (StockTextView) view.findViewById(R.id.max10_text);
+//        max30Text = (StockTextView) view.findViewById(R.id.max30_text);
         barChart.setVisibility(View.INVISIBLE);
         combinedchart.setVisibility(View.INVISIBLE);
         initChart();
@@ -105,17 +109,30 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockGetDateDataResponse dataResponses = StockSender.getInstance().requestDateData(stockCode, StockGetDateDataResponse.TYPE_MONTH);
+                StockGetDateDataResponse dataResponses = StockSender.getInstance().requestDateData(stockCode, StockGetDateDataResponse.TYPE_WEEK);
                 final DayViewModel dayViewModel = calculationData(dataResponses);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
+//                        bindAverageDate(dayViewModel);
                         bindDate(dayViewModel);
                     }
                 });
             }
         }).start();
     }
+
+//    private void bindAverageDate(DayViewModel dayViewModel) {
+//        List<StockDateDataModel> dateDataList = dayViewModel.dateDataList;
+//        int size = dateDataList.size();
+//        float max5 = getSum(dateDataList, size - 5, size - 1) / 5;
+//        float max10 = getSum(dateDataList, size - 10, size - 1) / 10;
+//        float max30 = getSum(dateDataList, size - 30, size - 1) / 30;
+//        max5Text.setText("MAX5 " + StockUtil.roundedFor(max5, 2));
+//        max10Text.setText("MAX10 " + StockUtil.roundedFor(max10, 2));
+//        max30Text.setText("MAX30 " + StockUtil.roundedFor(max30, 2));
+//
+//    }
 
     //拆成复用和不复用的两种
     private void bindDate(DayViewModel dayViewModel) {
@@ -143,15 +160,12 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
             barEntries.add(new BarEntry(stockDateData.volume, i, showRed));
             candleEntries.add(new CandleEntry(i, stockDateData.high, stockDateData.low, stockDateData.open, stockDateData.close, showRed));
             if (i >= 4) {
-                sum = 0;
                 line5Entries.add(new Entry(getSum(dateDataList, i - 4, i) / 5, i));
             }
             if (i >= 9) {
-                sum = 0;
                 line10Entries.add(new Entry(getSum(dateDataList, i - 9, i) / 10, i));
             }
             if (i >= 29) {
-                sum = 0;
                 line30Entries.add(new Entry(getSum(dateDataList, i - 29, i) / 30, i));
             }
         }
@@ -179,7 +193,7 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         final ViewPortHandler viewPortHandlerBar = barChart.getViewPortHandler();
         viewPortHandlerBar.setMaximumScaleX(StockUtil.culcMaxscale(xVals.size()));
         Matrix touchmatrix = viewPortHandlerBar.getMatrixTouch();
-        final float xscale = 3;
+        final float xscale = 4;
         touchmatrix.postScale(xscale, 1f);
 
         /******此处修复如果显示的点的个数达不到MA均线的位置所有的点都从0开始计算最小值的问题******************************/
@@ -230,7 +244,7 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         final ViewPortHandler viewPortHandlerCombin = combinedchart.getViewPortHandler();
         viewPortHandlerCombin.setMaximumScaleX(StockUtil.culcMaxscale(xVals.size()));
         Matrix matrixCombin = viewPortHandlerCombin.getMatrixTouch();
-        final float xscaleCombin = 3;
+        final float xscaleCombin = 4;
         matrixCombin.postScale(xscaleCombin, 1f);
         setOffset();
         handler.postDelayed(new Runnable() {
@@ -332,21 +346,24 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
     }
 
     private float getSum(List<StockDateDataModel> dateDataList, Integer a, Integer b) {
-        for (int i = a; i <= b; i++) {
-            sum += dateDataList.get(i).close;
+        float num = 0;
+        if (a < 0) {
+            return 0;
         }
-        return sum;
+        for (int i = a; i <= b; i++) {
+            num += dateDataList.get(i).close;
+        }
+        return num;
     }
 
     private void initChart() {
-        barChart.setDrawBorders(true);
+        barChart.setDrawBorders(false);
         barChart.setBorderWidth(1);
         barChart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
         barChart.setDescription("");
         barChart.setDragEnabled(true);
         barChart.setScaleYEnabled(false);
-        barChart.setDrawBorders(false);
-        barChart.setMaxVisibleValueCount(60);
+        barChart.setMaxVisibleValueCount(30);
         barChart.setDoubleTapToZoomEnabled(false);
 
         Legend barChartLegend = barChart.getLegend();
@@ -361,6 +378,15 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         xAxisBar.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         xAxisBar.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxisBar.setGridColor(getResources().getColor(R.color.minute_grayLine));
+        xAxisBar.setValueFormatter(new XAxisValueFormatter() {
+            @Override
+            public String getXValue(String original, int index, ViewPortHandler viewPortHandler) {
+                if (original.length() == 10) {
+                    return original.substring(0, 7);
+                }
+                return original;
+            }
+        });
 
         axisLeftBar = barChart.getAxisLeft();
         axisLeftBar.setAxisMinValue(0);
@@ -382,14 +408,16 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         axisRightBar.setDrawLabels(false);
         axisRightBar.setDrawGridLines(false);
         axisRightBar.setDrawAxisLine(false);
+
         /****************************************************************/
+        combinedchart.setPadding(0, 0, 0, 0);
         combinedchart.setDoubleTapToZoomEnabled(false);
         combinedchart.setDrawBorders(false);
         combinedchart.setBorderWidth(1);
-        combinedchart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
         combinedchart.setDescription("");
         combinedchart.setDragEnabled(true);
         combinedchart.setScaleYEnabled(false);
+        combinedchart.setMaxVisibleValueCount(30);
 
         Legend combinedchartLegend = combinedchart.getLegend();
         combinedchartLegend.setEnabled(false);
@@ -400,16 +428,14 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         xAxisK.setDrawAxisLine(false);
         xAxisK.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         xAxisK.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxisK.setGridColor(getResources().getColor(R.color.minute_grayLine));
 
         axisLeftK = combinedchart.getAxisLeft();
         axisLeftK.setLabelCount(3, true);
+        axisLeftK.setDrawLabels(true);
         axisLeftK.setDrawGridLines(true);
         axisLeftK.setDrawAxisLine(false);
-        axisLeftK.setDrawLabels(true);
-        axisLeftK.setDrawGridLines(false);
         axisLeftK.setTextColor(getResources().getColor(R.color.minute_zhoutv));
-        axisLeftK.setGridColor(getResources().getColor(R.color.minute_grayLine));
+        axisLeftK.setGridColor(getResources().getColor(R.color.day_grid_line));
         axisLeftK.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         axisLeftK.setValueFormatter(new YAxisValueFormatter() {
             @Override
@@ -421,7 +447,7 @@ public class StockMonthChartFragment extends StockBaseChartFragment {
         axisRightK.setDrawLabels(false);
         axisRightK.setDrawGridLines(false);
         axisRightK.setDrawAxisLine(false);
-        axisRightK.setGridColor(getResources().getColor(R.color.minute_grayLine));
+        axisRightK.setGridColor(getResources().getColor(R.color.day_grid_line));
         combinedchart.setDragDecelerationEnabled(true);
         barChart.setDragDecelerationEnabled(true);
         combinedchart.setDragDecelerationFrictionCoef(0.2f);

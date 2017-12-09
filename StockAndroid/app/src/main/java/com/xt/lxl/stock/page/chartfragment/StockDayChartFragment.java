@@ -59,9 +59,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
     XAxis xAxisBar, xAxisK;
     YAxis axisLeftBar, axisLeftK;
     YAxis axisRightBar, axisRightK;
-    StockTextView max5Text;
-    StockTextView max10Text;
-    StockTextView max30Text;
+    StockTextView max5Text, max10Text, max30Text;
     private BarLineChartTouchListener mChartTouchListener;
     private CoupleChartGestureListener coupleChartGestureListener;
     Handler mHandler = new Handler();

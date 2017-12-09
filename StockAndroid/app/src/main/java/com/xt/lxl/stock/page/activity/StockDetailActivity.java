@@ -12,6 +12,7 @@ import android.view.View;
 import com.xt.lxl.stock.R;
 import com.xt.lxl.stock.config.StockConfig;
 import com.xt.lxl.stock.listener.StockDetailListener;
+import com.xt.lxl.stock.model.ServiceResponse;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockDetailCompanyInfoResponse;
 import com.xt.lxl.stock.model.reponse.StockDetailCompareResponse;
@@ -30,6 +31,7 @@ import com.xt.lxl.stock.page.module.StockDetailImportEventModule;
 import com.xt.lxl.stock.page.module.StockDetailInfoModule;
 import com.xt.lxl.stock.page.module.StockDetailNewsModule;
 import com.xt.lxl.stock.sender.StockSender;
+import com.xt.lxl.stock.sender.StockSenderCache;
 import com.xt.lxl.stock.util.DataSource;
 import com.xt.lxl.stock.viewmodel.StockDetailCacheBean;
 import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
@@ -159,21 +161,6 @@ public class StockDetailActivity extends FragmentActivity {
 
                 final StockViewModel stockViewModel = stockViewModelList.get(0);//刷新股票
                 mCacheBean.mStockViewModel = stockViewModel;
-//                mCacheBean.mStockViewModel.stockName = stockViewModel.stockName;
-//                mCacheBean.mStockViewModel.stockPirce = stockViewModel.stockPirce;
-//                mCacheBean.mStockViewModel.stockChangeValue = stockViewModel.stockChangeValue;
-//                mCacheBean.mStockViewModel.stockChange = stockViewModel.stockChange;
-//                mCacheBean.mStockViewModel.ratio = stockViewModel.ratio;
-//                mCacheBean.mStockViewModel.turnover = stockViewModel.turnover;
-//                mCacheBean.mStockViewModel.valueAll = stockViewModel.valueAll;
-//                mCacheBean.mStockViewModel.maxPrice = stockViewModel.maxPrice;
-//                mCacheBean.mStockViewModel.minPrice = stockViewModel.minPrice;
-//                mCacheBean.mStockViewModel.amplitude = stockViewModel.amplitude;
-//                mCacheBean.mStockViewModel.volume = stockViewModel.volume;
-//                mCacheBean.mStockViewModel.isSuspension = stockViewModel.isSuspension;
-//                mCacheBean.mStockViewModel.stockBasePirce = stockViewModel.stockBasePirce;
-//                mCacheBean.mStockViewModel.isDelisting = stockViewModel.isDelisting;
-//                mCacheBean.mStockViewModel.dealValue = stockViewModel.dealValue;
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -190,10 +177,15 @@ public class StockDetailActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse = StockSender.getInstance().requestStockCompanyService(mCacheBean.mStockViewModel.getRequestStockCode());
-                if (stockDetailCompanyInfoResponse.stockHolderList.size() != 0) {
-                    mCacheBean.stockHolderList = stockDetailCompanyInfoResponse.stockHolderList;
+                StockDetailCompanyInfoResponse stockDetailCompanyInfoResponse = StockSenderCache.getCache().getStockResponseModel(mCacheBean.mStockViewModel.stockCode, StockDetailCompanyInfoResponse.class);
+                if (stockDetailCompanyInfoResponse == null) {
+                    stockDetailCompanyInfoResponse = StockSender.getInstance().requestStockCompanyService(mCacheBean.mStockViewModel.getRequestStockCode());
+                    if (stockDetailCompanyInfoResponse == null || stockDetailCompanyInfoResponse.stockHolderList.size() == 0) {
+                        return;
+                    }
+                    StockSenderCache.getCache().putStockResponseModel(mCacheBean.mStockViewModel.stockCode, stockDetailCompanyInfoResponse);
                 }
+                mCacheBean.stockHolderList = stockDetailCompanyInfoResponse.stockHolderList;
                 mCacheBean.stockDetailCompanyModel = stockDetailCompanyInfoResponse.companyModel;
                 mHandler.post(new Runnable() {
                     @Override
@@ -209,10 +201,16 @@ public class StockDetailActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockDetailFinanceResponse financeResponse = StockSender.getInstance().requestFinanceService(mCacheBean.mStockViewModel.getRequestStockCode());
-                if (financeResponse.resultCode == 200) {
-                    mCacheBean.financeResponse = financeResponse;
+
+                StockDetailFinanceResponse financeResponse = StockSenderCache.getCache().getStockResponseModel(mCacheBean.mStockViewModel.stockCode, StockDetailFinanceResponse.class);
+                if (financeResponse == null) {
+                    financeResponse = StockSender.getInstance().requestFinanceService(mCacheBean.mStockViewModel.getRequestStockCode());
+                    if (financeResponse == null || financeResponse.resultCode != 200) {
+                        return;
+                    }
+                    StockSenderCache.getCache().putStockResponseModel(mCacheBean.mStockViewModel.stockCode, financeResponse);
                 }
+                mCacheBean.financeResponse = financeResponse;
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -227,10 +225,15 @@ public class StockDetailActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockDetailGradeResponse stockDetailGradeResponse = StockSender.getInstance().requestStockGradeService(mCacheBean.mStockViewModel.getRequestStockCode());
-                if (stockDetailGradeResponse.gradleModelList.size() > 0) {
-                    mCacheBean.gradleModelList = stockDetailGradeResponse.gradleModelList;
+                StockDetailGradeResponse stockDetailGradeResponse = StockSenderCache.getCache().getStockResponseModel(mCacheBean.mStockViewModel.stockCode, StockDetailGradeResponse.class);
+                if (stockDetailGradeResponse == null) {
+                    stockDetailGradeResponse = StockSender.getInstance().requestStockGradeService(mCacheBean.mStockViewModel.getRequestStockCode());
+                    if (stockDetailGradeResponse.gradleModelList.size() == 0) {
+                        return;
+                    }
+                    StockSenderCache.getCache().putStockResponseModel(mCacheBean.mStockViewModel.stockCode, stockDetailGradeResponse);
                 }
+                mCacheBean.gradleModelList = stockDetailGradeResponse.gradleModelList;
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -245,9 +248,14 @@ public class StockDetailActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                StockEventsDataResponse eventsDataResponse = StockSender.getInstance().requestStockEventImportant(mCacheBean.mStockViewModel.getRequestStockCode(), 2);
-                if (eventsDataResponse.resultCode != 200) {
-                    return;
+                int type = 2;
+                StockEventsDataResponse eventsDataResponse = StockSenderCache.getCache().getStockResponseModel(mCacheBean.mStockViewModel.stockCode, type, StockEventsDataResponse.class);
+                if (eventsDataResponse == null) {
+                    eventsDataResponse = StockSender.getInstance().requestStockEventImportant(mCacheBean.mStockViewModel.getRequestStockCode(), type);
+                    if (eventsDataResponse.resultCode != 200) {
+                        return;
+                    }
+                    StockSenderCache.getCache().putStockResponseModel(mCacheBean.mStockViewModel.stockCode, type, eventsDataResponse);
                 }
                 mCacheBean.eventsDataResponse = eventsDataResponse;
                 mHandler.post(new Runnable() {
@@ -266,12 +274,15 @@ public class StockDetailActivity extends FragmentActivity {
             @Override
             public void run() {
                 StockGetDateDataResponse dataResponses = StockSender.getInstance().requestDateData(mCacheBean.mStockViewModel.getRequestStockCode(), StockGetDateDataResponse.TYPE_DAY);
-//                StockGetDateDataResponse dataResponses = new StockGetDateDataResponse();
-//                dataResponses.dateDataList = DataSource.getDayDataPriceList();
                 final DayViewModel dayViewModel = StockDayChartFragment.calculationData(dataResponses);
-                final StockEventsDataResponse eventsDataResponse = StockSender.getInstance().requestStockEventImportant(mCacheBean.mStockViewModel.getRequestStockCode(), 3);
-                if (eventsDataResponse.resultCode != 200) {
-                    return;
+                int type = 3;
+                StockEventsDataResponse eventsDataResponse = StockSenderCache.getCache().getStockResponseModel(mCacheBean.mStockViewModel.stockCode, type, StockEventsDataResponse.class);
+                if (eventsDataResponse == null) {
+                    eventsDataResponse = StockSender.getInstance().requestStockEventImportant(mCacheBean.mStockViewModel.getRequestStockCode(), type);
+                    if (eventsDataResponse.resultCode != 200) {
+                        return;
+                    }
+                    StockSenderCache.getCache().putStockResponseModel(mCacheBean.mStockViewModel.stockCode, type, eventsDataResponse);
                 }
                 mCacheBean.dayViewModel = dayViewModel;
                 mCacheBean.newsResponse = eventsDataResponse;
@@ -289,12 +300,17 @@ public class StockDetailActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final StockDetailCompareResponse compareResponse = StockSender.getInstance().requestStockCompare(mCacheBean.mStockViewModel.getRequestStockCode());
-                if (compareResponse.resultCode != 200) {
-                    return;
-                }
-                if (compareResponse.compareList.size() == 0) {
-                    return;
+
+                StockDetailCompareResponse compareResponse = StockSenderCache.getCache().getStockResponseModel(mCacheBean.mStockViewModel.stockCode, StockDetailCompareResponse.class);
+                if (compareResponse == null) {
+                    compareResponse = StockSender.getInstance().requestStockCompare(mCacheBean.mStockViewModel.getRequestStockCode());
+                    if (compareResponse.resultCode != 200) {
+                        return;
+                    }
+                    if (compareResponse.compareList.size() == 0) {
+                        return;
+                    }
+                    StockSenderCache.getCache().putStockResponseModel(mCacheBean.mStockViewModel.stockCode, compareResponse);
                 }
                 mCacheBean.compareResponse = compareResponse;
                 mHandler.post(new Runnable() {
