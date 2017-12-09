@@ -13,6 +13,7 @@
         android:orientation="horizontal">
 
         <com.xt.lxl.stock.widget.view.StockTextView
+            android:id="@+id/max5_text"
             style="@style/text_10_686868"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,6 +25,7 @@
             app:stock_text_drawable_width="5dp" />
 
         <com.xt.lxl.stock.widget.view.StockTextView
+            android:id="@+id/max10_text"
             style="@style/text_10_686868"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,6 +39,7 @@
             app:stock_text_drawable_width="5dp" />
 
         <com.xt.lxl.stock.widget.view.StockTextView
+            android:id="@+id/max30_text"
             style="@style/text_10_686868"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

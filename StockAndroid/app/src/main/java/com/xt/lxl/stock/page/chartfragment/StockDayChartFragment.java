@@ -5,7 +5,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -28,7 +27,6 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.formatter.XAxisValueFormatter;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -40,10 +38,12 @@ import com.xt.lxl.stock.model.model.StockDateDataModel;
 import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetDateDataResponse;
 import com.xt.lxl.stock.sender.StockSender;
+import com.xt.lxl.stock.util.FormatUtil;
 import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.VolFormatter;
 import com.xt.lxl.stock.widget.stockchart.bean.DayViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.CoupleChartGestureListener;
+import com.xt.lxl.stock.widget.view.StockTextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -59,9 +59,11 @@ public class StockDayChartFragment extends StockBaseChartFragment {
     XAxis xAxisBar, xAxisK;
     YAxis axisLeftBar, axisLeftK;
     YAxis axisRightBar, axisRightK;
+    StockTextView max5Text;
+    StockTextView max10Text;
+    StockTextView max30Text;
     private BarLineChartTouchListener mChartTouchListener;
     private CoupleChartGestureListener coupleChartGestureListener;
-    float sum = 0;
     Handler mHandler = new Handler();
 
     BarData mBarData;
@@ -91,6 +93,9 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         super.onViewCreated(view, savedInstanceState);
         combinedchart = (CombinedChart) view.findViewById(R.id.kline_day_chart);
         barChart = (BarChart) view.findViewById(R.id.kline_day_bar);
+        max5Text = (StockTextView) view.findViewById(R.id.max5_text);
+        max10Text = (StockTextView) view.findViewById(R.id.max10_text);
+        max30Text = (StockTextView) view.findViewById(R.id.max30_text);
         barChart.setVisibility(View.INVISIBLE);
         combinedchart.setVisibility(View.INVISIBLE);
         initChart();
@@ -112,11 +117,24 @@ public class StockDayChartFragment extends StockBaseChartFragment {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        bindAverageDate(dayViewModel);
                         bindDate(dayViewModel);
                     }
                 });
             }
         }).start();
+    }
+
+    private void bindAverageDate(DayViewModel dayViewModel) {
+        List<StockDateDataModel> dateDataList = dayViewModel.dateDataList;
+        int size = dateDataList.size();
+        float max5 = getSum(dateDataList, size - 5, size - 1) / 5;
+        float max10 = getSum(dateDataList, size - 10, size - 1) / 10;
+        float max30 = getSum(dateDataList, size - 30, size - 1) / 30;
+        max5Text.setText("MAX5 " + StockUtil.roundedFor(max5, 2));
+        max10Text.setText("MAX10 " + StockUtil.roundedFor(max10, 2));
+        max30Text.setText("MAX30 " + StockUtil.roundedFor(max30, 2));
+
     }
 
     //拆成复用和不复用的两种
@@ -145,15 +163,12 @@ public class StockDayChartFragment extends StockBaseChartFragment {
             barEntries.add(new BarEntry(stockDateData.volume, i, showRed));
             candleEntries.add(new CandleEntry(i, stockDateData.high, stockDateData.low, stockDateData.open, stockDateData.close, showRed));
             if (i >= 4) {
-                sum = 0;
                 line5Entries.add(new Entry(getSum(dateDataList, i - 4, i) / 5, i));
             }
             if (i >= 9) {
-                sum = 0;
                 line10Entries.add(new Entry(getSum(dateDataList, i - 9, i) / 10, i));
             }
             if (i >= 29) {
-                sum = 0;
                 line30Entries.add(new Entry(getSum(dateDataList, i - 29, i) / 30, i));
             }
         }
@@ -334,10 +349,14 @@ public class StockDayChartFragment extends StockBaseChartFragment {
     }
 
     private float getSum(List<StockDateDataModel> dateDataList, Integer a, Integer b) {
-        for (int i = a; i <= b; i++) {
-            sum += dateDataList.get(i).close;
+        float num = 0;
+        if (a < 0) {
+            return 0;
         }
-        return sum;
+        for (int i = a; i <= b; i++) {
+            num += dateDataList.get(i).close;
+        }
+        return num;
     }
 
     private void initChart() {
@@ -398,7 +417,6 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         combinedchart.setDoubleTapToZoomEnabled(false);
         combinedchart.setDrawBorders(false);
         combinedchart.setBorderWidth(1);
-        combinedchart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
         combinedchart.setDescription("");
         combinedchart.setDragEnabled(true);
         combinedchart.setScaleYEnabled(false);
@@ -413,16 +431,14 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         xAxisK.setDrawAxisLine(false);
         xAxisK.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         xAxisK.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxisK.setGridColor(getResources().getColor(R.color.minute_grayLine));
 
         axisLeftK = combinedchart.getAxisLeft();
         axisLeftK.setLabelCount(3, true);
+        axisLeftK.setDrawLabels(true);
         axisLeftK.setDrawGridLines(true);
         axisLeftK.setDrawAxisLine(false);
-        axisLeftK.setDrawLabels(true);
-        axisLeftK.setDrawGridLines(false);
         axisLeftK.setTextColor(getResources().getColor(R.color.minute_zhoutv));
-        axisLeftK.setGridColor(getResources().getColor(R.color.minute_grayLine));
+        axisLeftK.setGridColor(getResources().getColor(R.color.day_grid_line));
         axisLeftK.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         axisLeftK.setValueFormatter(new YAxisValueFormatter() {
             @Override
@@ -434,7 +450,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         axisRightK.setDrawLabels(false);
         axisRightK.setDrawGridLines(false);
         axisRightK.setDrawAxisLine(false);
-        axisRightK.setGridColor(getResources().getColor(R.color.minute_grayLine));
+        axisRightK.setGridColor(getResources().getColor(R.color.day_grid_line));
         combinedchart.setDragDecelerationEnabled(true);
         barChart.setDragDecelerationEnabled(true);
         combinedchart.setDragDecelerationFrictionCoef(0.2f);

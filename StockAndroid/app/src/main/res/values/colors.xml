@@ -6,6 +6,7 @@
     <!--基调背景-->
     <color name="stock_main_white_bg">#ffffffff</color>
 
+    <color name="day_grid_line">#F1F1F1</color>
 
     <color name="stock_main_compare_base">#FF8704</color>
     <color name="stock_main_compare_other">#186db7</color>
