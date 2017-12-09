@@ -28,6 +28,8 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.formatter.XAxisValueFormatter;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.BarLineChartTouchListener;
@@ -179,7 +181,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         final ViewPortHandler viewPortHandlerBar = barChart.getViewPortHandler();
         viewPortHandlerBar.setMaximumScaleX(StockUtil.culcMaxscale(xVals.size()));
         Matrix touchmatrix = viewPortHandlerBar.getMatrixTouch();
-        final float xscale = 3;
+        final float xscale = 4;
         touchmatrix.postScale(xscale, 1f);
 
         /******此处修复如果显示的点的个数达不到MA均线的位置所有的点都从0开始计算最小值的问题******************************/
@@ -230,7 +232,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         final ViewPortHandler viewPortHandlerCombin = combinedchart.getViewPortHandler();
         viewPortHandlerCombin.setMaximumScaleX(StockUtil.culcMaxscale(xVals.size()));
         Matrix matrixCombin = viewPortHandlerCombin.getMatrixTouch();
-        final float xscaleCombin = 3;
+        final float xscaleCombin = 4;
         matrixCombin.postScale(xscaleCombin, 1f);
         setOffset();
         handler.postDelayed(new Runnable() {
@@ -339,14 +341,13 @@ public class StockDayChartFragment extends StockBaseChartFragment {
     }
 
     private void initChart() {
-        barChart.setDrawBorders(true);
+        barChart.setDrawBorders(false);
         barChart.setBorderWidth(1);
         barChart.setBorderColor(getResources().getColor(R.color.minute_grayLine));
         barChart.setDescription("");
         barChart.setDragEnabled(true);
         barChart.setScaleYEnabled(false);
-        barChart.setDrawBorders(false);
-        barChart.setMaxVisibleValueCount(60);
+        barChart.setMaxVisibleValueCount(30);
         barChart.setDoubleTapToZoomEnabled(false);
 
         Legend barChartLegend = barChart.getLegend();
@@ -361,6 +362,15 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         xAxisBar.setTextColor(getResources().getColor(R.color.minute_zhoutv));
         xAxisBar.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxisBar.setGridColor(getResources().getColor(R.color.minute_grayLine));
+        xAxisBar.setValueFormatter(new XAxisValueFormatter() {
+            @Override
+            public String getXValue(String original, int index, ViewPortHandler viewPortHandler) {
+                if (original.length() == 10) {
+                    return original.substring(0, 7);
+                }
+                return original;
+            }
+        });
 
         axisLeftBar = barChart.getAxisLeft();
         axisLeftBar.setAxisMinValue(0);
@@ -382,7 +392,9 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         axisRightBar.setDrawLabels(false);
         axisRightBar.setDrawGridLines(false);
         axisRightBar.setDrawAxisLine(false);
+
         /****************************************************************/
+        combinedchart.setPadding(0, 0, 0, 0);
         combinedchart.setDoubleTapToZoomEnabled(false);
         combinedchart.setDrawBorders(false);
         combinedchart.setBorderWidth(1);
@@ -390,6 +402,7 @@ public class StockDayChartFragment extends StockBaseChartFragment {
         combinedchart.setDescription("");
         combinedchart.setDragEnabled(true);
         combinedchart.setScaleYEnabled(false);
+        combinedchart.setMaxVisibleValueCount(30);
 
         Legend combinedchartLegend = combinedchart.getLegend();
         combinedchartLegend.setEnabled(false);
