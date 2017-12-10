@@ -33,6 +33,7 @@ typedef NSString *(^PNYLabelFormatter)(CGFloat yLabelValue);
 
 @property (nonatomic) CGFloat xLabelWidth;
 @property (nonatomic) float yValueMax;
+@property (nonatomic) UIColor *firstStrokeColor;
 @property (nonatomic) UIColor *strokeColor;
 @property (nonatomic) NSArray *strokeColors;
 

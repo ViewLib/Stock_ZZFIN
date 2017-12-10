@@ -50,6 +50,9 @@
 //K线图数据
 @property (nonatomic ,strong)   NSMutableArray       *KlineDate;
 
+//股票详细信息缓存
+@property (nonatomic ,strong)   NSMutableDictionary       *stockDic;
+
 //价格总和
 @property (nonatomic ,assign)   float sumPrice;
 

@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *BarChartHigh;
 
+@property (strong, nonatomic) UILabel   *typeLabel;
+
 @property (nonatomic) PNBarChart * barChart;
 
 @property (strong, nonatomic) NSArray   *titleAry;
@@ -43,5 +45,7 @@
 @property (strong, nonatomic) NSString  *yType;
 
 @property (assign, nonatomic) NSInteger currentIndex;
+
+@property (strong, nonatomic) NSMutableDictionary   *currentDic;
 
 @end

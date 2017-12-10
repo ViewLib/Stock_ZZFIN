@@ -253,9 +253,11 @@
             //Change Bar Background color
             bar.backgroundColor = _barBackgroundColor;
             //Bar StrokColor First
-            if (self.strokeColor) {
+            if (self.firstStrokeColor && index == 0) {
+                bar.barColor = self.firstStrokeColor;
+            } else if (self.strokeColor) {
                 bar.barColor = self.strokeColor;
-            }else{
+            } else {
                 bar.barColor = [self barColorAtIndex:index];
             }
             

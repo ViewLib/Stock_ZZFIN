@@ -24,30 +24,44 @@
     self.barIncome = [NSMutableArray array];
     self.barShareOut = [NSMutableArray array];
     self.barPricePerfor = [NSMutableArray array];
+    [self initTypeLabel];
 }
 
 - (void)setStockCode:(NSString *)stockCode {
     if (stockCode) {
         _stockCode = stockCode;
     }
-    [self getStockCompare];
+    
+    _currentDic = [Config shareInstance].stockDic[_stockCode];
+    if (_currentDic[@"compareList"]) {
+        [self reloadBarValue:_currentDic[@"compareList"]];
+    } else {
+        [self getStockCompare];
+    }
 }
 
 - (void)getStockCompare {
     WS(self)
     [[HttpRequestClient sharedClient] getStockCompare:@{@"stockCode": self.stockCode,@"serviceCode":@"2010",@"type":@"2",@"versionCode":@"1"} request:^(NSString *resultMsg, id dataDict, id error) {//self.stockCode
         if ([dataDict[@"resultCode"] intValue] == 200) {
-            selfWeak.barValueAry = dataDict[@"compareList"];
-            [selfWeak reloadBarChart:9999];
+            NSMutableDictionary *currentStockDic = [Config shareInstance].stockDic[self.stockCode];
+            [currentStockDic setValue:dataDict[@"compareList"] forKey:@"compareList"];
+            [[Config shareInstance].stockDic setValue:currentStockDic forKey:self.stockCode];
+            
+            [selfWeak reloadBarValue:dataDict[@"compareList"]];
         }
     }];
+}
+
+- (void)reloadBarValue:(NSArray *)ary {
+    self.barValueAry = ary.copy;
+    [self reloadBarChart:9999];
 }
 
 - (void)reloadBarChart:(int)index {
     self.barY = [NSMutableArray array];
     self.barX = [NSMutableArray array];
     
-    self.yType = @"%";
     if (index == 9999) {
         self.superbarX = [NSMutableArray array];
         for (NSDictionary *dic in self.barValueAry) {
@@ -59,19 +73,25 @@
             }
             [self.barPricePerfor addObject:dic[@"pricePerfor"]];
         }
+        self.yType = @"x";
         self.barY = self.barRatio;
+        self.typeLabel.hidden = YES;
     } else if (index == 0) {
-//        self.yType = @"%";
+        self.yType = @"x";
         self.barY = self.barRatio;
+        self.typeLabel.hidden = YES;
     } else if (index == 1) {
-//        self.yType = @"%";
+        self.yType = @"%";
         self.barY = self.barIncome;
+        self.typeLabel.hidden = YES;
     } else if (index == 2) {
-//        self.yType = @"%";
+        self.yType = @"%";
         self.barY = self.barPricePerfor;
+        self.typeLabel.hidden = YES;
     } else {
-//        self.yType = @"%";
+        self.yType = @"";
         self.barY = self.barShareOut;
+        self.typeLabel.hidden = NO;
     }
     
     if (self.barY.count < self.superbarX.count) {
@@ -87,6 +107,26 @@
             self.barChart.yLabelSuffix = self.yType;
             [self.barChart updateChartYData:self.barY andX:self.barX];
         }
+    }
+    
+    [self.BarChartView bringSubviewToFront:self.typeLabel];
+}
+
+- (void)initTypeLabel {
+    if (!_typeLabel) {
+        _typeLabel = [[UILabel alloc] init];
+        [_typeLabel setTextColor:MAIN_COLOR];
+        [_typeLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        [_typeLabel setTextAlignment:NSTextAlignmentRight];
+        [_typeLabel setText:@"单位(元)"];
+        [_typeLabel setHidden:YES];
+        [self.BarChartView addSubview:_typeLabel];
+        [_typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(@-5);
+            make.top.equalTo(_MenuCollection.mas_bottom).equalTo(@5);
+            make.height.equalTo(@20);
+            make.width.equalTo(@50);
+        }];
     }
 }
 
@@ -116,6 +156,7 @@
     
     [self.barChart setYValues:self.barY];
     [self.barChart setStrokeColor:MAIN_COLOR];
+    [self.barChart setFirstStrokeColor:[Utils colorFromHexRGB:@"FF8704"]];
     self.barChart.isGradientShow = NO;
     self.barChart.isShowNumbers = YES;
     

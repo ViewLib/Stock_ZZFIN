@@ -33,24 +33,38 @@
     if (stockCode) {
         _stockCode = stockCode;
     }
-    [self getStockEvent];
+    _currentDic = [Config shareInstance].stockDic[_stockCode];
+    if (_currentDic[@"stockEventsDataLists_3"]) {
+        [self reloadView: _currentDic[@"stockEventsDataLists_3"]];
+    } else {
+        [self getStockEvent];
+    }
 }
 
 - (void)getStockEvent {
     WS(self)
     [[HttpRequestClient sharedClient] getStockEvent:@{@"stockCode": self.stockCode, @"type":@3} request:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict[@"resultCode"] intValue] == 200) {
-            selfWeak.events = [NSArray arrayWithArray:dataDict[@"stockEventsDataLists"]];
-            NSMutableArray *ary = [NSMutableArray array];
-            for (NSDictionary *dic in selfWeak.events) {
-                [ary addObject:dic[@"eventName"]];
-            }
-            selfWeak.titleAry = ary;
-            selfWeak.titleNews = [ary firstObject];
-            [selfWeak monitorReload];
-            [selfWeak.MenuCollection reloadData];
+            
+            NSMutableDictionary *currentStockDic = [Config shareInstance].stockDic[self.stockCode];
+            [currentStockDic setValue:dataDict[@"stockEventsDataLists"] forKey:@"stockEventsDataLists_3"];
+            [[Config shareInstance].stockDic setValue:currentStockDic forKey:self.stockCode];
+            
+            [selfWeak reloadView: dataDict[@"stockEventsDataLists"]];
         }
     }];
+}
+
+- (void)reloadView:(NSArray *)array {
+    self.events = array;
+    NSMutableArray *ary = [NSMutableArray array];
+    for (NSDictionary *dic in self.events) {
+        [ary addObject:dic[@"eventName"]];
+    }
+    self.titleAry = ary;
+    self.titleNews = [ary firstObject];
+    [self monitorReload];
+    [self.MenuCollection reloadData];
 }
 
 - (void)initLineView {

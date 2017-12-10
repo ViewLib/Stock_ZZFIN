@@ -21,6 +21,8 @@ typedef void(^reloadTable)();
 
 @property (strong, nonatomic) NSArray    *events;
 
+@property (strong, nonatomic) NSMutableDictionary   *currentDic;
+
 @property (nonatomic, copy) reloadTable reloadTable;
 
 

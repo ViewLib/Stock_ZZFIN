@@ -28,6 +28,8 @@
 
 @property (nonatomic, strong) NSTimer *timer;
 
+@property (strong, nonatomic) NSMutableDictionary   *currentDic;
+
 @property (nonatomic) LineView *line;
 
 

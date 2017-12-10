@@ -25,6 +25,8 @@
 //公司股东
 @property (strong, nonatomic) NSArray   *stockHolderAry;
 
+@property (strong, nonatomic) NSMutableDictionary   *currentDic;
+
 @property (strong, nonatomic) ValueCollection *gsjjView;
 
 @property (strong, nonatomic) ValueCollection *gdView;

@@ -18,7 +18,7 @@
 @property (strong, nonatomic) NSArray   *titleAry;
 @property (strong, nonatomic) NSArray   *stockGradeAry;
 @property (strong, nonatomic) NSString   *stockCode;
-
+@property (strong, nonatomic) NSMutableDictionary   *currentDic;
 @property (strong, nonatomic) ValueCollection *pjbhView;
 
 

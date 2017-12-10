@@ -47,16 +47,16 @@
     
     if ([PN isEqual:@"+"]) {
         self.upView.hidden = NO;
-        CGRect rect = [self.upValue.text boundingRectWithSize:CGSizeMake(1000, 25) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
-        if (rect.size.width < _percentage * [self viewx]) {
-            self.upValue.textColor = [UIColor whiteColor];
-        }
+//        CGRect rect = [self.upValue.text boundingRectWithSize:CGSizeMake(1000, 25) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
+//        if (rect.size.width < _percentage * [self viewx]) {
+//            self.upValue.textColor = [UIColor whiteColor];
+//        }
     } else if ([PN isEqual:@"-"]) {
         self.downView.hidden = NO;
-        CGRect rect = [self.downValue.text boundingRectWithSize:CGSizeMake(1000, 25) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
-        if (rect.size.width < _percentage * [self viewx]) {
-            self.downValue.textColor = [UIColor whiteColor];
-        }
+//        CGRect rect = [self.downValue.text boundingRectWithSize:CGSizeMake(1000, 25) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
+//        if (rect.size.width < _percentage * [self viewx]) {
+//            self.downValue.textColor = [UIColor whiteColor];
+//        }
     }
     
     if ([entity.zsprice floatValue] == 0) {

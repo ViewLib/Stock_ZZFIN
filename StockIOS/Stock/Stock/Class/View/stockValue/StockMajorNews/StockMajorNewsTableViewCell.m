@@ -15,6 +15,7 @@
     [super awakeFromNib];
     // Initialization code
     [_lookMoreBtn ImgRightTextLeft];
+    
 //    self.valueViewHigh.constant = 0;
 }
 
@@ -22,25 +23,37 @@
     if (stockCode) {
         _stockCode = stockCode;
     }
-    [self getStockEvent];
+    _currentDic = [Config shareInstance].stockDic[_stockCode];
+    if (_currentDic[@"stockEventsDataLists_2"]) {
+        [self reloadView:_currentDic[@"stockEventsDataLists_2"]];
+    } else {
+        [self getStockEvent];
+    }
 }
 
 - (void)getStockEvent {
     WS(self)
     [[HttpRequestClient sharedClient] getStockEvent:@{@"stockCode": self.stockCode, @"type":@2} request:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict[@"resultCode"] intValue] == 200) {
-            selfWeak.events = [NSArray arrayWithArray:dataDict[@"stockEventsDataLists"]];
-            NSMutableArray *array = [NSMutableArray array];
-            for (NSDictionary *dic in selfWeak.events) {
-                NSArray *value = dic[@"stockEventsDataModels"];
-                if (value.count > 0) {
-                    [array addObject:dic];
-                }
-            }
-            selfWeak.events = array;
-            [selfWeak addQAView:selfWeak.events];
+            NSMutableDictionary *currentStockDic = [Config shareInstance].stockDic[self.stockCode];
+            [currentStockDic setValue:dataDict[@"stockEventsDataLists"] forKey:@"stockEventsDataLists_2"];
+            [[Config shareInstance].stockDic setValue:currentStockDic forKey:self.stockCode];
+            
+            [selfWeak reloadView:dataDict[@"stockEventsDataLists"]];
         }
     }];
+}
+
+- (void)reloadView:(NSArray *)ary {
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSDictionary *dic in ary) {
+        NSArray *value = dic[@"stockEventsDataModels"];
+        if (value.count > 0) {
+            [array addObject:dic];
+        }
+    }
+    self.events = array.copy;
+    [self addQAView:self.events];
 }
 
 - (void)addQAView:(NSArray *) array {

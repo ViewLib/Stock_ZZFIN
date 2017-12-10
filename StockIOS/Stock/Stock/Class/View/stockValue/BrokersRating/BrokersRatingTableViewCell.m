@@ -26,22 +26,30 @@
     if (stockCode) {
         _stockCode = stockCode;
     }
-    [self getStockGrade];
+    
+    _currentDic = [Config shareInstance].stockDic[_stockCode];
+    if (_currentDic[@"gradleModelList"]) {
+        [self setInformation:_currentDic[@"gradleModelList"]];
+    } else {
+        [self getStockGrade];
+    }
 }
 
 - (void)getStockGrade {
     WS(self)
     [[HttpRequestClient sharedClient]getStockgrade:@{@"stockCode": self.stockCode} request:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict[@"resultCode"] intValue] == 200) {
+            NSMutableDictionary *currentStockDic = [Config shareInstance].stockDic[self.stockCode];
+            [currentStockDic setValue:dataDict[@"compareList"] forKey:@"compareList"];
+            [[Config shareInstance].stockDic setValue:currentStockDic forKey:self.stockCode];
+            
             [selfWeak setInformation:dataDict[@"gradleModelList"]];
         }
     }];
 }
 
 - (void)setInformation:(NSArray *)dicAry {
-    NSMutableArray *ary = [NSMutableArray arrayWithObject:@""];
-    [ary addObjectsFromArray:dicAry];
-    self.stockGradeAry = ary;
+    self.stockGradeAry = dicAry.mutableCopy;
     [self pjbhView];
     [UIView animateWithDuration:0.3 animations:^{
         [self layoutIfNeeded];

@@ -26,17 +26,32 @@
     if (stockCode) {
         _stockCode = stockCode;
     }
-    [self getComputerInformation];
+    
+    _currentDic = [Config shareInstance].stockDic[_stockCode];
+    
+    if (_currentDic[@"ComputerInformation"]) {
+        [self reloadView:_currentDic[@"ComputerInformation"]];
+    } else {
+        [self getComputerInformation];
+    }
 }
 
 - (void)getComputerInformation {
     WS(self)
     [[HttpRequestClient sharedClient] getComputerInfo:@{@"stockCode": self.stockCode} request:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict[@"resultCode"] intValue] == 200) {
-            [selfWeak setInformation:dataDict[@"companyModel"]];
-            selfWeak.stockHolderAry = dataDict[@"stockHolderList"];
+            NSMutableDictionary *currentStockDic = [Config shareInstance].stockDic[self.stockCode];
+            [currentStockDic setValue:dataDict forKey:@"ComputerInformation"];
+            [[Config shareInstance].stockDic setValue:currentStockDic forKey:self.stockCode];
+            
+            [selfWeak reloadView:dataDict];
         }
     }];
+}
+
+- (void)reloadView:(NSDictionary *)dataDict {
+    [self setInformation:dataDict[@"companyModel"]];
+    self.stockHolderAry = dataDict[@"stockHolderList"];
 }
 
 //处理公司简介数据

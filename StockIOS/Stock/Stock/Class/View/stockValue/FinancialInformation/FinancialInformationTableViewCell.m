@@ -25,18 +25,32 @@
     if (stockCode) {
         _stockCode = stockCode;
     }
-    [self getComputerInformation];
+    
+    _currentDic = [Config shareInstance].stockDic[_stockCode];
+    if (_currentDic[@"groupList"]) {
+        [self reloadView:_currentDic[@"groupList"]];
+    } else {
+        [self getComputerInformation];
+    }
 }
 
 - (void)getComputerInformation {
     WS(self)
     [[HttpRequestClient sharedClient] getStockFinicial:@{@"stockCode": self.stockCode} request:^(NSString *resultMsg, id dataDict, id error) {//self.stockCode
         if ([dataDict[@"resultCode"] intValue] == 200) {
-            selfWeak.titleAry = dataDict[@"groupList"];
-            [self.MenuCollection reloadData];
-            [selfWeak reloadBarChart];
+            NSMutableDictionary *currentStockDic = [Config shareInstance].stockDic[self.stockCode];
+            [currentStockDic setValue:dataDict[@"groupList"] forKey:@"groupList"];
+            [[Config shareInstance].stockDic setValue:currentStockDic forKey:self.stockCode];
+            
+            [selfWeak reloadView:dataDict[@"groupList"]];
         }
     }];
+}
+
+- (void)reloadView:(NSArray *)ary {
+    self.titleAry = ary.copy;
+    [self.MenuCollection reloadData];
+    [self reloadBarChart];
 }
 
 - (IBAction)changeDiffData:(UIPinchGestureRecognizer *)sender {
@@ -78,7 +92,7 @@
     self.barY = [NSMutableArray array];
     [self.barValueAry enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
         [self.barX addObject:dic[@"dateStr"]];
-        if (idx == 0) {
+        if (dic[@"valueStr"]) {
             switch (self.currentIndex) {
                 case 0:
                 {
@@ -92,11 +106,12 @@
                 }
                     break;
                 case 1:
-                    self.yType = @"%";
-                    self.typeLabel.hidden = YES;
-                    break;
                 case 2:
-                    self.yType = @"%";
+                    if ([dic[@"valueStr"] floatValue] > 0.01 && [dic[@"valueStr"] floatValue] < 0.1) {
+                        self.yType = @"‰";
+                    } else {
+                        self.yType = @"%";
+                    }
                     self.typeLabel.hidden = YES;
                     break;
                 case 3:
@@ -108,16 +123,16 @@
                     break;
             }
         }
-        
-        if ([self.typeLabel.text isEqual:@"单位(亿)"]) {
-            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]/100000000]];
-        } else if ([self.typeLabel.text isEqual:@"单位(万)"]) {
-            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]/10000]];
+        if ([self.typeLabel.text isEqual:@"单位(亿)"] && !self.typeLabel.hidden) {
+            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] doubleValue]/100000000]];
+        } else if ([self.typeLabel.text isEqual:@"单位(万)"] && !self.typeLabel.hidden) {
+            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] doubleValue]/10000]];
         } else if ([dic[@"valueStr"] floatValue] < 1) {
-            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]*100]];
+            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] doubleValue]*100]];
         } else {
-            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] floatValue]]];
+            [self.barY addObject:[NSNumber numberWithFloat:[dic[@"valueStr"] doubleValue]]];
         }
+        
     }];
     
     if (self.currentIndex != 0) {
@@ -140,10 +155,8 @@
             [self.barChart updateChartYData:self.barY andX:self.barX];
         }
     }
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [self.BarChartView bringSubviewToFront:self.typeLabel];
-    });
+    
+    [self.BarChartView bringSubviewToFront:self.typeLabel];
 }
 
 - (void)initBarChartView {

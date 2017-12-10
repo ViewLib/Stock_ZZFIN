@@ -36,4 +36,6 @@
 
 @property (strong, nonatomic) UILabel   *typeLabel;
 
+@property (strong, nonatomic) NSMutableDictionary   *currentDic;
+
 @end

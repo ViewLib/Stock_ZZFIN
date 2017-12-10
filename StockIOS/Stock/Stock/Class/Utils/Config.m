@@ -21,4 +21,11 @@ static Config *shareinstance;
     return shareinstance;
 }
 
+-(NSMutableDictionary *)stockDic {
+    if (!_stockDic) {
+        _stockDic = [NSMutableDictionary dictionary];
+    }
+    return _stockDic;
+}
+
 @end

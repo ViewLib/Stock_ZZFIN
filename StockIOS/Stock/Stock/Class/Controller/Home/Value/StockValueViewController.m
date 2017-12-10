@@ -43,6 +43,11 @@
     
     _valueTable.rowHeight = UITableViewAutomaticDimension;
     _valueTable.estimatedRowHeight = 300;
+    
+    if (![Config shareInstance].stockDic[self.stockCodeStr]) {
+        [[Config shareInstance].stockDic setObject:[NSMutableDictionary dictionary] forKey:self.stockCodeStr];
+    }
+    
     // Do any additional setup after loading the view.
 }
 
