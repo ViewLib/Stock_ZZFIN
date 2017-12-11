@@ -33,6 +33,7 @@ import com.xt.lxl.stock.model.request.StockRankListResquest;
 import com.xt.lxl.stock.model.request.StockSyncReqeust;
 import com.xt.lxl.stock.model.request.StockUserRegisterRequest;
 import com.xt.lxl.stock.util.DataShowUtil;
+import com.xt.lxl.stock.util.DateUtil;
 import com.xt.lxl.stock.util.IOHelper;
 import com.xt.lxl.stock.util.LogUtil;
 import com.xt.lxl.stock.util.StockUtil;
@@ -380,7 +381,10 @@ public class StockSender {
     private static String requestGet(String baseUrl, String requestJsonStr, String code) {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("data", requestJsonStr);
-        return requestGet(baseUrl, paramsMap, "utf-8");
+        LogUtil.LogI("baseurl"+baseUrl+",start time:"+ System.currentTimeMillis());
+        String s = requestGet(baseUrl, paramsMap, "utf-8");
+        LogUtil.LogI("baseurl"+baseUrl+",end time:"+ System.currentTimeMillis());
+        return s;
     }
 
     private static String requestGet(String baseUrl, HashMap<String, String> paramsMap, String code) {

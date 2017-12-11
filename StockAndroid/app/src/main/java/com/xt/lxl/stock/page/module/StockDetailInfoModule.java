@@ -81,7 +81,7 @@ public class StockDetailInfoModule extends StockDetailBaseModule {
             if (mCacheBean.forwardPirce == 0) {
                 upAndDown.setTextValue("今年涨幅", "暂无");
             } else {
-                float v = (currenyPrice - mCacheBean.forwardPirce) / currenyPrice * 100;
+                float v = (currenyPrice - mCacheBean.forwardPirce) / mCacheBean.forwardPirce  * 100;
                 upAndDown.setTextValue("今年涨幅", StockUtil.roundedFor(v, 2) + "%");
             }
 
