@@ -33,7 +33,9 @@
     CGContextSetLineWidth(ctx, YYStockTimeLineWidth);
     CGPoint firstPoint = [self.drawPositionModels.firstObject CGPointValue];
     
-    if (isnan(firstPoint.x) || isnan(firstPoint.y)) {
+    CGPoint firstPJPoint = [self.drawPJPositionModels.firstObject CGPointValue];
+    
+    if (isnan(firstPoint.x) || isnan(firstPoint.y) || isnan(firstPJPoint.x) || isnan(firstPJPoint.y)) {
         return;
     }
     NSAssert(!isnan(firstPoint.x) && !isnan(firstPoint.y), @"出现NAN值：MA画线");
@@ -54,6 +56,7 @@
     for (NSInteger idx = 1; idx < self.drawPJPositionModels.count ; idx++)
     {
         CGPoint point = [self.drawPJPositionModels[idx] CGPointValue];
+        NSLog(@"%f,,,%f",point.x,point.y);
         CGContextAddLineToPoint(ctx, point.x, point.y);
     }
     CGContextStrokePath(ctx);
@@ -89,6 +92,7 @@
     if (!drawLineModels) return nil;
     
     [self.drawPositionModels removeAllObjects];
+    [self.drawPJPositionModels removeAllObjects];
     
     CGFloat minY = YYStockLineMainViewMinY;
     CGFloat maxY = self.frame.size.height - YYStockLineMainViewMinY;

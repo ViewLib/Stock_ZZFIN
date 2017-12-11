@@ -21,9 +21,11 @@
     self.question.text = newModel[@"eventTitle"];
     self.answer.text = newModel[@"eventDesc"];
     
-    float width = K_FRAME_BASE_WIDTH/2+55;
+    float viewWidth = K_FRAME_BASE_WIDTH-24;
     
-    CGRect rect = [self.question.text boundingRectWithSize:CGSizeMake(width, 0)
+    float width = viewWidth/2+45;
+    
+    CGRect rect = [self.question.text boundingRectWithSize:CGSizeMake(viewWidth-width, 0)
                                        options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin |
                    NSStringDrawingUsesFontLeading
                                     attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}

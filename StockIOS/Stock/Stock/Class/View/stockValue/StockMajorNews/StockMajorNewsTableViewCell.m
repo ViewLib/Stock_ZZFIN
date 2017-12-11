@@ -16,7 +16,7 @@
     // Initialization code
     [_lookMoreBtn ImgRightTextLeft];
     
-//    self.valueViewHigh.constant = 0;
+    self.valueView.width = K_FRAME_BASE_WIDTH-24;
 }
 
 - (void)setStockCode:(NSString *)stockCode {

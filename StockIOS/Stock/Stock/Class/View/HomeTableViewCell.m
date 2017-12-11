@@ -57,10 +57,14 @@
 //        if (rect.size.width < _percentage * [self viewx]) {
 //            self.downValue.textColor = [UIColor whiteColor];
 //        }
+    } else if ([PN isEqual:@""]) {
+        self.stopLabel.hidden = NO;
+        self.stopLabel.text = @"0.00%";
     }
     
-    if ([entity.zsprice floatValue] == 0) {
+    if ([entity.currentprice floatValue] == 0 && [entity.zsprice floatValue] != 0 ) {
         self.stopLabel.hidden = NO;
+        self.stopLabel.text = @"停牌";
     }
 }
 
