@@ -135,7 +135,7 @@ public class StockDetailActivity extends FragmentActivity {
                 sendCompareService();
                 handleNewModule();
             }
-        }, 3000);
+        }, 1500);
     }
 
 

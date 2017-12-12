@@ -30,6 +30,7 @@ import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockGetMinuteDataResponse;
 import com.xt.lxl.stock.sender.StockSender;
 import com.xt.lxl.stock.util.DateUtil;
+import com.xt.lxl.stock.util.StockUtil;
 import com.xt.lxl.stock.util.VolFormatter;
 import com.xt.lxl.stock.widget.stockchart.bean.MinuteViewModel;
 import com.xt.lxl.stock.widget.stockchart.mychart.MyBarChart;
@@ -196,6 +197,8 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
 
 
         MyYAxis axisLeft = barChart.getAxisLeft();
+        axisLeft.setAxisMinValue(0);
+        axisLeft.setShowOnlyMinMax(true);
         axisLeft.setDrawLabels(true);
         axisLeft.setDrawGridLines(false);
         axisLeft.setLabelCount(1, true);
@@ -205,6 +208,15 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         axisLeft.setAxisLineWidth(0);
         axisLeft.setDrawAxisLine(false);
         axisLeft.setDrawZeroLine(true);
+        axisLeft.setValueFormatter(new YAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, YAxis yAxis) {
+                if (value == 0) {
+                    return "手";
+                }
+                return String.valueOf((int) value);
+            }
+        });
 
         Legend barChartLegend = barChart.getLegend();
         barChartLegend.setEnabled(false);
@@ -227,6 +239,7 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
                 String currentDate = DateUtil.getCurrentDate();
                 StockGetMinuteDataResponse minuteDataResponse = StockSender.getInstance().requestMinuteData(stockViewModel.stockCode, currentDate);
 //                StockGetMinuteDataResponse minuteDataResponse = DataSource.getMinuteDataResponses();
+//                minuteDataResponse.stockMinuteDataModels = minuteDataResponse.stockMinuteDataModels.subList(0, 100);
                 minuteViewModel.initAllModel(minuteDataResponse.stockMinuteDataModels, stockViewModel.stockBasePirce);
                 mHandler.post(new Runnable() {
                     @Override
@@ -268,24 +281,22 @@ public class StockMinuteChartFragment extends StockBaseChartFragment {
         ArrayList<Entry> lineJJEntries = new ArrayList<>();
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         ArrayList<String> xVals = new ArrayList<>();
-        Log.e("##", Integer.toString(xVals.size()));
-        for (int i = 0, j = 0; i < minuteViewModel.minuteList.size(); i++, j++) {
+        for (int i = 0; i < 242; i++) {
            /* //避免数据重复，skip也能正常显示
             if (mData.getDatas().get(i).time.equals("13:30")) {
                 continue;
             }*/
-            StockMinuteDataModel stockMinuteData = minuteViewModel.minuteList.get(j);
+            if (i >= minuteViewModel.minuteList.size()) {
+                xVals.add("");
+                continue;
+            }
+            StockMinuteDataModel stockMinuteData = minuteViewModel.minuteList.get(i);
             if (stockMinuteData == null || stockMinuteData.state == 0) {
                 lineCJEntries.add(new Entry(Float.NaN, i));
                 lineJJEntries.add(new Entry(Float.NaN, i));
                 barEntries.add(new BarEntry(Float.NaN, i));
                 continue;
             }
-//            if (!TextUtils.isEmpty(stringSparseArray.get(i)) &&
-//                    stringSparseArray.get(i).contains("/")) {
-//                Log.i("x","x");
-//                i++;
-//            }
             lineCJEntries.add(new Entry(((float) stockMinuteData.price), i));//成交价格
             lineJJEntries.add(new Entry(stockMinuteData.pjprice, i));//平均价格
             barEntries.add(new BarEntry(stockMinuteData.volume, i));//成交数量
