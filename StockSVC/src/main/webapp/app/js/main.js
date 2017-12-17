@@ -60,7 +60,7 @@ require.config({
 /**
  * 加载APP
  */
-require([ 'my-app', 'jquery','usermanager'], function(App, $, usermanager) {
+require([ 'my-app', 'jquery','usermanager', 'sqlmanager'], function(App, $, usermanager, sqlmanager) {
     App.initialize();
 
     console.log(App);
@@ -84,4 +84,5 @@ require([ 'my-app', 'jquery','usermanager'], function(App, $, usermanager) {
     });
 
     usermanager.initialize();
+    sqlmanager.initialize();
 });

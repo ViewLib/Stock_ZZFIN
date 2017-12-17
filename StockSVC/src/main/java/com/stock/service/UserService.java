@@ -13,7 +13,6 @@ import com.stock.model.response.StockUserRegisterResponse;
 import com.stock.model.viewmodel.StockRankSQLViewModel;
 import com.stock.model.viewmodel.StockSearchRankViewModel;
 import com.stock.util.DateUtil;
-import org.jsoup.helper.DataUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +132,8 @@ public class UserService {
     }
 
     public List<StockSearchRankViewModel> getSearchRankList(SearchRankPageCountRequest request) {
-        List<StockSearchRankViewModel> stockSearchRankViewModelList = dao.selectSearchRankSettingByCount(request.startIndex, request.count);
+
+        List<StockSearchRankViewModel> stockSearchRankViewModelList = dao.selectSearchRankSettingByCount(request.getStartIndex(), request.getCount());
         for (StockSearchRankViewModel stockSearchRankViewModel : stockSearchRankViewModelList) {
             if (stockSearchRankViewModel.show_type == StockSearchModel.STOCK_SHOW_TYPE_UNSHOW) {
                 continue;
@@ -150,5 +150,4 @@ public class UserService {
         int i = dao.selectStockSearchRankCount();
         return i;
     }
-
 }

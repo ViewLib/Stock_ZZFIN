@@ -403,7 +403,10 @@ public class UserDaoImpl implements UserDao {
                 String search_desc = rs.getString("search_desc");
                 int search_relation = rs.getInt("search_relation");
                 int search_weight = rs.getInt("search_weight");
+                int search_id = rs.getInt("search_id");
 
+                stockSearchRankViewModel.search_id = search_id;
+                stockSearchRankViewModel.show_type = show_type;
                 stockSearchRankViewModel.search_type = search_type;
                 stockSearchRankViewModel.search_title = search_title;
                 stockSearchRankViewModel.search_desc = search_desc;

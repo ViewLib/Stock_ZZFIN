@@ -126,8 +126,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:;">
-                                        角色管理
+                                    <a class="js_sql_query" href="javascript:;">
+                                        脚本管理
                                     </a>
                                 </li>
                                 <li>
@@ -292,8 +292,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
                     <!-- BEGIN DASHBOARD STATS -->
                     <div id="main-content">
-                        <div id="user_toolbar"></div>
-                        <table id="user_table"></table>
+                        <div id="search_toolbar"></div>
+                        <div class = "js_search_table">
+                        </div>
                     </div>
 
                     <!-- END PORTLET-->
@@ -344,6 +345,53 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
                 <button type="button" class="btn btn-primary js_status" data-status="">Save changes</button>
+            </div>
+        </div>
+
+        <div id="sql_modal" class="modal fade modal-dialog" tabindex="-1" style="display: none;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="sql_myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <form id="sql_defaultForm" class="form-horizontal">
+                    <div class="form-group js_searchId">
+                        <label>Id</label>
+                        <input id="txt_searchId" type="text" class="form-control" name="searchId" />
+                    </div>
+                    <div class="form-group">
+                        <label>Relation</label>
+                        <input id="txt_searchRelation" type="text" class="form-control" name="searchRelation" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>ShowType</label>
+                        <input id="txt_showType" type="text" class="form-control" name="showType" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <input id="txt_searchType" type="text" class="form-control" name="searchType" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>Weight</label>
+                        <input id="txt_searchWeight" type="text" class="form-control" name="searchWeight" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input id="txt_searchTitle" type="text" class="form-control" name="searchTitle" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>RankSql</label>
+                        <input id="txt_rankSql" type="text" class="form-control" name="rankSql" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>SearchDesc</label>
+                        <input id="txt_searchDesc" type="text" class="form-control" name="searchDesc" value=""/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                <button type="button" class="btn btn-primary js_sql_status" data-status="">Save changes</button>
             </div>
         </div>
 

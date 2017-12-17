@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://115.159.31.128:3306/stock_zzfin</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+    <!-- hibernate.connection.username : 连接数据库的用户名 -->
+    <property name="connection.username">lxl</property>
+
+    <!-- hibernate.connection.password : 连接数据库的密码 -->
+    <property name="connection.password">lxl301lxl</property>
+
+    <!--  显示sql语句  -->
+    <property name="show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.connection.autocommit">true</property>
+
+    <!-- DB schema will be updated if needed -->
+    <property name="hbm2ddl.auto">update</property>
+
+    <mapping class="com.stock.dao.model.StockRankEntity"/>
+    <mapping resource="com/stock/dao/model/StockRankEntity.hbm.xml"/>
+    <mapping class="com.stock.dao.model.StockSearchRankEntity"/>
+    <mapping resource="com/stock/dao/model/StockSearchRankEntity.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.stock.dao.model.StockSearchRankEntity" table="stock_search_rank" schema="stock_zzfin">
+        <id name="searchId" column="search_id"/>
+        <property name="showType" column="show_type"/>
+        <property name="searchType" column="search_type"/>
+        <property name="searchTitle" column="search_title"/>
+        <property name="searchDesc" column="search_desc"/>
+        <property name="searchRelation" column="search_relation"/>
+        <property name="searchWeight" column="search_weight"/>
+
+        <!--<many-to-one name="rank" class="com.stock.dao.model.StockRankEntity" column="search_relation" fetch="select">-->
+        <!--</many-to-one>-->
+
+    </class>
+</hibernate-mapping>
