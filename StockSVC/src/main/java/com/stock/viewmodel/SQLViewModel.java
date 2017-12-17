@@ -7,7 +7,7 @@ public class SQLViewModel {
 
     public int sqlId = 0;//重大事件sql的
     public String sqlTitle = "";//重大事件sql的title
-    public int sqlType = 0;//重大事件sql的type
+    public int sqlType = 0;//重大事件sql的type 重大事件还是重大消息
     public int subSqlType = 0;//subSqlType
     public String sql = "";//重大事件item的sql
     public String sqlCode = "";//sqlCode

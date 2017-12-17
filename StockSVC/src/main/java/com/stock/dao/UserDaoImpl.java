@@ -2,6 +2,8 @@ package com.stock.dao;
 
 
 import com.stock.model.model.StockUserModel;
+import com.stock.model.viewmodel.StockRankSQLViewModel;
+import com.stock.model.viewmodel.StockSearchRankViewModel;
 import com.stock.util.DateUtil;
 import com.stock.util.Logger;
 import org.springframework.stereotype.Component;
@@ -217,6 +219,171 @@ public class UserDaoImpl implements UserDao {
         }
 
         return 0;
+    }
+
+    @Override
+    public int insertSearchRankSetting(StockSearchRankViewModel stockSearchRankViewModel) {
+        String sql = "insert into stock_search_rank (show_type,search_type,search_title,search_desc,search_relation,search_weight) values (?,?,?,?,?,?)";
+        PreparedStatement state = null;
+        ResultSet rs = null;
+        try {
+            state = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            state.setInt(1, stockSearchRankViewModel.show_type);
+            state.setInt(2, stockSearchRankViewModel.search_type);
+            state.setString(3, stockSearchRankViewModel.search_title);
+            state.setString(4, stockSearchRankViewModel.search_desc);
+            state.setInt(5, stockSearchRankViewModel.search_relation);
+            state.setInt(6, stockSearchRankViewModel.search_weight);
+            int i = state.executeUpdate();
+            if (i <= 0) {
+                return 0;
+            }
+            return i;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            closeSql(state, rs);
+        }
+    }
+
+    @Override
+    public int insertSearchRankSql(StockRankSQLViewModel stockRankSQLViewModel) {
+        String sql = "insert into stock_rank (search_relation,rank_title,submission_date,rank_sql) values (?,?,?,?)";
+        PreparedStatement state = null;
+        ResultSet rs = null;
+        try {
+            state = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            state.setInt(1, stockRankSQLViewModel.search_relation);
+            state.setString(2, stockRankSQLViewModel.rank_title);
+            state.setString(3, stockRankSQLViewModel.submission_date);
+            state.setString(4, stockRankSQLViewModel.rank_sql);
+            int i = state.executeUpdate();
+            if (i <= 0) {
+                return 0;
+            }
+            return i;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            closeSql(state, rs);
+        }
+    }
+
+    @Override
+    public boolean updateSearchRankSetting(StockSearchRankViewModel stockSearchRankViewModel) {
+        String sql = "UPDATE stock_search_rank SET show_type = ?,search_type = ?,search_title = ?,search_desc=? ,search_relation=?,search_weight=? WHERE search_id = ?";
+        PreparedStatement state = null;
+        ResultSet rs = null;
+        try {
+            state = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            state.setInt(1, stockSearchRankViewModel.show_type);
+            state.setInt(2, stockSearchRankViewModel.search_type);
+            state.setString(3, stockSearchRankViewModel.search_title);
+            state.setString(4, stockSearchRankViewModel.search_desc);
+            state.setInt(5, stockSearchRankViewModel.search_relation);
+            state.setInt(6, stockSearchRankViewModel.search_weight);
+            state.setInt(7, stockSearchRankViewModel.search_id);
+            int i = state.executeUpdate();
+            if (i <= 0) {
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeSql(state, rs);
+        }
+    }
+
+    @Override
+    public boolean updateSearchRankSql(StockRankSQLViewModel stockRankSQLViewModel) {
+        String sql = "UPDATE stock_rank SET rank_title = ?,submission_date = ?,rank_sql = ? WHERE search_relation = ?";
+        PreparedStatement state = null;
+        ResultSet rs = null;
+        try {
+            state = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            state.setString(1, stockRankSQLViewModel.rank_title);
+            state.setString(2, stockRankSQLViewModel.submission_date);
+            state.setString(3, stockRankSQLViewModel.rank_sql);
+            state.setInt(4, stockRankSQLViewModel.search_relation);
+            int i = state.executeUpdate();
+            if (i <= 0) {
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeSql(state, rs);
+        }
+    }
+
+    @Override
+    public StockSearchRankViewModel selectSearchRankSetting(int search_id) {
+        StockSearchRankViewModel stockSearchRankViewModel = new StockSearchRankViewModel();
+        String sql = "select * from stock_search_rank where search_id = ?";
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            preStmt.setInt(1, search_id);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                int show_type = rs.getInt("show_type");
+                int search_type = rs.getInt("search_type");
+                String search_title = rs.getString("search_title");
+                String search_desc = rs.getString("search_desc");
+                int search_relation = rs.getInt("search_relation");
+                int search_weight = rs.getInt("search_weight");
+
+                stockSearchRankViewModel.search_id = search_id;
+                stockSearchRankViewModel.search_type = search_type;
+                stockSearchRankViewModel.search_title = search_title;
+                stockSearchRankViewModel.search_desc = search_desc;
+                stockSearchRankViewModel.search_relation = search_relation;
+                stockSearchRankViewModel.search_weight = search_weight;
+                stockSearchRankViewModel.search_id = search_id;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return stockSearchRankViewModel;
+    }
+
+
+    @Override
+    public StockRankSQLViewModel selectSearchRankSql(int searchRelation) {
+        StockRankSQLViewModel stockRankSQLViewModel = new StockRankSQLViewModel();
+        String sql = "select * from stock_rank where search_relation = ?";
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            preStmt.setInt(1, searchRelation);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                int rank_id = rs.getInt("rank_id");
+                int search_relation = rs.getInt("search_relation");
+                String rank_title = rs.getString("rank_title");
+                String submission_date = rs.getString("submission_date");
+                String rank_sql = rs.getString("rank_sql");
+
+                stockRankSQLViewModel.rank_id = rank_id;
+                stockRankSQLViewModel.search_relation = search_relation;
+                stockRankSQLViewModel.rank_title = rank_title;
+                stockRankSQLViewModel.submission_date = submission_date;
+                stockRankSQLViewModel.rank_sql = rank_sql;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return stockRankSQLViewModel;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {

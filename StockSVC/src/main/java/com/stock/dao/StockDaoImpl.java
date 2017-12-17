@@ -45,7 +45,7 @@ public class StockDaoImpl implements StockDao {
             while (rs.next()) {
                 int searchId = rs.getInt("search_id");
 //                int showType = rs.getInt("show_type");
-                int searchType = rs.getInt("search_type");
+                int searchType = rs.getInt("search_type");//股票还是类型
                 String searchTitle = rs.getString("search_title");
                 String searchDesc = rs.getString("search_desc");
                 int searchRelation = rs.getInt("search_relation");

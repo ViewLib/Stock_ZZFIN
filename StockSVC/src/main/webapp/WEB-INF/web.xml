@@ -227,6 +227,16 @@
 
 
     <servlet>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>com.stock.servlet.TestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/api/test</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>UserGetInfoListServlet</servlet-name>
         <servlet-class>com.stock.servlet.UserGetInfoListServlet</servlet-class>
     </servlet>
