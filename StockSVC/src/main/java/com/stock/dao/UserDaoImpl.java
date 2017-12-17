@@ -419,6 +419,24 @@ public class UserDaoImpl implements UserDao {
         return list;
     }
 
+    @Override
+    public int selectStockSearchRankCount() {
+        String sql = "select count(*) as totalcount from stock_search_rank";
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                return Integer.parseInt(rs.getString("totalcount"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return 0;
+    }
+
     private void closeSql(Statement stmt, ResultSet rs) {
         if (stmt != null) {
             try {

@@ -1,6 +1,7 @@
 package com.stock.servlet;
 
 import com.stock.controller.user.model.SearchRankPageCountRequest;
+import com.stock.controller.user.model.SearchRankUpdateRequest;
 import com.stock.model.viewmodel.StockSearchRankViewModel;
 import com.stock.service.UserService;
 
@@ -22,9 +23,18 @@ public class TestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
         UserService userService = UserService.getInstance();
-        SearchRankPageCountRequest request = new SearchRankPageCountRequest();
-        List<StockSearchRankViewModel> searchRankList = userService.getSearchRankList(request);
-
-        System.out.println(searchRankList.size());
+        SearchRankUpdateRequest request = new SearchRankUpdateRequest();
+        request.search_id = 0;
+        request.show_type = 1;
+        request.search_type = 2;
+        request.search_title = "测试";
+        request.search_desc = "测试描述";
+        request.search_relation = 200;
+        request.search_weight = 79;
+        request.rank_sql = "select * from test";
+        userService.updateStockSearchRank(request);
+        resp.setStatus(200);
+        resp.getWriter().write("success");
+        resp.getWriter().flush();
     }
 }

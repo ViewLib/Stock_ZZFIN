@@ -53,4 +53,11 @@ public interface UserDao {
     StockRankSQLViewModel selectSearchRankSql(int searchRelation);
 
     List<StockSearchRankViewModel> selectSearchRankSettingByCount(int startIndex, int count);
+
+    /**
+     * 获取总页数
+     *
+     * @return
+     */
+    int selectStockSearchRankCount();
 }

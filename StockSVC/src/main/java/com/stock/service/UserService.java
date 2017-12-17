@@ -118,6 +118,7 @@ public class UserService {
         StockRankSQLViewModel stockRankSQLViewModel = dao.selectSearchRankSql(stockSearchRankViewModel.search_relation);
         stockRankSQLViewModel.rank_title = request.search_title;
         stockRankSQLViewModel.rank_sql = request.rank_sql;
+        stockRankSQLViewModel.search_relation = request.search_relation;
         stockRankSQLViewModel.submission_date = DateUtil.getCurrentDate();
         //存在rank_sql，则更新
         if (stockRankSQLViewModel.rank_id > 0) {
@@ -128,7 +129,6 @@ public class UserService {
     }
 
     public List<StockSearchRankViewModel> getSearchRankList(SearchRankPageCountRequest request) {
-
         List<StockSearchRankViewModel> stockSearchRankViewModelList = dao.selectSearchRankSettingByCount(request.startIndex, request.count);
         for (StockSearchRankViewModel stockSearchRankViewModel : stockSearchRankViewModelList) {
             if (stockSearchRankViewModel.show_type == StockSearchModel.STOCK_SHOW_TYPE_UNSHOW) {
@@ -140,6 +140,11 @@ public class UserService {
             }
         }
         return stockSearchRankViewModelList;
+    }
+
+    public int selectStockSearchRankCount() {
+        int i = dao.selectStockSearchRankCount();
+        return i;
     }
 
 }
