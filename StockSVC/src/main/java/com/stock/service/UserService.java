@@ -94,7 +94,7 @@ public class UserService {
         return stockUserModels;
     }
 
-    public void updateStockSearchRank(SearchRankUpdateRequest request) {
+    public boolean updateStockSearchRank(SearchRankUpdateRequest request) {
         //更新逻辑
         StockSearchRankViewModel stockSearchRankViewModel;
         if (request.search_id > 0) {
@@ -109,10 +109,14 @@ public class UserService {
         stockSearchRankViewModel.search_relation = request.search_relation;
         stockSearchRankViewModel.search_weight = request.search_weight;
         //存在配置，则更新search_rank的配置
+        boolean isSuccess = true;
         if (stockSearchRankViewModel != null && stockSearchRankViewModel.search_id > 0) {
-            dao.updateSearchRankSetting(stockSearchRankViewModel);
+            isSuccess = dao.updateSearchRankSetting(stockSearchRankViewModel);
         } else {
-            dao.insertSearchRankSetting(stockSearchRankViewModel);
+            isSuccess = dao.insertSearchRankSetting(stockSearchRankViewModel) > 0;
+        }
+        if (!isSuccess) {
+            return false;
         }
         //更新sql
         StockRankSQLViewModel stockRankSQLViewModel = dao.selectSearchRankSql(stockSearchRankViewModel.search_relation);
@@ -122,9 +126,9 @@ public class UserService {
         stockRankSQLViewModel.submission_date = DateUtil.getCurrentDate();
         //存在rank_sql，则更新
         if (stockRankSQLViewModel.rank_id > 0) {
-            dao.updateSearchRankSql(stockRankSQLViewModel);
+            return dao.updateSearchRankSql(stockRankSQLViewModel);
         } else {
-            dao.insertSearchRankSql(stockRankSQLViewModel);
+            return dao.insertSearchRankSql(stockRankSQLViewModel) > 0;
         }
     }
 
