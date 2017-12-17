@@ -117,16 +117,22 @@ public class StockMainUserFragment extends Fragment implements View.OnClickListe
                     dialog.dismiss();
                 }
             });
+            dialog.show(getFragmentManager(), "ExitDialog");
         } else if (id == R.id.stock_user_register_btn) {
             jumpToRegister();
         } else if (id == R.id.stock_user_feedback_btn) {
-            FeedbackAPI.setDefaultUserContactInfo("13800000000");
+            StockUser stockUser = StockUser.getStockUser(getContext());
+            if (stockUser.isExit()) {
+                FeedbackAPI.setDefaultUserContactInfo("17800000000");
+            } else {
+                FeedbackAPI.setDefaultUserContactInfo(stockUser.getMoblie());
+            }
             FeedbackAPI.openFeedbackActivity();
         } else if (id == R.id.stock_user_setting_btn) {
             Intent intent = new Intent();
             intent.setClass(getContext(), StockSettingActivity.class);
             getActivity().startActivity(intent);
-        }else if(id == R.id.stock_user_aboutus_btn){
+        } else if (id == R.id.stock_user_aboutus_btn) {
             Intent intent = new Intent();
             intent.setClass(getContext(), StockAboutUsActivity.class);
             getActivity().startActivity(intent);

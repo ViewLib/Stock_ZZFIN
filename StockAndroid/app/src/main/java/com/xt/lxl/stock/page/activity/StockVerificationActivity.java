@@ -185,8 +185,8 @@ public class StockVerificationActivity extends Activity implements View.OnClickL
             return;
         }
         mStockSendcodeHint.setText("验证中，请稍后.");
-//        SMSSDK.submitVerificationCode(mCountry, mPhone, code);
-        sendUserRegister(mCountry, mPhone);
+        SMSSDK.submitVerificationCode(mCountry, mPhone, code);
+//        sendUserRegister(mCountry, mPhone);
     }
 
     /**
