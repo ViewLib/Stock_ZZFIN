@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xiangleiliu on 2017/5/4.
@@ -384,6 +385,37 @@ public class UserDaoImpl implements UserDao {
             closeSql(preStmt, null);
         }
         return stockRankSQLViewModel;
+    }
+
+    @Override
+    public List<StockSearchRankViewModel> selectSearchRankSettingByCount(int startIndex, int count) {
+        List<StockSearchRankViewModel> list = new ArrayList<>();
+        StockSearchRankViewModel stockSearchRankViewModel = new StockSearchRankViewModel();
+        String sql = "select * from stock_search_rank limit " + (startIndex - 1) * count + "," + count;
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()) {
+                int show_type = rs.getInt("show_type");
+                int search_type = rs.getInt("search_type");
+                String search_title = rs.getString("search_title");
+                String search_desc = rs.getString("search_desc");
+                int search_relation = rs.getInt("search_relation");
+                int search_weight = rs.getInt("search_weight");
+
+                stockSearchRankViewModel.search_type = search_type;
+                stockSearchRankViewModel.search_title = search_title;
+                stockSearchRankViewModel.search_desc = search_desc;
+                stockSearchRankViewModel.search_relation = search_relation;
+                stockSearchRankViewModel.search_weight = search_weight;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return list;
     }
 
     private void closeSql(Statement stmt, ResultSet rs) {

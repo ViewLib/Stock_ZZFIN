@@ -129,7 +129,7 @@ public class UserService {
 
     public List<StockSearchRankViewModel> getSearchRankList(SearchRankPageCountRequest request) {
 
-        List<StockSearchRankViewModel> stockSearchRankViewModelList = dao.selectSearchRankSettingByCount(request.count);
+        List<StockSearchRankViewModel> stockSearchRankViewModelList = dao.selectSearchRankSettingByCount(request.startIndex, request.count);
         for (StockSearchRankViewModel stockSearchRankViewModel : stockSearchRankViewModelList) {
             if (stockSearchRankViewModel.show_type == StockSearchModel.STOCK_SHOW_TYPE_UNSHOW) {
                 continue;
