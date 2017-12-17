@@ -390,13 +390,13 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<StockSearchRankViewModel> selectSearchRankSettingByCount(int startIndex, int count) {
         List<StockSearchRankViewModel> list = new ArrayList<>();
-        StockSearchRankViewModel stockSearchRankViewModel = new StockSearchRankViewModel();
         String sql = "select * from stock_search_rank limit " + (startIndex - 1) * count + "," + count;
         PreparedStatement preStmt = null;
         try {
             preStmt = conn.prepareStatement(sql);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
+                StockSearchRankViewModel stockSearchRankViewModel = new StockSearchRankViewModel();
                 int show_type = rs.getInt("show_type");
                 int search_type = rs.getInt("search_type");
                 String search_title = rs.getString("search_title");
@@ -409,6 +409,7 @@ public class UserDaoImpl implements UserDao {
                 stockSearchRankViewModel.search_desc = search_desc;
                 stockSearchRankViewModel.search_relation = search_relation;
                 stockSearchRankViewModel.search_weight = search_weight;
+                list.add(stockSearchRankViewModel);
             }
         } catch (Exception e) {
             e.printStackTrace();
