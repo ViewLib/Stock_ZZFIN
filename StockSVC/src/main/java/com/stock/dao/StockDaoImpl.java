@@ -349,7 +349,17 @@ public class StockDaoImpl implements StockDao {
 
     public StockDetailCompanyModel getCompanyInfo(String stockCode) {
         StockDetailCompanyModel stockDetailCompanyModel = new StockDetailCompanyModel();
-        String sql = "SELECT [PROVINCE],[CITY],[CHAIRMAN],[FOUNDDATE],[COMPANY_DESC] FROM [zzfin].[dbo].[TS_COMPANY]  where ts_code =" + "'" + stockCode + "'";
+        String sql = "SELECT\n" +
+                "\t[PROVINCE],\n" +
+                "\t[CITY],\n" +
+                "  (select m.fullname from [zzfin].[dbo].[TS_SECURITY] m  where  m.ts_code=l.ts_code)company_name,\n" +
+                "\t[CHAIRMAN],\n" +
+                "\t[FOUNDDATE],\n" +
+                "\t[COMPANY_DESC]\n" +
+                "FROM\n" +
+                "\t[zzfin].[dbo].[TS_COMPANY] l\n" +
+                "WHERE\n" +
+                "\tts_code =" + "'" + stockCode + "'";
         Connection con = null;
         StockLinkDaoImpl stockLinkDao = StockLinkDaoImpl.getStockLinkDaoImpl();
         PreparedStatement preStmt = null;
@@ -360,7 +370,7 @@ public class StockDaoImpl implements StockDao {
             while (rs.next()) {
                 stockDetailCompanyModel.baseArea = rs.getString("province");
                 stockDetailCompanyModel.companyBusiness = rs.getString("company_desc");
-                stockDetailCompanyModel.companyName = rs.getString("chairman");
+                stockDetailCompanyModel.companyName = rs.getString("company_name");
                 stockDetailCompanyModel.establishDate = rs.getString("founddate");
             }
             return stockDetailCompanyModel;
@@ -428,7 +438,7 @@ public class StockDaoImpl implements StockDao {
         if (FinanceType == 1) {//收入
             sql = "select top 8 format(cast(report_period as date),'yy/MM/dd')report_period,cast(oper_rev as NUMERIC(15,0)) oper_rev\n" +
                     "from [wind].[dbo].[ASHAREINCOME] \n" +
-                    "where wind_code=? and STATEMENT_TYPE=408001000 \n" +
+                    "where wind_code=? and STATEMENT_TYPE=408001000  \n" +
                     "order by report_period desc";
         }
         if (FinanceType == 2) {//净利率
@@ -476,11 +486,21 @@ public class StockDaoImpl implements StockDao {
         List<StockDetailFinanceItem> stockDetailFinanceItemList = new ArrayList<>();
         String sql = "";
         if (FinanceType == 1) {//收入
-            sql = "select top 5format(cast(report_period as date),'yy/MM/dd')report_period,oper_rev \n" +
-                    "from [wind].[dbo].[ASHAREINCOME] \n" +
-                    "where wind_code=? and STATEMENT_TYPE=408001000 \n" +
-                    "and REPORT_PERIOD like '%0630'\n" +
-                    "order by report_period desc";
+            sql = "select a.* from(\n" +
+                    "select top 4 format(cast(report_period as date),'yy/MM/dd')report_period,oper_rev \n" +
+                    "\n" +
+                    "                    from [wind].[dbo].[ASHAREINCOME] \n" +
+                    "                    where wind_code=? and STATEMENT_TYPE=408001000 \n" +
+                    "                    and REPORT_PERIOD like '%1231'\n" +
+                    "                    order by ann_dt desc)a\n" +
+                    "union\n" +
+                    "select b.* from(\n" +
+                    "select top 1 format(cast(report_period as date),'yy/MM/dd')report_period,oper_rev \n" +
+                    "\n" +
+                    "                    from [wind].[dbo].[ASHAREINCOME] \n" +
+                    "                    where wind_code=? and STATEMENT_TYPE=408001000 \n" +
+                    "                    \n" +
+                    "                    order by ann_dt desc)b\n";
         }
         if (FinanceType == 2) {//净利率
             sql = "SELECT TOP 5 format(cast(report_period as date),'yy/MM/dd')report_period,s_fa_netprofitmargin" +
@@ -508,6 +528,9 @@ public class StockDaoImpl implements StockDao {
         try {
             preStmt = con.prepareStatement(sql);
             preStmt.setString(1, stockCode);
+            if (FinanceType == 1){
+                preStmt.setString(2, stockCode);
+            }
             ResultSet rs = preStmt.executeQuery();
             StockRankResultModel resultModelHeader = null;
             while (rs.next()) {
