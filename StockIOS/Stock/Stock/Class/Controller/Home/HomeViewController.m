@@ -230,7 +230,6 @@
         [cell updateCell:_stocks[indexPath.row]];
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
         cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
-        
     }
     
     return cell;
@@ -240,11 +239,24 @@
     if (tableView.isEditing) {
         if (tableView.indexPathsForSelectedRows.count == _stocks.count) {
             [_selectAllBtn setTitle:@"全不选" forState:UIControlStateNormal];
+        } else {
+            [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
         }
         return;
     }
     StockObjEntity *entity = _stocks[indexPath.row];
     [self jumpToStockView:entity];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.isEditing) {
+        if (tableView.indexPathsForSelectedRows.count == _stocks.count) {
+            [_selectAllBtn setTitle:@"全不选" forState:UIControlStateNormal];
+        } else {
+            [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
+        }
+        return;
+    }
 }
 
 //editingView懒加载
@@ -276,6 +288,9 @@
             make.left.equalTo(@10);
             make.width.equalTo(_editingView).multipliedBy(0.5);
         }];
+    }
+    if ([_selectAllBtn.currentTitle isEqual:@"全不选"]) {
+        [_selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
     }
     return _editingView;
 }
@@ -312,19 +327,26 @@
 
 - (void)p__buttonClick:(UIButton *)sender{
     if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"删除"]) {
-        NSMutableIndexSet *insets = [[NSMutableIndexSet alloc] init];
-        [[self.OptionalTable indexPathsForSelectedRows] enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [insets addIndex:obj.row];
-            StockObjEntity *entity = self.stocks[obj.row];
-            [Utils removeStock:entity.code utilRequest:nil];
-        }];
-        [self.stocks removeObjectsAtIndexes:insets];
-        [self.OptionalTable deleteRowsAtIndexPaths:[self.OptionalTable indexPathsForSelectedRows] withRowAnimation:UITableViewRowAnimationFade];
-        
-        /** 数据清空情况下取消编辑状态*/
-        if (self.stocks.count == 0) {
-            [self clickSuccessBtn];
+        if ([self.OptionalTable indexPathsForSelectedRows].count > 0) {
+            [self successAlert:@"是否删除所选股票" one:nil two:^{
+                NSMutableIndexSet *insets = [[NSMutableIndexSet alloc] init];
+                [[self.OptionalTable indexPathsForSelectedRows] enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [insets addIndex:obj.row];
+                    StockObjEntity *entity = self.stocks[obj.row];
+                    [Utils removeStock:entity.code utilRequest:nil];
+                }];
+                [self.stocks removeObjectsAtIndexes:insets];
+                [self.OptionalTable deleteRowsAtIndexPaths:[self.OptionalTable indexPathsForSelectedRows] withRowAnimation:UITableViewRowAnimationFade];
+                
+                /** 数据清空情况下取消编辑状态*/
+                if (self.stocks.count == 0) {
+                    [self clickSuccessBtn];
+                }
+            } oneT:@"取消" twoT:@"确定"];
+        } else {
+            [self successAlert:@"无选中股票" one:nil two:nil oneT:@"确定" twoT:nil];
         }
+        
     } else if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"全选"]) {
         [self.stocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [self.OptionalTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];

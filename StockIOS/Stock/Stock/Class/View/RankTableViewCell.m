@@ -29,7 +29,7 @@
     self.value1.text = dic[@"attr1"];
     self.value2.text = dic[@"attr2"];
     
-    if ([Utils isSelectionStock:dic[@"stockCode"]]) {
+    if ([Utils isSelectionStock:unified(dic[@"stockCode"])]) {
         _addBtn.hidden = YES;
         _addValue.hidden = NO;
     }

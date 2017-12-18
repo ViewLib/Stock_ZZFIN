@@ -63,18 +63,23 @@
  */
 - (UIAlertController *)successAlert:(NSString *)message one:(void (^)(void))oneB two:(void (^)(void))twoB oneT:(NSString *)oneT twoT:(NSString *)twoT {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *act1 = [UIAlertAction actionWithTitle:oneT style:0 handler:^(UIAlertAction * _Nonnull action) {
-        if (oneB) {
-            oneB();
-        }
-    }];
-    UIAlertAction *act2 = [UIAlertAction actionWithTitle:twoT style:0 handler:^(UIAlertAction * _Nonnull action) {
-        if (twoB) {
-            twoB();
-        }
-    }];
-    [alert addAction:act1];
-    [alert addAction:act2];
+    if (oneT.length > 0) {
+        UIAlertAction *act1 = [UIAlertAction actionWithTitle:oneT style:0 handler:^(UIAlertAction * _Nonnull action) {
+            if (oneB) {
+                oneB();
+            }
+        }];
+        [alert addAction:act1];
+    }
+    if (twoT.length > 0) {
+        UIAlertAction *act2 = [UIAlertAction actionWithTitle:twoT style:0 handler:^(UIAlertAction * _Nonnull action) {
+            if (twoB) {
+                twoB();
+            }
+        }];
+        [alert addAction:act2];
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self presentViewController:alert animated:YES completion:nil];
     });

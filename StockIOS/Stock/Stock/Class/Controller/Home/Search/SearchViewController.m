@@ -82,14 +82,7 @@
     
     NSArray *hots = @[_hot1,_hot2,_hot3,_hot4,_hot5,_hot6];
     
-    if ([Config shareInstance].hotStocks.count == 0) {
-        _hotHigh.constant -= _hotViewHigh.constant;
-        _hotViewHigh.constant = 0;
-        _hotView.hidden = YES;
-    } else if ([Config shareInstance].hotStocks.count <= 3) {
-        _hotHigh.constant -= _hotViewHigh.constant/2;
-        _hotViewHigh.constant = 40;
-    }
+    [self showHotView];
     
     for (int i = 0; i < hots.count; i++) {
         hotStockView *view = hots[i];
@@ -108,6 +101,20 @@
     }
     
     _tableDate = [self reloadTableData];
+}
+
+- (void)showHotView {
+    if ([Config shareInstance].hotStocks.count == 0) {
+        _hotHigh.constant -= _hotViewHigh.constant;
+        _hotViewHigh.constant = 0;
+        _hotView.hidden = YES;
+    } else if ([Config shareInstance].hotStocks.count <= 3) {
+        _hotHigh.constant -= _hotViewHigh.constant/2;
+        _hotViewHigh.constant = 40;
+    } else {
+        _hotHigh.constant -= _hotViewHigh.constant/2;
+        _hotViewHigh.constant = 80;
+    }
 }
 
 #pragma mark - UITableViewDelegateAndDateSource
@@ -278,27 +285,32 @@
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     NSLog(@"searchBarTextDidEndEditing");
     self.isSearch = NO;
-    
 }
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchText.length == 0) {
-        self.isSearch = NO;
-        _hot.hidden = NO;
-        _hotHigh.constant = [Config shareInstance].defaultHotHigh;
-        _tableDate = [self reloadTableData];
-        [UIView animateWithDuration:.3 animations:^{
-            [self.view updateFocusIfNeeded];
-        }];
-        [_searchTable reloadData];
+        [self reloadHotView];
     } else {
         [self filterBySubstring:searchText];
     }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self reloadHotView];
     if (self.searchViewCancelBlock) {
         self.searchViewCancelBlock();
     }
+}
+
+- (void)reloadHotView {
+    self.isSearch = NO;
+    _hot.hidden = NO;
+    _hotHigh.constant = [Config shareInstance].defaultHotHigh;
+    _tableDate = [self reloadTableData];
+    [UIView animateWithDuration:.3 animations:^{
+        [self.view updateFocusIfNeeded];
+    }];
+    [_searchTable reloadData];
 }
 
 /**

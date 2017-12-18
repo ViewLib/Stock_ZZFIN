@@ -12,7 +12,7 @@
 
 - (void)showWaitHud;
 
-- (void)showHudWithMessage:(NSString *)message;
+- (void)showHudWithMessage:(NSString *_Nullable)message;
 
 - (void)showMessageHud:(NSString *_Nullable)message hideAfter:(NSTimeInterval )timer;
 

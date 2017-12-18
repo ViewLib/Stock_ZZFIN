@@ -203,6 +203,9 @@
     RankTableTopView *view = [[NSBundle mainBundle] loadNibNamed:@"RankTableTopView" owner:nil options:nil].firstObject;
     NSDictionary *dic = [self.tableValue firstObject];
     view.Name.text = dic[@"stockName"];
+    if (dic[@"stockName"]) {
+        view.addLab.hidden = NO;
+    }
     view.value1.text = dic[@"attr1"];
     view.value2.text = dic[@"attr2"];
     [view setFrame:CGRectMake(0, 0, K_FRAME_BASE_WIDTH-24, 30)];
