@@ -101,7 +101,6 @@ public class StockEditActivity extends FragmentActivity implements View.OnClickL
                 @Override
                 public void leftBtnClick(HotelCustomDialog dialog) {
                     deleteSelectStock();
-
                     StockUtil.showToastOnMainThread(StockEditActivity.this, "删除成功！");
                 }
 
