@@ -12,18 +12,16 @@
 
 static int num = 60;
 
-@interface LoginViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+@interface LoginViewController ()<UITextFieldDelegate>
 
-//手机区号选择
-@property (weak, nonatomic) IBOutlet UIButton *phoneCode;
+//手机区号输入框
+@property (weak, nonatomic) IBOutlet UITextField *phoneCode;
 //手机号码输入框
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
 
 @property (weak, nonatomic) IBOutlet UIView *picBgView;
 
 @property (weak, nonatomic) IBOutlet UIButton *oneNextBtn;
-
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 @property (weak, nonatomic) IBOutlet UIView *Verification;
 
@@ -56,75 +54,23 @@ static int num = 60;
 - (void)viewDidLoad {
     [super viewDidLoad];
     _verificationLabs = @[_Verification1,_Verification2,_Verification3,_Verification4];
-    [self.phoneCode ImgRightTextLeft];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.key = @"86";
     [self racOneNextBtn];
 }
 
-- (IBAction)clickPhoneCode:(UIButton *)sender {
-    self.picBgView.hidden = !self.picBgView.hidden;
-}
-
-#pragma mark - UIPickerViewDelegateAndDataSourece
-//指定pickerview有几个表盘
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-//指定每个表盘上有几行数据
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return [Config shareInstance].areacode.count;
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-{
-    return K_FRAME_BASE_WIDTH;
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-{
-    return 40;
-}
-
-//指定每行如何展示数据（此处和tableview类似）
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    NSDictionary *dic = [Config shareInstance].areacode[row];
-    NSString * title = dic[@"key"];
-    return title;
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    NSDictionary *dic = [Config shareInstance].areacode[row];
-    self.btnTitle = dic[@"key"];
-    self.key = dic[@"value"];
-}
-
-- (IBAction)clickSuccessBtn:(UIButton *)sender {
-    self.picBgView.hidden = YES;
-    [self.phoneCode setTitle:[NSString stringWithFormat:@"+%@",self.key] forState:UIControlStateNormal];
-}
-
-- (IBAction)clickHIddenBtn:(UIButton *)sender {
-    self.picBgView.hidden = YES;
-}
-
 - (IBAction)clickNextBtn:(UIButton *)sender {
-    if (_phoneText.text.length > 0 && [Utils validateNum:_phoneText.text]) {
-        [self showSecondView];
-        //打包注意，放开注释
-//        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:self.key result:^(NSError *error) {
-//            if (!error) {
-//                [self showHint:@"验证码发送成功"];
-//                [self showSecondView];
-//            } else {
-//                [self showHint:@"验证码发送失败"];
-//            }
-//        }];
+    if (_phoneText.text.length > 0 && [Utils validateNum:_phoneText.text] && [_phoneCode.text hasPrefix:@"+"] && [Utils validateNum:[_phoneCode.text substringFromIndex:1]]) {
+//        [self showSecondView];
+//        打包注意，放开注释
+        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:self.key result:^(NSError *error) {
+            if (!error) {
+                [self showHint:@"验证码发送成功"];
+                [self showSecondView];
+            } else {
+                [self showHint:@"验证码发送失败"];
+            }
+        }];
     }
 }
 
