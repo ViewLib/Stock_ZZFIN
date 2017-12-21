@@ -60,17 +60,26 @@ static int num = 60;
 }
 
 - (IBAction)clickNextBtn:(UIButton *)sender {
-    if (_phoneText.text.length > 0 && [Utils validateNum:_phoneText.text] && [_phoneCode.text hasPrefix:@"+"] && [Utils validateNum:[_phoneCode.text substringFromIndex:1]]) {
-//        [self showSecondView];
-//        打包注意，放开注释
-        [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:self.key result:^(NSError *error) {
-            if (!error) {
-                [self showHint:@"验证码发送成功"];
-                [self showSecondView];
+    if ([_phoneCode.text hasPrefix:@"+"]) {
+        self.key = [_phoneCode.text substringFromIndex:1];
+        if (_phoneText.text.length > 0 && [Utils validateNum:_phoneText.text] && [Utils validateNum:self.key]) {
+            //        [self showSecondView];
+            //        打包注意，放开注释
+            if ([[Config shareInstance].phoneCodes indexOfObject:self.key] != NSNotFound) {
+                [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_phoneText.text zone:self.key result:^(NSError *error) {
+                    if (!error) {
+                        [self showHint:@"验证码发送成功"];
+                        [self showSecondView];
+                    } else {
+                        [self showHint:@"验证码发送失败"];
+                    }
+                }];
             } else {
-                [self showHint:@"验证码发送失败"];
+                [self showHint:@"暂不支持此区号的手机注册"];
             }
-        }];
+        }
+    } else {
+        [self showHint:@"请输入“+”"];
     }
 }
 

@@ -56,6 +56,9 @@
 //价格总和
 @property (nonatomic ,assign)   float sumPrice;
 
+//手机区号
+@property (nonatomic ,strong)   NSArray         *phoneCodes;
+
 +(Config *) shareInstance;
 
 

@@ -12,6 +12,7 @@
 #import <BuglyHotfix/Bugly.h>
 #import <BuglyHotfix/BuglyMender.h>
 #import "JPEngine.h"
+#import <SMS_SDK/SMSSDK.h>
 #import <AdSupport/AdSupport.h>
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
@@ -55,6 +56,7 @@
         [self getRankfilter];
         [self getAreaCode];
         [self autoLogin];
+        [self getPhoneCode];
     });
     
     //获取设备UUID
@@ -119,6 +121,7 @@
     NSLog(@"[DeviceToken Error]:%@\n",error.description);
 }
 
+//获取热门
 - (void)getHotStock {
     [[HttpRequestClient sharedClient] getHotStocksRequest:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict isKindOfClass:[NSDictionary class]] && [dataDict[@"resultCode"] floatValue] == 200) {
@@ -134,6 +137,7 @@
     }];
 }
 
+//获取top10
 - (void)getTop10 {
     [[HttpRequestClient sharedClient] getRankListStocksRequest:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict isKindOfClass:[NSDictionary class]] && [dataDict[@"resultCode"] floatValue] == 200) {
@@ -149,11 +153,25 @@
     }];
 }
 
+//获取Rank的filter的数据
 - (void)getRankfilter {
     [[HttpRequestClient sharedClient] getStockRankfilter:nil request:^(NSString *resultMsg, id dataDict, id error) {
         if ([dataDict isKindOfClass:[NSDictionary class]] && [dataDict[@"resultCode"] floatValue] == 200) {
             [[Config shareInstance] setRankSearchList:dataDict[@"rankFilterList"]];
         }
+    }];
+}
+
+//获取支持注册的区号
+- (void)getPhoneCode {
+    [SMSSDK getCountryZone:^(NSError *error, NSArray *zonesArray) {
+        NSMutableArray *ary = [NSMutableArray array];
+        [zonesArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj[@"rule"]) {
+                [ary addObject:obj[@"zone"]];
+            }
+        }];
+        [[Config shareInstance] setPhoneCodes:ary.copy];
     }];
 }
 
