@@ -84,7 +84,11 @@ public class StockEditActivity extends FragmentActivity implements View.OnClickL
         if (id == R.id.action_btn) {
 
         } else if (id == R.id.stock_edit_select_all) {
-
+            List<String> selectList = mEditAdapter.getSelectList();
+            for (StockViewModel stockViewModel : mStockList) {
+                selectList.add(stockViewModel.stockCode);
+            }
+            mEditAdapter.notifyDataSetChanged();
         } else if (id == R.id.stock_edit_select_delete) {
             List<String> selectList = mEditAdapter.getSelectList();
             if (selectList.size() == 0) {
@@ -123,6 +127,7 @@ public class StockEditActivity extends FragmentActivity implements View.OnClickL
                 }
             }
         }
+        selectList.clear();
         mEditAdapter.notifyDataSetChanged();
         setResult(Activity.RESULT_OK);
     }

@@ -1,12 +1,18 @@
 package com.stock.service;
 
+import com.stock.controller.user.model.SearchRankPageCountRequest;
+import com.stock.controller.user.model.SearchRankUpdateRequest;
 import com.stock.dao.UserDao;
 import com.stock.dao.UserDaoImpl;
+import com.stock.model.model.StockSearchModel;
 import com.stock.model.model.StockUserModel;
 import com.stock.model.request.StockUserCompletionRequest;
 import com.stock.model.request.StockUserRegisterRequest;
 import com.stock.model.response.StockUserCompletionResponse;
 import com.stock.model.response.StockUserRegisterResponse;
+import com.stock.model.viewmodel.StockRankSQLViewModel;
+import com.stock.model.viewmodel.StockSearchRankViewModel;
+import com.stock.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,5 +91,63 @@ public class UserService {
         //int startIndex = (page - 1) * 20;
         ArrayList<StockUserModel> stockUserModels = dao.selectUserInfoList(page, 5);
         return stockUserModels;
+    }
+
+    public boolean updateStockSearchRank(SearchRankUpdateRequest request) {
+        //更新逻辑
+        StockSearchRankViewModel stockSearchRankViewModel;
+        if (request.search_id > 0) {
+            stockSearchRankViewModel = dao.selectSearchRankSetting(request.search_id);
+        } else {
+            stockSearchRankViewModel = new StockSearchRankViewModel();
+        }
+        stockSearchRankViewModel.show_type = request.show_type;
+        stockSearchRankViewModel.search_type = request.search_type;
+        stockSearchRankViewModel.search_title = request.search_title;
+        stockSearchRankViewModel.search_desc = request.search_desc;
+        stockSearchRankViewModel.search_relation = request.search_relation;
+        stockSearchRankViewModel.search_weight = request.search_weight;
+        //存在配置，则更新search_rank的配置
+        boolean isSuccess = true;
+        if (stockSearchRankViewModel != null && stockSearchRankViewModel.search_id > 0) {
+            isSuccess = dao.updateSearchRankSetting(stockSearchRankViewModel);
+        } else {
+            isSuccess = dao.insertSearchRankSetting(stockSearchRankViewModel) > 0;
+        }
+        if (!isSuccess) {
+            return false;
+        }
+        //更新sql
+        StockRankSQLViewModel stockRankSQLViewModel = dao.selectSearchRankSql(stockSearchRankViewModel.search_relation);
+        stockRankSQLViewModel.rank_title = request.search_title;
+        stockRankSQLViewModel.rank_sql = request.rank_sql;
+        stockRankSQLViewModel.search_relation = request.search_relation;
+        stockRankSQLViewModel.submission_date = DateUtil.getCurrentDate();
+        //存在rank_sql，则更新
+        if (stockRankSQLViewModel.rank_id > 0) {
+            return dao.updateSearchRankSql(stockRankSQLViewModel);
+        } else {
+            return dao.insertSearchRankSql(stockRankSQLViewModel) > 0;
+        }
+    }
+
+    public List<StockSearchRankViewModel> getSearchRankList(SearchRankPageCountRequest request) {
+
+        List<StockSearchRankViewModel> stockSearchRankViewModelList = dao.selectSearchRankSettingByCount(request.getStartIndex(), request.getCount());
+        for (StockSearchRankViewModel stockSearchRankViewModel : stockSearchRankViewModelList) {
+            if (stockSearchRankViewModel.show_type == StockSearchModel.STOCK_SHOW_TYPE_UNSHOW) {
+                continue;
+            }
+            if (stockSearchRankViewModel.search_type == StockSearchModel.STOCK_SEARCH_TYPE_RNAK) {
+                StockRankSQLViewModel stockRankSQLViewModel = dao.selectSearchRankSql(stockSearchRankViewModel.search_relation);
+                stockSearchRankViewModel.stockRankSQLViewModel = stockRankSQLViewModel;
+            }
+        }
+        return stockSearchRankViewModelList;
+    }
+
+    public int selectStockSearchRankCount() {
+        int i = dao.selectStockSearchRankCount();
+        return i;
     }
 }

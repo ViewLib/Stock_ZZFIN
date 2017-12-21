@@ -1,16 +1,18 @@
 /**
  * Created by 杨蕾 on 2017/11/12.
  */
-define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'bootstrap_validator','text!templates/pagecount.html'], function ($, _, bootstrap_modal, bootstrap_table, bootstrap_validator, pageCountTpl) {
+define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'bootstrap_validator','text!templates/usermanager.html'], function ($, _, bootstrap_modal, bootstrap_table, bootstrap_validator, tpl) {
         const defaultPageSize = 5;
         var initialize = function () {
             $('.js_user_query').on('click', function () {
-                $('#user_toolbar').html(_.template(pageCountTpl, {}));
+                $('#search_toolbar').empty();
+                $('#search_toolbar').html(_.template(tpl, {}));
+                $('.js_search_table').html('<table id="search_table"></table>')
                 initTable(1);
                 formValidInit();
 
                 $("#btn_query").click(function () {
-                    $("#user_table").bootstrapTable('refresh');
+                    $("#search_table").bootstrapTable('refresh');
                 });
 
                 $("#btn_edit").click(function () {
@@ -37,7 +39,7 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'bootstrap
         };
 
         var initTable = function (pageIndex) {
-            $('#user_table').bootstrapTable({
+            $('#search_table').bootstrapTable({
                 url: '/zzfin/rest/user/search',
                 method: 'post',                      //请求方式（*）
                 toolbar: '#toolbar',                //工具按钮用哪个容器
@@ -97,7 +99,7 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'bootstrap
 
         var showModal = function (title, status) {
             if (status === "update") {
-                var arrselections = $("#user_table").bootstrapTable('getSelections');
+                var arrselections = $("#search_table").bootstrapTable('getSelections');
                 if (arrselections.length > 1) {
                     alert('只能选择一行进行编辑');
                     return;
@@ -161,7 +163,7 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'bootstrap
         var editOrAddUserSuccess = function (data) {
             if (data.resultCode === 200) {
                 $('#modal').modal('hide');
-                $("#user_table").bootstrapTable('refresh');
+                $("#search_table").bootstrapTable('refresh');
                 alert("操作成功");
             }
 
@@ -169,7 +171,7 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'bootstrap
         };
 
         var deleteUsers = function () {
-            var arrselections = $("#user_table").bootstrapTable('getSelections');
+            var arrselections = $("#search_table").bootstrapTable('getSelections');
             if (arrselections.length > 1) {
                 alert('一次只能删除一个用户');
                 return;
@@ -190,7 +192,7 @@ define(['jquery', 'underscore', 'bootstrap_modal', 'bootstrap_table', 'bootstrap
 
         var deleteUserSuccess = function (data) {
             if (data.resultCode === 200) {
-                $("#user_table").bootstrapTable('refresh');
+                $("#search_table").bootstrapTable('refresh');
                 alert("操作成功");
             }
 

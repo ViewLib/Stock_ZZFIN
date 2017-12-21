@@ -20,7 +20,6 @@ import com.xt.lxl.stock.model.model.StockFoundRankModel;
 import com.xt.lxl.stock.model.model.StockRankFilterGroupModel;
 import com.xt.lxl.stock.model.model.StockRankFilterItemModel;
 import com.xt.lxl.stock.model.model.StockRankResultModel;
-import com.xt.lxl.stock.model.model.StockViewModel;
 import com.xt.lxl.stock.model.reponse.StockRankDetailFilterlResponse;
 import com.xt.lxl.stock.model.reponse.StockRankDetailResponse;
 import com.xt.lxl.stock.page.adapter.StockRankAdapter;
@@ -186,7 +185,6 @@ public class StockRankActivity extends FragmentActivity {
     }
 
     private void bindRankData() {
-//        mTitleTv.setTitle(mRankModel.title, R.style.text_18_ffffff);
         mStockFilterHeaderContainer.setVisibility(View.VISIBLE);
         TextView name = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_name);
         TextView add = (TextView) mStockFilterHeaderContainer.findViewById(R.id.stock_rank_header_add);
@@ -274,10 +272,10 @@ public class StockRankActivity extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (!(v.getTag() instanceof StockViewModel)) {
+                if (!(v.getTag() instanceof StockRankResultModel)) {
                     return;
                 }
-                StockViewModel model = (StockViewModel) v.getTag();
+                StockRankResultModel model = (StockRankResultModel) v.getTag();
                 //添加操作
                 mSaveList.add(model.stockCode);
                 DataSource.addStockCode(StockRankActivity.this, model.stockCode);

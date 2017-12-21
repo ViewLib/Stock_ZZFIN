@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="55dp"
-            android:text="证券" />
+            android:text="股票" />
 
         <View
             android:layout_width="match_parent"

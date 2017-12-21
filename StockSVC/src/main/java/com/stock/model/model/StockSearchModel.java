@@ -12,12 +12,13 @@ public class StockSearchModel {
     public final static int STOCK_SEARCH_TYPE_STOCK = 1;//股票
     public final static int STOCK_SEARCH_TYPE_RNAK = 2;//事件性排行
 
+    public final static int STOCK_SHOW_TYPE_UNSHOW = 0;//不展示
     public final static int STOCK_SHOW_TYPE_TOP10 = 1;//top10
     public final static int STOCK_SHOW_TYPE_HOTSEARCH = 2;//热搜事件
 
     public int searchType = STOCK_SEARCH_TYPE_STOCK;//
     public int showType = STOCK_SHOW_TYPE_TOP10;//展示类型
     public int searchWeight = 0;//权重
-    public StockViewModel stockViewModel=new StockViewModel();//股票
-    public StockFoundRankModel rankModel=new StockFoundRankModel("");
+    public StockViewModel stockViewModel = new StockViewModel();//股票
+    public StockFoundRankModel rankModel = new StockFoundRankModel("");
 }

@@ -90,7 +90,7 @@
         <spring.version>4.0.2.RELEASE</spring.version>
         <mybatis.version>3.2.2</mybatis.version>
         <mybatis.spring.version>1.2.2</mybatis.spring.version>
-        <mysql.connector.version>5.1.30</mysql.connector.version>
+        <mysql.connector.version>5.1.38</mysql.connector.version>
         <postgresql.version>9.1-901.jdbc4</postgresql.version>
         <slf4j.version>1.6.6</slf4j.version>
         <log4j.version>1.2.12</log4j.version>
@@ -112,8 +112,6 @@
     </properties>
 
     <dependencies>
-
-
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
@@ -138,13 +136,9 @@
         </dependency>
 
         <dependency>
-
             <groupId>com.microsoft.sqlserver</groupId>
-
             <artifactId>sqljdbc4</artifactId>
-
             <version>4.0</version>
-
         </dependency>
 
         <!-- springframe start -->
@@ -363,6 +357,13 @@
             <version>${aspectj.version}</version>
         </dependency>
 
+        <!-- hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.11.Final</version>
+        </dependency>
+
         <!-- hibernate-validator -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -399,5 +400,11 @@
             <version>1.2.9</version>
         </dependency>
 
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
+        </dependency>
     </dependencies>
 </project>
